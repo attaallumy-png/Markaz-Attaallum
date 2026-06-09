@@ -306,13 +306,13 @@
             <div class="service-card">
                 <h3>Administrasi</h3>
                 <p>Urusan pendaftaran, Pengumuman, Dan Informasi Nilai ada di sini.</p>
-                <a href="#" class="btn-secondary">➜</a>
+                <a href="#" onclick="munculinPrank(event)" class="btn-secondary">➜</a>
             </div>
 
             <div class="service-card">
                 <h3>Informasi Akademik</h3>
                 <p>Cek jadwal belajar, kalender pendidikan, dan materi belajarmu.</p>
-                <a href="#" class="btn-secondary">➜</a>
+                <a href="#" onclick="munculinPrank(event)" class="btn-secondary">➜</a>
             </div>
         </div>
     </section>
@@ -378,6 +378,27 @@ closeMenuBtn.addEventListener('click', () => {
     sidebarMenu.classList.remove('show');
 });
     </script>
+<div id="prank-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 100000; justify-content: center; align-items: center; text-align: center; backdrop-filter: blur(5px);">
+        <div style="background-color: var(--bg-white); padding: 40px; border-radius: 15px; max-width: 350px; width: 90%; color: var(--text-dark); box-shadow: 0 10px 25px rgba(0,0,0,0.5); animation: popIn 0.5s ease-out;">
+            
+            <h2 style="font-size: 24px; margin-bottom: 15px; color: #e11d48;">Wkwkwk Masih Kosong, beliin cilok biar semangat ngerjainnya🤣</h2>
+            <p style="font-size: 16px; margin-bottom: 20px; color: #64748b;">Belum ada isinya jadi kita isi make muka Radit duluu yahh, sabar ya!</p>
+            
+            <img src="temen.jpg" alt="Muka Temen" style="width: 100%; border-radius: 10px; margin-bottom: 25px; border: 3px solid #1e40af;">
+            
+            <button onclick="tutupPrank()" style="background-color: var(--accent-blue); color: white; border: none; padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; transition: transform 0.2s;">Kembali</button>
+        </div>
+    </div>
 
+    <script>
+        function munculinPrank(event) {
+            event.preventDefault(); // Biar layarnya gak lompat ke atas
+            document.getElementById('prank-modal').style.display = 'flex';
+        }
+
+        function tutupPrank() {
+            document.getElementById('prank-modal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
