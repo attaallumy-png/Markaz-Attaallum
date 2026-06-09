@@ -222,7 +222,42 @@
         .contact-details { display: flex; flex-direction: column; }
         .contact-category { font-size: 11px; color: #a3b1c6; font-weight: bold; letter-spacing: 1px; }
         .contact-value { font-size: 16px; font-weight: bold; margin-top: 2px; }
-
+/* --- KODE SIDEBAR MENU BARU --- */
+#sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Disembunyikan di luar layar sebelah kanan */
+    width: 250px;
+    height: 100vh;
+    background-color: var(--bg-dark-blue);
+    color: var(--text-light);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+    transition: right 0.4s ease; /* Animasi geser mulus */
+    z-index: 10000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+#sidebar-menu.show {
+    right: 0; /* Pas aktif, menunya geser masuk ke layar */
+}
+.close-btn {
+    align-self: flex-end;
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.sidebar-links a {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #1e3a8a;
+    padding-bottom: 10px;
+}
     </style>
 </head>
 <body>
@@ -237,6 +272,15 @@
     </div>
 
     <header>
+        <div id="sidebar-menu">
+    <div class="close-btn" id="close-menu">✖️</div>
+    <div class="sidebar-links">
+        <a href="#hero">🏠 Beranda</a>
+        <a href="#services">📁 Administrasi</a>
+        <a href="#services">🎓 Akademik</a>
+        <a href="#connect">📞 Hubungi Kami</a>
+    </div>
+</div>
         <div class="header-logo-container">
             <img src="logo.png" alt="Logo" class="header-logo">
             <span class="header-title">Markaz At-Ta'allum</span>
@@ -319,6 +363,20 @@
         exploreBtn.addEventListener('click', () => {
             modal.classList.add('hide'); 
         });
+        // --- FUNGSI MENU GARIS TIGA ---
+const menuIcon = document.querySelector('.menu-icon');
+const sidebarMenu = document.getElementById('sidebar-menu');
+const closeMenuBtn = document.getElementById('close-menu');
+
+// Kalau garis tiga diklik, menu muncul
+menuIcon.addEventListener('click', () => {
+    sidebarMenu.classList.add('show');
+});
+
+// Kalau tombol X diklik, menu sembunyi lagi
+closeMenuBtn.addEventListener('click', () => {
+    sidebarMenu.classList.remove('show');
+});
     </script>
 
 </body>
