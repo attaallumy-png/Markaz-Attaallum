@@ -8,7 +8,7 @@
     <link rel="icon" href="logo.png" type="image/png">
     
     <style>
-        /* DEFINISI WARNA UTAMA */
+        /* DEFINISI WARNA UTAMA & RESET */
         :root {
             --bg-white: #ffffff;
             --bg-dark-blue: #0a192f;    
@@ -45,7 +45,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
+            z-index: 99999;
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
         #entrance-modal.hide {
@@ -96,7 +96,7 @@
             color: var(--text-light);
             box-shadow: -5px 0 15px rgba(0,0,0,0.5);
             transition: right 0.4s ease;
-            z-index: 10000;
+            z-index: 100000;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -150,17 +150,20 @@
             font-weight: bold;
         }
 
+        /* STYLE KHUSUS FORMULIR PANJANG STRUKTUR BARU */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label.title { font-weight: bold; display: block; margin-bottom: 5px; color: #0a192f; font-size: 15px; }
+        .form-group .note { font-size: 11px; color: #ef4444; margin-bottom: 8px; display: block; font-weight: 500; }
+        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"] { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; color: #111; }
+        .form-group input:focus { outline: none; border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(30,64,175,0.1); }
+        .radio-group { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+        .radio-group label { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; cursor: pointer; color: #334155; }
+        .radio-group input[type="radio"] { width: 16px; height: 16px; cursor: pointer; }
+
         /* 7. SOSIAL MEDIA SECTION */
         #connect { padding: 40px 5%; text-align: center; background-color: #f8fafc; }
         .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
         .contact-card { background-color: var(--bg-dark-blue); color: white; padding: 12px 25px; border-radius: 8px; font-weight: bold; }
-        /* STYLE KHUSUS FORMULIR PANJANG */
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label.title { font-weight: bold; display: block; margin-bottom: 5px; color: #334155; }
-        .form-group .note { font-size: 12px; color: #64748b; margin-bottom: 8px; display: block; }
-        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"] { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; }
-        .radio-group { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
-        .radio-group label { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: normal; cursor: pointer; color: #111; }
     </style>
 </head>
 <body>
@@ -208,22 +211,24 @@
             <div class="service-card">
                 <h3>Informasi Akademik</h3>
                 <p>Cek jadwal belajar, kalender pendidikan, dan materi belajarmu.</p>
-                <a href="#" onclick="alert('Halaman Akademik masih dipersiapkan cuy!')" class="btn-secondary">➜</a>
+                <a href="#" onclick="alert('Halaman Akademik masih dalam persiapan internal panitia cuy!')" class="btn-secondary">➜</a>
             </div>
         </div>
     </section>
 
-   [14:49, 10/06/2026] Lutpii: /* STYLE KHUSUS FORMULIR PANJANG */
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label.title { font-weight: bold; display: block; margin-bottom: 5px; color: #334155; }
-        .form-group .note { font-size: 12px; color: #64748b; margin-bottom: 8px; display: block; }
-        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"] { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; }
-        .radio-group { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
-        .radio-group label { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: normal; cursor: pointer; color: #111; }
-[14:51, 10/06/2026] Lutpii: <div id="form-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 100000; justify-content: center; align-items: center; backdrop-filter: blur(5px); overflow-y: auto; padding: 20px 0;">
-        <div style="background-color: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; color: #111; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+    <div id="pilihan-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+        <div style="background-color: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; color: #111; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+            <h3 style="margin-bottom: 20px; font-size: 22px; font-weight: 700; color: #0a192f;">Pilih Status Administrasi</h3>
+            <button onclick="alert('Fitur pencarian database data alumni lama sedang dikembangkan panitia!')" style="width: 100%; background-color: #64748b; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; margin-bottom: 12px; cursor: pointer; font-size: 15px;">1. Saya Sudah Punya NIA</button>
+            <button onclick="bukaFormBelumNIA()" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; margin-bottom: 20px; cursor: pointer; font-size: 15px;">2. Saya Belum Punya NIA</button>
+            <p onclick="tutupPilihanAdmin()" style="color: #ef4444; cursor: pointer; font-size: 14px; font-weight: bold;">Batal</p>
+        </div>
+    </div>
+
+    <div id="form-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(5px); overflow-y: auto; padding: 40px 0;">
+        <div style="background-color: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 95%; color: #111; margin: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
             <h3 style="margin-bottom: 5px; font-size: 22px; font-weight: 700; color: #0a192f;">Formulir Data Alumni</h3>
-            <p style="color: #64748b; font-size: 13px; margin-bottom: 25px;">Isi data sesuai panduan untuk generate NIA otomatis.</p>
+            <p style="color: #64748b; font-size: 13px; margin-bottom: 25px;">Silakan lengkapi berkas Anda untuk pembuatan nomor NIA otomatis.</p>
             
             <form id="registrationForm" onsubmit="kirimDataForm(event)">
                 
@@ -234,7 +239,7 @@
 
                 <div class="form-group">
                     <label class="title">Nama Lengkap *</label>
-                    <span class="note">Tulis sesuai paspor dan gunakan HURUF KAPITAL (contoh: JOKOWI)</span>
+                    <span class="note">Tulis sesuai paspor & pakai HURUF KAPITAL (contoh: JOKOWI)</span>
                     <input type="text" id="formNama" placeholder="Jawaban Anda" style="text-transform: uppercase;" required>
                 </div>
 
@@ -280,6 +285,7 @@
 
                 <div class="form-group">
                     <label class="title">Tingkat (Dirosah Khosoh)</label>
+                    <span class="note">*Kosongkan/pilih salah satu jika Anda jenjang Dirosah</span>
                     <div class="radio-group">
                         <label><input type="radio" name="tkDirosah" value="Mubtadi Awal"> Mubtadi Awal</label>
                         <label><input type="radio" name="tkDirosah" value="Mubtadi Tsani"> Mubtadi Tsani</label>
@@ -292,6 +298,7 @@
 
                 <div class="form-group">
                     <label class="title">Tingkat (Ma'had)</label>
+                    <span class="note">*Kosongkan/pilih salah satu jika Anda jenjang Ma'had</span>
                     <div class="radio-group">
                         <label><input type="radio" name="tkMahad" value="1 Idady"> 1 Idady</label>
                         <label><input type="radio" name="tkMahad" value="2 Idady"> 2 Idady</label>
@@ -302,30 +309,10 @@
                     </div>
                 </div>
 
-                <button type="submit" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 10px;">Kirim & Generate NIA 🚀</button>
+                <button type="submit" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 15px; font-size: 16px;">Kirim & Generate NIA 🚀</button>
             </form>
-            <p onclick="tutupFormBelumNIA()" style="color: #ef4444; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 20px; text-align: center;">Batal / Kembali</p>
-        </div>
-    </div>
-    </div>
-
-    <div id="form-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 100000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
-        <div style="background-color: white; padding: 30px; border-radius: 12px; max-width: 450px; width: 90%; color: #111;">
-            <h3 style="margin-bottom: 10px; font-size: 24px; font-weight: 700;">Formulir Data Alumni</h3>
-            <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Silakan isi data diri Anda untuk membuat NIA otomatis.</p>
             
-         <form id="registrationForm" onsubmit="kirimDataForm(event)">
-                <div style="margin-bottom: 15px; text-align: left;">
-                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Nama Lengkap:</label>
-                    <input type="text" id="formNama" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                </div>
-                <div style="margin-bottom: 25px; text-align: left;">
-                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Angkatan Berapa:</label>
-                    <input type="number" id="formAngkatan" placeholder="Contoh: 2024" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                </div>
-                <button type="submit" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; cursor: pointer;">Kirim & Generate NIA 🚀</button>
-            </form>
-            <p onclick="tutupFormBelumNIA()" style="color: #ef4444; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 20px; text-align: center;">Kembali</p>
+            <p onclick="tutupFormBelumNIA()" style="color: #ef4444; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 25px; text-align: center;">Batal / Kembali</p>
         </div>
     </div>
 
@@ -336,105 +323,103 @@
             <a href="https://www.instagram.com/attaallumarkaz" target="_blank" class="contact-card">📸 INSTAGRAM</a>
         </div>
     </section>
-    
-   <script>
-    // 1. LOGIKA UTAMA: TOMBOL MASUK (JELAJAHI SEKARANG)
-    const modal = document.getElementById('entrance-modal');
-    const exploreBtn = document.getElementById('explore-btn-modal');
-    if (exploreBtn && modal) {
-        exploreBtn.addEventListener('click', () => modal.classList.add('hide'));
-    }
 
-    // 2. LOGIKA UTAMA: MENU GARIS TIGA (SIDEBAR)
-    const menuIcon = document.querySelector('.menu-icon');
-    const sidebarMenu = document.getElementById('sidebar-menu');
-    const closeMenuBtn = document.getElementById('close-menu');
+    <script>
+        // 1. LOGIKA UTAMA: TOMBOL MASUK JELAJAHI
+        const modal = document.getElementById('entrance-modal');
+        const exploreBtn = document.getElementById('explore-btn-modal');
+        if (exploreBtn && modal) {
+            exploreBtn.addEventListener('click', () => modal.classList.add('hide'));
+        }
 
-    if (menuIcon && sidebarMenu) {
-        menuIcon.addEventListener('click', () => sidebarMenu.classList.add('show'));
-    }
-    if (closeMenuBtn && sidebarMenu) {
-        closeMenuBtn.addEventListener('click', () => sidebarMenu.classList.remove('show'));
-    }
+        // 2. LOGIKA UTAMA: SIDEBAR MENU 
+        const menuIcon = document.querySelector('.menu-icon');
+        const sidebarMenu = document.getElementById('sidebar-menu');
+        const closeMenuBtn = document.getElementById('close-menu');
 
-    // 3. KONTROL MODAL ADMINISTRASI
-    function bukaPilihanAdmin(event) {
-        event.preventDefault();
-        document.getElementById('pilihan-admin-modal').style.display = 'flex';
-    }
-    function tutupPilihanAdmin() {
-        document.getElementById('pilihan-admin-modal').style.display = 'none';
-    }
-    function bukaFormBelumNIA() {
-        tutupPilihanAdmin();
-        document.getElementById('form-admin-modal').style.display = 'flex';
-    }
-    function tutupFormBelumNIA() {
-        document.getElementById('form-admin-modal').style.display = 'none';
-    }
+        if (menuIcon && sidebarMenu) {
+            menuIcon.addEventListener('click', () => sidebarMenu.classList.add('show'));
+        }
+        if (closeMenuBtn && sidebarMenu) {
+            closeMenuBtn.addEventListener('click', () => sidebarMenu.classList.remove('show'));
+        }
 
-    // ========================================================
-    // 4. MESIN BACKEND UTAMA: KIRIM DATA & GENERATE NOMOR NIA
-    // ========================================================
-    
-    // 👇👇👇 GANTI TULISAN DI BAWAH SAMA URL WEBB APP YANG LO COPY TADI 👇👇👇
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzi5Rb_VG2h65v1ENCK76kd1g2yq3YJbjOMiINZH_3EQ6NrIFSG57ozoqKg38lvOhHCwg/exec';
+        // 3. KONTROL INTERFASE POPUP MODAL ADMINISTRASI
+        function bukaPilihanAdmin(event) {
+            event.preventDefault();
+            document.getElementById('pilihan-admin-modal').style.display = 'flex';
+        }
+        function tutupPilihanAdmin() {
+            document.getElementById('pilihan-admin-modal').style.display = 'none';
+        }
+        function bukaFormBelumNIA() {
+            tutupPilihanAdmin();
+            document.getElementById('form-admin-modal').style.display = 'flex';
+        }
+        function tutupFormBelumNIA() {
+            document.getElementById('form-admin-modal').style.display = 'none';
+        }
 
-    function kirimDataForm(event) {
-        event.preventDefault(); // Mencegah halaman refresh otomatis
-        
-        const submitBtn = event.target.querySelector('button[type="submit"]');
-        const teksTombolAsli = submitBtn.innerText;
-        
-        // Ubah status tombol biar user tahu data lagi diproses
-        submitBtn.disabled = true;
-        submitBtn.innerText = 'Sedang Mengolah Data... ⏳';
+        // ========================================================================
+        // 4. KABEL HUBUNG BACKEND: SILAKAN PASTE URL APPS SCRIPT LO DI BAWAH INI !!!
+        // ========================================================================
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzi5Rb_VG2h65v1ENCK76kd1g2yq3YJbjOMiINZH_3EQ6NrIFSG57ozoqKg38lvOhHCwg/exec';
+        // ========================================================================
 
-       // Ambil data dari form yang baru
-        const dataAlumni = {
-            email: document.getElementById('formEmail').value,
-            namaLengkap: document.getElementById('formNama').value.toUpperCase(),
-            ttl: document.getElementById('formTTL').value,
-            domisili: document.querySelector('input[name="domisili"]:checked') ? document.querySelector('input[name="domisili"]:checked').value : "",
-            kekeluargaan: document.getElementById('formKekeluargaan').value,
-            tahunKedatangan: document.getElementById('formTahun').value,
-            mediator: document.getElementById('formMediator').value,
-            jenjang: document.querySelector('input[name="jenjang"]:checked') ? document.querySelector('input[name="jenjang"]:checked').value : "",
-            tingkatDirosah: document.querySelector('input[name="tkDirosah"]:checked') ? document.querySelector('input[name="tkDirosah"]:checked').value : "-",
-            tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-"
-        };
+        // 5. FUNGSI UTAMA EKSEKUSI PENGIRIMAN DATA FORMULIR LENGKAP
+        function kirimDataForm(event) {
+            event.preventDefault(); // Mengunci agar web tidak re-fresh paksa
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const teksTombolAsli = submitBtn.innerText;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Sedang Mengamankan Data... ⏳';
 
-        // Mulai nembak data ke Google Apps Script menggunakan Fetch API
-        fetch(scriptURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain;charset=utf-8', // Bypass CORS Block gratisan
-            },
-            body: JSON.stringify(dataAlumni)
-        })
-        .then(response => response.json()) // Tunggu balesan data dari Google Script
-        .then(hasil => {
-            if (hasil.result === 'success') {
-                tutupFormBelumNIA(); // Tutup formulir input
-                
-                // Ganti pesan alert simulasi kemarin jadi popup sistem yang langsung nampilin nomor NIA asli!
-                alert('🎉 PENDAFTARAN BERHASIL!\n\nHai ' + dataAlumni.namaLengkap + ',\nNomor Identitas Alumni (NIA) kamu adalah:\n👉 ' + hasil.nia + ' 👈\n\n*Silakan catat atau screenshot nomor ini ya!');
-                
-                document.getElementById('registrationForm').reset(); // Bersihin kotak input form
-            } else {
-                alert('Aduh eror sistem cuy: ' + hasil.error);
-            }
-        })
-        .catch(error => {
-            console.error('Error!', error.message);
-            alert('Gagal tersambung ke database! Coba cek sambungan internet lo atau setelan URL Script-nya.');
-        })
-        .finally(() => {
-            // Balikin tombol ke kondisi semula
-            submitBtn.disabled = false;
-            submitBtn.innerText = teksTombolAsli;
-        });
-    }
-</script>
+            // Menjaring seluruh input bernilai panjang sesuai Google Form lo
+            const dataAlumni = {
+                email: document.getElementById('formEmail').value,
+                namaLengkap: document.getElementById('formNama').value.toUpperCase(),
+                ttl: document.getElementById('formTTL').value,
+                domisili: document.querySelector('input[name="domisili"]:checked') ? document.querySelector('input[name="domisili"]:checked').value : "",
+                kekeluargaan: document.getElementById('formKekeluargaan').value,
+                tahunKedatangan: document.getElementById('formTahun').value,
+                mediator: document.getElementById('formMediator').value,
+                jenjang: document.querySelector('input[name="jenjang"]:checked') ? document.querySelector('input[name="jenjang"]:checked').value : "",
+                tingkatDirosah: document.querySelector('input[name="tkDirosah"]:checked') ? document.querySelector('input[name="tkDirosah"]:checked').value : "-",
+                tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-"
+            };
+
+            // Mengirim paket JSON ke jembatan Google Apps Script
+            fetch(scriptURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8', // Teknik bypass cors policy
+                },
+                body: JSON.stringify(dataAlumni)
+            })
+            .then(response => response.json())
+            .then(hasil => {
+                if (hasil.result === 'success') {
+                    tutupFormBelumNIA(); // Tutup form inputan
+                    
+                    // Notifikasi kemenangan keluar menampilkan kode NIA asli hasil rumusan database spreadsheet!
+                    alert('🎉 PENDAFTARAN NIA SUKSES!\n\nHai ' + dataAlumni.namaLengkap + ',\nBerkas Anda aman tersimpan di database.\n\nNomor Identitas Attaallum (NIA) otomatis Anda:\n👉 ' + hasil.nia + ' 👈\n\n*Jangan lupa dicatat atau screenshot nomor ini ya!');
+                    
+                    document.getElementById('registrationForm').reset(); // Sapu bersih form inputan
+                } else {
+                    alert('Gagal membuat NIA: ' + hasil.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert('Gagal tersambung ke sistem! Pastikan lo udah ganti tulisan PASTE_URL_GOOGLE_APPS_SCRIPT_LO_DI_SINI pake URL Web App lo yang asli.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = teksTombolAsli;
+            });
+        }
+    </script>
 </body>
 </html>
