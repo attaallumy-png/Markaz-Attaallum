@@ -363,6 +363,146 @@
             color: white;
             box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
         }
+        /* SISTEM TAALO AI ASSISTANT */
+        .taalo-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: url('taalo.png') no-repeat center center; 
+            background-size: cover;
+            border: 2px solid #0ea5e9;
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.6);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+        .taalo-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.9);
+        }
+        .taalo-window {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 360px;
+            height: 500px;
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            display: none;
+            flex-direction: column;
+            z-index: 9998;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            animation: slideUpTaalo 0.4s ease;
+        }
+        @keyframes slideUpTaalo {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .taalo-header {
+            background: rgba(30, 41, 59, 0.9);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .taalo-header h3 { 
+            margin: 0; 
+            color: white; 
+            font-size: 16px; 
+            display: flex; 
+            align-items: center; 
+        }
+        .taalo-avatar-header {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #0ea5e9;
+            margin-right: 10px;
+        }
+        .taalo-close { 
+            color: #94a3b8; 
+            cursor: pointer; 
+            font-size: 20px; 
+        }
+        .taalo-close:hover { 
+            color: #ef4444; 
+        }
+        .taalo-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .taalo-ai-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            max-width: 90%;
+        }
+        .taalo-avatar-msg {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 5px;
+        }
+        .taalo-msg {
+            padding: 12px 16px;
+            border-radius: 15px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .taalo-ai {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-bottom-left-radius: 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            width: fit-content; 
+        }
+        .taalo-user {
+            background: #0ea5e9;
+            color: white;
+            align-self: flex-end;
+            max-width: 85%;
+            border-bottom-right-radius: 0;
+        }
+        .taalo-input-area {
+            display: flex;
+            padding: 15px;
+            background: rgba(30, 41, 59, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .taalo-input-area input {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: #0f172a;
+            color: white;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+        }
+        .taalo-input-area input:focus { 
+            border-color: #0ea5e9; 
+        }
+        .taalo-send {
+            background: transparent;
+            border: none;
+            color: #0ea5e9;
+            font-size: 22px;
+            padding: 0 0 0 15px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -635,9 +775,106 @@
             <a href="https://maps.app.goo.gl/RUXohAtpph4bvUM2A" target="_blank" class="contact-card"><i class="fa-solid fa-location-dot" style="color: #ef4444;"></i> GOOGLE MAPS MARKAZ</a>
         </div>
     </section>
+<div class="taalo-fab" onclick="toggleTaalo()"></div>
 
+    <div class="taalo-window" id="taaloWindow">
+        <div class="taalo-header">
+            <h3>
+                <img src="taalo.png" alt="Taalo" class="taalo-avatar-header">
+                Taalo Assistant
+            </h3>
+            <i class="fa-solid fa-xmark taalo-close" onclick="toggleTaalo()"></i>
+        </div>
+        
+        <div class="taalo-body" id="taaloBody">
+            <div class="taalo-ai-wrapper">
+                <img src="taalo.png" alt="Taalo" class="taalo-avatar-msg">
+                <div class="taalo-msg taalo-ai">
+                    Halo Sobat! Aku Taalo, asisten virtual Markaz At-Ta'allum. Ada yang bisa aku bantu seputar pendaftaran, NIA, atau program pembelajaran?
+                </div>
+            </div>
+        </div>
+        
+        <div class="taalo-input-area">
+            <input type="text" id="taaloInput" placeholder="Tanya Taalo di sini..." onkeypress="handleTaaloEnter(event)">
+            <button class="taalo-send" onclick="sendTaaloMsg()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+    
     <script>
         let selectedProgramGlobal = '';
+
+        // =========================================
+        // OTAK AI TAALO (SMART KEYWORD SYSTEM)
+        // =========================================
+
+        // Fungsi Buka/Tutup Jendela Chat
+        function toggleTaalo() {
+            const window = document.getElementById('taaloWindow');
+            if (window.style.display === 'flex') {
+                window.style.display = 'none';
+            } else {
+                window.style.display = 'flex';
+            }
+        }
+
+        // Fungsi Tekan Enter untuk Kirim
+        function handleTaaloEnter(event) {
+            if (event.key === 'Enter') {
+                sendTaaloMsg();
+            }
+        }
+
+        // Fungsi Kirim & Balas Pesan Otomatis
+        function sendTaaloMsg() {
+            const inputField = document.getElementById('taaloInput');
+            const userText = inputField.value.trim();
+            if (userText === '') return;
+
+            const chatBody = document.getElementById('taaloBody');
+
+            // 1. Memunculkan pesan ketikan User
+            chatBody.innerHTML += `
+                <div class="taalo-msg taalo-user">
+                    ${userText}
+                </div>
+            `;
+            inputField.value = ''; // Kosongkan kolom input setelah kirim
+            chatBody.scrollTop = chatBody.scrollHeight; // Auto-scroll ke bawah
+
+            // 2. Taalo mikir bentar (efek delay natural), lalu balas
+            setTimeout(() => {
+                let aiResponse = "";
+                let lowerText = userText.toLowerCase();
+
+                // DATABASE PENGETAHUAN TAALO (Lo bisa ganti/tambah teksnya nanti)
+                if (lowerText.includes('nia') || lowerText.includes('daftar') || lowerText.includes('registrasi')) {
+                    aiResponse = "Untuk mendaftar atau mengurus NIA (Nomor Identitas Attaallum), Sobat bisa langsung mengisi formulir pendaftaran di website ini ya! Coba cek tombol di bagian paling atas.";
+                } else if (lowerText.includes('program') || lowerText.includes('lughoh') || lowerText.includes('tsanawi') || lowerText.includes('belajar')) {
+                    aiResponse = "Markaz At-Ta'allum punya 7 program unggulan, mulai dari Lughoh, I'dadi, sampai Tsanawi. Sobat bisa klik tombol 'Program Pembelajaran' di menu utama untuk melihat detail dan materinya.";
+                } else if (lowerText.includes('lokasi') || lowerText.includes('alamat') || lowerText.includes('dimana')) {
+                    aiResponse = "Lokasi Markaz At-Ta'allum ada di Kairo, Mesir. Sobat bisa cek peta Google Maps langsung di bagian paling bawah website ini ya!";
+                } else if (lowerText.includes('biaya') || lowerText.includes('bayar') || lowerText.includes('harga')) {
+                    aiResponse = "Terkait informasi biaya pendaftaran atau bulanan, Sobat bisa langsung menghubungi narahubung/mediator resmi Markaz melalui kontak WhatsApp yang tersedia.";
+                } else if (lowerText.includes('halo') || lowerText.includes('assalamualaikum') || lowerText.includes('hai') || lowerText.includes('pagi') || lowerText.includes('malam')) {
+                    aiResponse = "Wa'alaikumsalam! Halo Sobat Attaallum! Ada yang bisa Taalo bantu seputar pendaftaran, NIA, atau program Markaz hari ini?";
+                } else {
+                    // Balasan kalau Taalo gak tau jawabannya
+                    aiResponse = "Maaf, Taalo belum mengerti pertanyaan itu. 😅 Coba gunakan kata kunci lain seperti 'NIA', 'Daftar', 'Program', atau 'Alamat'.";
+                }
+
+                // 3. Memunculkan balasan dari Taalo lengkap dengan fotonya
+                chatBody.innerHTML += `
+                    <div class="taalo-ai-wrapper">
+                        <img src="taalo.png" alt="Taalo" class="taalo-avatar-msg">
+                        <div class="taalo-msg taalo-ai">
+                            ${aiResponse}
+                        </div>
+                    </div>
+                `;
+                chatBody.scrollTop = chatBody.scrollHeight; // Auto-scroll ke bawah lagi
+            }, 600); // AI butuh 0.6 detik buat ngejawab biar berasa natural
+        }
 
         // 1. TIMED LOADER SCREEN
         window.addEventListener('load', () => {
