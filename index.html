@@ -4,36 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markaz At-Ta'allum - Portal Informasi</title>
-    <link rel="icon" type="image/png" href="logo.png">
+    
+    <link rel="icon" href="logo.png" type="image/png">
+    
     <style>
-        /* 1. KOREKSI PALET WARNA (BIRU GELAP, HITAM, PUTIH) */
+        /* DEFINISI WARNA UTAMA */
         :root {
-            --bg-white: #dbeafe;        /* Background halaman utama */
-            --bg-dark-blue: #0a192f;    /* Modal & Header (Biru Gelap Elegan) */
-            --bg-card: #112240;         /* Background kotak menu/sosmed (Biru Gelap) */
-            --text-dark: #111111;       /* Teks hitam untuk area putih */
-            --text-light: #f0f0f0;      /* Teks putih untuk area biru gelap */
-            --text-mute: #64748b;       /* Teks abu-abu untuk deskripsi */
-            --accent-blue: #1e40af;     /* Warna tombol utama */
+            --bg-white: #ffffff;
+            --bg-dark-blue: #0a192f;    
+            --text-dark: #111111;       
+            --text-light: #f0f0f0;      
+            --text-mute: #64748b;       
+            --accent-blue: #1e40af;     
         }
 
-        /* 2. GLOBAL STYLES */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+        
         body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
             background-color: var(--bg-white);
             color: var(--text-dark);
             line-height: 1.6;
         }
+        
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
-        ul { list-style: none; }
-        img { max-width: 100%; height: auto; }
 
-        /* 3. ENTRANCE MODAL (POP-UP PAS BARU MASUK) */
+        /* 2. ENTRANCE MODAL (Pop-up Awal) */
         #entrance-modal {
             position: fixed;
             top: 0;
@@ -48,39 +48,15 @@
             z-index: 9999;
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
-
         #entrance-modal.hide {
             opacity: 0;
             visibility: hidden;
         }
-
-        .modal-content {
-            text-align: center;
-            animation: popIn 0.8s ease-out; 
-        }
-
-        .modal-logo {
-            width: 200px;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 40px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .modal-subtitle {
-            font-size: 18px;
-            color: #a3b1c6;
-            margin-bottom: 30px;
-        }
-
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.9) translateY(10px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
+        .modal-content { text-align: center; }
+        .modal-logo { width: 180px; margin-bottom: 20px; }
+        .modal-title { font-size: 36px; font-weight: 800; margin-bottom: 10px; }
+        .modal-subtitle { font-size: 16px; color: #a3b1c6; margin-bottom: 30px; }
+        
         #explore-btn-modal {
             display: inline-block;
             background-color: var(--accent-blue);
@@ -90,11 +66,9 @@
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4);
-            transition: transform 0.2s;
         }
-        #explore-btn-modal:hover { transform: scale(1.05); }
 
-        /* 4. HEADER & NAVIGATION */
+        /* 3. HEADER & NAVBAR */
         header {
             background-color: var(--bg-dark-blue);
             color: var(--text-light);
@@ -105,182 +79,95 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
-        .header-logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .header-logo {
-            width: 35px;
-        }
-
-        .header-title {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
+        .header-logo-container { display: flex; align-items: center; gap: 12px; }
+        .header-logo { width: 35px; }
+        .header-title { font-size: 18px; font-weight: 700; }
         .menu-icon { font-size: 24px; cursor: pointer; }
 
-        /* 5. HERO SECTION (BACKGROUND PUTIH, TULISAN HITAM) */
-        #hero {
-            padding: 80px 5% 50px;
-            text-align: center;
-            background-color: var(--bg-white);
+        /* 4. SIDEBAR MENU */
+        #sidebar-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 250px;
+            height: 100vh;
+            background-color: var(--bg-dark-blue);
+            color: var(--text-light);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            transition: right 0.4s ease;
+            z-index: 10000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
-        #hero h1 { font-size: 42px; margin-bottom: 15px; color: var(--text-dark); font-weight: 800; }
-        #hero p { font-size: 18px; color: var(--text-mute); margin-bottom: 35px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        #sidebar-menu.show { right: 0; }
+        .close-btn { align-self: flex-end; font-size: 24px; cursor: pointer; margin-bottom: 30px; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 20px; }
+        .sidebar-links a { font-size: 18px; font-weight: bold; border-bottom: 1px solid #1e3a8a; padding-bottom: 10px; }
 
-        /* Tombol Utama diarahkan ke Linktree kamu */
+        /* 5. HERO SECTION */
+        #hero { padding: 60px 5%; text-align: center; background-color: #f8fafc; }
+        #hero h1 { font-size: 36px; margin-bottom: 15px; font-weight: 800; }
+        #hero p { font-size: 16px; color: var(--text-mute); margin-bottom: 25px; }
         .btn-primary {
             display: inline-flex;
-            align-items: center;
-            gap: 10px;
             background-color: var(--accent-blue);
             color: white;
             font-weight: bold;
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .btn-primary:hover { transform: translateY(-2px); }
 
         /* 6. MENU UTAMA (CARDS) */
-        #services {
-            padding: 50px 5%;
-            background-color: var(--bg-white);
-        }
-        #services h2 { text-align: center; font-size: 28px; margin-bottom: 40px; font-weight: 700; }
-
+        #services { padding: 50px 5%; }
+        #services h2 { text-align: center; margin-bottom: 30px; }
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 900px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 800px;
             margin: 0 auto;
         }
-
         .service-card {
             background-color: var(--bg-dark-blue);
             color: var(--text-light);
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
             text-align: center;
-            transition: transform 0.3s;
         }
-        .service-card:hover { transform: translateY(-5px); }
-        .service-card h3 { font-size: 22px; margin-bottom: 10px; }
-        .service-card p { font-size: 15px; color: #a3b1c6; margin-bottom: 25px; }
-
+        .service-card h3 { margin-bottom: 10px; }
+        .service-card p { font-size: 14px; color: #a3b1c6; margin-bottom: 20px; }
         .btn-secondary {
             display: inline-flex;
-            align-items: center;
-            justify-content: center;
             width: 40px;
             height: 40px;
             background-color: var(--accent-blue);
             color: white;
             border-radius: 50%;
+            justify-content: center;
+            align-items: center;
             font-weight: bold;
         }
 
-        /* 7. CONNECT SECTION (YUK TERHUBUNGI - WARNA BIRU GELAP/KASUAL) */
-        #connect {
-            padding: 60px 5% 80px;
-            background-color: #f8fafc; /* Abu-abu super terang biar variasi */
-            text-align: center;
-            border-top: 1px solid #e2e8f0;
-        }
-        #connect h2 { font-size: 28px; margin-bottom: 10px; font-weight: 700; }
-        #connect p.subtitle { color: var(--text-mute); margin-bottom: 35px; }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contact-card {
-            background-color: var(--bg-dark-blue);
-            color: var(--text-light);
-            padding: 20px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-align: left;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .contact-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
-
-        .contact-icon { font-size: 28px; }
-        .contact-details { display: flex; flex-direction: column; }
-        .contact-category { font-size: 11px; color: #a3b1c6; font-weight: bold; letter-spacing: 1px; }
-        .contact-value { font-size: 16px; font-weight: bold; margin-top: 2px; }
-/* --- KODE SIDEBAR MENU BARU --- */
-#sidebar-menu {
-    position: fixed;
-    top: 0;
-    right: -300px; /* Disembunyikan di luar layar sebelah kanan */
-    width: 250px;
-    height: 100vh;
-    background-color: var(--bg-dark-blue);
-    color: var(--text-light);
-    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-    transition: right 0.4s ease; /* Animasi geser mulus */
-    z-index: 10000;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-#sidebar-menu.show {
-    right: 0; /* Pas aktif, menunya geser masuk ke layar */
-}
-.close-btn {
-    align-self: flex-end;
-    font-size: 24px;
-    cursor: pointer;
-    margin-bottom: 30px;
-}
-.sidebar-links {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-.sidebar-links a {
-    font-size: 18px;
-    font-weight: bold;
-    border-bottom: 1px solid #1e3a8a;
-    padding-bottom: 10px;
-}
+        /* 7. SOSIAL MEDIA SECTION */
+        #connect { padding: 40px 5%; text-align: center; background-color: #f8fafc; }
+        .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+        .contact-card { background-color: var(--bg-dark-blue); color: white; padding: 12px 25px; border-radius: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div id="entrance-modal">
         <div class="modal-content">
-            <img src="logo.png" alt="Logo Markaz At-Ta'allum" class="modal-logo">
+            <img src="logo.png" alt="Logo Markaz" class="modal-logo">
             <h1 class="modal-title">Markaz At-Ta'allum</h1>
-            <p class="modal-subtitle">Portal Sakti Informasi dan Administrasi</p>
+            <p class="modal-subtitle">Portal Resmi Informasi dan Administrasi</p>
             <div id="explore-btn-modal">Jelajahi Sekarang 👉</div>
         </div>
     </div>
 
     <header>
-        <div id="sidebar-menu">
-    <div class="close-btn" id="close-menu">✖️</div>
-    <div class="sidebar-links">
-        <a href="#hero">🏠 Beranda</a>
-        <a href="#services">📁 Administrasi</a>
-        <a href="#services">🎓 Akademik</a>
-        <a href="#connect">📞 Hubungi Kami</a>
-    </div>
-</div>
         <div class="header-logo-container">
             <img src="logo.png" alt="Logo" class="header-logo">
             <span class="header-title">Markaz At-Ta'allum</span>
@@ -288,215 +175,116 @@
         <div class="menu-icon">☰</div>
     </header>
 
+    <div id="sidebar-menu">
+        <div class="close-btn" id="close-menu">✖️</div>
+        <div class="sidebar-links">
+            <a href="#hero">🏠 Beranda</a>
+            <a href="#services">📁 Administrasi</a>
+            <a href="#connect">📞 Hubungi Kami</a>
+        </div>
+    </div>
+
     <section id="hero">
-        <img src="logo.png" alt="Logo Besar" style="width: 90px; margin-bottom: 15px;">
         <h1>Ahlan, Sobat At-Ta'allum 👋</h1>
-        <p>Satu pintu untuk semua info Markaz At-Ta'allum.</p>
-        
-        <a href="https://linktr.ee/attaallumofc?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" class="btn-primary">
-            <span>Buka Linktree Resmi</span>
-            <span>🔗</span>
-        </a>
+        <p>Satu pintu untuk semua info dan urusan administrasi Markaz At-Ta'allum tanpa ribet.</p>
+        <a href="https://linktr.ee/attaallumofc" target="_blank" class="btn-primary">Buka Linktree Resmi 🔗</a>
     </section>
 
     <section id="services">
         <h2>Kalian ingin tau tentang apa?</h2>
-        
         <div class="grid-container">
             <div class="service-card">
                 <h3>Administrasi</h3>
-                <p>Urusan pendaftaran, Pengumuman, Dan Informasi Nilai ada di sini.</p>
-                <a href="#" onclick="munculinPrank(event)" class="btn-secondary">➜</a>
+                <p>Urusan pendaftaran, pembuatan NIA baru, dan cek status data kamu di sini.</p>
+                <a href="#" onclick="bukaPilihanAdmin(event)" class="btn-secondary">➜</a>
             </div>
-
             <div class="service-card">
                 <h3>Informasi Akademik</h3>
                 <p>Cek jadwal belajar, kalender pendidikan, dan materi belajarmu.</p>
-                <a href="#" onclick="munculinPrank(event)" class="btn-secondary">➜</a>
+                <a href="#" onclick="alert('Halaman Akademik masih dipersiapkan cuy!')" class="btn-secondary">➜</a>
             </div>
-        </div>
-    </section>
-
-    <section id="connect">
-        <h2>Yuk, Terhubungi!</h2>
-        <p class="subtitle">Pantau terus kabar terbaru dari Markaz di saluran resmi kita.</p>
-        
-        <div class="contact-grid">
-            
-            <a href="https://whatsapp.com/channel/0029VaqYTENLdQedSQ1l9I3d" target="_blank">
-                <div class="contact-card">
-                    <span class="contact-icon">💬</span>
-                    <div class="contact-details">
-                        <span class="contact-category">WHATSAPP</span>
-                        <span class="contact-value">Saluran Resmi</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="https://www.instagram.com/attaallumarkaz?igsh=ZTVkMDF1azgzNTZo" target="_blank">
-                <div class="contact-card">
-                    <span class="contact-icon">📸</span>
-                    <div class="contact-details">
-                        <span class="contact-category">INSTAGRAM</span>
-                        <span class="contact-value">@attaallumarkaz</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="https://linktr.ee/attaallumofc?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank">
-                <div class="contact-card">
-                    <span class="contact-icon">🌳</span>
-                    <div class="contact-details">
-                        <span class="contact-category">LINKTREE</span>
-                        <span class="contact-value">All Links Here</span>
-                    </div>
-                </div>
-            </a>
-
         </div>
     </section>
 
     <div id="pilihan-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 99999; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
-        <div style="background-color: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; color: #111; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
-            <h3 style="margin-bottom: 20px; font-size: 22px; color: #0a192f; font-weight: 700;">Pilih Status Administrasi</h3>
-            <button onclick="sudahNIA()" style="width: 100%; background-color: #64748b; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; margin-bottom: 12px; cursor: pointer; font-size: 16px;">1. Saya Sudah Punya NIA</button>
-            <button onclick="bukaFormBelumNIA()" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; margin-bottom: 20px; cursor: pointer; font-size: 16px;">2. Saya Belum Punya NIA</button>
+        <div style="background-color: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; color: #111;">
+            <h3 style="margin-bottom: 20px; font-size: 22px; font-weight: 700;">Pilih Status Administrasi</h3>
+            <button onclick="alert('Fitur pencarian data lama sedang diproses!')" style="width: 100%; background-color: #64748b; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; margin-bottom: 12px; cursor: pointer;">1. Saya Sudah Punya NIA</button>
+            <button onclick="bukaFormBelumNIA()" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; margin-bottom: 20px; cursor: pointer;">2. Saya Belum Punya NIA</button>
             <p onclick="tutupPilihanAdmin()" style="color: #ef4444; cursor: pointer; font-size: 14px; font-weight: bold;">Batal</p>
         </div>
     </div>
 
-    <div id="form-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 100000; justify-content: center; align-items: center; backdrop-filter: blur(5px); overflow-y: auto;">
-        <div style="background-color: white; padding: 30px; border-radius: 12px; max-width: 450px; width: 90%; color: #111; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
-            <h3 style="margin-bottom: 10px; font-size: 24px; color: #0a192f; font-weight: 700;">Formulir Data Alumni</h3>
+    <div id="form-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 100000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+        <div style="background-color: white; padding: 30px; border-radius: 12px; max-width: 450px; width: 90%; color: #111;">
+            <h3 style="margin-bottom: 10px; font-size: 24px; font-weight: 700;">Formulir Data Alumni</h3>
             <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Silakan isi data diri Anda untuk membuat NIA otomatis.</p>
+            
             <form id="registrationForm" onsubmit="simulasiKirimForm(event)">
                 <div style="margin-bottom: 15px; text-align: left;">
-                    <label style="font-weight: bold; display: block; margin-bottom: 5px; color: #334155;">Nama Lengkap:</label>
-                    <input type="text" id="formNama" placeholder="Masukkan nama lengkap" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 16px;">
+                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Nama Lengkap:</label>
+                    <input type="text" id="formNama" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
                 </div>
                 <div style="margin-bottom: 25px; text-align: left;">
-                    <label style="font-weight: bold; display: block; margin-bottom: 5px; color: #334155;">Angkatan Berapa:</label>
-                    <input type="number" id="formAngkatan" placeholder="Contoh: 2024" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 16px;">
+                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Angkatan Berapa:</label>
+                    <input type="number" id="formAngkatan" placeholder="Contoh: 2024" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
                 </div>
-                <button type="submit" id="submitBtn" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 16px;">Kirim & Generate NIA 🚀</button>
+                <button type="submit" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; cursor: pointer;">Kirim & Generate NIA 🚀</button>
             </form>
             <p onclick="tutupFormBelumNIA()" style="color: #ef4444; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 20px; text-align: center;">Kembali</p>
         </div>
     </div>
 
+    <section id="connect">
+        <h2>Yuk, Terhubungi!</h2>
+        <div class="contact-grid">
+            <a href="https://whatsapp.com/channel/0029VaqYTENLdQedSQ1l9I3d" target="_blank" class="contact-card">💬 WHATSAPP</a>
+            <a href="https://www.instagram.com/attaallumarkaz" target="_blank" class="contact-card">📸 INSTAGRAM</a>
+        </div>
+    </section>
+
     <script>
-    // 1. LOGIKA ENTRANCE MODAL (POP-UP AWAL)
-    const modal = document.getElementById('entrance-modal');
-    const exploreBtn = document.getElementById('explore-btn-modal');
-    if (exploreBtn && modal) {
-        exploreBtn.addEventListener('click', () => {
-            modal.classList.add('hide');
-        });
-    }
+        // Modal Awal Masuk
+        const modal = document.getElementById('entrance-modal');
+        const exploreBtn = document.getElementById('explore-btn-modal');
+        if (exploreBtn && modal) {
+            exploreBtn.addEventListener('click', () => modal.classList.add('hide'));
+        }
 
-    // 2. LOGIKA MENU GARIS TIGA (SIDEBAR)
-    const menuIcon = document.querySelector('.menu-icon');
-    const sidebarMenu = document.getElementById('sidebar-menu');
-    const closeMenuBtn = document.getElementById('close-menu');
+        // Sidebar Menu Garis Tiga
+        const menuIcon = document.querySelector('.menu-icon');
+        const sidebarMenu = document.getElementById('sidebar-menu');
+        const closeMenuBtn = document.getElementById('close-menu');
 
-    if (menuIcon && sidebarMenu) {
-        menuIcon.addEventListener('click', () => {
-            sidebarMenu.classList.add('show');
-        });
-    }
-    if (closeMenuBtn && sidebarMenu) {
-        closeMenuBtn.addEventListener('click', () => {
-            sidebarMenu.classList.remove('show');
-        });
-    }
+        if (menuIcon && sidebarMenu) {
+            menuIcon.addEventListener('click', () => sidebarMenu.classList.add('show'));
+        }
+        if (closeMenuBtn && sidebarMenu) {
+            closeMenuBtn.addEventListener('click', () => sidebarMenu.classList.remove('show'));
+        }
 
-    // 3. LOGIKA BARU: POP-UP PILIHAN STATUS ADMIN
-    function bukaPilihanAdmin(event) {
-        event.preventDefault();
-        document.getElementById('pilihan-admin-modal').style.display = 'flex';
-    }
-    function tutupPilihanAdmin() {
-        document.getElementById('pilihan-admin-modal').style.display = 'none';
-    }
-    function sudahNIA() {
-        alert('Fitur ngecek nomor NIA lama lagi diproses backend cuy. Fokus ke daftar baru dulu!');
-    }
-    function bukaFormBelumNIA() {
-        tutupPilihanAdmin(); 
-        document.getElementById('form-admin-modal').style.display = 'flex'; 
-    }
-    function tutupFormBelumNIA() {
-        document.getElementById('form-admin-modal').style.display = 'none';
-    }
+        // Kontrol Alur Administrasi NIA
+        function bukaPilihanAdmin(event) {
+            event.preventDefault();
+            document.getElementById('pilihan-admin-modal').style.display = 'flex';
+        }
+        function tutupPilihanAdmin() {
+            document.getElementById('pilihan-admin-modal').style.display = 'none';
+        }
+        function bukaFormBelumNIA() {
+            tutupPilihanAdmin();
+            document.getElementById('form-admin-modal').style.display = 'flex';
+        }
+        function tutupFormBelumNIA() {
+            document.getElementById('form-admin-modal').style.display = 'none';
+        }
 
-    // 4. LOGIKA PRANK AKADEMIK (Muka temen)
-    function munculinPrank(event) {
-        event.preventDefault();
-        document.getElementById('prank-modal').style.display = 'flex';
-    }
-    function tutupPrank() {
-        document.getElementById('prank-modal').style.display = 'none';
-    }
-
-    // 5. SIMULASI TOMBOL KIRIM FORM
-    function simulasiKirimForm(event) {
-        event.preventDefault();
-        const nama = document.getElementById('formNama').value;
-        alert('Mantap ' + nama + '! Alur tombol depan udah aman. Sekarang tampilannya udah otomatis ngarah ke form pendaftaran murni!');
-    }
-
-   <script>
-    // 1. LOGIKA UTAMA: TOMBOL MASUK (JELAJAHI SEKARANG)
-    const modal = document.getElementById('entrance-modal');
-    const exploreBtn = document.getElementById('explore-btn-modal');
-    
-    if (exploreBtn && modal) {
-        exploreBtn.addEventListener('click', () => {
-            modal.classList.add('hide');
-        });
-    }
-
-    // 2. LOGIKA UTAMA: MENU GARIS TIGA (SIDEBAR)
-    const menuIcon = document.querySelector('.menu-icon');
-    const sidebarMenu = document.getElementById('sidebar-menu');
-    const closeMenuBtn = document.getElementById('close-menu');
-
-    if (menuIcon && sidebarMenu) {
-        menuIcon.addEventListener('click', () => {
-            sidebarMenu.classList.add('show');
-        });
-    }
-    if (closeMenuBtn && sidebarMenu) {
-        closeMenuBtn.addEventListener('click', () => {
-            sidebarMenu.classList.remove('show');
-        });
-    }
-
-    // 3. LOGIKA FORM NIA: POP-UP PILIHAN STATUS ADMIN
-    function bukaPilihanAdmin(event) {
-        event.preventDefault();
-        document.getElementById('pilihan-admin-modal').style.display = 'flex';
-    }
-    function tutupPilihanAdmin() {
-        document.getElementById('pilihan-admin-modal').style.display = 'none';
-    }
-    function sudahNIA() {
-        alert('Fitur ngecek nomor NIA lama lagi diproses backend cuy. Fokus ke daftar baru dulu!');
-    }
-    function bukaFormBelumNIA() {
-        tutupPilihanAdmin(); 
-        document.getElementById('form-admin-modal').style.display = 'flex'; 
-    }
-    function tutupFormBelumNIA() {
-        document.getElementById('form-admin-modal').style.display = 'none';
-    }
-
-    // 4. LOGIKA FORM NIA: SIMULASI TOMBOL KIRIM FORMULIR
-    function simulasiKirimForm(event) {
-        event.preventDefault();
-        const nama = document.getElementById('formNama').value;
-        alert('Mantap ' + nama + '! Alur pendaftaran depan udah aman. Langkah selanjutnya tinggal kita hubungin ke Spreadsheet!');
-    }
-</script>
+        // Jalur Tes Pengiriman Form Front-End
+        function simulasiKirimForm(event) {
+            event.preventDefault();
+            const nama = document.getElementById('formNama').value;
+            alert('Sip, data atas nama ' + nama + ' siap ditembak ke Google Sheet! Tampilan depan lo udah 100% aman tanpa eror.');
+        }
+    </script>
 </body>
 </html>
