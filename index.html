@@ -325,6 +325,45 @@
             display: flex; align-items: center; gap: 10px; transition: 0.3s;
         }
         .contact-card:hover { border-color: var(--accent-glow); color: var(--accent-glow); box-shadow: var(--neon-glow); }
+ /* 👇👇👇 PASTE KODE BARU INI DI CSS LO !!! 👇👇👇 */
+
+        /* GAYA UNTUK TOMBOL PILIHAN NIA DI MODAL (Secara Default) */
+        #pilihan-admin-modal .btn-glow {
+            background-color: #1e293b; /* Abu-abu Gelap (sesuai tema dark blue lo) */
+            box-shadow: none; /* Matikan glow dulu */
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Garis tipis biar elegan */
+            transition: all 0.3s ease; /* Efek transisi biar halus pas berubah warna */
+        }
+
+        /* GAYA PAS KURSOR DIARAHIN (HOVER) */
+        #pilihan-admin-modal .btn-glow:hover {
+            background-color: #3b82f6; /* Berubah jadi Cyber Blue pas kursor nyentuh */
+            color: white;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.9); /* Nyalakan GLOWING Mewah! */
+            transform: translateY(-3px); /* Tombol sedikit ngangkat biar interaktif */
+        }
+
+        /* GAYA TOMBOL KEMBALI / SECONDARY */
+        .btn-secondary-outlined {
+            display: inline-block;
+            background: transparent;
+            color: #ef4444; /* Merah untuk batal/kembali */
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border: 2px solid #ef4444;
+            transition: all 0.3s ease;
+            margin-top: 25px;
+        }
+        .btn-secondary-outlined:hover {
+            background-color: #ef4444;
+            color: white;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -395,16 +434,16 @@
         </div>
     </section>
 
-    <div class="modal-overlay" id="pilihan-admin-modal">
+   <div id="pilihan-admin-modal" class="modal-overlay">
         <div class="modal-box">
-            <i class="fa-solid fa-shield-halved" style="font-size: 34px; color: var(--accent-glow); margin-bottom: 15px;"></i>
-            <h3 style="margin-bottom: 10px; font-size: 21px;">Status Administrasi</h3>
-            <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 30px;">Tentukan status Nomor Identitas Attaallum (NIA) Anda saat ini.</p>
+            <i class="fa-solid fa-shield-halved" style="font-size: 36px; color: var(--accent-glow); margin-bottom: 15px;"></i>
+            <h3 style="margin-bottom: 10px; font-size: 22px; color: #fff;">Pilih Status Administrasi</h3>
+            <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 30px;">Tentukan status Nomor Identitas Attaallum (NIA) Anda saat ini untuk melanjutkan proses.</p>
             
-            <button onclick="bukaProgramLangsung()" class="btn-glow" style="width: 100%; margin-bottom: 15px; background-color: #334155; box-shadow: none;">1. Saya Sudah Punya NIA</button>
+            <button onclick="bukaProgramLangsung()" class="btn-glow" style="width: 100%; margin-bottom: 15px;">1. Saya Sudah Punya NIA</button>
             <button onclick="bukaFormBelumNIA()" class="btn-glow" style="width: 100%;">2. Saya Belum Punya NIA</button>
             
-            <p onclick="tutupPilihanAdmin()" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 25px;">BATALKAN</p>
+            <button onclick="tutupPilihanAdmin()" class="btn-secondary-outlined"><i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i> Batal / Kembali</button>
         </div>
     </div>
 
