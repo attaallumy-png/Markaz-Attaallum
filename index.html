@@ -13,16 +13,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* THEME VARIABLES */
+        /* LUXURY SYSTEM VARIABLES */
         :root {
-            --bg-deep: #020617;       /* Hitam Kebiruan Sangat Gelap */
-            --bg-card: #0f172a;       /* Biru Gelap Komponen */
-            --bg-input: #1e293b;      /* Biru Input Form */
-            --accent-glow: #3b82f6;    /* Cyber Blue Glow */
-            --text-main: #f8fafc;     /* Putih Terang */
-            --text-dim: #94a3b8;      /* Abu-abu Elegan */
-            --neon-glow: 0 0 15px rgba(59, 130, 246, 0.6);
-            --neon-glow-hover: 0 0 25px rgba(59, 130, 246, 0.9);
+            --bg-deep: #020617;       
+            --bg-card: #0f172a;       
+            --bg-input: #1e293b;      
+            --accent-glow: #3b82f6;    
+            --text-main: #f8fafc;     
+            --text-dim: #94a3b8;      
+            --neon-glow: 0 0 15px rgba(59, 130, 246, 0.5);
+            --neon-glow-hover: 0 0 25px rgba(59, 130, 246, 0.8);
         }
 
         * {
@@ -41,7 +41,7 @@
 
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
 
-        /* 1. REAL PROFESSIONAL LOADING SCREEN */
+        /* 1. TIMED LOADING SCREEN */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -63,7 +63,7 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* 2. ENTRANCE MODAL (Pop-up Awal) */
+        /* 2. ENTRANCE MODAL */
         #entrance-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -76,11 +76,10 @@
         }
         #entrance-modal.hide { opacity: 0; visibility: hidden; }
         .modal-welcome-box { text-align: center; padding: 20px; }
-        .modal-logo { width: 130px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+        .modal-logo { width: 130px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); }
         .modal-title { font-size: 32px; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; }
         .modal-subtitle { font-size: 14px; color: var(--text-dim); margin-bottom: 35px; }
         
-        /* GLOWING BUTTON EFFECT */
         .btn-glow {
             display: inline-block;
             background-color: var(--accent-glow);
@@ -95,17 +94,17 @@
             box-shadow: var(--neon-glow);
             transition: all 0.3s ease;
             border: none;
+            text-align: center;
         }
         .btn-glow:hover {
             box-shadow: var(--neon-glow-hover);
             transform: translateY(-2px);
         }
 
-        /* 3. HEADER & NAVBAR */
+        /* 3. HEADER NAVBAR */
         header {
             background-color: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(10px);
-            color: var(--text-main);
             padding: 15px 6%;
             display: flex;
             justify-content: space-between;
@@ -138,22 +137,21 @@
         #sidebar-menu.show { right: 0; }
         .close-btn { align-self: flex-end; font-size: 22px; cursor: pointer; margin-bottom: 40px; color: var(--text-dim); }
         .sidebar-links { display: flex; flex-direction: column; gap: 25px; }
-        .sidebar-links a { font-size: 16px; font-weight: 500; color: var(--text-dim); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .sidebar-links a { font-size: 15px; font-weight: 500; color: var(--text-dim); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .sidebar-links a:hover { color: var(--accent-glow); border-color: var(--accent-glow); }
 
         /* 5. HERO SECTION */
-        #hero { padding: 80px 6% 60px; text-align: center; position: relative; }
-        #hero h1 { font-size: 42px; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px; }
-        #hero p { font-size: 15px; color: var(--text-dim); max-width: 600px; margin: 0 auto 30px; }
+        #hero { padding: 70px 6% 40px; text-align: center; }
+        #hero h1 { font-size: 40px; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px; }
+        #hero p { font-size: 15px; color: var(--text-dim); max-width: 600px; margin: 0 auto; }
 
-        /* 6. LAYOUT MENU PORTAL (CARDS) */
-        #services { padding: 40px 6% 80px; }
-        #services h2 { text-align: center; margin-bottom: 35px; font-size: 22px; font-weight: 600; letter-spacing: 0.5px; }
+        /* 6. MODUL GRID UTAMA */
+        #services { padding: 30px 6% 60px; }
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         .service-card {
@@ -163,44 +161,62 @@
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.03);
             transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
         }
         .service-card:hover {
             transform: translateY(-5px);
             border-color: rgba(59, 130, 246, 0.4);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
-        .service-card i { font-size: 36px; color: var(--accent-glow); margin-bottom: 20px; display: block; }
-        .service-card h3 { font-size: 20px; margin-bottom: 12px; font-weight: 600; }
-        .service-card p { font-size: 13px; color: var(--text-dim); margin-bottom: 25px; min-height: 60px; }
+        .service-card i.card-icon { font-size: 36px; color: var(--accent-glow); margin-bottom: 20px; display: block; }
+        .service-card h3 { font-size: 19px; margin-bottom: 12px; font-weight: 600; }
+        .service-card p { font-size: 13px; color: var(--text-dim); margin-bottom: 25px; min-height: 50px; }
         
+        /* FIXED FLEX CENTER ARROW BUTTON */
         .btn-arrow {
-            display: inline-flex; width: 45px; height: 45px;
-            background-color: #1e293b; color: white;
-            border-radius: 50%; justify-content: center; align-items: center;
-            font-weight: bold; transition: 0.3s; border: 1px solid rgba(255,255,255,0.05);
+            display: inline-flex; 
+            width: 45px; 
+            height: 45px;
+            background-color: #1e293b; 
+            color: white;
+            border-radius: 50%; 
+            justify-content: center; 
+            align-items: center;
+            transition: 0.3s; 
+            border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+        }
+        .btn-arrow i {
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
         }
         .service-card:hover .btn-arrow {
             background-color: var(--accent-glow);
             box-shadow: var(--neon-glow);
         }
 
-        /* 7. POP-UP MODAL FIX SYSTEM (FULL LAYOUT SCREENS) */
+        /* 7. OVERLAY MODAL FIX SYSTEM */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(2, 6, 23, 0.95);
+            background-color: rgba(2, 6, 23, 0.96);
             z-index: 200000;
             display: none;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             animation: fadeIn 0.3s ease forwards;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .modal-box {
             background-color: var(--bg-card);
-            padding: 40px;
+            padding: 35px;
             border-radius: 20px;
             width: 92%;
             max-width: 550px;
@@ -209,48 +225,87 @@
             text-align: center;
         }
 
-        /* FORM SCROLL SYSTEM */
         .scroll-form {
-            max-height: 480px;
+            max-height: 470px;
             overflow-y: auto;
-            padding-right: 10px;
+            padding-right: 8px;
             margin-top: 20px;
         }
-        /* Custom scrollbar biar keren */
-        .scroll-form::-webkit-scrollbar { width: 6px; }
+        .scroll-form::-webkit-scrollbar { width: 5px; }
         .scroll-form::-webkit-scrollbar-track { background: var(--bg-deep); }
         .scroll-form::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         .scroll-form::-webkit-scrollbar-thumb:hover { background: var(--accent-glow); }
 
         .form-group { margin-bottom: 22px; text-align: left; }
         .form-group label.title { font-weight: 500; display: block; margin-bottom: 8px; color: var(--text-main); font-size: 14px; }
-        .form-group .note { font-size: 11px; color: #ef4444; margin-bottom: 8px; display: block; font-weight: 400; }
+        .form-group .note { font-size: 11px; color: #ef4444; margin-bottom: 8px; display: block; }
         
         .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"] { 
             width: 100%; padding: 12px 16px; 
             background-color: var(--bg-input);
             border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 8px; font-size: 14px; color: white;
+            border-radius: 8px; font-size: 13px; color: white;
             transition: 0.3s;
         }
         .form-group input:focus { outline: none; border-color: var(--accent-glow); box-shadow: 0 0 10px rgba(59,130,246,0.2); }
         
         .radio-group { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
-        .radio-group label { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 400; cursor: pointer; color: var(--text-dim); }
+        .radio-group label { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color: var(--text-dim); }
         .radio-group input[type="radio"] { width: 16px; height: 16px; accent-color: var(--accent-glow); cursor: pointer; }
 
-        /* 8. FOOTER / CONNECT */
-        #connect { padding: 40px 6%; text-align: center; border-top: 1px solid rgba(255,255,255,0.03); }
-        .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .contact-card { background-color: var(--bg-card); padding: 12px 25px; border-radius: 8px; font-weight: 500; font-size: 13px; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.02); }
-        .contact-card:hover { border-color: var(--accent-glow); color: var(--accent-glow); }
+        /* LIST PROGRAM PEMBELAJARAN STYLE */
+        .program-item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            text-align: left;
+            transition: 0.3s;
+        }
+        .program-item-row:hover {
+            border-color: var(--accent-glow);
+            background: rgba(59, 130, 246, 0.03);
+        }
+        .program-info { display: flex; align-items: center; gap: 15px; }
+        .program-avatar-mock {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 16px;
+        }
+        .program-name { font-size: 14px; font-weight: 500; color: var(--text-main); }
+        .btn-daftar-prog {
+            background: #1e293b; border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-main); font-size: 11px; font-weight: 600;
+            padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: 0.3s;
+        }
+        .program-item-row:hover .btn-daftar-prog {
+            background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow);
+        }
+
+        /* 8. FOOTER COMPLEX DESIGN */
+        #connect { padding: 60px 6% 40px; border-top: 1px solid rgba(255,255,255,0.03); }
+        #connect h2 { font-size: 18px; letter-spacing: 1px; margin-bottom: 30px; font-weight: 600; }
+        .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+        .contact-card { 
+            background-color: var(--bg-card); padding: 15px 25px; 
+            border-radius: 10px; font-weight: 500; font-size: 13px; 
+            letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.02);
+            display: flex; align-items: center; gap: 10px; transition: 0.3s;
+        }
+        .contact-card:hover { border-color: var(--accent-glow); color: var(--accent-glow); box-shadow: var(--neon-glow); }
     </style>
 </head>
 <body>
 
     <div id="loader">
         <div class="loader-spinner"></div>
-        <p style="margin-top: 20px; letter-spacing: 3px; font-size: 11px; color: var(--text-dim); font-weight: 300;">INITIALIZING PORTAL...</p>
+        <p style="margin-top: 20px; letter-spacing: 3px; font-size: 11px; color: var(--text-dim); font-weight: 300;">INITIALIZING PORTAL CORRIDOR...</p>
     </div>
 
     <div id="entrance-modal">
@@ -274,69 +329,79 @@
         <div class="close-btn" id="close-menu"><i class="fa-solid fa-xmark"></i></div>
         <div class="sidebar-links">
             <a href="#hero"><i class="fa-solid fa-house" style="margin-right: 10px;"></i> Beranda</a>
-            <a href="#services"><i class="fa-solid fa-folder" style="margin-right: 10px;"></i> Administrasi</a>
-            <a href="#connect"><i class="fa-solid fa-phone" style="margin-right: 10px;"></i> Hubungi Kami</a>
+            <a href="#" onclick="event.preventDefault(); document.getElementById('sidebar-menu').classList.remove('show'); window.open('https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk');"><i class="fa-solid fa-book-open" style="margin-right: 10px;"></i> Profil Attaallum</a>
+            <a href="#services" onclick="document.getElementById('sidebar-menu').classList.remove('show');"><i class="fa-solid fa-folder" style="margin-right: 10px;"></i> Administrasi NIA</a>
+            <a href="#" onclick="event.preventDefault(); document.getElementById('sidebar-menu').classList.remove('show'); document.getElementById('program-pembelajaran-modal').style.display='flex';"><i class="fa-solid fa-graduation-cap" style="margin-right: 10px;"></i> Program Pembelajaran</a>
+            <a href="https://wa.me/201551018457" target="_blank"><i class="fa-solid fa-headset" style="margin-right: 10px;"></i> Customer Service (CS)</a>
         </div>
     </div>
 
     <section id="hero">
-        <h1>Satu Pintu Layanan Terpadu</h1>
-        <p>Integrasi sistem data mandiri untuk mempermudah akses berkas, pelaporan informasi akademik, serta pengelolaan Nomor Identitas Alumni.</p>
-        <a href="https://linktr.ee/attaallumofc" target="_blank" class="btn-glow" style="font-size: 12px; padding: 10px 25px;">Linktree Resmi <i class="fa-solid fa-link" style="margin-left: 5px;"></i></a>
+        <h1>Portal Terpadu Attaallum</h1>
+        <p>Sistem pengolahan data mandiri untuk mempermudah akses rekam berkas, pelaporan program pembelajaran, serta penerbitan Nomor Identitas Attaallum.</p>
     </section>
 
     <section id="services">
-        <h2>PILIH LAYANAN</h2>
         <div class="grid-container">
+            
             <div class="service-card">
-                <i class="fa-solid fa-file-invoice"></i>
-                <h3>Administrasi Alumni</h3>
-                <p>Pengajuan data Nomor Identitas Alumni (NIA) baru, validasi berkas fisik, dan manajemen arsip digital.</p>
+                <i class="fa-solid fa-book-open card-icon"></i>
+                <h3>Profil Attaallum</h3>
+                <p>Pelajari visi, misi, rekam jejak, dan landasan operasional Markaz At-Ta'allum melalui booklet digital resmi.</p>
+                <a href="https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk" target="_blank" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-id-card-clip card-icon"></i>
+                <h3>Administrasi NIA</h3>
+                <p>Pengajuan berkas data Nomor Identitas Attaallum (NIA) baru secara digital untuk seluruh anggota aktif.</p>
                 <a href="#" onclick="bukaPilihanAdmin(event)" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
+
             <div class="service-card">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <h3>Informasi Akademik</h3>
-                <p>Akses jadwal materi Dirosah, kalender kegiatan pendidikan, dan papan pengumuman hasil ujian berkala.</p>
-                <a href="#" onclick="alert('Modul Informasi Akademik sedang disiapkan oleh tim teknis internal.')" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
+                <i class="fa-solid fa-graduation-cap card-icon"></i>
+                <h3>Program Pembelajaran</h3>
+                <p>Eksplorasi dan pendaftaran berkas 7 program kelas unggulan akademik terpadu Markaz At-Ta'allum.</p>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('program-pembelajaran-modal').style.display='flex';" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
+
         </div>
     </section>
 
     <div class="modal-overlay" id="pilihan-admin-modal">
         <div class="modal-box">
-            <i class="fa-solid fa-shield-halved" style="font-size: 36px; color: var(--accent-glow); margin-bottom: 15px;"></i>
-            <h3 style="margin-bottom: 10px; font-size: 22px;">Verifikasi Identitas</h3>
-            <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 30px;">Pilih opsi status administrasi Anda untuk melanjutkan penelusuran sistem.</p>
+            <i class="fa-solid fa-shield-halved" style="font-size: 34px; color: var(--accent-glow); margin-bottom: 15px;"></i>
+            <h3 style="margin-bottom: 10px; font-size: 21px;">Status Administrasi</h3>
+            <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 30px;">Tentukan status Nomor Identitas Attaallum (NIA) Anda saat ini.</p>
             
-            <button onclick="alert('Fitur sinkronisasi data NIA lama sedang dalam tahap integrasi server database.')" class="btn-glow" style="width: 100%; margin-bottom: 15px; background-color: #334155; box-shadow: none;">1. Saya Sudah Punya NIA</button>
+            <button onclick="alert('Fitur pelacakan data lama sedang diintegrasikan dengan database pusat.')" class="btn-glow" style="width: 100%; margin-bottom: 15px; background-color: #334155; box-shadow: none;">1. Saya Sudah Punya NIA</button>
             <button onclick="bukaFormBelumNIA()" class="btn-glow" style="width: 100%;">2. Saya Belum Punya NIA</button>
             
-            <p onclick="tutupPilihanAdmin()" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 25px; letter-spacing: 0.5px;">BATALKAN PROSES</p>
+            <p onclick="tutupPilihanAdmin()" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 25px;">BATALKAN</p>
         </div>
     </div>
 
     <div class="modal-overlay" id="form-admin-modal">
         <div class="modal-box" style="max-width: 600px; padding: 35px 30px;">
-            <h3 style="font-size: 22px; font-weight: 600; text-align: left; color: #fff;"><i class="fa-solid fa-pen-to-square" style="color: var(--accent-glow); margin-right: 10px;"></i>Formulir Data Alumni</h3>
-            <p style="color: var(--text-dim); font-size: 12px; text-align: left; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">Lengkapi data diri Anda di bawah ini secara valid untuk penerbitan kode NIA otomatis.</p>
+            <h3 style="font-size: 22px; font-weight: 600; text-align: left; color: #fff;"><i class="fa-solid fa-file-pen" style="color: var(--accent-glow); margin-right: 10px;"></i>Formulir Data NIA</h3>
+            <p style="color: var(--text-dim); font-size: 12px; text-align: left; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">Isi data secara valid untuk penerbitan Nomor Identitas Attaallum otomatis.</p>
             
             <form id="registrationForm" class="scroll-form" onsubmit="kirimDataForm(event)">
                 
                 <div class="form-group">
                     <label class="title">Email Aktif *</label>
-                    <input type="email" id="formEmail" placeholder="example@domain.com" required>
+                    <input type="email" id="formEmail" placeholder="nama@domain.com" required>
                 </div>
 
                 <div class="form-group">
                     <label class="title">Nama Lengkap *</label>
-                    <span class="note">Input wajib sesuai paspor & menggunakan HURUF KAPITAL (contoh: PRABOWO)</span>
+                    <span class="note">Wajib sesuai paspor & menggunakan HURUF KAPITAL (contoh: JOKOWI)</span>
                     <input type="text" id="formNama" placeholder="Jawaban Anda" style="text-transform: uppercase;" required>
                 </div>
 
                 <div class="form-group">
                     <label class="title">Tempat, Tanggal Lahir *</label>
-                    <input type="text" id="formTTL" placeholder="Contoh: Jakarta, 12 Agustus 2008" required>
+                    <input type="text" id="formTTL" placeholder="Contoh: Jakarta, 1 Januari 2005" required>
                 </div>
 
                 <div class="form-group">
@@ -376,7 +441,7 @@
 
                 <div class="form-group">
                     <label class="title">Tingkat Kelas (Jika Dirosah Khosoh)</label>
-                    <span class="note">*Pilih salah satu jika Anda menempuh jalur Dirosah</span>
+                    <span class="note">*Pilih salah satu jika menempuh jalur Dirosah</span>
                     <div class="radio-group">
                         <label><input type="radio" name="tkDirosah" value="Mubtadi Awal"> Mubtadi Awal</label>
                         <label><input type="radio" name="tkDirosah" value="Mubtadi Tsani"> Mubtadi Tsani</label>
@@ -389,7 +454,7 @@
 
                 <div class="form-group">
                     <label class="title">Tingkat Kelas (Jika Ma'had Buuts)</label>
-                    <span class="note">*Pilih salah satu jika Anda menempuh jalur Ma'had</span>
+                    <span class="note">*Pilih salah satu jika menempuh jalur Ma'had</span>
                     <div class="radio-group">
                         <label><input type="radio" name="tkMahad" value="1 Idady"> 1 Idady</label>
                         <label><input type="radio" name="tkMahad" value="2 Idady"> 2 Idady</label>
@@ -400,51 +465,115 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-glow" style="width: 100%; margin-top: 15px; border-radius: 8px;">KIRIM DATA & GENERATE NIA</button>
+                <button type="submit" class="btn-glow" style="width: 100%; margin-top: 15px; border-radius: 8px;">VALIDASI & DAFTARKAN NIA</button>
             </form>
             <p onclick="tutupFormBelumNIA()" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px; text-align: center;">KEMBALI</p>
         </div>
     </div>
 
+    <div class="modal-overlay" id="program-pembelajaran-modal">
+        <div class="modal-box" style="max-width: 600px; padding: 35px 25px;">
+            <h3 style="font-size: 22px; font-weight: 600; text-align: left; color: #fff; margin-bottom: 5px;"><i class="fa-solid fa-layer-group" style="color: var(--accent-glow); margin-right: 10px;"></i>Program Pembelajaran</h3>
+            <p style="color: var(--text-dim); font-size: 12px; text-align: left; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">Daftar program kelas studi intensif reguler Markaz At-Ta'allum.</p>
+            
+            <div class="scroll-form">
+                <div class="program-item-row">
+                    <div class="program-info">
+                        <div class="program-avatar-mock"><i class="fa-solid fa-language"></i></div>
+                        <span class="program-name">Program Lughoh Azhary</span>
+                    </div>
+                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas Lughoh Azhary dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                </div>
+                <div class="program-item-row">
+                    <div class="program-info">
+                        <div class="program-avatar-mock"><i class="fa-solid fa-file-pen"></i></div>
+                        <span class="program-name">Program Imtihan Qobul</span>
+                    </div>
+                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas Imtihan Qobul dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                </div>
+                <div class="program-item-row">
+                    <div class="program-info">
+                        <div class="program-avatar-mock"><i class="fa-solid fa-book"></i></div>
+                        <span class="program-name">Program 1 Tsanawi</span>
+                    </div>
+                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas 1 Tsanawi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                </div>
+                <div class="program-item-row">
+                    <div class="program-info">
+                        <div class="program-avatar-mock"><i class="fa-solid fa-child"></i></div>
+                        <span class="program-name">Program 2 I'dadi</span>
+                    </div>
+                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas 2 I\'dadi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                </div>
+                <div class="program-item-row">
+                    <div class="program-info">
+                        <div class="program-avatar-mock"><i class="fa-solid fa-book-bookmark"></i></div>
+                        <span class="program-name">Program 2 Tsanawi</span>
+                    </div>
+                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas 2 Tsanawi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                </div>
+                <div class="program-item-row">
+                    <div class="program-info">
+                        <div class="program-avatar-mock"><i class="fa-solid fa-trophy"></i></div>
+                        <span class="program-name">Program Musabaqoh 3 I'dadi</span>
+                    </div>
+                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas Musabaqoh 3 I\'dadi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                </div>
+                <div class="program-item-row">
+                    <div class="program-info">
+                        <div class="program-avatar-mock"><i class="fa-solid fa-award"></i></div>
+                        <span class="program-name">Program Musabaqoh 3 Tsanawi</span>
+                    </div>
+                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas Musabaqoh 3 Tsanawi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                </div>
+            </div>
+            
+            <p onclick="document.getElementById('program-pembelajaran-modal').style.display='none';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px; text-align: center;">TUTUP PANEL</p>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="success-admin-modal">
-        <div class="modal-box" style="max-width: 450px;">
+        <div class="modal-box" style="max-width: 460px;">
             <i class="fa-solid fa-circle-check" style="font-size: 55px; color: #10b981; filter: drop-shadow(0 0 10px rgba(16,185,129,0.4));"></i>
             <h3 style="font-size: 24px; margin-top: 15px; color: #fff;">Registrasi Berhasil!</h3>
-            <p style="color: var(--text-dim); margin-top: 8px; font-size: 13px;">Sistem database mendeteksi data aman terarsip. Nomor Identitas Attaallum (NIA) Anda telah diterbitkan:</p>
+            <p style="color: var(--text-dim); margin-top: 8px; font-size: 13px;">Arsip digital Anda sukses terverifikasi. Nomor Identitas Attaallum (NIA) otomatis Anda adalah:</p>
             
-            <div id="displayNIA" style="background-color: var(--bg-input); padding: 18px; border-radius: 10px; font-size: 28px; font-weight: 700; color: var(--accent-glow); letter-spacing: 4px; margin: 25px 0; border: 2px dashed var(--accent-glow); text-shadow: var(--neon-glow);">GENERATING...</div>
+            <div id="displayNIA" style="background-color: var(--bg-input); padding: 18px; border-radius: 10px; font-size: 26px; font-weight: 700; color: var(--accent-glow); letter-spacing: 4px; margin: 25px 0; border: 2px dashed var(--accent-glow); text-shadow: var(--neon-glow);">NIA-XXXX</div>
             
-            <p style="font-size: 11px; color: var(--text-dim);">*Harap screenshot atau simpan nomor di atas sebagai bukti resmi.</p>
-            <button onclick="tutupSemuaModal()" class="btn-glow" style="width: 100%; margin-top: 25px; border-radius: 8px; background-color: #020617; border: 1px solid rgba(255,255,255,0.05); box-shadow: none;">SELESAI</button>
+            <p style="font-size: 11px; color: var(--text-dim); margin-bottom: 25px;">*Harap amankan kode NIA Anda, kemudian laporkan hasil registrasi ini ke pihak admin via WhatsApp di bawah.</p>
+            
+            <a id="waDirectBtn" href="https://wa.me/201551018457" target="_blank" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: #22c55e; box-shadow: 0 0 15px rgba(34,197,94,0.4);"><i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i> HUBUNGI CS ADMIN</a>
         </div>
     </div>
 
     <section id="connect">
-        <h2>HUBUNGI LAYANAN PUSAT</h2>
+        <h2>PORTAL DIREKTORI LAYANAN PUSAT</h2>
         <div class="contact-grid">
-            <a href="https://whatsapp.com/channel/0029VaqYTENLdQedSQ1l9I3d" target="_blank" class="contact-card"><i class="fa-brands fa-whatsapp" style="margin-right: 8px; color: #22c55e;"></i> KANAL WHATSAPP</a>
-            <a href="https://www.instagram.com/attaallumarkaz" target="_blank" class="contact-card"><i class="fa-brands fa-instagram" style="margin-right: 8px; color: #ec4899;"></i> INSTAGRAM</a>
+            <a href="https://wa.me/201551018457" target="_blank" class="contact-card"><i class="fa-solid fa-headset" style="color: #22c55e;"></i> HUBUNGI CUSTOMER SERVICE (CS)</a>
+            <a href="https://www.instagram.com/attaallumarkaz" target="_blank" class="contact-card"><i class="fa-brands fa-instagram" style="color: #ec4899;"></i> INSTAGRAM OFFICIAL</a>
+            <a href="https://linktr.ee/attaallumofc" target="_blank" class="contact-card"><i class="fa-solid fa-link" style="color: #3b82f6;"></i> LINKTREE RESMI</a>
+            <a href="https://maps.app.goo.gl/RUXohAtpph4bvUM2A" target="_blank" class="contact-card"><i class="fa-solid fa-location-dot" style="color: #ef4444;"></i> GOOGLE MAPS MARKAZ</a>
         </div>
     </section>
 
     <script>
-        // 1. TIMED LOADER SCREEN
+        // 1. SINEMATIK LOADER TIMER HANDLING
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
                 setTimeout(() => { loader.style.visibility = 'hidden'; }, 600);
-            }, 1200); // 1.2 detik jeda sinematik pro
+            }, 1200); 
         });
 
-        // 2. ENTRANCE MODAL TRIGGER
+        // 2. ENTRANCE SCREEN LOCK CONTROLLER
         const modalEnt = document.getElementById('entrance-modal');
         const exploreBtn = document.getElementById('explore-btn-modal');
         if (exploreBtn && modalEnt) {
             exploreBtn.addEventListener('click', () => modalEnt.classList.add('hide'));
         }
 
-        // 3. SIDEBAR RESPONSIVE NAVIGATION
+        // 3. RESPONSIVE SIDEBAR NAVIGATION TOGGLE
         const menuIcon = document.querySelector('.menu-icon');
         const sidebarMenu = document.getElementById('sidebar-menu');
         const closeMenuBtn = document.getElementById('close-menu');
@@ -456,7 +585,7 @@
             closeMenuBtn.addEventListener('click', () => sidebarMenu.classList.remove('show'));
         }
 
-        // 4. MODAL UTAMA INTERFACE CONTROL
+        // 4. POPUP MANAGEMENT CONTROL INTERFACE
         function bukaPilihanAdmin(event) {
             event.preventDefault();
             document.getElementById('pilihan-admin-modal').style.display = 'flex';
@@ -472,16 +601,16 @@
             document.getElementById('form-admin-modal').style.display = 'none';
         }
         function tutupSemuaModal() {
-            document.getElementById('success-admin-modal').style.display = 'none';
+            location.reload(); // Hard reset balik ke semula setelah selesai
         }
 
         // ========================================================================
-        // 5. KABEL INPUT BACKEND: SILAKAN TEMPEL WEB APP URL PUNYA LO DI BAWAH !!!
+        // 5. KABEL TRANSMISI DATA SPREADSHEET: SUT SCRIPT URL SAKTI LO DI SINI !!!
         // ========================================================================
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzi5Rb_VG2h65v1ENCK76kd1g2yq3YJbjOMiINZH_3EQ6NrIFSG57ozoqKg38lvOhHCwg/exec';
         // ========================================================================
 
-        // 6. ENGINE FORM VALIDATION & API DISPATCH
+        // 6. FORM DISPATCH ENGINE (FETCH API WITH DATA INJECTION)
         function kirimDataForm(event) {
             event.preventDefault();
             
@@ -489,9 +618,8 @@
             const teksAsli = submitBtn.innerText;
             
             submitBtn.disabled = true;
-            submitBtn.innerText = 'MEMPROSES VERIFIKASI... ⏳';
+            submitBtn.innerText = 'MEMPROSES STRUKTUR DATA... ⏳';
 
-            // Menjaring seluruh data formulir panjang klon Google Form
             const dataAlumni = {
                 email: document.getElementById('formEmail').value,
                 namaLengkap: document.getElementById('formNama').value.toUpperCase(),
@@ -505,7 +633,6 @@
                 tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-"
             };
 
-            // Mengirimkan paket via Fetch API text/plain bypass CORS
             fetch(scriptURL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -516,15 +643,22 @@
                 if (hasil.result === 'success') {
                     tutupFormBelumNIA();
                     document.getElementById('success-admin-modal').style.display = 'flex';
-                    document.getElementById('displayNIA').innerText = hasil.nia; // Tembak kode NIA asli dari sheet
+                    
+                    // Inject nomor NIA asli hasil proses server spreadsheet lo
+                    document.getElementById('displayNIA').innerText = hasil.nia; 
+                    
+                    // Kustomisasi teks otomatis pesan WhatsApp biar murid gak usah capek ngetik pas laporan
+                    const waMessage = encodeURIComponent("Halo Admin Customer Service Markaz Attaallum,\nsaya sudah mengisi formulir data alumni di website dan berhasil memverifikasi kode identitas resmi.\n\nBerikut Detail Berkas Saya:\nNama: " + dataAlumni.namaLengkap + "\nNIA Resmi: " + hasil.nia + "\n\nMohon konfirmasi pendaftaran saya, terima kasih!");
+                    document.getElementById('waDirectBtn').href = "https://wa.me/201551018457?text=" + waMessage;
+                    
                     document.getElementById('registrationForm').reset();
                 } else {
-                    alert('Gagal memproses kode NIA: ' + hasil.error);
+                    alert('Sistem mendeteksi malfungsi: ' + hasil.error);
                 }
             })
             .catch(error => {
-                console.error('Error Backend!', error);
-                alert('Sistem mendeteksi kegagalan transmisi data. Sila pastikan baris scriptURL sudah diganti menggunakan URL Web App Google lo.');
+                console.error('Error Fatal!', error);
+                alert('Gagal mengirimkan transmisi data! Pastikan baris variabel scriptURL di baris 266 sudah diganti dengan Web App URL Google Script lo yang valid.');
             })
             .finally(() => {
                 submitBtn.disabled = false;
