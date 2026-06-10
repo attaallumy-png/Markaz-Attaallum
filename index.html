@@ -154,6 +154,13 @@
         #connect { padding: 40px 5%; text-align: center; background-color: #f8fafc; }
         .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
         .contact-card { background-color: var(--bg-dark-blue); color: white; padding: 12px 25px; border-radius: 8px; font-weight: bold; }
+        /* STYLE KHUSUS FORMULIR PANJANG */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label.title { font-weight: bold; display: block; margin-bottom: 5px; color: #334155; }
+        .form-group .note { font-size: 12px; color: #64748b; margin-bottom: 8px; display: block; }
+        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"] { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; }
+        .radio-group { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
+        .radio-group label { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: normal; cursor: pointer; color: #111; }
     </style>
 </head>
 <body>
@@ -206,13 +213,100 @@
         </div>
     </section>
 
-    <div id="pilihan-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 99999; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
-        <div style="background-color: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; color: #111;">
-            <h3 style="margin-bottom: 20px; font-size: 22px; font-weight: 700;">Pilih Status Administrasi</h3>
-            <button onclick="alert('Fitur pencarian data lama sedang diproses!')" style="width: 100%; background-color: #64748b; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; margin-bottom: 12px; cursor: pointer;">1. Saya Sudah Punya NIA</button>
-            <button onclick="bukaFormBelumNIA()" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; margin-bottom: 20px; cursor: pointer;">2. Saya Belum Punya NIA</button>
-            <p onclick="tutupPilihanAdmin()" style="color: #ef4444; cursor: pointer; font-size: 14px; font-weight: bold;">Batal</p>
+   [14:49, 10/06/2026] Lutpii: /* STYLE KHUSUS FORMULIR PANJANG */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label.title { font-weight: bold; display: block; margin-bottom: 5px; color: #334155; }
+        .form-group .note { font-size: 12px; color: #64748b; margin-bottom: 8px; display: block; }
+        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"] { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; }
+        .radio-group { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
+        .radio-group label { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: normal; cursor: pointer; color: #111; }
+[14:51, 10/06/2026] Lutpii: <div id="form-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 100000; justify-content: center; align-items: center; backdrop-filter: blur(5px); overflow-y: auto; padding: 20px 0;">
+        <div style="background-color: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; color: #111; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+            <h3 style="margin-bottom: 5px; font-size: 22px; font-weight: 700; color: #0a192f;">Formulir Data Alumni</h3>
+            <p style="color: #64748b; font-size: 13px; margin-bottom: 25px;">Isi data sesuai panduan untuk generate NIA otomatis.</p>
+            
+            <form id="registrationForm" onsubmit="kirimDataForm(event)">
+                
+                <div class="form-group">
+                    <label class="title">Email *</label>
+                    <input type="email" id="formEmail" placeholder="Email Anda" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">Nama Lengkap *</label>
+                    <span class="note">Tulis sesuai paspor dan gunakan HURUF KAPITAL (contoh: JOKOWI)</span>
+                    <input type="text" id="formNama" placeholder="Jawaban Anda" style="text-transform: uppercase;" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">Tempat, Tanggal Lahir *</label>
+                    <input type="text" id="formTTL" placeholder="Contoh: Jakarta, 1 Januari 2005" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">Domisili *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="domisili" value="Darrasah" required> Darrasah</label>
+                        <label><input type="radio" name="domisili" value="Sabi'"> Sabi'</label>
+                        <label><input type="radio" name="domisili" value="Asyir"> Asyir</label>
+                        <label><input type="radio" name="domisili" value="Tamin"> Tamin</label>
+                        <label><input type="radio" name="domisili" value="Tabbah"> Tabbah</label>
+                        <label><input type="radio" name="domisili" value="Yang lain"> Yang lain</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">Kekeluargaan *</label>
+                    <input type="text" id="formKekeluargaan" placeholder="Jawaban Anda" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">Tahun Kedatangan *</label>
+                    <input type="number" id="formTahun" placeholder="Jawaban Anda" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">Mediator *</label>
+                    <input type="text" id="formMediator" placeholder="Jawaban Anda" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">Jenjang *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="jenjang" value="Dirosah Khosoh" required> Dirosah Khosoh</label>
+                        <label><input type="radio" name="jenjang" value="Ma'had Buuts"> Ma'had Buuts</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">Tingkat (Dirosah Khosoh)</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tkDirosah" value="Mubtadi Awal"> Mubtadi Awal</label>
+                        <label><input type="radio" name="tkDirosah" value="Mubtadi Tsani"> Mubtadi Tsani</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutawassit Awal"> Mutawassit Awal</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutawassit Tsani"> Mutawassit Tsani</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutaqoddim Awal"> Mutaqoddim Awal</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutaqoddim Tsani"> Mutaqoddim Tsani</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="title">Tingkat (Ma'had)</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tkMahad" value="1 Idady"> 1 Idady</label>
+                        <label><input type="radio" name="tkMahad" value="2 Idady"> 2 Idady</label>
+                        <label><input type="radio" name="tkMahad" value="3 Idady"> 3 Idady</label>
+                        <label><input type="radio" name="tkMahad" value="1 Tsanawy"> 1 Tsanawy</label>
+                        <label><input type="radio" name="tkMahad" value="2 Tsanawy"> 2 Tsanawy</label>
+                        <label><input type="radio" name="tkMahad" value="3 Tsanawy"> 3 Tsanawy</label>
+                    </div>
+                </div>
+
+                <button type="submit" style="width: 100%; background-color: #1e40af; color: white; border: none; padding: 14px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 10px;">Kirim & Generate NIA 🚀</button>
+            </form>
+            <p onclick="tutupFormBelumNIA()" style="color: #ef4444; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 20px; text-align: center;">Batal / Kembali</p>
         </div>
+    </div>
     </div>
 
     <div id="form-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(10, 25, 47, 0.9); z-index: 100000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
@@ -296,10 +390,18 @@
         submitBtn.disabled = true;
         submitBtn.innerText = 'Sedang Mengolah Data... ⏳';
 
-        // Ambil data yang diketik sama alumni di website
+       // Ambil data dari form yang baru
         const dataAlumni = {
-            namaLengkap: document.getElementById('formNama').value,
-            angkatan: document.getElementById('formAngkatan').value
+            email: document.getElementById('formEmail').value,
+            namaLengkap: document.getElementById('formNama').value.toUpperCase(),
+            ttl: document.getElementById('formTTL').value,
+            domisili: document.querySelector('input[name="domisili"]:checked') ? document.querySelector('input[name="domisili"]:checked').value : "",
+            kekeluargaan: document.getElementById('formKekeluargaan').value,
+            tahunKedatangan: document.getElementById('formTahun').value,
+            mediator: document.getElementById('formMediator').value,
+            jenjang: document.querySelector('input[name="jenjang"]:checked') ? document.querySelector('input[name="jenjang"]:checked').value : "",
+            tingkatDirosah: document.querySelector('input[name="tkDirosah"]:checked') ? document.querySelector('input[name="tkDirosah"]:checked').value : "-",
+            tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-"
         };
 
         // Mulai nembak data ke Google Apps Script menggunakan Fetch API
