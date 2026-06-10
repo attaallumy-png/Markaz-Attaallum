@@ -220,7 +220,7 @@
             <h3 style="margin-bottom: 10px; font-size: 24px; font-weight: 700;">Formulir Data Alumni</h3>
             <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Silakan isi data diri Anda untuk membuat NIA otomatis.</p>
             
-            <form id="registrationForm" onsubmit="simulasiKirimForm(event)">
+         <form id="registrationForm" onsubmit="kirimDataForm(event)">
                 <div style="margin-bottom: 15px; text-align: left;">
                     <label style="font-weight: bold; display: block; margin-bottom: 5px;">Nama Lengkap:</label>
                     <input type="text" id="formNama" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
@@ -242,49 +242,97 @@
             <a href="https://www.instagram.com/attaallumarkaz" target="_blank" class="contact-card">📸 INSTAGRAM</a>
         </div>
     </section>
+    
+   <script>
+    // 1. LOGIKA UTAMA: TOMBOL MASUK (JELAJAHI SEKARANG)
+    const modal = document.getElementById('entrance-modal');
+    const exploreBtn = document.getElementById('explore-btn-modal');
+    if (exploreBtn && modal) {
+        exploreBtn.addEventListener('click', () => modal.classList.add('hide'));
+    }
 
-    <script>
-        // Modal Awal Masuk
-        const modal = document.getElementById('entrance-modal');
-        const exploreBtn = document.getElementById('explore-btn-modal');
-        if (exploreBtn && modal) {
-            exploreBtn.addEventListener('click', () => modal.classList.add('hide'));
-        }
+    // 2. LOGIKA UTAMA: MENU GARIS TIGA (SIDEBAR)
+    const menuIcon = document.querySelector('.menu-icon');
+    const sidebarMenu = document.getElementById('sidebar-menu');
+    const closeMenuBtn = document.getElementById('close-menu');
 
-        // Sidebar Menu Garis Tiga
-        const menuIcon = document.querySelector('.menu-icon');
-        const sidebarMenu = document.getElementById('sidebar-menu');
-        const closeMenuBtn = document.getElementById('close-menu');
+    if (menuIcon && sidebarMenu) {
+        menuIcon.addEventListener('click', () => sidebarMenu.classList.add('show'));
+    }
+    if (closeMenuBtn && sidebarMenu) {
+        closeMenuBtn.addEventListener('click', () => sidebarMenu.classList.remove('show'));
+    }
 
-        if (menuIcon && sidebarMenu) {
-            menuIcon.addEventListener('click', () => sidebarMenu.classList.add('show'));
-        }
-        if (closeMenuBtn && sidebarMenu) {
-            closeMenuBtn.addEventListener('click', () => sidebarMenu.classList.remove('show'));
-        }
+    // 3. KONTROL MODAL ADMINISTRASI
+    function bukaPilihanAdmin(event) {
+        event.preventDefault();
+        document.getElementById('pilihan-admin-modal').style.display = 'flex';
+    }
+    function tutupPilihanAdmin() {
+        document.getElementById('pilihan-admin-modal').style.display = 'none';
+    }
+    function bukaFormBelumNIA() {
+        tutupPilihanAdmin();
+        document.getElementById('form-admin-modal').style.display = 'flex';
+    }
+    function tutupFormBelumNIA() {
+        document.getElementById('form-admin-modal').style.display = 'none';
+    }
 
-        // Kontrol Alur Administrasi NIA
-        function bukaPilihanAdmin(event) {
-            event.preventDefault();
-            document.getElementById('pilihan-admin-modal').style.display = 'flex';
-        }
-        function tutupPilihanAdmin() {
-            document.getElementById('pilihan-admin-modal').style.display = 'none';
-        }
-        function bukaFormBelumNIA() {
-            tutupPilihanAdmin();
-            document.getElementById('form-admin-modal').style.display = 'flex';
-        }
-        function tutupFormBelumNIA() {
-            document.getElementById('form-admin-modal').style.display = 'none';
-        }
+    // ========================================================
+    // 4. MESIN BACKEND UTAMA: KIRIM DATA & GENERATE NOMOR NIA
+    // ========================================================
+    
+    // 👇👇👇 GANTI TULISAN DI BAWAH SAMA URL WEBB APP YANG LO COPY TADI 👇👇👇
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzi5Rb_VG2h65v1ENCK76kd1g2yq3YJbjOMiINZH_3EQ6NrIFSG57ozoqKg38lvOhHCwg/exec';
 
-        // Jalur Tes Pengiriman Form Front-End
-        function simulasiKirimForm(event) {
-            event.preventDefault();
-            const nama = document.getElementById('formNama').value;
-            alert('Sip, data atas nama ' + nama + ' siap ditembak ke Google Sheet! Tampilan depan lo udah 100% aman tanpa eror.');
-        }
-    </script>
+    function kirimDataForm(event) {
+        event.preventDefault(); // Mencegah halaman refresh otomatis
+        
+        const submitBtn = event.target.querySelector('button[type="submit"]');
+        const teksTombolAsli = submitBtn.innerText;
+        
+        // Ubah status tombol biar user tahu data lagi diproses
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Sedang Mengolah Data... ⏳';
+
+        // Ambil data yang diketik sama alumni di website
+        const dataAlumni = {
+            namaLengkap: document.getElementById('formNama').value,
+            angkatan: document.getElementById('formAngkatan').value
+        };
+
+        // Mulai nembak data ke Google Apps Script menggunakan Fetch API
+        fetch(scriptURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8', // Bypass CORS Block gratisan
+            },
+            body: JSON.stringify(dataAlumni)
+        })
+        .then(response => response.json()) // Tunggu balesan data dari Google Script
+        .then(hasil => {
+            if (hasil.result === 'success') {
+                tutupFormBelumNIA(); // Tutup formulir input
+                
+                // Ganti pesan alert simulasi kemarin jadi popup sistem yang langsung nampilin nomor NIA asli!
+                alert('🎉 PENDAFTARAN BERHASIL!\n\nHai ' + dataAlumni.namaLengkap + ',\nNomor Identitas Alumni (NIA) kamu adalah:\n👉 ' + hasil.nia + ' 👈\n\n*Silakan catat atau screenshot nomor ini ya!');
+                
+                document.getElementById('registrationForm').reset(); // Bersihin kotak input form
+            } else {
+                alert('Aduh eror sistem cuy: ' + hasil.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            alert('Gagal tersambung ke database! Coba cek sambungan internet lo atau setelan URL Script-nya.');
+        })
+        .finally(() => {
+            // Balikin tombol ke kondisi semula
+            submitBtn.disabled = false;
+            submitBtn.innerText = teksTombolAsli;
+        });
+    }
+</script>
 </body>
 </html>
