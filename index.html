@@ -445,37 +445,58 @@
         alert('Mantap ' + nama + '! Alur tombol depan udah aman. Sekarang tampilannya udah otomatis ngarah ke form pendaftaran murni!');
     }
 
-    <script>
-        const modal = document.getElementById('entrance-modal');
-        const exploreBtn = document.getElementById('explore-btn-modal');
-
+   <script>
+    // 1. LOGIKA UTAMA: TOMBOL MASUK (JELAJAHI SEKARANG)
+    const modal = document.getElementById('entrance-modal');
+    const exploreBtn = document.getElementById('explore-btn-modal');
+    
+    if (exploreBtn && modal) {
         exploreBtn.addEventListener('click', () => {
-            modal.classList.add('hide'); 
+            modal.classList.add('hide');
         });
-        // --- FUNGSI MENU GARIS TIGA ---
-const menuIcon = document.querySelector('.menu-icon');
-const sidebarMenu = document.getElementById('sidebar-menu');
-const closeMenuBtn = document.getElementById('close-menu');
+    }
 
-// Kalau garis tiga diklik, menu muncul
-menuIcon.addEventListener('click', () => {
-    sidebarMenu.classList.add('show');
-});
+    // 2. LOGIKA UTAMA: MENU GARIS TIGA (SIDEBAR)
+    const menuIcon = document.querySelector('.menu-icon');
+    const sidebarMenu = document.getElementById('sidebar-menu');
+    const closeMenuBtn = document.getElementById('close-menu');
 
-// Kalau tombol X diklik, menu sembunyi lagi
-closeMenuBtn.addEventListener('click', () => {
-    sidebarMenu.classList.remove('show');
-});
+    if (menuIcon && sidebarMenu) {
+        menuIcon.addEventListener('click', () => {
+            sidebarMenu.classList.add('show');
+        });
+    }
+    if (closeMenuBtn && sidebarMenu) {
+        closeMenuBtn.addEventListener('click', () => {
+            sidebarMenu.classList.remove('show');
+        });
+    }
 
-    <script>
-        function munculinPrank(event) {
-            event.preventDefault(); // Biar layarnya gak lompat ke atas
-            document.getElementById('prank-modal').style.display = 'flex';
-        }
+    // 3. LOGIKA FORM NIA: POP-UP PILIHAN STATUS ADMIN
+    function bukaPilihanAdmin(event) {
+        event.preventDefault();
+        document.getElementById('pilihan-admin-modal').style.display = 'flex';
+    }
+    function tutupPilihanAdmin() {
+        document.getElementById('pilihan-admin-modal').style.display = 'none';
+    }
+    function sudahNIA() {
+        alert('Fitur ngecek nomor NIA lama lagi diproses backend cuy. Fokus ke daftar baru dulu!');
+    }
+    function bukaFormBelumNIA() {
+        tutupPilihanAdmin(); 
+        document.getElementById('form-admin-modal').style.display = 'flex'; 
+    }
+    function tutupFormBelumNIA() {
+        document.getElementById('form-admin-modal').style.display = 'none';
+    }
 
-        function tutupPrank() {
-            document.getElementById('prank-modal').style.display = 'none';
-        }
-    </script>
+    // 4. LOGIKA FORM NIA: SIMULASI TOMBOL KIRIM FORMULIR
+    function simulasiKirimForm(event) {
+        event.preventDefault();
+        const nama = document.getElementById('formNama').value;
+        alert('Mantap ' + nama + '! Alur pendaftaran depan udah aman. Langkah selanjutnya tinggal kita hubungin ke Spreadsheet!');
+    }
+</script>
 </body>
 </html>
