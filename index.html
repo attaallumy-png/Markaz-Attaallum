@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markaz At-Ta'allum | Website Resmi</title>
+    <title>Markaz At-Ta'allum | Portal Resmi</title>
     
     <link rel="icon" href="logo.png" type="image/png">
     
@@ -140,9 +140,10 @@
         .sidebar-links a { font-size: 15px; font-weight: 500; color: var(--text-dim); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .sidebar-links a:hover { color: var(--accent-glow); border-color: var(--accent-glow); }
 
-        /* 5. HERO SECTION */
-        #hero { padding: 70px 6% 40px; text-align: center; }
-        #hero h1 { font-size: 40px; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px; }
+        /* 5. HERO SECTION UPGRADED WITH LOGO & NEW GREETING */
+        #hero { padding: 60px 6% 30px; text-align: center; }
+        .hero-logo { width: 90px; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(59,130,246,0.2)); }
+        #hero h1 { font-size: 38px; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px; }
         #hero p { font-size: 15px; color: var(--text-dim); max-width: 600px; margin: 0 auto; }
 
         /* 6. MODUL GRID UTAMA */
@@ -175,7 +176,7 @@
         .service-card h3 { font-size: 19px; margin-bottom: 12px; font-weight: 600; }
         .service-card p { font-size: 13px; color: var(--text-dim); margin-bottom: 25px; min-height: 50px; }
         
-        /* FIXED FLEX CENTER ARROW BUTTON */
+        /* FIXED PRECISION ARROW BUTTONS */
         .btn-arrow {
             display: inline-flex; 
             width: 45px; 
@@ -189,18 +190,13 @@
             border: 1px solid rgba(255,255,255,0.05);
             cursor: pointer;
         }
-        .btn-arrow i {
-            font-size: 16px;
-            margin: 0;
-            padding: 0;
-            line-height: 1;
-        }
+        .btn-arrow i { font-size: 15px; margin: 0; padding: 0; line-height: 1; }
         .service-card:hover .btn-arrow {
             background-color: var(--accent-glow);
             box-shadow: var(--neon-glow);
         }
 
-        /* 7. OVERLAY MODAL FIX SYSTEM */
+        /* 7. OVERLAY MODAL CONFIGURATION */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -226,7 +222,7 @@
         }
 
         .scroll-form {
-            max-height: 470px;
+            max-height: 440px;
             overflow-y: auto;
             padding-right: 8px;
             margin-top: 20px;
@@ -253,7 +249,7 @@
         .radio-group label { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color: var(--text-dim); }
         .radio-group input[type="radio"] { width: 16px; height: 16px; accent-color: var(--accent-glow); cursor: pointer; }
 
-        /* LIST PROGRAM PEMBELAJARAN STYLE */
+        /* LIST 7 PROGRAM PEMBELAJARAN STYLE */
         .program-item-row {
             display: flex;
             align-items: center;
@@ -288,9 +284,39 @@
             background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow);
         }
 
-        /* 8. FOOTER COMPLEX DESIGN */
+        /* LUXURY DIGITAL TICKET DESIGN FOR SCREENSHOTS */
+        .ticket-wrapper {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 2px solid var(--accent-glow);
+            box-shadow: var(--neon-glow);
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            text-align: left;
+            margin: 25px 0;
+        }
+        .ticket-header {
+            font-weight: 600;
+            color: var(--accent-glow);
+            border-bottom: 1px dashed rgba(255,255,255,0.15);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            text-align: center;
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .ticket-field { margin-bottom: 15px; }
+        .ticket-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+        .ticket-value { font-size: 17px; font-weight: 600; color: white; margin-top: 2px; }
+        .ticket-status {
+            display: inline-block; background-color: rgba(234,179,8,0.15); color: #eab308;
+            padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-top: 5px;
+        }
+
+        /* FOOTER SYSTEM */
         #connect { padding: 60px 6% 40px; border-top: 1px solid rgba(255,255,255,0.03); }
-        #connect h2 { font-size: 18px; letter-spacing: 1px; margin-bottom: 30px; font-weight: 600; }
+        #connect h2 { font-size: 16px; letter-spacing: 1px; margin-bottom: 30px; font-weight: 600; }
         .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
         .contact-card { 
             background-color: var(--bg-card); padding: 15px 25px; 
@@ -305,7 +331,7 @@
 
     <div id="loader">
         <div class="loader-spinner"></div>
-        <p style="margin-top: 20px; letter-spacing: 3px; font-size: 11px; color: var(--text-dim); font-weight: 300;">INITIALIZING PORTAL CORRIDOR...</p>
+        <p style="margin-top: 20px; letter-spacing: 3px; font-size: 11px; color: var(--text-dim); font-weight: 300;">INITIALIZING PORTAL SYSTEM...</p>
     </div>
 
     <div id="entrance-modal">
@@ -332,12 +358,13 @@
             <a href="#" onclick="event.preventDefault(); document.getElementById('sidebar-menu').classList.remove('show'); window.open('https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk');"><i class="fa-solid fa-book-open" style="margin-right: 10px;"></i> Profil Attaallum</a>
             <a href="#services" onclick="document.getElementById('sidebar-menu').classList.remove('show');"><i class="fa-solid fa-folder" style="margin-right: 10px;"></i> Administrasi NIA</a>
             <a href="#" onclick="event.preventDefault(); document.getElementById('sidebar-menu').classList.remove('show'); document.getElementById('program-pembelajaran-modal').style.display='flex';"><i class="fa-solid fa-graduation-cap" style="margin-right: 10px;"></i> Program Pembelajaran</a>
-            <a href="https://wa.me/201551018457" target="_blank"><i class="fa-solid fa-headset" style="margin-right: 10px;"></i> Customer Service (CS)</a>
+            <a href="https://wa.me/201551018457" target="_blank"><i class="fa-solid fa-headset" style="margin-right: 10px;"></i> Hubungi CS Admin</a>
         </div>
     </div>
 
     <section id="hero">
-        <h1>Portal Terpadu Attaallum</h1>
+        <img src="logo.png" alt="Logo Attaallum" class="hero-logo">
+        <h1>Selamat Datang, Sobat Attaallum</h1>
         <p>Sistem pengolahan data mandiri untuk mempermudah akses rekam berkas, pelaporan program pembelajaran, serta penerbitan Nomor Identitas Attaallum.</p>
     </section>
 
@@ -374,7 +401,7 @@
             <h3 style="margin-bottom: 10px; font-size: 21px;">Status Administrasi</h3>
             <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 30px;">Tentukan status Nomor Identitas Attaallum (NIA) Anda saat ini.</p>
             
-            <button onclick="alert('Fitur pelacakan data lama sedang diintegrasikan dengan database pusat.')" class="btn-glow" style="width: 100%; margin-bottom: 15px; background-color: #334155; box-shadow: none;">1. Saya Sudah Punya NIA</button>
+            <button onclick="bukaProgramLangsung()" class="btn-glow" style="width: 100%; margin-bottom: 15px; background-color: #334155; box-shadow: none;">1. Saya Sudah Punya NIA</button>
             <button onclick="bukaFormBelumNIA()" class="btn-glow" style="width: 100%;">2. Saya Belum Punya NIA</button>
             
             <p onclick="tutupPilihanAdmin()" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 25px;">BATALKAN</p>
@@ -387,23 +414,19 @@
             <p style="color: var(--text-dim); font-size: 12px; text-align: left; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">Isi data secara valid untuk penerbitan Nomor Identitas Attaallum otomatis.</p>
             
             <form id="registrationForm" class="scroll-form" onsubmit="kirimDataForm(event)">
-                
                 <div class="form-group">
                     <label class="title">Email Aktif *</label>
                     <input type="email" id="formEmail" placeholder="nama@domain.com" required>
                 </div>
-
                 <div class="form-group">
                     <label class="title">Nama Lengkap *</label>
                     <span class="note">Wajib sesuai paspor & menggunakan HURUF KAPITAL (contoh: JOKOWI)</span>
                     <input type="text" id="formNama" placeholder="Jawaban Anda" style="text-transform: uppercase;" required>
                 </div>
-
                 <div class="form-group">
                     <label class="title">Tempat, Tanggal Lahir *</label>
                     <input type="text" id="formTTL" placeholder="Contoh: Jakarta, 1 Januari 2005" required>
                 </div>
-
                 <div class="form-group">
                     <label class="title">Domisili di Mesir *</label>
                     <div class="radio-group">
@@ -415,22 +438,18 @@
                         <label><input type="radio" name="domisili" value="Yang lain"> Yang lain</label>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="title">Kekeluargaan *</label>
                     <input type="text" id="formKekeluargaan" placeholder="Jawaban Anda" required>
                 </div>
-
                 <div class="form-group">
                     <label class="title">Tahun Kedatangan di Mesir *</label>
                     <input type="number" id="formTahun" placeholder="Contoh: 2024" required>
                 </div>
-
                 <div class="form-group">
                     <label class="title">Mediator Pendaftaran *</label>
                     <input type="text" id="formMediator" placeholder="Jawaban Anda" required>
                 </div>
-
                 <div class="form-group">
                     <label class="title">Jenjang Pendidikan Saat Ini *</label>
                     <div class="radio-group">
@@ -438,10 +457,8 @@
                         <label><input type="radio" name="jenjang" value="Ma'had Buuts"> Ma'had Buuts</label>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="title">Tingkat Kelas (Jika Dirosah Khosoh)</label>
-                    <span class="note">*Pilih salah satu jika menempuh jalur Dirosah</span>
                     <div class="radio-group">
                         <label><input type="radio" name="tkDirosah" value="Mubtadi Awal"> Mubtadi Awal</label>
                         <label><input type="radio" name="tkDirosah" value="Mubtadi Tsani"> Mubtadi Tsani</label>
@@ -451,10 +468,8 @@
                         <label><input type="radio" name="tkDirosah" value="Mutaqoddim Tsani"> Mutaqoddim Tsani</label>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="title">Tingkat Kelas (Jika Ma'had Buuts)</label>
-                    <span class="note">*Pilih salah satu jika menempuh jalur Ma'had</span>
                     <div class="radio-group">
                         <label><input type="radio" name="tkMahad" value="1 Idady"> 1 Idady</label>
                         <label><input type="radio" name="tkMahad" value="2 Idady"> 2 Idady</label>
@@ -464,7 +479,6 @@
                         <label><input type="radio" name="tkMahad" value="3 Tsanawy"> 3 Tsanawy</label>
                     </div>
                 </div>
-
                 <button type="submit" class="btn-glow" style="width: 100%; margin-top: 15px; border-radius: 8px;">VALIDASI & DAFTARKAN NIA</button>
             </form>
             <p onclick="tutupFormBelumNIA()" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px; text-align: center;">KEMBALI</p>
@@ -474,75 +488,97 @@
     <div class="modal-overlay" id="program-pembelajaran-modal">
         <div class="modal-box" style="max-width: 600px; padding: 35px 25px;">
             <h3 style="font-size: 22px; font-weight: 600; text-align: left; color: #fff; margin-bottom: 5px;"><i class="fa-solid fa-layer-group" style="color: var(--accent-glow); margin-right: 10px;"></i>Program Pembelajaran</h3>
-            <p style="color: var(--text-dim); font-size: 12px; text-align: left; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">Daftar program kelas studi intensif reguler Markaz At-Ta'allum.</p>
+            <p style="color: var(--text-dim); font-size: 12px; text-align: left; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">Daftar klaster bidang studi intensif reguler Markaz At-Ta'allum.</p>
             
             <div class="scroll-form">
                 <div class="program-item-row">
-                    <div class="program-info">
-                        <div class="program-avatar-mock"><i class="fa-solid fa-language"></i></div>
-                        <span class="program-name">Program Lughoh Azhary</span>
-                    </div>
-                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas Lughoh Azhary dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-language"></i></div><span class="program-name">Program Lughoh Azhary</span></div>
+                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Lughoh Azhary')">Daftar</button>
                 </div>
                 <div class="program-item-row">
-                    <div class="program-info">
-                        <div class="program-avatar-mock"><i class="fa-solid fa-file-pen"></i></div>
-                        <span class="program-name">Program Imtihan Qobul</span>
-                    </div>
-                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas Imtihan Qobul dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-file-pen"></i></div><span class="program-name">Program Imtihan Qobul</span></div>
+                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Imtihan Qobul')">Daftar</button>
                 </div>
                 <div class="program-item-row">
-                    <div class="program-info">
-                        <div class="program-avatar-mock"><i class="fa-solid fa-book"></i></div>
-                        <span class="program-name">Program 1 Tsanawi</span>
-                    </div>
-                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas 1 Tsanawi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-book"></i></div><span class="program-name">Program 1 Tsanawi</span></div>
+                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 1 Tsanawi')">Daftar</button>
                 </div>
                 <div class="program-item-row">
-                    <div class="program-info">
-                        <div class="program-avatar-mock"><i class="fa-solid fa-child"></i></div>
-                        <span class="program-name">Program 2 I'dadi</span>
-                    </div>
-                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas 2 I\'dadi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-child"></i></div><span class="program-name">Program 2 I'dadi</span></div>
+                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 2 I\'dadi')">Daftar</button>
                 </div>
                 <div class="program-item-row">
-                    <div class="program-info">
-                        <div class="program-avatar-mock"><i class="fa-solid fa-book-bookmark"></i></div>
-                        <span class="program-name">Program 2 Tsanawi</span>
-                    </div>
-                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas 2 Tsanawi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-book-bookmark"></i></div><span class="program-name">Program 2 Tsanawi</span></div>
+                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 2 Tsanawi')">Daftar</button>
                 </div>
                 <div class="program-item-row">
-                    <div class="program-info">
-                        <div class="program-avatar-mock"><i class="fa-solid fa-trophy"></i></div>
-                        <span class="program-name">Program Musabaqoh 3 I'dadi</span>
-                    </div>
-                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas Musabaqoh 3 I\'dadi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-trophy"></i></div><span class="program-name">Program Musabaqoh 3 I'dadi</span></div>
+                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Musabaqoh 3 I\'dadi')">Daftar</button>
                 </div>
                 <div class="program-item-row">
-                    <div class="program-info">
-                        <div class="program-avatar-mock"><i class="fa-solid fa-award"></i></div>
-                        <span class="program-name">Program Musabaqoh 3 Tsanawi</span>
-                    </div>
-                    <button class="btn-daftar-prog" onclick="alert('Pendaftaran kelas Musabaqoh 3 Tsanawi dikunci. Hubungi CS untuk info kuota.')">Daftar</button>
+                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-award"></i></div><span class="program-name">Program Musabaqoh 3 Tsanawi</span></div>
+                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Musabaqoh 3 Tsanawi')">Daftar</button>
                 </div>
             </div>
-            
+            p
             <p onclick="document.getElementById('program-pembelajaran-modal').style.display='none';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px; text-align: center;">TUTUP PANEL</p>
         </div>
     </div>
 
-    <div class="modal-overlay" id="success-admin-modal">
+    <div class="modal-overlay" id="input-nia-program-modal">
+        <div class="modal-box" style="max-width: 450px;">
+            <i class="fa-solid fa-key" style="font-size: 32px; color: var(--accent-glow); margin-bottom: 15px;"></i>
+            <h3 style="font-size: 20px;" id="titleNiaProg">Otorisasi Berkas Program</h3>
+            <p style="color: var(--text-dim); font-size: 12px; margin-bottom: 25px;">Masukkan Nomor Identitas Attaallum (NIA) resmi Anda untuk memvalidasi pemesanan kursi kelas.</p>
+            
+            <form onsubmit="generateTiketProgram(event)">
+                <div class="form-group">
+                    <label class="title">Nomor NIA Anda *</label>
+                    <input type="text" id="inputNiaUser" placeholder="Contoh: NIA-2026-001" required style="text-transform: uppercase;">
+                </div>
+                <button type="submit" class="btn-glow" style="width: 100%; border-radius: 8px;">GENERATE TIKET PROGRAM 🎫</button>
+            </form>
+            <p onclick="document.getElementById('input-nia-program-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">KEMBALI</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="tiket-pendaftaran-modal">
         <div class="modal-box" style="max-width: 460px;">
+            <i class="fa-solid fa-clipboard-check" style="font-size: 45px; color: #10b981;"></i>
+            <h3 style="font-size: 22px; margin-top: 10px;">Tiket Pendaftaran Generated!</h3>
+            <p style="color: var(--text-dim); font-size: 12px; margin-top: 5px;">Silakan screenshot (SS) area tiket di bawah ini untuk dikirimkan ke Admin.</p>
+            
+            <div class="ticket-wrapper">
+                <div class="ticket-header">BUKTI REGISTRASI PROGRAM</div>
+                <div class="ticket-field">
+                    <div class="ticket-label">IDENTITAS MAHASISWA (NIA)</div>
+                    <div class="ticket-value" id="tktNiaValue">NIA-XXXX-XXX</div>
+                </div>
+                <div class="ticket-field">
+                    <div class="ticket-label">PROGRAM LAYANAN YANG DIPILIH</div>
+                    <div class="ticket-value" id="tktProgValue">NAMA PROGRAM</div>
+                </div>
+                <div class="ticket-field">
+                    <div class="ticket-label">STATUS VALIDASI BERKAS</div>
+                    <div class="ticket-status">PENDING VERIFIKASI CS</div>
+                </div>
+            </div>
+            
+            <a id="waTiketBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: #22c55e; box-shadow: 0 0 15px rgba(34,197,94,0.3);"><i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i> KIRIM TIKET KE WA ADMIN</a>
+            <p onclick="location.reload()" style="color: var(--text-dim); cursor: pointer; font-size: 13px; font-weight: 500; margin-top: 20px;">KEMBALI KE BERANDA</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="success-admin-modal">
+        <div class="modal-box" style="max-width: 450px;">
             <i class="fa-solid fa-circle-check" style="font-size: 55px; color: #10b981; filter: drop-shadow(0 0 10px rgba(16,185,129,0.4));"></i>
             <h3 style="font-size: 24px; margin-top: 15px; color: #fff;">Registrasi Berhasil!</h3>
             <p style="color: var(--text-dim); margin-top: 8px; font-size: 13px;">Arsip digital Anda sukses terverifikasi. Nomor Identitas Attaallum (NIA) otomatis Anda adalah:</p>
             
             <div id="displayNIA" style="background-color: var(--bg-input); padding: 18px; border-radius: 10px; font-size: 26px; font-weight: 700; color: var(--accent-glow); letter-spacing: 4px; margin: 25px 0; border: 2px dashed var(--accent-glow); text-shadow: var(--neon-glow);">NIA-XXXX</div>
             
-            <p style="font-size: 11px; color: var(--text-dim); margin-bottom: 25px;">*Harap amankan kode NIA Anda, kemudian laporkan hasil registrasi ini ke pihak admin via WhatsApp di bawah.</p>
-            
-            <a id="waDirectBtn" href="https://wa.me/201551018457" target="_blank" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: #22c55e; box-shadow: 0 0 15px rgba(34,197,94,0.4);"><i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i> HUBUNGI CS ADMIN</a>
+            <p style="font-size: 11px; color: var(--text-dim); margin-bottom: 25px;">*Jangan lupa di-screenshot, kemudian klik tombol di bawah untuk melaporkan kode Anda ke CS.</p>
+            <a id="waDirectBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: #22c55e; box-shadow: 0 0 15px rgba(34,197,94,0.4);"><i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i> HUBUNGI CS ADMIN</a>
         </div>
     </div>
 
@@ -557,7 +593,9 @@
     </section>
 
     <script>
-        // 1. SINEMATIK LOADER TIMER HANDLING
+        let selectedProgramGlobal = '';
+
+        // 1. TIMED LOADER SCREEN
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
@@ -566,14 +604,14 @@
             }, 1200); 
         });
 
-        // 2. ENTRANCE SCREEN LOCK CONTROLLER
+        // 2. ENTRANCE SCREEN LOCK
         const modalEnt = document.getElementById('entrance-modal');
         const exploreBtn = document.getElementById('explore-btn-modal');
         if (exploreBtn && modalEnt) {
             exploreBtn.addEventListener('click', () => modalEnt.classList.add('hide'));
         }
 
-        // 3. RESPONSIVE SIDEBAR NAVIGATION TOGGLE
+        // 3. RESPONSIVE SIDEBAR NAVIGATION
         const menuIcon = document.querySelector('.menu-icon');
         const sidebarMenu = document.getElementById('sidebar-menu');
         const closeMenuBtn = document.getElementById('close-menu');
@@ -585,7 +623,7 @@
             closeMenuBtn.addEventListener('click', () => sidebarMenu.classList.remove('show'));
         }
 
-        // 4. POPUP MANAGEMENT CONTROL INTERFACE
+        // 4. POPUP MANAGEMENT INTERFACE CONTROL
         function bukaPilihanAdmin(event) {
             event.preventDefault();
             document.getElementById('pilihan-admin-modal').style.display = 'flex';
@@ -600,17 +638,44 @@
         function tutupFormBelumNIA() {
             document.getElementById('form-admin-modal').style.display = 'none';
         }
-        function tutupSemuaModal() {
-            location.reload(); // Hard reset balik ke semula setelah selesai
+        
+        // REQ: JIKA SUDAH PUNYA NIA, LANGSUNG JEBRET BUKA MODAL PILIHAN 7 PROGRAM
+        function bukaProgramLangsung() {
+            tutupPilihanAdmin();
+            document.getElementById('program-pembelajaran-modal').style.display = 'flex';
+        }
+
+        // 5. PROGRAM LAYANAN HANDLING ALUR TIKET
+        function mintaNiaProgram(namaProgram) {
+            selectedProgramGlobal = namaProgram;
+            document.getElementById('program-pembelajaran-modal').style.display = 'none';
+            document.getElementById('titleNiaProg').innerText = 'Otorisasi - ' + namaProgram;
+            document.getElementById('input-nia-program-modal').style.display = 'flex';
+        }
+
+        function generateTiketProgram(event) {
+            event.preventDefault();
+            const niaUser = document.getElementById('inputNiaUser').value.toUpperCase();
+            
+            document.getElementById('input-nia-program-modal').style.display = 'none';
+            document.getElementById('tiket-pendaftaran-modal').style.display = 'flex';
+            
+            // Pasang teks ke dalam box tiket digital
+            document.getElementById('tktNiaValue').innerText = niaUser;
+            document.getElementById('tktProgValue').innerText = selectedProgramGlobal;
+            
+            // Siapkan teks otomatis ke WhatsApp Customer Service
+            const waText = encodeURIComponent("Halo Admin Customer Service Markaz Attaallum,\nsaya mau mendaftar program pembelajaran di website.\n\nBerikut Bukti Tiket Pendaftaran Saya:\nNomor NIA: " + niaUser + "\nProgram Pilihan: " + selectedProgramGlobal + "\nStatus: Pending Verifikasi\n\nSaya lampirkan hasil screenshot tiket digital resmi saya. Mohon konfirmasinya!");
+            document.getElementById('waTiketBtn').href = "https://wa.me/201551018457?text=" + waText;
         }
 
         // ========================================================================
-        // 5. KABEL TRANSMISI DATA SPREADSHEET: SUT SCRIPT URL SAKTI LO DI SINI !!!
+        // 6. KABEL TRANSMISI DATA SPREADSHEET: ISI SCRIPT URL LO DI BAWAH INI !!!
         // ========================================================================
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzi5Rb_VG2h65v1ENCK76kd1g2yq3YJbjOMiINZH_3EQ6NrIFSG57ozoqKg38lvOhHCwg/exec';
         // ========================================================================
 
-        // 6. FORM DISPATCH ENGINE (FETCH API WITH DATA INJECTION)
+        // 7. NEW NIA REGISTRATION DISPATCH ENGINE
         function kirimDataForm(event) {
             event.preventDefault();
             
@@ -643,12 +708,9 @@
                 if (hasil.result === 'success') {
                     tutupFormBelumNIA();
                     document.getElementById('success-admin-modal').style.display = 'flex';
-                    
-                    // Inject nomor NIA asli hasil proses server spreadsheet lo
                     document.getElementById('displayNIA').innerText = hasil.nia; 
                     
-                    // Kustomisasi teks otomatis pesan WhatsApp biar murid gak usah capek ngetik pas laporan
-                    const waMessage = encodeURIComponent("Halo Admin Customer Service Markaz Attaallum,\nsaya sudah mengisi formulir data alumni di website dan berhasil memverifikasi kode identitas resmi.\n\nBerikut Detail Berkas Saya:\nNama: " + dataAlumni.namaLengkap + "\nNIA Resmi: " + hasil.nia + "\n\nMohon konfirmasi pendaftaran saya, terima kasih!");
+                    const waMessage = encodeURIComponent("Halo Admin Customer Service Markaz Attaallum,\nsaya sudah mengisi formulir data alumni baru di website dan sukses memverifikasi berkas.\n\nBerikut Detail Kode Saya:\nNama: " + dataAlumni.namaLengkap + "\nNomor NIA Resmi: " + hasil.nia + "\n\nMohon diaktivasi data identitas saya, terima kasih!");
                     document.getElementById('waDirectBtn').href = "https://wa.me/201551018457?text=" + waMessage;
                     
                     document.getElementById('registrationForm').reset();
@@ -658,7 +720,7 @@
             })
             .catch(error => {
                 console.error('Error Fatal!', error);
-                alert('Gagal mengirimkan transmisi data! Pastikan baris variabel scriptURL di baris 266 sudah diganti dengan Web App URL Google Script lo yang valid.');
+                alert('Gagal mengirimkan transmisi data! Pastikan baris variabel scriptURL di baris 332 sudah diganti dengan Web App URL Google Script lo.');
             })
             .finally(() => {
                 submitBtn.disabled = false;
