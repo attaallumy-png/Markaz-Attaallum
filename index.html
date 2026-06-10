@@ -730,6 +730,7 @@
             submitBtn.disabled = true;
             submitBtn.innerText = 'MEMPROSES STRUKTUR DATA... ⏳';
 
+           // 👇 COBA CEK BAGIAN INI DI SCRIPT JAVASCRIPT GITHUB LO 👇
             const dataAlumni = {
                 email: document.getElementById('formEmail').value,
                 namaLengkap: document.getElementById('formNama').value.toUpperCase(),
@@ -740,8 +741,10 @@
                 mediator: document.getElementById('formMediator').value,
                 jenjang: document.querySelector('input[name="jenjang"]:checked') ? document.querySelector('input[name="jenjang"]:checked').value : "",
                 tingkatDirosah: document.querySelector('input[name="tkDirosah"]:checked') ? document.querySelector('input[name="tkDirosah"]:checked').value : "-",
-                tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-"
+                tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-",
+                noHP: document.getElementById('formNoHP').value
             };
+            
 
             fetch(scriptURL, {
                 method: 'POST',
