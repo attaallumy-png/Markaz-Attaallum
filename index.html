@@ -363,7 +363,7 @@
         }
 
         /* ========================================= */
-        /* GAYA TAALO V2 (GEMINI STYLE)              */
+        /* GAYA TAALO V2 (GEMINI STYLE) REVISED      */
         /* ========================================= */
         .taalo-v2-container {
             max-width: 800px;
@@ -374,13 +374,17 @@
             align-items: center;
             border-top: 1px solid rgba(255,255,255,0.05);
         }
+        
+        /* 👇👇 UPDATE AVATAR: TRANSPARAN & BEBAS LINGKARAN 👇👇 */
         .taalo-v2-avatar-big {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #0ea5e9;
-            box-shadow: 0 0 30px rgba(14, 165, 233, 0.5);
-            margin-bottom: 20px;
+            width: 170px; /* Ukuran dibesarkan */
+            height: 170px;
+            object-fit: contain; /* Biar gambar gak gepeng/melar */
+            background: transparent; /* Pastikan transparan */
+            border: none; /* Hilangkan garis pinggir */
+            border-radius: 0; /* Hilangkan lingkaran dasar */
+            filter: drop-shadow(0 0 25px rgba(14, 165, 233, 0.7)); /* Efek glow neon mengikuti bentuk gambar */
+            margin-bottom: 15px;
             animation: floatTaalo 3s ease-in-out infinite;
         }
         @keyframes floatTaalo {
@@ -729,7 +733,7 @@
         <div class="taalo-v2-chat-area" id="taaloV2Body"></div>
         
         <div class="taalo-v2-input-wrapper">
-            <input type="text" id="taaloV2Input" placeholder="Tanya seputar pendaftaran, NIA, atau program..." onkeypress="if(event.key === 'Enter') sendTaaloV2Msg()">
+            <input type="text" id="taaloV2Input" placeholder="Tanya seputar pendaftaran, NIA, program, atau pendiri..." onkeypress="if(event.key === 'Enter') sendTaaloV2Msg()">
             <button class="taalo-v2-send-btn" onclick="sendTaaloV2Msg()">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
@@ -750,7 +754,7 @@
         let selectedProgramGlobal = '';
 
         // =========================================
-        // OTAK TAALO V2 (GEMINI STYLE)
+        // OTAK TAALO V2 (GEMINI STYLE) - SUPER LENGKAP
         // =========================================
         function sendTaaloV2Msg() {
             const inputField = document.getElementById('taaloV2Input');
@@ -773,22 +777,37 @@
                 let aiResponse = "";
                 let lowerText = userText.toLowerCase();
 
+                // DATABASE PENGETAHUAN BERSUMBER DARI BOOKLET PDF
                 if (lowerText.includes('nia') || lowerText.includes('daftar')) {
-                    aiResponse = "Untuk mengurus NIA (Nomor Identitas Attaallum), Sobat bisa langsung mengisi formulir pendaftaran di atas ya!";
-                } else if (lowerText.includes('program') || lowerText.includes('lughoh')) {
-                    aiResponse = "Markaz At-Ta'allum punya 7 program unggulan. Sobat bisa klik tombol 'Program Pembelajaran' di menu utama untuk melihatnya.";
-                } else if (lowerText.includes('lokasi') || lowerText.includes('alamat')) {
-                    aiResponse = "Lokasi Markaz At-Ta'allum ada di Kairo, Mesir. Cek Google Maps di bagian paling bawah website ini!";
-                } else if (lowerText.includes('halo') || lowerText.includes('assalamualaikum')) {
-                    aiResponse = "Wa'alaikumsalam! Halo! Ada yang bisa Taalo bantu seputar pendaftaran atau program Markaz?";
+                    aiResponse = "Untuk mengurus NIA (Nomor Identitas Attaallum), Sobat bisa langsung mengisi formulir pendaftaran di halaman ini ya!";
+                } else if (lowerText.includes('program') || lowerText.includes('kelas') || lowerText.includes('unggulan') || lowerText.includes('privat')) {
+                    aiResponse = "Markaz At-Ta'allum punya 3 jenis program utama nih! 1) Program Unggulan (Qobul, Musabaqoh I'dady/Tsanawi, Lughoh Azhary). 2) Program Istimewa (Matan Ajrumiyyah, Mawaris, dll). 3) Program Privat sesuai request. Mau daftar yang mana?";
+                } else if (lowerText.includes('metode') || lowerText.includes('fasilitas') || lowerText.includes('suasana') || lowerText.includes('belajar')) {
+                    aiResponse = "Metode belajar kami itu Interaktif, Hangat, dan Menyenangkan dengan pendekatan 3 tahap: Mau, Sadar, Tekad! Fasilitasnya juga mantap, ada ruangan nyaman, modul, sampai diselingi games edukatif.";
+                } else if (lowerText.includes('alur') || lowerText.includes('tahap') || lowerText.includes('perjalanan') || lowerText.includes('step')) {
+                    aiResponse = "Peta perjalanan pelajar di Markaz dimulai dari: 1) Dirosah Khossoh (fokus B.Arab), 2) Imtihan Qobul, 3) Tingkat I'dadi/Tsanawi, lalu 4) Musabaqoh (ujian akselerasi ke Al-Azhar).";
+                } else if (lowerText.includes('visi') || lowerText.includes('misi') || lowerText.includes('tujuan')) {
+                    aiResponse = "Visi Markaz At-Ta'allum adalah menjadi pusat pembelajaran interaktif yang mengembangkan ilmu, adab, dan percaya diri murid. Misi kami sangat fokus pada pendampingan personal!";
+                } else if (lowerText.includes('profil') || lowerText.includes('sejarah') || lowerText.includes('founder') || lowerText.includes('attaallum')) {
+                    aiResponse = "Markaz At-Ta'allum didirikan pada tahun 2024 oleh Kak Hilwah Habibah. Kami hadir untuk membantu pelajar di Mesir memahami materi dengan lebih ringan, menyenangkan, dan beradab. Cek menu Profil di kiri atas ya!";
+                } else if (lowerText.includes('lokasi') || lowerText.includes('alamat') || lowerText.includes('kontak') || lowerText.includes('ig') || lowerText.includes('hubungi')) {
+                    aiResponse = "Markaz berlokasi di Hayy Sabik, Kairo, Mesir. Sobat bisa kontak kami via WA (+20 155 101 8457), Instagram (@attaallumarkaz), atau email (attaallumy@gmail.com).";
+                
+                // 👇 EASTER EGG SI PEMBUAT WEBSITE 👇
+                } else if (lowerText.includes('developer') || lowerText.includes('siapa yang buat') || lowerText.includes('pembuat') || lowerText.includes('buat web') || lowerText.includes('programmer')) {
+                    aiResponse = "Website canggih ini dibuat oleh Kak Luthfi Al-Fatih yang ganteng parah! 😎🔥 Full-stack developer kebanggaan Markaz At-Ta'allum!";
+                // 👆 ===================================== 👆
+
+                } else if (lowerText.includes('halo') || lowerText.includes('assalamualaikum') || lowerText.includes('hai')) {
+                    aiResponse = "Wa'alaikumsalam! Halo Sobat! Ada yang bisa Taalo bantu seputar program, metode belajar, atau info pendaftaran Markaz?";
                 } else {
-                    aiResponse = "Maaf, Taalo belum mengerti. 😅 Coba gunakan kata kunci seperti 'NIA', 'Daftar', 'Program', atau 'Alamat'.";
+                    aiResponse = "Maaf, Taalo belum mengerti. 😅 Coba gunakan kata kunci spesifik seperti 'Profil', 'Fasilitas', 'Program', 'Alur', 'Kontak', atau 'Siapa yang buat web ini'.";
                 }
 
-                // Munculin balasan Taalo
+                // Munculin balasan Taalo (Avatar kecil juga dibikin transparan & proporsional)
                 chatBody.innerHTML += `
                     <div style="display: flex; gap: 12px; align-items: flex-start; max-width: 90%; margin-top: 5px;">
-                        <img src="taalo.png" style="width: 35px; height: 35px; border-radius: 50%; border: 1px solid #0ea5e9; margin-top: 2px;">
+                        <img src="taalo.png" style="width: 35px; height: 35px; object-fit: contain; background: transparent; filter: drop-shadow(0 0 5px rgba(14,165,233,0.5)); margin-top: 2px;">
                         <div style="background: #1e293b; color: #e2e8f0; padding: 12px 20px; border-radius: 20px; border-bottom-left-radius: 0; font-size: 14px; line-height: 1.5; border: 1px solid rgba(255,255,255,0.05);">
                             ${aiResponse}
                         </div>
@@ -873,7 +892,7 @@
         }
 
         // ========================================================================
-        // 6. KABEL TRANSMISI DATA SPREADSHEET: ISI SCRIPT URL LO DI BAWAH INI !!!
+        // 6. KABEL TRANSMISI DATA SPREADSHEET
         // ========================================================================
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzi5Rb_VG2h65v1ENCK76kd1g2yq3YJbjOMiINZH_3EQ6NrIFSG57ozoqKg38lvOhHCwg/exec';
         // ========================================================================
