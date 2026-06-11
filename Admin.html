@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markaz At-Ta'allum | Admin Control Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Markaz At-Ta'allum | Portal Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* PURE LUXURY MINIMALIST VARIABLES */
+        /* LUXURY & WARM VARIABLES */
         :root {
-            --bg-deep: #050505;       
-            --bg-card: rgba(18, 18, 18, 0.6);       
-            --bg-input: rgba(255, 255, 255, 0.02);      
-            --accent-glow: #C5A059; /* Matte Gold */
+            --bg-deep: #0b1120;       /* Midnight Slate (Lebih adem dari hitam pekat) */
+            --bg-card: rgba(15, 23, 42, 0.65);       
+            --bg-input: rgba(255, 255, 255, 0.04);      
+            --accent-glow: #d4af37;   /* Soft Gold */
             --text-main: #f8fafc;     
-            --text-dim: #71717a;      
-            --glass-border: 1px solid rgba(197, 160, 89, 0.15);
-            --luxury-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            --text-dim: #94a3b8;      
+            --glass-border: 1px solid rgba(212, 175, 55, 0.2);
+            --luxury-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,169 +26,165 @@
             background-color: var(--bg-deep); 
             color: var(--text-main); 
             padding: 20px;
-            background: radial-gradient(circle at top right, rgba(197, 160, 89, 0.03), transparent 50%), #050505;
+            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05), transparent 60%), var(--bg-deep);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
         
-        /* GATEWAY CONTROL */
+        /* GATEWAY CONTROL (Lebih Smooth & Rounded) */
         #login-gate { 
             width: 100%;
-            max-width: 420px; 
+            max-width: 400px; 
             margin: 0 auto; 
             background: var(--bg-card); 
-            padding: 50px 40px; 
-            border-radius: 8px; 
+            padding: 45px 35px; 
+            border-radius: 20px; /* Sudut lebih santai */
             border: var(--glass-border); 
             text-align: center; 
             box-shadow: var(--luxury-shadow);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
         
         #login-gate h2 {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 500;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-top: 20px;
-            margin-bottom: 8px;
-            color: var(--text-main);
+            letter-spacing: 1.5px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: var(--accent-glow);
         }
         
         #login-gate p {
-            font-size: 11px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            font-size: 13px;
             color: var(--text-dim);
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         /* TEXT INPUT SYSTEM */
         input { 
             width: 100%; 
-            padding: 14px 18px; 
+            padding: 15px 20px; 
             background: var(--bg-input); 
-            border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 4px; 
+            border: 1px solid rgba(255,255,255,0.08); 
+            border-radius: 12px; /* Input membulat elegan */
             color: white; 
             margin-bottom: 20px; 
             font-family: 'Poppins'; 
             text-align: center;
-            font-size: 13px;
-            letter-spacing: 1px;
-            transition: all 0.4s ease;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
         input:focus {
             outline: none;
             border-color: var(--accent-glow);
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
         }
         
-        /* PREMIUM OUTLINED BUTTON */
+        /* PREMIUM BUTTON (Kelihatan mewah tapi tetep ngajak diklik) */
         button { 
             width: 100%; 
             padding: 14px; 
-            background: transparent; 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent); 
             border: 1px solid var(--accent-glow); 
-            border-radius: 4px; 
+            border-radius: 12px; 
             color: var(--accent-glow); 
             font-weight: 500; 
             cursor: pointer; 
-            transition: all 0.4s ease; 
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-size: 11px;
+            transition: all 0.3s ease; 
+            letter-spacing: 1px;
+            font-size: 14px;
         }
         button:hover { 
             background: var(--accent-glow);
-            color: #050505;
-            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.15);
+            color: #0b1120;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+            transform: translateY(-2px);
         }
 
         /* CENTRAL MANAGEMENT PANEL */
-        #admin-panel { width: 100%; max-width: 680px; margin: 0 auto; display: none; }
+        #admin-panel { width: 100%; max-width: 700px; margin: 0 auto; display: none; }
         
         .card { 
             background: var(--bg-card); 
-            padding: 45px 40px; 
-            border-radius: 8px; 
+            padding: 40px; 
+            border-radius: 20px; 
             border: var(--glass-border); 
             box-shadow: var(--luxury-shadow);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             text-align: center;
         }
         
         .card h2 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 500;
-            letter-spacing: 3px;
-            text-transform: uppercase;
             margin-bottom: 8px;
+            color: var(--text-main);
         }
         
         .card p {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-dim);
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
         
         /* CONTAINER DATA DATA */
         .hasil-box { 
-            background: rgba(0, 0, 0, 0.2); 
-            padding: 30px; 
-            border-radius: 6px; 
-            border-left: 2px solid var(--accent-glow); 
-            margin-top: 40px; 
+            background: rgba(0, 0, 0, 0.25); 
+            padding: 25px; 
+            border-radius: 16px; 
+            border-left: 3px solid var(--accent-glow); 
+            margin-top: 35px; 
             text-align: left; 
             display: none; 
+            animation: fadeIn 0.4s ease;
         }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         .data-item { 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            padding: 14px 0; 
-            border-bottom: 1px solid rgba(255,255,255,0.02); 
+            padding: 12px 0; 
+            border-bottom: 1px dashed rgba(255,255,255,0.05); 
             font-size: 13px; 
         }
         .data-item:last-child { border-bottom: none; }
         
         .data-label { 
             color: var(--text-dim); 
-            text-transform: uppercase; 
-            font-size: 10px; 
-            letter-spacing: 2px; 
+            font-size: 12px; 
         }
         
         .data-val { 
             font-weight: 500; 
             color: var(--text-main); 
-            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
 
     <div id="login-gate">
-        <i class="fa-solid fa-shield-halved" style="font-size: 32px; color: var(--accent-glow);"></i>
-        <h2>Internal Core</h2>
-        <p>Athentication Required</p>
-        <input type="password" id="pin" placeholder="ENTER ACCESS CODE">
-        <button onclick="masuk()">Verify Integrity</button>
+        <i class="fa-solid fa-crown" style="font-size: 38px; color: var(--accent-glow); filter: drop-shadow(0 0 10px rgba(212,175,55,0.3));"></i>
+        <h2>Portal Admin</h2>
+        <p>Otorisasi Keamanan Diperlukan</p>
+        <input type="password" id="pin" placeholder="Masukkan PIN Rahasia">
+        <button onclick="masuk()">Buka Dashboard</button>
     </div>
 
     <div id="admin-panel">
         <div class="card">
-            <h2>Registry Engine</h2>
-            <p>Query student documentation from central cloud repository</p>
+            <h2>Pusat Kendali Data</h2>
+            <p>Tarik dokumen dan biodata santri langsung dari server pusat.</p>
             
-            <div style="display: flex; gap: 12px;">
-                <input type="text" id="keyword" placeholder="SEARCH NIA OR FULL NAME" style="margin-bottom: 0; text-align: left; text-transform: uppercase;">
-                <button id="btnCari" onclick="cariData()" style="width: 150px;">Execute</button>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <input type="text" id="keyword" placeholder="Ketik Nomor NIA atau Nama Lengkap" style="margin-bottom: 0; text-align: left; flex: 1; text-transform: uppercase;">
+                <button id="btnCari" onclick="cariData()" style="width: auto; padding: 0 30px;"><i class="fa-solid fa-magnifying-glass"></i> Cari Berkas</button>
             </div>
 
             <div class="hasil-box" id="hasil-data"></div>
@@ -204,7 +200,7 @@
                 document.getElementById('login-gate').style.display = 'none';
                 document.getElementById('admin-panel').style.display = 'block';
             } else { 
-                alert("ACCESS DENIED: Invalid Credentials."); 
+                alert("Akses Ditolak: PIN yang Anda masukkan salah."); 
             }
         }
 
@@ -215,7 +211,7 @@
             const btn = document.getElementById('btnCari');
             const hasilBox = document.getElementById('hasil-data');
             
-            btn.innerText = "Querying...";
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Mencari...';
             btn.disabled = true;
             hasilBox.style.display = "none";
             hasilBox.innerHTML = "";
@@ -226,7 +222,7 @@
             .then(res => res.json())
             .then(hasil => {
                 if(hasil.status === "sukses") {
-                    let isi = `<h4 style="color: var(--accent-glow); font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px;">Database Source: Tab ${hasil.tab}</h4>`;
+                    let isi = `<h4 style="color: var(--accent-glow); font-size: 13px; font-weight: 500; margin-bottom: 15px;"><i class="fa-regular fa-folder-open"></i> Sumber Database: Tab ${hasil.tab}</h4>`;
                     for(let kunci in hasil.data) {
                         if(kunci === "nomorBarisExcel" || kunci === "fileData") continue;
                         isi += `
@@ -241,8 +237,11 @@
                     alert(hasil.pesan);
                 }
             })
-            .catch(error => alert("System Error: Connection Aborted."))
-            .finally(() => { btn.innerText = "Execute"; btn.disabled = false; });
+            .catch(error => alert("Sistem Error: Koneksi ke server terputus."))
+            .finally(() => { 
+                btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Cari Berkas'; 
+                btn.disabled = false; 
+            });
         }
     </script>
 </body>
