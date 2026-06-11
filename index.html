@@ -134,7 +134,7 @@
         .testi-author { color: var(--accent-glow); font-weight: 600; font-size: 14px; transition: opacity 0.4s ease; }
         .testi-badge { background: rgba(59,130,246,0.1); color: #60a5fa; padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-left: 10px; }
 
-        /* 6. MODUL GRID UTAMA */
+        /* 6. MODUL GRID UTAMA (4 LAYANAN) */
         #services { padding: 50px 6%; }
         .grid-container {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -196,31 +196,63 @@
         .ticket-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; }
         .ticket-value { font-size: 15px; font-weight: 600; color: white; margin-top: 2px; }
         
-        /* OTHERS */
+        /* STUDY TIMER UI */
+        .timer-display { font-size: 60px; font-weight: 700; color: var(--accent-glow); font-variant-numeric: tabular-nums; text-shadow: var(--neon-glow); margin: 20px 0; }
+        .timer-controls button { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin: 0 5px; transition: 0.3s; font-weight: 600; }
+        .timer-controls button:hover, .timer-controls button.active { background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow); }
+
+        /* FEEDBACK & FOOTER */
         #feedback-section { padding: 40px 6%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: var(--bg-card); }
         .feedback-input { width: 100%; max-width: 600px; padding: 15px; border-radius: 10px; background: var(--bg-deep); border: 1px solid rgba(255,255,255,0.1); color: white; margin-bottom: 15px; font-family: 'Poppins'; }
+        
         #connect { padding: 40px 6%; text-align: center; }
         .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
         .contact-card { background-color: var(--bg-card); padding: 12px 20px; border-radius: 10px; font-size: 13px; border: 1px solid rgba(255,255,255,0.02); display: flex; align-items: center; gap: 10px; transition: 0.3s; }
         .contact-card:hover { border-color: var(--accent-glow); color: var(--accent-glow); }
 
-        /* DEMO QRIS SCANNER */
-        .qris-scanner-box {
-            position: relative; width: 180px; height: 180px; margin: 0 auto 20px auto;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png') center/cover;
-            border: 4px solid white; border-radius: 10px; overflow: hidden;
-        }
-        .qris-scanner-line {
-            position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: #10b981; box-shadow: 0 0 15px #10b981;
-            animation: scan 2s infinite linear;
-        }
-        @keyframes scan { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+        /* TAALO V2 (GEMINI STYLE) */
+        .taalo-v2-container { max-width: 800px; margin: 50px auto; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .taalo-v2-avatar-big { width: 150px; height: 150px; object-fit: contain; background: transparent; filter: drop-shadow(0 0 25px rgba(14, 165, 233, 0.6)); margin-bottom: 15px; animation: floatTaalo 3s ease-in-out infinite; }
+        @keyframes floatTaalo { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        .taalo-v2-title { color: white; font-size: 26px; margin-bottom: 5px; }
+        .taalo-v2-chat-area { width: 100%; max-height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; padding: 10px; }
+        .taalo-v2-input-wrapper { width: 100%; background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; display: flex; padding: 10px 15px; }
+        .taalo-v2-input-wrapper input { flex: 1; background: transparent; border: none; color: white; outline: none; font-family: 'Poppins'; padding: 5px 10px; }
+        .taalo-v2-send-btn { background: #0ea5e9; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
 
+        /* FLAPPY GAME CANVAS */
+        #gameOverlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 999999; display: none; flex-direction: column; justify-content: center; align-items: center; }
+        canvas { border: 2px solid var(--accent-glow); box-shadow: var(--neon-glow); background: #0f172a; border-radius: 10px; max-width: 100%; }
+        .game-text { color: white; margin-top: 20px; font-weight: bold; }
+
+        /* FLOATING TUTORIAL BUTTON & MODAL SLIDER */
+        .floating-help-btn {
+            position: fixed; bottom: 30px; right: 30px; background: var(--accent-glow); color: white;
+            padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 13px; cursor: pointer;
+            box-shadow: var(--neon-glow); z-index: 90000; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2);
+        }
+        .floating-help-btn:hover { transform: translateY(-5px); box-shadow: var(--neon-glow-hover); }
+        
+        .tutorial-slide { display: none; text-align: center; animation: fadeIn 0.4s ease; }
+        .tutorial-slide.active { display: block; }
+        .tutor-icon-box { font-size: 50px; color: var(--accent-glow); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(59,130,246,0.5)); }
+        .tutor-title { font-size: 20px; font-weight: 700; color: white; margin-bottom: 10px; }
+        .tutor-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 25px; }
+        
+        .tutor-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+        .tutor-dot { height: 8px; width: 8px; background: #334155; border-radius: 50%; display: inline-block; margin: 0 4px; transition: 0.3s; }
+        .tutor-dot.active { background: var(--accent-glow); width: 20px; border-radius: 10px; box-shadow: var(--neon-glow); }
+        .btn-tutor { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-tutor.primary { background: var(--accent-glow); border-color: var(--accent-glow); }
+        .btn-tutor:hover { background: var(--accent-glow); box-shadow: var(--neon-glow); }
+
+        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .hero-title-main { font-size: 28px; }
             .grid-container { grid-template-columns: 1fr; }
             .modal-box { padding: 25px 20px; width: 95%; }
+            .timer-display { font-size: 45px; }
+            .taalo-v2-avatar-big { width: 110px; height: 110px; }
         }
     </style>
 </head>
@@ -232,7 +264,7 @@
 
     <div id="entrance-modal">
         <div class="modal-welcome-box">
-            <img src="logo.png" alt="Logo Markaz" class="modal-logo" onerror="this.src='https://via.placeholder.com/130?text=Logo'">
+            <img src="logo.png" alt="Logo Markaz" class="modal-logo">
             <h1 class="modal-title">Markaz At-Ta'allum</h1>
             <p class="modal-subtitle">Portal Resmi Integrasi Informasi & Administrasi</p>
             <button class="btn-glow" onclick="document.getElementById('entrance-modal').style.display='none'">Jelajahi Sekarang <i class="fa-solid fa-arrow-right"></i></button>
@@ -240,8 +272,8 @@
     </div>
 
     <header>
-        <div class="header-logo-container">
-            <img src="logo.png" alt="Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/35?text=Logo'">
+        <div class="header-logo-container" onclick="triggerEasterEgg()">
+            <img src="logo.png" alt="Logo" class="header-logo">
             <span class="header-title">Markaz At-Ta'allum</span>
         </div>
         <div class="menu-icon" onclick="document.getElementById('sidebar-menu').classList.add('show')"><i class="fa-solid fa-bars"></i></div>
@@ -251,14 +283,16 @@
         <div class="close-btn" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-xmark"></i></div>
         <div class="sidebar-links">
             <a href="#hero-banner" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-house"></i> Beranda</a>
+            <a href="https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk" target="_blank"><i class="fa-solid fa-book-open"></i> Profil Attaallum</a>
             <a href="#services" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-folder"></i> Administrasi NIA & Program</a>
             <a href="https://wa.me/201551018457" target="_blank"><i class="fa-solid fa-headset"></i> Hubungi CS Admin</a>
         </div>
     </div>
 
     <section id="hero-banner">
+        <img src="logo.png" alt="Logo Attaallum" style="width: 100px; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(59,130,246,0.4));">
         <h1 class="hero-title-main">Selamat Datang <span>Sobat Attaallum</span></h1>
-        <p class="hero-desc">Wadah pendidikan terpadu untuk mengembangkan ilmu, adab, dan percaya diri.</p>
+        <p class="hero-desc">Wadah pendidikan terpadu untuk mengembangkan ilmu, adab, dan percaya diri. Metode belajar hangat, interaktif, dan menyenangkan.</p>
         
         <div class="testimonial-slider">
             <div id="testiContent" class="testi-content">"Belajar di attaallum keren sekali!"</div>
@@ -268,6 +302,12 @@
 
     <section id="services">
         <div class="grid-container">
+            <div class="service-card">
+                <i class="fa-solid fa-book-open card-icon"></i>
+                <h3>Profil Attaallum</h3>
+                <p>Pelajari visi, misi, rekam jejak, dan metode belajar Markaz melalui booklet.</p>
+                <a href="https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk" target="_blank" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
+            </div>
             <div class="service-card">
                 <i class="fa-solid fa-id-card-clip card-icon"></i>
                 <h3>Administrasi NIA</h3>
@@ -280,6 +320,12 @@
                 <p>Pendaftaran berkas program kelas unggulan, istimewa, atau privat.</p>
                 <a href="#" onclick="document.getElementById('program-pembelajaran-modal').style.display='flex'; event.preventDefault();" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
+            <div class="service-card" style="border-color: rgba(16,185,129,0.3);">
+                <i class="fa-solid fa-stopwatch card-icon" style="color: #10b981;"></i>
+                <h3>Ruang Fokus (Timer)</h3>
+                <p>Tingkatkan produktivitas belajar Anda dengan teknik Pomodoro khusus pelajar.</p>
+                <a href="#" onclick="document.getElementById('timer-modal').style.display='flex'; event.preventDefault();" class="btn-arrow" style="background: #10b981;"><i class="fa-solid fa-play"></i></a>
+            </div>
         </div>
     </section>
 
@@ -291,6 +337,7 @@
             
             <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" class="btn-choice-abu">1. Saya Sudah Punya NIA</button>
             <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'; document.getElementById('form-admin-modal').style.display='flex';" class="btn-choice-abu">2. Saya Belum Punya NIA</button>
+            
             <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'" class="btn-secondary-outlined">Batal / Kembali</button>
         </div>
     </div>
@@ -301,7 +348,51 @@
             <form id="registrationForm" class="scroll-form" onsubmit="kirimDataForm(event)">
                 <div class="form-group"><label class="title">Email Aktif *</label><input type="email" id="formEmail" required></div>
                 <div class="form-group"><label class="title">Nama Lengkap *</label><input type="text" id="formNama" required></div>
-                <div class="form-group"><label class="title">No WhatsApp *</label><input type="text" id="formNoHP" required></div>
+                <div class="form-group"><label class="title">Tempat, Tanggal Lahir *</label><input type="text" id="formTTL" required></div>
+                <div class="form-group">
+                    <label class="title">Domisili di Mesir *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="domisili" value="Darrasah" required> Darrasah</label>
+                        <label><input type="radio" name="domisili" value="Sabi'"> Sabi'</label>
+                        <label><input type="radio" name="domisili" value="Asyir"> Asyir</label>
+                        <label><input type="radio" name="domisili" value="Tamin"> Tamin</label>
+                        <label><input type="radio" name="domisili" value="Tabbah"> Tabbah</label>
+                        <label><input type="radio" name="domisili" value="Yang lain"> Yang lain</label>
+                    </div>
+                </div>
+                <div class="form-group"><label class="title">Kekeluargaan *</label><input type="text" id="formKekeluargaan" required></div>
+                <div class="form-group"><label class="title">Tahun Kedatangan di Mesir *</label><input type="number" id="formTahun" required></div>
+                <div class="form-group"><label class="title">Mediator Pendaftaran *</label><input type="text" id="formMediator" required></div>
+                <div class="form-group">
+                    <label class="title">Jenjang Pendidikan Saat Ini *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="jenjang" value="Dirosah Khosoh" required> Dirosah Khosoh</label>
+                        <label><input type="radio" name="jenjang" value="Ma'had Buuts"> Ma'had Buuts</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="title">Tingkat Kelas (Jika Dirosah Khosoh)</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tkDirosah" value="Mubtadi Awal"> Mubtadi Awal</label>
+                        <label><input type="radio" name="tkDirosah" value="Mubtadi Tsani"> Mubtadi Tsani</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutawassit Awal"> Mutawassit Awal</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutawassit Tsani"> Mutawassit Tsani</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutaqoddim Awal"> Mutaqoddim Awal</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutaqoddim Tsani"> Mutaqoddim Tsani</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="title">Tingkat Kelas (Jika Ma'had Buuts)</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tkMahad" value="1 Idady"> 1 Idady</label>
+                        <label><input type="radio" name="tkMahad" value="2 Idady"> 2 Idady</label>
+                        <label><input type="radio" name="tkMahad" value="3 Idady"> 3 Idady</label>
+                        <label><input type="radio" name="tkMahad" value="1 Tsanawy"> 1 Tsanawy</label>
+                        <label><input type="radio" name="tkMahad" value="2 Tsanawy"> 2 Tsanawy</label>
+                        <label><input type="radio" name="tkMahad" value="3 Tsanawy"> 3 Tsanawy</label>
+                    </div>
+                </div>
+                <div class="form-group"><label class="title">Nomor HP / WhatsApp Aktif *</label><input type="text" id="formNoHP" required></div>
                 <button type="submit" class="btn-glow" style="width: 100%; margin-top: 15px;">VALIDASI & DAFTARKAN NIA</button>
             </form>
             <p onclick="document.getElementById('form-admin-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 15px;">KEMBALI</p>
@@ -310,10 +401,12 @@
 
     <div class="modal-overlay" id="success-admin-modal">
         <div class="modal-box" style="max-width: 450px;">
-            <i class="fa-solid fa-circle-check" style="font-size: 55px; color: #10b981;"></i>
+            <i class="fa-solid fa-circle-check" style="font-size: 55px; color: #10b981; filter: drop-shadow(0 0 10px rgba(16,185,129,0.4));"></i>
             <h3 style="font-size: 24px; margin-top: 15px; color: #fff;">Registrasi Berhasil!</h3>
-            <div id="displayNIA" style="background-color: var(--bg-input); padding: 18px; border-radius: 10px; font-size: 26px; font-weight: 700; color: var(--accent-glow); margin: 25px 0; border: 2px dashed var(--accent-glow);">NIA-XXXX</div>
-            <button onclick="document.getElementById('success-admin-modal').style.display='none';" class="btn-secondary-outlined">Tutup</button>
+            <p style="color: var(--text-dim); margin-top: 8px; font-size: 13px;">Nomor Identitas Attaallum (NIA) otomatis Anda adalah:</p>
+            <div id="displayNIA" style="background-color: var(--bg-input); padding: 18px; border-radius: 10px; font-size: 26px; font-weight: 700; color: var(--accent-glow); letter-spacing: 4px; margin: 25px 0; border: 2px dashed var(--accent-glow); text-shadow: var(--neon-glow);">NIA-XXXX</div>
+            <a id="waDirectBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: #22c55e; display: block; margin-bottom: 15px;"><i class="fa-brands fa-whatsapp"></i> HUBUNGI CS ADMIN</a>
+            <button onclick="document.getElementById('success-admin-modal').style.display='none';" class="btn-secondary-outlined" style="margin-top:0;">Kembali ke Beranda</button>
         </div>
     </div>
 
@@ -323,6 +416,8 @@
             <div class="scroll-form">
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program Private</span></div><button class="btn-daftar-prog" onclick="bukaFormPintar('Private')">Daftar</button></div>
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program Imtihan Qobul</span></div><button class="btn-daftar-prog" onclick="bukaFormPintar('Imtihan Qobul')">Daftar</button></div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program Musabaqoh 3 I'dadi</span></div><button class="btn-daftar-prog" onclick="bukaFormPintar('Musabaqoh 3 I\'dadi')">Daftar</button></div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program Musabaqoh 3 Tsanawi</span></div><button class="btn-daftar-prog" onclick="bukaFormPintar('Musabaqoh 3 Tsanawi')">Daftar</button></div>
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program Lughoh Azhary</span></div><button class="btn-daftar-prog" onclick="bukaFormPintar('Lughoh Azhary')">Daftar</button></div>
             </div>
             <p onclick="document.getElementById('program-pembelajaran-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">TUTUP</p>
@@ -332,190 +427,631 @@
     <div class="modal-overlay" id="universal-program-modal">
         <div class="modal-box" style="max-width: 600px; border-color: #10b981;">
             <h3 id="universalFormTitle" style="color: white; text-align: left; margin-bottom:15px;"><i class="fa-solid fa-file-signature" style="color: #10b981;"></i> Form Pendaftaran</h3>
-            
             <form id="universalDynamicForm" class="scroll-form" onsubmit="handleUniversalSubmit(event)">
+                
                 <div id="dynamic-fields-area"></div>
-                <button type="submit" id="universalSubmitBtn" class="btn-glow" style="width: 100%; margin-top: 15px; background: #10b981; box-shadow: 0 0 15px rgba(16,185,129,0.4);">LANJUT KE PEMBAYARAN 💳</button>
+
+                <button type="submit" id="universalSubmitBtn" class="btn-glow" style="width: 100%; margin-top: 15px; background: #10b981; box-shadow: 0 0 15px rgba(16,185,129,0.4);">SUBMIT & AMBIL TIKET 🎫</button>
             </form>
-            
             <p onclick="document.getElementById('universal-program-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">KEMBALI</p>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="payment-demo-modal">
-        <div class="modal-box" style="max-width: 450px;">
-            <h3 style="color: white; margin-bottom: 5px;"><i class="fa-solid fa-wallet" style="color: #10b981;"></i> Konfirmasi Pembayaran</h3>
-            <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 20px;">Silakan scan QRIS di bawah ini menggunakan M-Banking atau E-Wallet (Khusus Demo Uji Coba Web).</p>
-            
-            <div class="qris-scanner-box">
-                <div class="qris-scanner-line"></div>
-            </div>
-            
-            <div style="background: var(--bg-input); padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                    <span style="font-size: 13px; color: var(--text-dim);">Total Tagihan:</span>
-                    <span style="font-size: 16px; color: #10b981; font-weight: bold;">Rp 500.000</span>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="font-size: 13px; color: var(--text-dim);">Program:</span>
-                    <span id="demoProgName" style="font-size: 13px; color: white; font-weight: 500;">-</span>
-                </div>
-            </div>
-
-            <button id="btnProsesBayar" onclick="eksekusiPembayaranDanKirim()" class="btn-glow" style="width: 100%; background: #3b82f6;">SAYA SUDAH BAYAR (SIMULASI) 🚀</button>
-            <p onclick="document.getElementById('payment-demo-modal').style.display='none'; document.getElementById('universal-program-modal').style.display='flex';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 15px;">BATAL</p>
         </div>
     </div>
 
     <div class="modal-overlay" id="tiket-pendaftaran-modal">
         <div class="modal-box" style="max-width: 460px;">
             <i class="fa-solid fa-clipboard-check" style="font-size: 45px; color: #10b981;"></i>
-            <h3 style="margin-top: 10px; color:white;">Pembayaran & Tiket Sukses!</h3>
+            <h3 style="margin-top: 10px; color:white;">Tiket Generated!</h3>
             <div class="ticket-wrapper">
                 <div class="ticket-header">BUKTI REGISTRASI PROGRAM</div>
-                <div class="ticket-field" id="tktNiaRow"><div class="ticket-label">NIA / NAMA</div><div class="ticket-value" id="tktNiaValue"></div></div>
+                <div class="ticket-field" id="tktNiaRow"><div class="ticket-label">NIA</div><div class="ticket-value" id="tktNiaValue"></div></div>
                 <div class="ticket-field"><div class="ticket-label">PROGRAM</div><div class="ticket-value" id="tktProgValue"></div></div>
-                <div class="ticket-field" id="tktDetailRow"><div class="ticket-label">DETAIL KELAS</div><div class="ticket-value" id="tktDetailValue"></div></div>
-                <div class="ticket-field"><div class="ticket-label">STATUS PEMBAYARAN</div><div class="ticket-value" style="color: #10b981;"><i class="fa-solid fa-check-double"></i> LUNAS (TERVERIFIKASI)</div></div>
+                <div class="ticket-field" id="tktDetailRow"><div class="ticket-label">DETAIL SELEKSI / METODE</div><div class="ticket-value" id="tktDetailValue"></div></div>
+                <div class="ticket-field"><div class="ticket-label">STATUS DATA</div><div class="ticket-value" style="color: #10b981;"><i class="fa-solid fa-cloud-arrow-up"></i> SUKSES TERKIRIM</div></div>
             </div>
-            <a id="waTiketBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; background: #22c55e;"><i class="fa-brands fa-whatsapp"></i> KIRIM TIKET KE ADMIN</a>
+            <a id="waTiketBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; background: #22c55e;"><i class="fa-brands fa-whatsapp"></i> KIRIM TIKET & BUKTI KE ADMIN</a>
             <p onclick="document.getElementById('tiket-pendaftaran-modal').style.display='none'" style="color: var(--text-dim); cursor: pointer; font-size: 13px; margin-top: 20px;">KEMBALI KE BERANDA</p>
         </div>
     </div>
 
+    <div class="modal-overlay" id="timer-modal">
+        <div class="modal-box" style="max-width: 400px;">
+            <i class="fa-solid fa-brain" style="font-size: 30px; color: #10b981; margin-bottom: 10px;"></i>
+            <h3 style="color:white;">Ruang Fokus (Pomodoro)</h3>
+            <p style="font-size: 12px; color: var(--text-dim);">Fokus 25 Menit. Matikan gangguan.</p>
+            <div class="timer-display" id="time-display">25:00</div>
+            <div class="timer-controls">
+                <button onclick="mulaiTimer()" class="active">Mulai</button>
+                <button onclick="jedaTimer()">Jeda</button>
+                <button onclick="resetTimer()">Reset</button>
+            </div>
+            <p onclick="document.getElementById('timer-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 25px;">TUTUP TIMER</p>
+        </div>
+    </div>
+
+    <section id="feedback-section">
+        <h2 style="font-size: 22px; margin-bottom: 10px;">Kritik & Saran</h2>
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 20px;">Bantu Markaz jadi lebih baik! Pesan Anda akan dikirim ke Admin CS.</p>
+        <textarea id="pesanKritik" class="feedback-input" rows="4" placeholder="Ketik saran atau masukan Anda di sini..."></textarea><br>
+        <button onclick="kirimKritikWA()" class="btn-glow"><i class="fa-solid fa-paper-plane"></i> Kirim Masukan</button>
+    </section>
+
+    <section id="connect">
+        <h2>PORTAL DIREKTORI LAYANAN PUSAT</h2>
+        <div class="contact-grid">
+            <a href="https://wa.me/201551018457" target="_blank" class="contact-card"><i class="fa-solid fa-headset" style="color: #22c55e;"></i> HUBUNGI CS ADMIN</a>
+            <a href="https://www.instagram.com/attaallumarkaz" target="_blank" class="contact-card"><i class="fa-brands fa-instagram" style="color: #ec4899;"></i> INSTAGRAM OFFICIAL</a>
+        </div>
+    </section>
+
+    <div class="taalo-v2-container">
+        <img src="taalo.png" alt="Taalo AI" class="taalo-v2-avatar-big">
+        <h2 class="taalo-v2-title">Halo, aku Taalo! 👋</h2>
+        <div class="taalo-v2-chat-area" id="taaloV2Body"></div>
+        <div class="taalo-v2-input-wrapper">
+            <input type="text" id="taaloV2Input" placeholder="Tanya seputar program, NIA, atau pembuat web..." onkeypress="if(event.key === 'Enter') sendTaaloV2Msg()">
+            <button class="taalo-v2-send-btn" onclick="sendTaaloV2Msg()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <div class="floating-help-btn" onclick="openTutorial()">
+        <i class="fa-solid fa-circle-question"></i> Panduan
+    </div>
+
+    <div class="modal-overlay" id="tutorial-modal">
+        <div class="modal-box" style="max-width: 450px;">
+            <div class="tutorial-slide active" id="slide-1">
+                <div class="tutor-icon-box"><i class="fa-solid fa-id-card"></i></div>
+                <h3 class="tutor-title">Langkah 1: Buat NIA Baru</h3>
+                <p class="tutor-desc">Sebelum memilih program kelas, pastikan Anda sudah memiliki <b>Nomor Identitas Attaallum (NIA)</b>. Jika belum, klik menu "Administrasi NIA" di beranda dan isi formulirnya.</p>
+            </div>
+            <div class="tutorial-slide" id="slide-2">
+                <div class="tutor-icon-box"><i class="fa-solid fa-layer-group"></i></div>
+                <h3 class="tutor-title">Langkah 2: Pilih Program Belajar</h3>
+                <p class="tutor-desc">Setelah memiliki NIA, masuk ke menu "Program Pembelajaran". Pilih kelas yang Anda inginkan (misal: 1 Tsanawi atau Lughoh Azhary).</p>
+            </div>
+            <div class="tutorial-slide" id="slide-3">
+                <div class="tutor-icon-box"><i class="fa-solid fa-ticket"></i></div>
+                <h3 class="tutor-title">Langkah 3: Otorisasi & Paket</h3>
+                <p class="tutor-desc">Masukkan NIA Anda dan pilih Paket Ekstra (Mukhtar, Mubsit, atau Mutqin). Sistem akan otomatis membuatkan <b>Tiket Digital</b> untuk Anda.</p>
+            </div>
+            <div class="tutorial-slide" id="slide-4">
+                <div class="tutor-icon-box"><i class="fa-brands fa-whatsapp" style="color: #22c55e;"></i></div>
+                <h3 class="tutor-title">Langkah 4: Lapor ke Admin</h3>
+                <p class="tutor-desc">Klik tombol kirim tiket ke WhatsApp Admin. Screenshot layar tiket Anda dan kirimkan bukti tersebut bersama bukti pembayaran ke Admin untuk aktivasi!</p>
+            </div>
+
+            <div class="tutor-controls">
+                <button class="btn-tutor" id="btnPrevTutor" onclick="changeSlide(-1)" style="visibility: hidden;">Kembali</button>
+                <div>
+                    <span class="tutor-dot active" id="dot-1"></span>
+                    <span class="tutor-dot" id="dot-2"></span>
+                    <span class="tutor-dot" id="dot-3"></span>
+                    <span class="tutor-dot" id="dot-4"></span>
+                </div>
+                <button class="btn-tutor primary" id="btnNextTutor" onclick="changeSlide(1)">Lanjut</button>
+            </div>
+            <p onclick="closeTutorial()" style="color: #ef4444; cursor: pointer; font-size: 12px; font-weight: 600; margin-top: 25px; text-align: center;">TUTUP PANDUAN</p>
+        </div>
+    </div>
+    
+    <div id="gameOverlay">
+        <h2 style="color: white; margin-bottom: 10px; text-shadow: 0 0 10px #0ea5e9;">FLAPPY TAALO</h2>
+        <canvas id="flappyCanvas" width="320" height="480"></canvas>
+        <p class="game-text">Tekan SPASI atau KLIK LAYAR untuk terbang!</p>
+        <button onclick="closeGame()" class="btn-secondary-outlined" style="margin-top: 15px;">Tutup Game</button>
+    </div>
+
     <script>
+        // --- 1. LOADER BYPASS ---
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
-                if(loader) { loader.style.opacity = '0'; setTimeout(() => { loader.style.display = 'none'; }, 400); }
+                if(loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => { loader.style.display = 'none'; }, 400);
+                }
             }, 800);
             applyUniversalCapslock();
         });
 
-        // MASUKKAN LINK GOOGLE SHEET APPS SCRIPT LO DI SINI (YANG BARU)
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxJyJpW2tME2IFiOQVkzDXnAAexBVCo-efvOSnJ25M7kkhoGhsCNCAwopS3IenJix4L/exec';
+        // --- 2. AUDIO SFX SYSTEM ---
+        function playSuccessSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine'; osc.frequency.setValueAtTime(880, ctx.currentTime);
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+                osc.connect(gain); gain.connect(ctx.destination);
+                osc.start(); osc.stop(ctx.currentTime + 0.5);
+            } catch (e) { console.log("Audio API issue"); }
+        }
 
-        // FUNGSI FORM NIA
+        // --- 3. TESTIMONI OTOMATIS ---
+        const testimoniData = [
+            { text: '"Belajar di attaallum keren sekali!"', author: 'Luthfi Al-Fatih', badge: 'Lead Developer' },
+            { text: '"Dulu saya kira Bahasa Arab itu susah, dengan Attaallum ternyata jadi mudah banget!"', author: 'Ahmad Isna Asari', badge: 'Lolos Kuliah Al-Azhar' },
+            { text: '"Penyampaian guru sangat jelas dan detail serta mudah dipahami."', author: 'Noureen Qiana', badge: 'Peserta 2 Tsanawi' }
+        ];
+        let testiIndex = 0;
+        setInterval(() => {
+            testiIndex = (testiIndex + 1) % testimoniData.length;
+            const tContent = document.getElementById('testiContent');
+            const tAuthor = document.getElementById('testiAuthor');
+            if(tContent && tAuthor) {
+                tContent.style.opacity = 0; tAuthor.style.opacity = 0;
+                setTimeout(() => {
+                    tContent.innerText = testimoniData[testiIndex].text;
+                    tAuthor.innerHTML = `${testimoniData[testiIndex].author} <span class="testi-badge">${testimoniData[testiIndex].badge}</span>`;
+                    tContent.style.opacity = 1; tAuthor.style.opacity = 1;
+                }, 400);
+            }
+        }, 4000);
+
+        // --- 4. STUDY TIMER POMODORO ---
+        let timerInterval;
+        let timeLeft = 25 * 60;
+        function updateTimerDisplay() {
+            let m = Math.floor(timeLeft / 60); let s = timeLeft % 60;
+            document.getElementById('time-display').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+        function mulaiTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if(timeLeft > 0) { timeLeft--; updateTimerDisplay(); } 
+                else { clearInterval(timerInterval); playSuccessSound(); alert("Waktu fokus selesai! Istirahat 5 menit ya."); }
+            }, 1000);
+        }
+        function jedaTimer() { clearInterval(timerInterval); }
+        function resetTimer() { clearInterval(timerInterval); timeLeft = 25 * 60; updateTimerDisplay(); }
+
+        // --- 5. GOOGLE SHEET WEB APP URL ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzi5Rb_VG2h65v1ENCK76kd1g2yq3YJbjOMiINZH_3EQ6NrIFSG57ozoqKg38lvOhHCwg/exec';
+
+        // --- 6. REGISTRASI NIA BARU ---
         function kirimDataForm(event) {
             event.preventDefault();
             const submitBtn = event.target.querySelector('button[type="submit"]');
-            submitBtn.disabled = true; submitBtn.innerText = 'MEMPROSES... ⏳';
+            const teksAsli = submitBtn.innerText;
+            submitBtn.disabled = true; submitBtn.innerText = 'MEMPROSES DATA... ⏳';
 
-            const payloadData = {
+            const dataAlumni = {
                 formType: 'Registrasi_NIA',
                 email: document.getElementById('formEmail').value,
                 namaLengkap: document.getElementById('formNama').value.toUpperCase(),
+                ttl: document.getElementById('formTTL').value,
+                domisili: document.querySelector('input[name="domisili"]:checked') ? document.querySelector('input[name="domisili"]:checked').value : "",
+                kekeluargaan: document.getElementById('formKekeluargaan').value,
+                tahunKedatangan: document.getElementById('formTahun').value,
+                mediator: document.getElementById('formMediator').value,
+                jenjang: document.querySelector('input[name="jenjang"]:checked') ? document.querySelector('input[name="jenjang"]:checked').value : "",
+                tingkatDirosah: document.querySelector('input[name="tkDirosah"]:checked') ? document.querySelector('input[name="tkDirosah"]:checked').value : "-",
+                tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-",
                 noHP: document.getElementById('formNoHP').value
             };
             
-            fetch(scriptURL, { method: 'POST', body: JSON.stringify(payloadData) })
-            .then(() => {
-                document.getElementById('form-admin-modal').style.display = 'none';
-                document.getElementById('success-admin-modal').style.display = 'flex';
-                document.getElementById('displayNIA').innerText = "NIA-" + Math.floor(Math.random() * 900 + 100); 
-                document.getElementById('registrationForm').reset();
+            fetch(scriptURL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(dataAlumni) })
+            .then(response => response.json())
+            .then(hasil => {
+                if (hasil.result === 'success') {
+                    document.getElementById('form-admin-modal').style.display = 'none';
+                    document.getElementById('success-admin-modal').style.display = 'flex';
+                    
+                    let cleanNia = hasil.nia.replace(/-/g, "").replace(/2026/g, "");
+                    document.getElementById('displayNIA').innerText = cleanNia; 
+                    
+                    playSuccessSound();
+                    const waMessage = encodeURIComponent(`Halo Admin,\nSaya sudah mengisi form NIA baru.\nNama: ${dataAlumni.namaLengkap}\nNIA: ${cleanNia}\nMohon diaktivasi!`);
+                    document.getElementById('waDirectBtn').href = "https://wa.me/201551018457?text=" + waMessage;
+                    document.getElementById('registrationForm').reset();
+                } else { alert('Sistem mendeteksi malfungsi: ' + hasil.error); }
             })
-            .catch(() => alert('Gagal mengirim data!'))
-            .finally(() => { submitBtn.disabled = false; submitBtn.innerText = 'VALIDASI & DAFTARKAN NIA'; });
+            .catch(error => { console.error('Error!', error); alert('Gagal mengirimkan transmisi data!'); })
+            .finally(() => { submitBtn.disabled = false; submitBtn.innerText = teksAsli; });
         }
 
-        // FUNGSI BUKA FORM PROGRAM (TANPA FOTO)
+        // --- 7. REVOLUSI SISTEM FORM PINTAR DINAMIS (5 PROGRAM) ---
         let currentActiveProgram = '';
+
         function bukaFormPintar(namaProgram) {
             currentActiveProgram = namaProgram;
             document.getElementById('program-pembelajaran-modal').style.display = 'none';
             document.getElementById('universalFormTitle').innerHTML = `<i class="fa-solid fa-file-signature" style="color: #10b981;"></i> Form ${namaProgram}`;
             
             const fieldsArea = document.getElementById('dynamic-fields-area');
+            fieldsArea.innerHTML = ''; 
+            
             let htmlContent = '';
 
-            if(namaProgram === 'Lughoh Azhary') {
+            // 1. KONDISI FORM UNTUK PROGRAM PRIVATE
+            if(namaProgram === 'Private') {
                 htmlContent = `
-                    <div class="form-group"><label class="title">Nama Lengkap *</label><input type="text" id="univNama" required></div>
-                    <div class="form-group"><label class="title">Email *</label><input type="email" id="univEmail" required></div>
-                    <div class="form-group"><label class="title">Domisili *</label>
+                    <div class="form-group"><label class="title">Nomor NIA Anda *</label><input type="text" id="univNia" placeholder="Cth: NIA340" required style="text-transform: uppercase;"></div>
+                    <div class="form-group">
+                        <label class="title">Program Privat Yang Diambil *</label>
                         <select id="univDetail_1" required>
-                            <option value="Darrasah">Darrasah</option>
-                            <option value="Sabi'">Hayyu Sabi'</option>
+                            <option value="" disabled selected>-- Pilih Opsi Kelas --</option>
+                            <option value="Program Private Ma'had">Program Private Ma'had</option>
+                            <option value="Program Private Dirasah Khassah">Program Private Dirasah Khassah</option>
+                            <option value="Program Private Matan Al-Jurumiyyah">Program Private Matan Al-Jurumiyyah</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">No WhatsApp Aktif *</label>
+                        <span class="note">*Isi dengan nomor yang aktif. Gunakan kode negara (+20)/(+62). Contoh: +201013409312</span>
+                        <input type="text" id="univWA_Siswa" placeholder="+2010..." required>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">No WhatsApp Orang Tua *</label>
+                        <span class="note">*Isi dengan nomor yang aktif. Gunakan kode negara (+62). Contoh: +62813409312</span>
+                        <input type="text" id="univWA_Ortu" placeholder="+6281..." required>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">Sistem Pembayaran *</label>
+                        <select id="univPay" required>
+                            <option value="" disabled selected>-- Pilih Metode --</option>
+                            <option value="Lunas">Lunas</option>
+                            <option value="Nyicil">Nyicil</option>
                         </select>
                     </div>
                 `;
-            } else {
+            }
+            // 2. KONDISI FORM UNTUK PROGRAM IMTIHAN QOBUL
+            else if(namaProgram === 'Imtihan Qobul') {
                 htmlContent = `
-                    <div class="form-group"><label class="title">Nomor NIA Anda *</label><input type="text" id="univNia" placeholder="Cth: NIA340" required></div>
-                    <div class="form-group"><label class="title">No WhatsApp *</label><input type="text" id="univWA_Siswa" required></div>
+                    <div class="form-group"><label class="title">Nomor NIA Anda *</label><input type="text" id="univNia" placeholder="Cth: NIA340" required style="text-transform: uppercase;"></div>
+                    <div class="form-group">
+                        <label class="title">Kelas Di Dirosah Khossoh *</label>
+                        <select id="univDetail_1" required>
+                            <option value="" disabled selected>-- Pilih Tingkat --</option>
+                            <option value="Belum Terdaftar">Belum Terdaftar</option>
+                            <option value="Mubtadi Awal">Mubtadi Awal</option>
+                            <option value="Mubtadi Tsani">Mubtadi Tsani</option>
+                            <option value="Mutawassit Awal">Mutawassit Awal</option>
+                            <option value="Mutawassit Tsani">Mutawassit Tsani</option>
+                            <option value="Mutaqoddim Awal">Mutaqoddim Awal</option>
+                            <option value="Mutaqoddim Tsani">Mutaqoddim Tsani</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">Sudah Ikut Program Unggulan Ke Berapa? *</label>
+                        <select id="univDetail_2" required>
+                            <option value="" disabled selected>-- Pilih --</option>
+                            <option value="Pertama">Pertama</option>
+                            <option value="Kedua">Kedua</option>
+                            <option value="Ketiga">Ketiga</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">No WhatsApp Aktif *</label>
+                        <span class="note">*Gunakan kode negara (+20)/(+62) tanpa spasi.</span>
+                        <input type="text" id="univWA_Siswa" placeholder="+2010..." required>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">No WhatsApp Orang Tua *</label>
+                        <span class="note">*Gunakan kode negara (+62) tanpa spasi.</span>
+                        <input type="text" id="univWA_Ortu" placeholder="+6281..." required>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">Pembayaran *</label>
+                        <select id="univPay" required>
+                            <option value="" disabled selected>-- Pilih Metode --</option>
+                            <option value="Lunas">Lunas</option>
+                            <option value="Nyicil 50%">Nyicil 50%</option>
+                        </select>
+                    </div>
+                `;
+            }
+            // 3. KONDISI FORM UNTUK MUSABAQOH 3 I'DADI
+            else if(namaProgram === 'Musabaqoh 3 I\'dadi') {
+                htmlContent = `
+                    <div class="form-group"><label class="title">Nomor NIA Anda *</label><input type="text" id="univNia" placeholder="Cth: NIA340" required style="text-transform: uppercase;"></div>
+                    <div class="form-group">
+                        <label class="title">Tingkat (Ma'had) *</label>
+                        <select id="univDetail_1" required>
+                            <option value="2 I'dadi">2 I'dadi</option>
+                            <option value="3 I'dadi" selected>3 I'dadi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">Program Yang Ingin Diambil *</label>
+                        <select id="univDetail_2" required>
+                            <option value="" disabled selected>-- Pilih Opsi --</option>
+                            <option value="Program Pre-Musabaqoh (2 I'dadi)">Program Pre-Musabaqoh (2 I'dadi)</option>
+                            <option value="Program Musabaqoh (3 I'dadi)">Program Musabaqoh (3 I'dadi)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">Paket Yang Ingin Diambil *</label>
+                        <select id="univDetail_3" required>
+                            <option value="" disabled selected>-- Pilih Paket --</option>
+                            <option value="Mukhtar (1 maddah - 5 maddah)">Mukhtar (1 maddah - 5 maddah)</option>
+                            <option value="Mubsit (6 materi - wajib fiqh, nahwu, tauhid)">Mubsit (6 materi - wajib fiqh, nahwu, tauhid)</option>
+                            <option value="Mutqin (semua maddah)">Mutqin (semua maddah)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">Konfirmasi Maddah (Centang Yang Diikuti) *</label>
+                        <div class="checkbox-grid">
+                            <label><input type="checkbox" name="maddah" value="Fiqh"> Fiqh</label>
+                            <label><input type="checkbox" name="maddah" value="Nahwu"> Nahwu</label>
+                            <label><input type="checkbox" name="maddah" value="Shorof"> Shorof</label>
+                            <label><input type="checkbox" name="maddah" value="Tauhid"> Tauhid</label>
+                            <label><input type="checkbox" name="maddah" value="Tafsir"> Tafsir</label>
+                            <label><input type="checkbox" name="maddah" value="Hadist"> Hadist</label>
+                            <label><input type="checkbox" name="maddah" value="Siroh"> Siroh</label>
+                            <label><input type="checkbox" name="maddah" value="Riyadhi"> Riyadhi</label>
+                            <label><input type="checkbox" name="maddah" value="Ulum"> Ulum</label>
+                            <label><input type="checkbox" name="maddah" value="Geografi"> Geografi</label>
+                            <label><input type="checkbox" name="maddah" value="Tsaqofah"> Tsaqofah</label>
+                        </div>
+                    </div>
+                    <div class="form-group"><label class="title">No WhatsApp *</label><input type="text" id="univWA_Siswa" placeholder="+2010..." required></div>
+                    <div class="form-group"><label class="title">No WhatsApp Orang Tua *</label><input type="text" id="univWA_Ortu" placeholder="+6281..." required></div>
+                    <div class="form-group">
+                        <label class="title">Pembayaran *</label>
+                        <select id="univPay" required>
+                            <option value="Lunas">Lunas</option>
+                            <option value="Nyicil 50%">Nyicil 50%</option>
+                        </select>
+                    </div>
+                `;
+            }
+            // 4. KONDISI FORM UNTUK MUSABAQOH 3 TSANAWI
+            else if(namaProgram === 'Musabaqoh 3 Tsanawi') {
+                htmlContent = `
+                    <div class="form-group"><label class="title">Nomor NIA Anda *</label><input type="text" id="univNia" placeholder="Cth: NIA340" required style="text-transform: uppercase;"></div>
+                    <div class="form-group">
+                        <label class="title">Tingkat (Ma'had) *</label>
+                        <select id="univDetail_1" required>
+                            <option value="1 Tsanawi">1 Tsanawi</option>
+                            <option value="2 Tsanawi">2 Tsanawi</option>
+                            <option value="3 Tsanawi" selected>3 Tsanawi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">Paket Yang Ingin Diambil *</label>
+                        <select id="univDetail_2" required>
+                            <option value="" disabled selected>-- Pilih Paket --</option>
+                            <option value="Mukhtar (1 maddah - 5 maddah)">Mukhtar (1 maddah - 5 maddah)</option>
+                            <option value="Mubsit (6 materi)">Mubsit (6 materi)</option>
+                            <option value="Mutqin (semua maddah)">Mutqin (semua maddah)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="title">Konfirmasi Maddah (Centang Yang Diikuti) *</label>
+                        <div class="checkbox-grid">
+                            <label><input type="checkbox" name="maddah" value="Fiqh"> Fiqh</label>
+                            <label><input type="checkbox" name="maddah" value="Nahwu"> Nahwu</label>
+                            <label><input type="checkbox" name="maddah" value="Shorof"> Shorof</label>
+                            <label><input type="checkbox" name="maddah" value="Tauhid"> Tauhid</label>
+                            <label><input type="checkbox" name="maddah" value="Tafsir"> Tafsir</label>
+                            <label><input type="checkbox" name="maddah" value="Hadist"> Hadist</label>
+                        </div>
+                    </div>
+                    <div class="form-group"><label class="title">No WhatsApp *</label><input type="text" id="univWA_Siswa" placeholder="+2010..." required></div>
+                    <div class="form-group"><label class="title">No WhatsApp Orang Tua *</label><input type="text" id="univWA_Ortu" placeholder="+6281..." required></div>
+                    <div class="form-group">
+                        <label class="title">Pembayaran *</label>
+                        <select id="univPay" required>
+                            <option value="Lunas">Lunas</option>
+                            <option value="Nyicil 50%">Nyicil 50%</option>
+                        </select>
+                    </div>
+                `;
+            }
+            // 5. KONDISI FORM UNTUK LUGHOH AZHARY
+            else if(namaProgram === 'Lughoh Azhary') {
+                htmlContent = `
+                    <div class="form-group"><label class="title">Email *</label><input type="email" id="univEmail" required></div>
+                    <div class="form-group"><label class="title">Nama Lengkap *</label><input type="text" id="univNama" required></div>
+                    <div class="form-group"><label class="title">Tempat, Tanggal Lahir *</label><input type="text" id="univTTL" placeholder="Cth: KAIRO, 12 JANUARI 2005" required></div>
+                    <div class="form-group"><label class="title">No WhatsApp *</label><input type="text" id="univWA_Siswa" placeholder="+2010..." required></div>
+                    <div class="form-group"><label class="title">No WhatsApp Orang Tua *</label><input type="text" id="univWA_Ortu" placeholder="+6281..." required></div>
+                    <div class="form-group">
+                        <label class="title">Domisili *</label>
+                        <select id="univDetail_1" required>
+                            <option value="" disabled selected>-- Pilih Domisili --</option>
+                            <option value="Hayyu sabi'">Hayyu sabi'</option>
+                            <option value="Hayyu asyir">Hayyu asyir</option>
+                            <option value="Hayyu tsamin">Hayyu tsamin</option>
+                            <option value="Darrasah">Darrasah</option>
+                            <option value="Yang lain">Yang lain</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label class="title">Kekeluargaan *</label><input type="text" id="univDetail_2" placeholder="Cth: KKS" required></div>
+                    <div class="form-group"><label class="title">Tahun Kedatangan *</label><input type="number" id="univDetail_3" placeholder="Cth: 2024" required></div>
+                    <div class="form-group"><label class="title">Mediator *</label><input type="text" id="univDetail_4" required></div>
+                    <div class="form-group">
+                        <label class="title">Apakah siap untuk mengikuti seluruh program dengan serius? *</label>
+                        <select id="univDetail_5" required>
+                            <option value="Siap">Siap</option>
+                            <option value="Sangat siap">Sangat siap</option>
+                            <option value="Tidak siap">Tidak siap</option>
+                        </select>
+                    </div>
                 `;
             }
 
             fieldsArea.innerHTML = htmlContent;
             document.getElementById('universal-program-modal').style.display = 'flex';
-            applyUniversalCapslock(); 
+            applyUniversalCapslock();
         }
 
-        // VARIABEL GLOBAL BUAT NAMPUNG DATA SEMENTARA SEBELUM BAYAR
-        let tempPayloadData = {};
-
-        // SAAT TOMBOL "LANJUT PEMBAYARAN" DIKLIK
+        // --- 8. PROSES HANDLER POST DATA (TANPA FOTO) ---
         function handleUniversalSubmit(event) {
-            event.preventDefault(); // Cegah refresh halaman
+            event.preventDefault();
+            const submitBtn = document.getElementById('universalSubmitBtn');
+            const originalText = submitBtn.innerText;
             
-            // Kumpulkan data teks (Sudah tidak ada file reader sama sekali)
-            tempPayloadData = {
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'PROSES DATA KE SERVER... ⏳';
+
+            // Kumpulkan payload data TANPA file upload
+            let payload = {
                 formType: currentActiveProgram === 'Lughoh Azhary' ? 'Lughoh_Azhari' : 'Pendaftaran_Umum',
                 programName: currentActiveProgram,
-                niaUser: document.getElementById('univNia') ? document.getElementById('univNia').value.toUpperCase() : document.getElementById('univNama').value.toUpperCase(),
-                detailSatu: document.getElementById('univDetail_1') ? document.getElementById('univDetail_1').value : '-'
+                email: document.getElementById('univEmail') ? document.getElementById('univEmail').value : '-',
+                namaLengkap: document.getElementById('univNama') ? document.getElementById('univNama').value.toUpperCase() : '-',
+                ttl: document.getElementById('univTTL') ? document.getElementById('univTTL').value : '-',
+                niaUser: document.getElementById('univNia') ? document.getElementById('univNia').value.toUpperCase() : 'JALUR_LUGHOH',
+                waSiswa: document.getElementById('univWA_Siswa').value,
+                waOrtu: document.getElementById('univWA_Ortu').value,
+                payment: document.getElementById('univPay') ? document.getElementById('univPay').value : 'KONFIRMASI_ADMIN',
+                fileName: "Tanpa_Foto", // Dummy value
+                fileData: "" // Empty string
             };
 
-            // Set nama program di Modal Pembayaran
-            document.getElementById('demoProgName').innerText = currentActiveProgram;
+            let detail1 = document.getElementById('univDetail_1') ? document.getElementById('univDetail_1').value : '-';
+            let detail2 = document.getElementById('univDetail_2') ? document.getElementById('univDetail_2').value : '-';
+            let detail3 = document.getElementById('univDetail_3') ? document.getElementById('univDetail_3').value : '-';
+            let detail4 = document.getElementById('univDetail_4') ? document.getElementById('univDetail_4').value : '-';
+            let detail5 = document.getElementById('univDetail_5') ? document.getElementById('univDetail_5').value : '-';
+            
+            let checkedMaddah = [];
+            document.querySelectorAll('input[name="maddah"]:checked').forEach(cb => checkedMaddah.push(cb.value));
+            let maddahString = checkedMaddah.join(', ');
 
-            // Tutup form pendaftaran, Buka Modal Pembayaran
-            document.getElementById('universal-program-modal').style.display = 'none';
-            document.getElementById('payment-demo-modal').style.display = 'flex';
-        }
+            payload.details = `Detail1: ${detail1} | Detail2: ${detail2} | Detail3: ${detail3} | Detail4: ${detail4} | Detail5: ${detail5} | Maddah: ${maddahString || '-'}`;
 
-        // SAAT TOMBOL "SIMULASI BAYAR" DIKLIK (KIRIM DATA ASLI KE GOOGLE SHEET)
-        function eksekusiPembayaranDanKirim() {
-            const btn = document.getElementById('btnProsesBayar');
-            btn.innerHTML = 'MEMVERIFIKASI SALDO QRIS... ⏳';
-            btn.disabled = true;
-
-            // Simulasi nunggu loading bank 1.5 detik biar realistis
-            setTimeout(() => {
-                btn.innerHTML = 'MENGIRIM DATA KE DATABASE... 🚀';
-                
-                // Kirim data ke Google Sheet
-                fetch(scriptURL, { 
-                    method: 'POST', 
-                    body: JSON.stringify(tempPayloadData) 
-                })
-                .then(() => {
-                    // Kalau sukses, tutup modal bayar, buka tiket
-                    document.getElementById('payment-demo-modal').style.display = 'none';
+            fetch(scriptURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(hasil => {
+                if(hasil.result === 'success') {
+                    document.getElementById('universal-program-modal').style.display = 'none';
                     document.getElementById('tiket-pendaftaran-modal').style.display = 'flex';
+                    playSuccessSound();
+
+                    if (payload.niaUser === 'JALUR_LUGHOH') {
+                        document.getElementById('tktNiaRow').style.display = 'none';
+                    } else {
+                        document.getElementById('tktNiaRow').style.display = 'block';
+                        document.getElementById('tktNiaValue').innerText = payload.niaUser;
+                    }
                     
-                    // Update isi text di tiket
-                    document.getElementById('tktNiaValue').innerText = tempPayloadData.niaUser;
-                    document.getElementById('tktProgValue').innerText = tempPayloadData.programName;
-                    document.getElementById('tktDetailValue').innerText = tempPayloadData.detailSatu;
+                    document.getElementById('tktProgValue').innerText = payload.programName;
+                    document.getElementById('tktDetailValue').innerText = (detail1 !== '-') ? detail1 : 'Biodata Penuh Tersimpan';
+
+                    const waText = encodeURIComponent(`Halo Admin Markaz,\nSaya telah mendaftar program pembelajaran baru melalui portal website pusat.\n\nProgram: ${payload.programName}\nNIA/Nama: ${payload.niaUser} / ${payload.namaLengkap}\nNo WA Aktif: ${payload.waSiswa}\nStatus Foto: Akan menyusul.\n\nMohon dicek berkas pendaftaran data saya, Syukron!`);
+                    document.getElementById('waTiketBtn').href = "https://wa.me/201551018457?text=" + waText;
                     
-                    // Kosongin form buat pendaftar selanjutnya
                     document.getElementById('universalDynamicForm').reset();
-                })
-                .catch(() => alert("Koneksi gagal! Silakan coba lagi."))
-                .finally(() => {
-                    btn.disabled = false;
-                    btn.innerHTML = 'SAYA SUDAH BAYAR (SIMULASI) 🚀';
-                });
-            }, 1500); // waktu tunggu 1.5 detik
+                } else { alert("Gagal verifikasi berkas server: " + hasil.error); }
+            })
+            .catch(err => { console.error(err); alert("Koneksi transmisi database terputus!"); })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalText;
+            });
         }
 
-        // FUNGSI AUTO CAPSLOCK
+        // --- 9. AUTO CAPSLOCK SAKTI UNIVERSAL ---
         function applyUniversalCapslock() {
-            document.querySelectorAll('input[type="text"]').forEach(input => {
-                input.addEventListener('input', function() { this.value = this.value.toUpperCase(); });
+            document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+                input.removeEventListener('input', forceUpperAction);
+                input.addEventListener('input', forceUpperAction);
             });
+        }
+        function forceUpperAction() { this.value = this.value.toUpperCase(); }
+
+        // --- 10. KRITIK SARAN KE WA ---
+        function kirimKritikWA() {
+            const pesan = document.getElementById('pesanKritik').value;
+            if(pesan.trim() === "") { alert("Isi pesannya dulu ya!"); return; }
+            const waURL = "https://wa.me/201551018457?text=" + encodeURIComponent("HALO ADMIN, ada Masukan dari Website:\n\n\"" + pesan + "\"");
+            window.open(waURL, '_blank');
+            document.getElementById('pesanKritik').value = "";
+        }
+
+        // --- 11. TAALO AI SYSTEM ---
+        function sendTaaloV2Msg() {
+            const inputField = document.getElementById('taaloV2Input');
+            const userText = inputField.value.trim();
+            if (userText === '') return;
+            const chatBody = document.getElementById('taaloV2Body');
+            chatBody.innerHTML += `<div style="align-self: flex-end; background: #0ea5e9; padding: 10px 15px; border-radius: 15px; border-bottom-right-radius: 0; font-size: 13px; margin-top:5px;">${userText}</div>`;
+            inputField.value = ''; chatBody.scrollTop = chatBody.scrollHeight;
+            setTimeout(() => {
+                let aiResponse = ""; let low = userText.toLowerCase();
+                if (low.includes('developer') || low.includes('buat web')) {
+                    aiResponse = "Website ini dirancang oleh Kak Luthfi Al-Fatih yang ganteng parah! 😎 Lead developer Markaz!";
+                } else if (low.includes('nia')) { aiResponse = "Klik menu Administrasi NIA di atas buat daftar ya!";
+                } else { aiResponse = "Taalo siap bantu! Mau tanya soal Pendaftaran, Paket, atau Pembuat Web ini?"; }
+                chatBody.innerHTML += `<div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 5px;">
+                    <img src="taalo.png" style="width: 30px; height: 30px; object-fit:contain; filter: drop-shadow(0 0 5px #0ea5e9);">
+                    <div style="background: #1e293b; padding: 10px 15px; border-radius: 15px; border-bottom-left-radius: 0; font-size: 13px; border: 1px solid rgba(255,255,255,0.05);">${aiResponse}</div>
+                </div>`;
+                chatBody.scrollTop = chatBody.scrollHeight;
+                playSuccessSound(); 
+            }, 600);
+        }
+
+        // --- 12. EASTER EGG FLAPPY TAALO GAME SYSTEM ---
+        let logoClickCount = 0;
+        function triggerEasterEgg() {
+            logoClickCount++;
+            if(logoClickCount === 5) { logoClickCount = 0; document.getElementById('gameOverlay').style.display = 'flex'; initFlappyGame(); }
+        }
+        function closeGame() { document.getElementById('gameOverlay').style.display = 'none'; cancelAnimationFrame(gameLoopRef); }
+
+        let canvas, ctx, taaloY, taaloV, gravity, pipes, score, isGameOver, gameLoopRef;
+        let imgTerbang = new Image(); imgTerbang.src = 'taalo-terbang.png';
+        let imgKejedot = new Image(); imgKejedot.src = 'taalo-kejedot.png';
+
+        function initFlappyGame() {
+            canvas = document.getElementById('flappyCanvas'); ctx = canvas.getContext('2d');
+            taaloY = 200; taaloV = 0; gravity = 0.4; pipes = []; score = 0; isGameOver = false;
+            window.addEventListener('keydown', (e) => { if(e.code === 'Space') jump(); });
+            canvas.addEventListener('touchstart', jump); canvas.addEventListener('mousedown', jump);
+            gameLoop();
+        }
+        function jump() { if(isGameOver) { initFlappyGame(); return; } taaloV = -6; }
+        function gameLoop() {
+            if(isGameOver) {
+                ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.fillRect(0,0,canvas.width,canvas.height);
+                ctx.fillStyle = "white"; ctx.font = "20px Poppins"; ctx.fillText("GAME OVER! Skor: " + score, 60, 240);
+                return;
+            }
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            taaloV += gravity; taaloY += taaloV;
+            let currentImg = (taaloV > 5) ? imgKejedot : imgTerbang; 
+            ctx.drawImage(currentImg, 50, taaloY, 35, 35);
+
+            if(pipes.length === 0 || pipes[pipes.length-1].x < 150) {
+                let pipeY = Math.random() * (canvas.height - 150) + 50; pipes.push({x: canvas.width, y: pipeY});
+            }
+            for(let i=0; i<pipes.length; i++) {
+                let p = pipes[i]; p.x -= 3;
+                ctx.fillStyle = "#0ea5e9"; 
+                ctx.fillRect(p.x, 0, 40, p.y - 60); ctx.fillRect(p.x, p.y + 60, 40, canvas.height - p.y - 60);
+                if(50+30 > p.x && 50 < p.x+40 && (taaloY < p.y-60 || taaloY+30 > p.y+60)) { isGameOver = true; playSuccessSound(); }
+                if(p.x === 50) score++;
+            }
+            if(taaloY > canvas.height || taaloY < 0) isGameOver = true; 
+            ctx.fillStyle = "white"; ctx.font = "20px Poppins"; ctx.fillText(score, 10, 30);
+            gameLoopRef = requestAnimationFrame(gameLoop);
+        }
+
+        // --- 13. SYSTEM ONBOARDING TUTORIAL ---
+        let currentSlide = 1;
+        const totalSlides = 4;
+        function openTutorial() { document.getElementById('tutorial-modal').style.display = 'flex'; currentSlide = 1; updateTutorialUI(); }
+        function closeTutorial() { document.getElementById('tutorial-modal').style.display = 'none'; }
+        function changeSlide(direction) { currentSlide += direction; if(currentSlide > totalSlides) { closeTutorial(); return; } updateTutorialUI(); }
+        function updateTutorialUI() {
+            for(let i=1; i<=totalSlides; i++) {
+                document.getElementById('slide-'+i).classList.remove('active');
+                document.getElementById('dot-'+i).classList.remove('active');
+            }
+            document.getElementById('slide-'+currentSlide).classList.add('active');
+            document.getElementById('dot-'+currentSlide).classList.add('active');
+            document.getElementById('btnPrevTutor').style.visibility = (currentSlide === 1) ? 'hidden' : 'visible';
+            document.getElementById('btnNextTutor').innerText = (currentSlide === totalSlides) ? 'Selesai & Paham' : 'Lanjut';
         }
     </script>
 </body>
