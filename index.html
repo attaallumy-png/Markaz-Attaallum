@@ -37,12 +37,12 @@
 
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
 
-        /* 1. TIMED LOADING SCREEN */
+        /* 1. TIMED LOADING SCREEN BYPASS */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--bg-deep); display: flex; flex-direction: column;
             justify-content: center; align-items: center; z-index: 1000000;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
         .loader-spinner {
             width: 50px; height: 50px; border: 3px solid rgba(59, 130, 246, 0.1);
@@ -55,7 +55,7 @@
         #entrance-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--bg-deep); display: flex; justify-content: center;
-            align-items: center; z-index: 99999; transition: opacity 0.6s ease, visibility 0.6s ease;
+            align-items: center; z-index: 99999; transition: opacity 0.5s ease, visibility 0.5s ease;
         }
         #entrance-modal.hide { opacity: 0; visibility: hidden; }
         .modal-welcome-box { text-align: center; padding: 20px; }
@@ -70,6 +70,25 @@
             box-shadow: var(--neon-glow); transition: all 0.3s ease; border: none; text-align: center;
         }
         .btn-glow:hover { box-shadow: var(--neon-glow-hover); transform: translateY(-2px); }
+
+        /* BUTTON ABU-ABU -> BIRU */
+        .btn-choice-abu {
+            display: inline-block; background-color: #334155; color: #cbd5e1;
+            font-weight: 600; padding: 12px 35px; border-radius: 30px; cursor: pointer;
+            text-transform: uppercase; font-size: 14px; letter-spacing: 1px;
+            transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.05); text-align: center; width: 100%; margin-bottom: 15px;
+        }
+        .btn-choice-abu:hover {
+            background-color: var(--accent-glow); color: white;
+            box-shadow: var(--neon-glow-hover); transform: translateY(-2px); border-color: var(--accent-glow);
+        }
+
+        .btn-secondary-outlined {
+            display: inline-block; background: transparent; color: #ef4444; padding: 10px 25px;
+            border-radius: 30px; cursor: pointer; text-transform: uppercase; font-size: 13px; font-weight: 600;
+            letter-spacing: 1px; border: 2px solid #ef4444; transition: all 0.3s ease; margin-top: 15px; width: 100%;
+        }
+        .btn-secondary-outlined:hover { background-color: #ef4444; color: white; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
 
         /* 3. HEADER NAVBAR */
         header {
@@ -110,9 +129,10 @@
             width: 100%; max-width: 800px; background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
             padding: 30px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            min-height: 140px; display: flex; flex-direction: column; justify-content: center;
         }
-        .testi-content { font-style: italic; color: #cbd5e1; font-size: 15px; margin-bottom: 15px; }
-        .testi-author { color: var(--accent-glow); font-weight: 600; font-size: 14px; }
+        .testi-content { font-style: italic; color: #cbd5e1; font-size: 15px; margin-bottom: 15px; transition: opacity 0.4s ease; }
+        .testi-author { color: var(--accent-glow); font-weight: 600; font-size: 14px; transition: opacity 0.4s ease; }
         .testi-badge { background: rgba(59,130,246,0.1); color: #60a5fa; padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-left: 10px; }
 
         /* 6. MODUL GRID UTAMA (4 LAYANAN) */
@@ -137,7 +157,7 @@
         }
         .btn-arrow:hover { background-color: var(--accent-glow); box-shadow: var(--neon-glow); }
 
-        /* OVERLAY MODALS */
+        /* OVERLAY MODALS & FORM */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(2, 6, 23, 0.96); z-index: 200000; display: none;
@@ -146,20 +166,20 @@
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .modal-box { background-color: var(--bg-card); padding: 35px; border-radius: 20px; width: 92%; max-width: 550px; border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; }
+        
         .scroll-form { max-height: 440px; overflow-y: auto; padding-right: 8px; margin-top: 20px; text-align: left; }
         .scroll-form::-webkit-scrollbar { width: 5px; }
         .scroll-form::-webkit-scrollbar-track { background: var(--bg-deep); }
         .scroll-form::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
 
-        /* FORM ELEMENTS */
         .form-group { margin-bottom: 22px; text-align: left; }
         .form-group label.title { font-weight: 500; display: block; margin-bottom: 8px; color: var(--text-main); font-size: 14px; }
         .form-group .note { font-size: 11px; color: #ef4444; margin-bottom: 8px; display: block; }
-        .form-group input { width: 100%; padding: 12px 16px; background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; font-size: 13px; color: white; transition: 0.3s; }
+        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"] { width: 100%; padding: 12px 16px; background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; font-size: 13px; color: white; transition: 0.3s; }
         .form-group input:focus { outline: none; border-color: var(--accent-glow); box-shadow: 0 0 10px rgba(59,130,246,0.2); }
         .radio-group { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
         .radio-group label { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color: var(--text-dim); }
-        
+
         /* PROGRAM LIST */
         .program-item-row { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; border-radius: 12px; margin-bottom: 12px; transition: 0.3s; }
         .program-item-row:hover { border-color: var(--accent-glow); background: rgba(59, 130, 246, 0.03); }
@@ -179,7 +199,7 @@
         /* STUDY TIMER UI */
         .timer-display { font-size: 60px; font-weight: 700; color: var(--accent-glow); font-variant-numeric: tabular-nums; text-shadow: var(--neon-glow); margin: 20px 0; }
         .timer-controls button { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin: 0 5px; transition: 0.3s; font-weight: 600; }
-        .timer-controls button.active { background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow); }
+        .timer-controls button:hover, .timer-controls button.active { background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow); }
 
         /* FEEDBACK & FOOTER */
         #feedback-section { padding: 40px 6%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: var(--bg-card); }
@@ -193,6 +213,7 @@
         /* TAALO V2 (GEMINI STYLE) */
         .taalo-v2-container { max-width: 800px; margin: 50px auto; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .taalo-v2-avatar-big { width: 150px; height: 150px; object-fit: contain; background: transparent; filter: drop-shadow(0 0 25px rgba(14, 165, 233, 0.6)); margin-bottom: 15px; animation: floatTaalo 3s ease-in-out infinite; }
+        @keyframes floatTaalo { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         .taalo-v2-title { color: white; font-size: 26px; margin-bottom: 5px; }
         .taalo-v2-chat-area { width: 100%; max-height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; padding: 10px; }
         .taalo-v2-input-wrapper { width: 100%; background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; display: flex; padding: 10px 15px; }
@@ -210,24 +231,17 @@
             .grid-container { grid-template-columns: 1fr; }
             .modal-box { padding: 25px 20px; width: 95%; }
             .timer-display { font-size: 45px; }
+            .taalo-v2-avatar-big { width: 110px; height: 110px; }
         }
     </style>
 </head>
 <body>
 
-   <div id="loader">
+    <div id="loader">
         <div class="loader-spinner"></div>
         <p style="margin-top: 20px; letter-spacing: 3px; font-size: 11px; color: var(--text-dim);">INITIALIZING SYSTEM...</p>
     </div>
-    <script>
-        setTimeout(() => {
-            const loader = document.getElementById('loader');
-            if(loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 400);
-            }
-        }, 800); // 800ms (kurang dari 1 detik) langsung tembus!
-    </script>
+
     <div id="entrance-modal">
         <div class="modal-welcome-box">
             <img src="logo.png" alt="Logo Markaz" class="modal-logo">
@@ -248,23 +262,21 @@
     <div id="sidebar-menu">
         <div class="close-btn" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-xmark"></i></div>
         <div class="sidebar-links">
-            <a href="#hero-banner"><i class="fa-solid fa-house"></i> Beranda</a>
+            <a href="#hero-banner" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-house"></i> Beranda</a>
             <a href="https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk" target="_blank"><i class="fa-solid fa-book-open"></i> Profil Attaallum</a>
-            <a href="#services"><i class="fa-solid fa-folder"></i> Administrasi NIA & Program</a>
+            <a href="#services" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-folder"></i> Administrasi NIA & Program</a>
             <a href="https://wa.me/201551018457" target="_blank"><i class="fa-solid fa-headset"></i> Hubungi CS Admin</a>
         </div>
     </div>
 
-  <section id="hero-banner">
-        
-        <img src="logo.png" alt="Logo Attaallum" style="width: 110px; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(59,130,246,0.4));">
-        
+    <section id="hero-banner">
+        <img src="logo.png" alt="Logo Attaallum" style="width: 100px; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(59,130,246,0.4));">
         <h1 class="hero-title-main">Selamat Datang <span>Sobat Attaallum</span></h1>
-        
         <p class="hero-desc">Wadah pendidikan terpadu untuk mengembangkan ilmu, adab, dan percaya diri. Metode belajar hangat, interaktif, dan menyenangkan.</p>
-        <div class="testimonial-slider" id="testiSlider">
-            <div id="testiContent" class="testi-content">"Belajar di At-Ta'allum rasanya kayak punya keluarga kedua. Suasananya hangat, ustadz dan ustadzahnya saling support!"</div>
-            <div id="testiAuthor" class="testi-author">Hafiz Habibullah <span class="testi-badge">Lolos Kuliah Al-Azhar</span></div>
+        
+        <div class="testimonial-slider">
+            <div id="testiContent" class="testi-content">"Belajar di attaallum keren sekali!"</div>
+            <div id="testiAuthor" class="testi-author">Luthfi Al-Fatih <span class="testi-badge">Lead Developer</span></div>
         </div>
     </section>
 
@@ -280,19 +292,19 @@
                 <i class="fa-solid fa-id-card-clip card-icon"></i>
                 <h3>Administrasi NIA</h3>
                 <p>Pengajuan berkas data Nomor Identitas (NIA) baru secara digital.</p>
-                <a href="#" onclick="document.getElementById('pilihan-admin-modal').style.display='flex'" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
+                <a href="#" onclick="document.getElementById('pilihan-admin-modal').style.display='flex'; event.preventDefault();" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="service-card">
                 <i class="fa-solid fa-graduation-cap card-icon"></i>
                 <h3>Program Pembelajaran</h3>
                 <p>Pendaftaran berkas program kelas unggulan, istimewa, atau privat.</p>
-                <a href="#" onclick="document.getElementById('program-pembelajaran-modal').style.display='flex'" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
+                <a href="#" onclick="document.getElementById('program-pembelajaran-modal').style.display='flex'; event.preventDefault();" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="service-card" style="border-color: rgba(16,185,129,0.3);">
                 <i class="fa-solid fa-stopwatch card-icon" style="color: #10b981;"></i>
                 <h3>Ruang Fokus (Timer)</h3>
                 <p>Tingkatkan produktivitas belajar Anda dengan teknik Pomodoro khusus pelajar.</p>
-                <a href="#" onclick="document.getElementById('timer-modal').style.display='flex'" class="btn-arrow" style="background: #10b981;"><i class="fa-solid fa-play"></i></a>
+                <a href="#" onclick="document.getElementById('timer-modal').style.display='flex'; event.preventDefault();" class="btn-arrow" style="background: #10b981;"><i class="fa-solid fa-play"></i></a>
             </div>
         </div>
     </section>
@@ -300,39 +312,95 @@
     <div id="pilihan-admin-modal" class="modal-overlay">
         <div class="modal-box">
             <i class="fa-solid fa-shield-halved" style="font-size: 36px; color: var(--accent-glow); margin-bottom: 15px;"></i>
-            <h3>Pilih Status Administrasi</h3>
+            <h3 style="margin-bottom: 10px; color:white;">Pilih Status Administrasi</h3>
             <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 30px;">Tentukan status Nomor Identitas Anda saat ini.</p>
-            <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" class="btn-glow" style="width: 100%; margin-bottom: 15px;">1. Saya Sudah Punya NIA</button>
-            <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'; document.getElementById('form-admin-modal').style.display='flex';" class="btn-glow" style="width: 100%;">2. Saya Belum Punya NIA</button>
-            <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'" class="btn-secondary-outlined">Batal</button>
+            
+            <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" class="btn-choice-abu">1. Saya Sudah Punya NIA</button>
+            <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'; document.getElementById('form-admin-modal').style.display='flex';" class="btn-choice-abu">2. Saya Belum Punya NIA</button>
+            
+            <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'" class="btn-secondary-outlined">Batal / Kembali</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="form-admin-modal">
         <div class="modal-box" style="max-width: 600px;">
-            <h3><i class="fa-solid fa-file-pen" style="color: var(--accent-glow);"></i> Formulir Data NIA</h3>
+            <h3 style="color: white; margin-bottom:15px; text-align:left;"><i class="fa-solid fa-file-pen" style="color: var(--accent-glow);"></i> Formulir Data NIA</h3>
             <form id="registrationForm" class="scroll-form" onsubmit="kirimDataForm(event)">
                 <div class="form-group"><label class="title">Email Aktif *</label><input type="email" id="formEmail" required></div>
                 <div class="form-group"><label class="title">Nama Lengkap *</label><input type="text" id="formNama" style="text-transform: uppercase;" required></div>
                 <div class="form-group"><label class="title">Tempat, Tanggal Lahir *</label><input type="text" id="formTTL" required></div>
-                <div class="form-group"><label class="title">Tahun Kedatangan & Mediator *</label><input type="text" id="formTahunMed" required placeholder="Cth: 2024 - Fulan"></div>
+                <div class="form-group">
+                    <label class="title">Domisili di Mesir *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="domisili" value="Darrasah" required> Darrasah</label>
+                        <label><input type="radio" name="domisili" value="Sabi'"> Sabi'</label>
+                        <label><input type="radio" name="domisili" value="Asyir"> Asyir</label>
+                        <label><input type="radio" name="domisili" value="Tamin"> Tamin</label>
+                        <label><input type="radio" name="domisili" value="Tabbah"> Tabbah</label>
+                        <label><input type="radio" name="domisili" value="Yang lain"> Yang lain</label>
+                    </div>
+                </div>
+                <div class="form-group"><label class="title">Kekeluargaan *</label><input type="text" id="formKekeluargaan" required></div>
+                <div class="form-group"><label class="title">Tahun Kedatangan di Mesir *</label><input type="number" id="formTahun" required></div>
+                <div class="form-group"><label class="title">Mediator Pendaftaran *</label><input type="text" id="formMediator" required></div>
+                <div class="form-group">
+                    <label class="title">Jenjang Pendidikan Saat Ini *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="jenjang" value="Dirosah Khosoh" required> Dirosah Khosoh</label>
+                        <label><input type="radio" name="jenjang" value="Ma'had Buuts"> Ma'had Buuts</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="title">Tingkat Kelas (Jika Dirosah Khosoh)</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tkDirosah" value="Mubtadi Awal"> Mubtadi Awal</label>
+                        <label><input type="radio" name="tkDirosah" value="Mubtadi Tsani"> Mubtadi Tsani</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutawassit Awal"> Mutawassit Awal</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutawassit Tsani"> Mutawassit Tsani</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutaqoddim Awal"> Mutaqoddim Awal</label>
+                        <label><input type="radio" name="tkDirosah" value="Mutaqoddim Tsani"> Mutaqoddim Tsani</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="title">Tingkat Kelas (Jika Ma'had Buuts)</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tkMahad" value="1 Idady"> 1 Idady</label>
+                        <label><input type="radio" name="tkMahad" value="2 Idady"> 2 Idady</label>
+                        <label><input type="radio" name="tkMahad" value="3 Idady"> 3 Idady</label>
+                        <label><input type="radio" name="tkMahad" value="1 Tsanawy"> 1 Tsanawy</label>
+                        <label><input type="radio" name="tkMahad" value="2 Tsanawy"> 2 Tsanawy</label>
+                        <label><input type="radio" name="tkMahad" value="3 Tsanawy"> 3 Tsanawy</label>
+                    </div>
+                </div>
                 <div class="form-group"><label class="title">Nomor HP / WhatsApp Aktif *</label><input type="text" id="formNoHP" required></div>
-                <button type="submit" class="btn-glow" style="width: 100%;">VALIDASI & DAFTARKAN NIA</button>
+                <button type="submit" class="btn-glow" style="width: 100%; margin-top: 15px;">VALIDASI & DAFTARKAN NIA</button>
             </form>
             <p onclick="document.getElementById('form-admin-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 15px;">KEMBALI</p>
         </div>
     </div>
 
+    <div class="modal-overlay" id="success-admin-modal">
+        <div class="modal-box" style="max-width: 450px;">
+            <i class="fa-solid fa-circle-check" style="font-size: 55px; color: #10b981; filter: drop-shadow(0 0 10px rgba(16,185,129,0.4));"></i>
+            <h3 style="font-size: 24px; margin-top: 15px; color: #fff;">Registrasi Berhasil!</h3>
+            <p style="color: var(--text-dim); margin-top: 8px; font-size: 13px;">Nomor Identitas Attaallum (NIA) otomatis Anda adalah:</p>
+            <div id="displayNIA" style="background-color: var(--bg-input); padding: 18px; border-radius: 10px; font-size: 26px; font-weight: 700; color: var(--accent-glow); letter-spacing: 4px; margin: 25px 0; border: 2px dashed var(--accent-glow); text-shadow: var(--neon-glow);">NIA-XXXX</div>
+            <a id="waDirectBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: #22c55e; display: block; margin-bottom: 15px;"><i class="fa-brands fa-whatsapp"></i> HUBUNGI CS ADMIN</a>
+            <button onclick="document.getElementById('success-admin-modal').style.display='none';" class="btn-secondary-outlined" style="margin-top:0;">Kembali ke Beranda</button>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="program-pembelajaran-modal">
         <div class="modal-box" style="max-width: 600px;">
-            <h3><i class="fa-solid fa-layer-group" style="color: var(--accent-glow);"></i> Program Pembelajaran</h3>
+            <h3 style="color: white; text-align: left; margin-bottom:15px;"><i class="fa-solid fa-layer-group" style="color: var(--accent-glow);"></i> Program Pembelajaran</h3>
             <div class="scroll-form">
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program Imtihan Qobul</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Imtihan Qobul')">Daftar</button></div>
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program Lughoh Azhary</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Lughoh Azhary')">Daftar</button></div>
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program 1 Tsanawi</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 1 Tsanawi')">Daftar</button></div>
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program 2 I'dadi</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 2 I\'dadi')">Daftar</button></div>
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program 2 Tsanawi</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 2 Tsanawi')">Daftar</button></div>
-                <div class="program-item-row"><div class="program-info"><span class="program-name">Program Istimewa & Privat</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Istimewa / Privat')">Daftar</button></div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program Musabaqoh 3 I'dadi</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Musabaqoh 3 I\'dadi')">Daftar</button></div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program Musabaqoh 3 Tsanawi</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Musabaqoh 3 Tsanawi')">Daftar</button></div>
             </div>
             <p onclick="document.getElementById('program-pembelajaran-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">TUTUP</p>
         </div>
@@ -341,13 +409,12 @@
     <div class="modal-overlay" id="input-nia-program-modal">
         <div class="modal-box" style="max-width: 450px;">
             <i class="fa-solid fa-key" style="font-size: 32px; color: var(--accent-glow); margin-bottom: 15px;"></i>
-            <h3 id="titleNiaProg">Otorisasi Berkas</h3>
+            <h3 id="titleNiaProg" style="color:white;">Otorisasi Berkas</h3>
             <form onsubmit="generateTiketProgram(event)" style="text-align: left; margin-top: 20px;">
                 <div class="form-group">
                     <label class="title">Nomor NIA Anda *</label>
                     <input type="text" id="inputNiaUser" placeholder="Cth: NIA-2026-001" required style="text-transform: uppercase;">
                 </div>
-                
                 <div class="form-group" id="paketPilihanDiv">
                     <label class="title">Pilih Paket Ekstra *</label>
                     <div class="radio-group">
@@ -356,40 +423,36 @@
                         <label><input type="radio" name="paketProgram" value="Paket Mutqin (Semua Maddah)"> Mutqin (Semua Maddah)</label>
                     </div>
                 </div>
-
                 <button type="submit" class="btn-glow" style="width: 100%;">GENERATE TIKET 🎫</button>
             </form>
-            <p onclick="document.getElementById('input-nia-program-modal').style.display='none';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">KEMBALI</p>
+            <p onclick="document.getElementById('input-nia-program-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">KEMBALI</p>
         </div>
     </div>
 
     <div class="modal-overlay" id="tiket-pendaftaran-modal">
         <div class="modal-box" style="max-width: 460px;">
             <i class="fa-solid fa-clipboard-check" style="font-size: 45px; color: #10b981;"></i>
-            <h3 style="margin-top: 10px;">Tiket Generated!</h3>
+            <h3 style="margin-top: 10px; color:white;">Tiket Generated!</h3>
             <div class="ticket-wrapper">
                 <div class="ticket-header">BUKTI REGISTRASI PROGRAM</div>
                 <div class="ticket-field"><div class="ticket-label">NIA</div><div class="ticket-value" id="tktNiaValue"></div></div>
                 <div class="ticket-field"><div class="ticket-label">PROGRAM</div><div class="ticket-value" id="tktProgValue"></div></div>
                 <div class="ticket-field" id="tktPaketField"><div class="ticket-label">PAKET</div><div class="ticket-value" id="tktPaketValue"></div></div>
-                <div class="ticket-status">PENDING VERIFIKASI</div>
             </div>
             <a id="waTiketBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; background: #22c55e;"><i class="fa-brands fa-whatsapp"></i> KIRIM TIKET KE ADMIN</a>
-            <p onclick="location.reload()" style="color: var(--text-dim); cursor: pointer; font-size: 13px; margin-top: 20px;">KEMBALI</p>
+            <p onclick="document.getElementById('tiket-pendaftaran-modal').style.display='none'" style="color: var(--text-dim); cursor: pointer; font-size: 13px; margin-top: 20px;">KEMBALI KE BERANDA</p>
         </div>
     </div>
 
     <div class="modal-overlay" id="timer-modal">
         <div class="modal-box" style="max-width: 400px;">
             <i class="fa-solid fa-brain" style="font-size: 30px; color: #10b981; margin-bottom: 10px;"></i>
-            <h3>Ruang Fokus (Pomodoro)</h3>
+            <h3 style="color:white;">Ruang Fokus (Pomodoro)</h3>
             <p style="font-size: 12px; color: var(--text-dim);">Fokus 25 Menit. Matikan gangguan.</p>
-            
             <div class="timer-display" id="time-display">25:00</div>
-            
             <div class="timer-controls">
-                <button id="btnStartTimer" onclick="startTimer()" class="active">Mulai</button>
-                <button onclick="pauseTimer()">Jeda</button>
+                <button onclick="mulaiTimer()" class="active">Mulai</button>
+                <button onclick="jedaTimer()">Jeda</button>
                 <button onclick="resetTimer()">Reset</button>
             </div>
             <p onclick="document.getElementById('timer-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 25px;">TUTUP TIMER</p>
@@ -429,76 +492,115 @@
     </div>
 
     <script>
-        // ============================================
-        // AUDIO SFX SYSTEM (WEB AUDIO API - NO FILE NEEDED)
-        // ============================================
+        // --- 1. LOADER BYPASS ---
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                if(loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => { loader.style.display = 'none'; }, 400);
+                }
+            }, 800);
+        });
+
+        // --- 2. AUDIO SFX SYSTEM ---
         function playSuccessSound() {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, ctx.currentTime); // Nada A5 (Ting!)
+                osc.type = 'sine'; osc.frequency.setValueAtTime(880, ctx.currentTime);
                 gain.gain.setValueAtTime(0.5, ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.5);
-            } catch (e) { console.log("Audio not supported"); }
+                osc.connect(gain); gain.connect(ctx.destination);
+                osc.start(); osc.stop(ctx.currentTime + 0.5);
+            } catch (e) { console.log("Audio API issue"); }
         }
 
-        // ============================================
-        // TESTIMONIAL SLIDER DATA
-        // ============================================
+        // --- 3. TESTIMONI OTOMATIS (FIXED) ---
         const testimoniData = [
-            { text: '"Dulu saya kira Bahasa Arab itu susah, tapi dengan Attaallum ternyata jadi mudah banget! Guru-gurunya ngajarin dengan sederhana."', author: 'Ahmad Isna Asari', badge: 'Lolos Kuliah Al-Azhar' },
-            { text: '"Penyampaian guru sangat jelas dan detail serta mudah dipahami. Aku dapet kelas Tsanawi di Qobul kemarin!"', author: 'Noureen Qiana', badge: 'Peserta 2 Tsanawi' },
-            { text: '"Belajar di At-Ta\'allum rasanya kayak punya keluarga kedua. Bukan cuma dapet ilmu, tapi juga adab dan kedisiplinan."', author: 'Hafiz Habibullah', badge: 'Lolos Kuliah Al-Azhar' }
+            { text: '"Belajar di attaallum keren sekali!"', author: 'Luthfi Al-Fatih', badge: 'Lead Developer' },
+            { text: '"Dulu saya kira Bahasa Arab itu susah, dengan Attaallum ternyata jadi mudah banget!"', author: 'Ahmad Isna Asari', badge: 'Lolos Kuliah Al-Azhar' },
+            { text: '"Penyampaian guru sangat jelas dan detail serta mudah dipahami."', author: 'Noureen Qiana', badge: 'Peserta 2 Tsanawi' }
         ];
         let testiIndex = 0;
         setInterval(() => {
             testiIndex = (testiIndex + 1) % testimoniData.length;
-            document.getElementById('testiContent').style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById('testiContent').innerText = testimoniData[testiIndex].text;
-                document.getElementById('testiAuthor').innerHTML = `${testimoniData[testiIndex].author} <span class="testi-badge">${testimoniData[testiIndex].badge}</span>`;
-                document.getElementById('testiContent').style.opacity = 1;
-            }, 300);
+            const tContent = document.getElementById('testiContent');
+            const tAuthor = document.getElementById('testiAuthor');
+            if(tContent && tAuthor) {
+                tContent.style.opacity = 0; tAuthor.style.opacity = 0;
+                setTimeout(() => {
+                    tContent.innerText = testimoniData[testiIndex].text;
+                    tAuthor.innerHTML = `${testimoniData[testiIndex].author} <span class="testi-badge">${testimoniData[testiIndex].badge}</span>`;
+                    tContent.style.opacity = 1; tAuthor.style.opacity = 1;
+                }, 400);
+            }
         }, 4000);
 
-        // ============================================
-        // STUDY TIMER (POMODORO) LOGIC
-        // ============================================
+        // --- 4. STUDY TIMER POMODORO (FIXED) ---
         let timerInterval;
-        let timeLeft = 25 * 60; // 25 Menit
-        
+        let timeLeft = 25 * 60;
         function updateTimerDisplay() {
-            let m = Math.floor(timeLeft / 60);
-            let s = timeLeft % 60;
+            let m = Math.floor(timeLeft / 60); let s = timeLeft % 60;
             document.getElementById('time-display').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         }
-        function startTimer() {
+        function mulaiTimer() {
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
                 if(timeLeft > 0) { timeLeft--; updateTimerDisplay(); } 
                 else { clearInterval(timerInterval); playSuccessSound(); alert("Waktu fokus selesai! Istirahat 5 menit ya."); }
             }, 1000);
         }
-        function pauseTimer() { clearInterval(timerInterval); }
+        function jedaTimer() { clearInterval(timerInterval); }
         function resetTimer() { clearInterval(timerInterval); timeLeft = 25 * 60; updateTimerDisplay(); }
 
-        // ============================================
-        // ALUR PROGRAM & PAKET MUKHTAR/MUBSIT/MUTQIN
-        // ============================================
-        let selectedProgramGlobal = '';
+        // --- 5. GOOGLE SHEET FORM GENERATOR (FIXED) ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzi5Rb_VG2h65v1ENCK76kd1g2yq3YJbjOMiINZH_3EQ6NrIFSG57ozoqKg38lvOhHCwg/exec';
+        function kirimDataForm(event) {
+            event.preventDefault();
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const teksAsli = submitBtn.innerText;
+            submitBtn.disabled = true; submitBtn.innerText = 'MEMPROSES DATA... ⏳';
 
+            const dataAlumni = {
+                email: document.getElementById('formEmail').value,
+                namaLengkap: document.getElementById('formNama').value.toUpperCase(),
+                ttl: document.getElementById('formTTL').value,
+                domisili: document.querySelector('input[name="domisili"]:checked') ? document.querySelector('input[name="domisili"]:checked').value : "",
+                kekeluargaan: document.getElementById('formKekeluargaan').value,
+                tahunKedatangan: document.getElementById('formTahun').value,
+                mediator: document.getElementById('formMediator').value,
+                jenjang: document.querySelector('input[name="jenjang"]:checked') ? document.querySelector('input[name="jenjang"]:checked').value : "",
+                tingkatDirosah: document.querySelector('input[name="tkDirosah"]:checked') ? document.querySelector('input[name="tkDirosah"]:checked').value : "-",
+                tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-",
+                noHP: document.getElementById('formNoHP').value
+            };
+            
+            fetch(scriptURL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(dataAlumni) })
+            .then(response => response.json())
+            .then(hasil => {
+                if (hasil.result === 'success') {
+                    document.getElementById('form-admin-modal').style.display = 'none';
+                    document.getElementById('success-admin-modal').style.display = 'flex';
+                    document.getElementById('displayNIA').innerText = hasil.nia; 
+                    playSuccessSound(); // Bunyi ting pas dapet NIA!
+                    const waMessage = encodeURIComponent("Halo Admin,\nsaya sudah mengisi form alumni baru.\nNama: " + dataAlumni.namaLengkap + "\nNIA: " + hasil.nia + "\nMohon diaktivasi!");
+                    document.getElementById('waDirectBtn').href = "https://wa.me/201551018457?text=" + waMessage;
+                    document.getElementById('registrationForm').reset();
+                } else { alert('Sistem mendeteksi malfungsi: ' + hasil.error); }
+            })
+            .catch(error => { console.error('Error!', error); alert('Gagal mengirimkan transmisi data!'); })
+            .finally(() => { submitBtn.disabled = false; submitBtn.innerText = teksAsli; });
+        }
+
+        // --- 6. PROGRAM LAYANAN & PAKET (FIXED) ---
+        let selectedProgramGlobal = '';
         function mintaNiaProgram(namaProgram) {
             selectedProgramGlobal = namaProgram;
             document.getElementById('program-pembelajaran-modal').style.display = 'none';
             document.getElementById('titleNiaProg').innerText = 'Daftar ' + namaProgram;
             
-            // Logika Sembunyikan Paket kalau Imtihan Qobul
             const paketDiv = document.getElementById('paketPilihanDiv');
             if(namaProgram === 'Program Imtihan Qobul') {
                 paketDiv.style.display = 'none';
@@ -507,7 +609,6 @@
                 paketDiv.style.display = 'block';
                 document.querySelectorAll('input[name="paketProgram"]').forEach(rb => rb.required = true);
             }
-            
             document.getElementById('input-nia-program-modal').style.display = 'flex';
         }
 
@@ -515,79 +616,61 @@
             event.preventDefault();
             const niaUser = document.getElementById('inputNiaUser').value.toUpperCase();
             let paketUser = "-";
-            
             if(selectedProgramGlobal !== 'Program Imtihan Qobul') {
                 const paketChecked = document.querySelector('input[name="paketProgram"]:checked');
                 if(paketChecked) paketUser = paketChecked.value;
             }
-
             document.getElementById('input-nia-program-modal').style.display = 'none';
             document.getElementById('tiket-pendaftaran-modal').style.display = 'flex';
+            playSuccessSound(); 
             
-            playSuccessSound(); // Bunyi SFX Sukses!
-
             document.getElementById('tktNiaValue').innerText = niaUser;
             document.getElementById('tktProgValue').innerText = selectedProgramGlobal;
             document.getElementById('tktPaketValue').innerText = paketUser;
-            
             if(paketUser === "-") document.getElementById('tktPaketField').style.display = 'none';
             else document.getElementById('tktPaketField').style.display = 'block';
             
-            const waText = encodeURIComponent(`Halo Admin Markaz,\nSaya mau mendaftar program:\n\nNIA: ${niaUser}\nProgram: ${selectedProgramGlobal}\nPaket: ${paketUser}\n\nLampiran SS Tiket Digital menyusul. Mohon konfirmasinya!`);
+            const waText = encodeURIComponent(`Halo Admin,\nSaya daftar program:\nNIA: ${niaUser}\nProgram: ${selectedProgramGlobal}\nPaket: ${paketUser}\nSS Tiket menyusul!`);
             document.getElementById('waTiketBtn').href = "https://wa.me/201551018457?text=" + waText;
         }
 
-        // ============================================
-        // FORM KRITIK & SARAN KE WA
-        // ============================================
+        // --- 7. KRITIK SARAN KE WA (FIXED) ---
         function kirimKritikWA() {
             const pesan = document.getElementById('pesanKritik').value;
             if(pesan.trim() === "") { alert("Isi pesannya dulu ya!"); return; }
-            const waURL = "https://wa.me/201551018457?text=" + encodeURIComponent("HALO ADMIN, ada Masukan & Saran dari Website nih:\n\n\"" + pesan + "\"");
+            const waURL = "https://wa.me/201551018457?text=" + encodeURIComponent("HALO ADMIN, ada Masukan dari Website:\n\n\"" + pesan + "\"");
             window.open(waURL, '_blank');
             document.getElementById('pesanKritik').value = "";
         }
 
-        // ============================================
-        // OTAK TAALO AI V2
-        // ============================================
+        // --- 8. TAALO AI (FIXED) ---
         function sendTaaloV2Msg() {
             const inputField = document.getElementById('taaloV2Input');
             const userText = inputField.value.trim();
             if (userText === '') return;
-
             const chatBody = document.getElementById('taaloV2Body');
             chatBody.innerHTML += `<div style="align-self: flex-end; background: #0ea5e9; padding: 10px 15px; border-radius: 15px; border-bottom-right-radius: 0; font-size: 13px; margin-top:5px;">${userText}</div>`;
             inputField.value = ''; chatBody.scrollTop = chatBody.scrollHeight;
-
             setTimeout(() => {
                 let aiResponse = ""; let low = userText.toLowerCase();
                 if (low.includes('developer') || low.includes('buat web')) {
-                    aiResponse = "Website keren ini dirancang eksklusif oleh Kak Luthfi Al-Fatih yang ganteng parah! 😎 Full-stack developer kesayangan Markaz!";
+                    aiResponse = "Website ini dirancang oleh Kak Luthfi Al-Fatih yang ganteng parah! 😎 Lead developer Markaz!";
                 } else if (low.includes('nia')) { aiResponse = "Klik menu Administrasi NIA di atas buat daftar ya!";
-                } else if (low.includes('paket') || low.includes('maddah')) { aiResponse = "Kita sedia Paket Mukhtar (1-5 Maddah), Mubsit (6 Maddah wajib Fiqih dll), dan Mutqin (Semua Maddah). Pilih pas daftar program!";
-                } else { aiResponse = "Taalo siap bantu! Mau tanya soal Pendaftaran, Paket Program, atau Siapa Pembuat Web ini?"; }
-
+                } else { aiResponse = "Taalo siap bantu! Mau tanya soal Pendaftaran, Paket, atau Pembuat Web ini?"; }
                 chatBody.innerHTML += `<div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 5px;">
                     <img src="taalo.png" style="width: 30px; height: 30px; object-fit:contain; filter: drop-shadow(0 0 5px #0ea5e9);">
                     <div style="background: #1e293b; padding: 10px 15px; border-radius: 15px; border-bottom-left-radius: 0; font-size: 13px; border: 1px solid rgba(255,255,255,0.05);">${aiResponse}</div>
                 </div>`;
                 chatBody.scrollTop = chatBody.scrollHeight;
-                playSuccessSound(); // Bunyi ting pelan pas Taalo bales
+                playSuccessSound(); 
             }, 600);
         }
 
-        // ============================================
-        // 5. EASTER EGG: FLAPPY TAALO MINI GAME
-        // ============================================
+        // --- 9. EASTER EGG FLAPPY TAALO (FIXED) ---
         let logoClickCount = 0;
         function triggerEasterEgg() {
             logoClickCount++;
-            if(logoClickCount === 5) {
-                logoClickCount = 0;
-                document.getElementById('gameOverlay').style.display = 'flex';
-                initFlappyGame();
-            }
+            if(logoClickCount === 5) { logoClickCount = 0; document.getElementById('gameOverlay').style.display = 'flex'; initFlappyGame(); }
         }
         function closeGame() { document.getElementById('gameOverlay').style.display = 'none'; cancelAnimationFrame(gameLoopRef); }
 
@@ -596,23 +679,13 @@
         let imgKejedot = new Image(); imgKejedot.src = 'taalo-kejedot.png';
 
         function initFlappyGame() {
-            canvas = document.getElementById('flappyCanvas');
-            ctx = canvas.getContext('2d');
+            canvas = document.getElementById('flappyCanvas'); ctx = canvas.getContext('2d');
             taaloY = 200; taaloV = 0; gravity = 0.4; pipes = []; score = 0; isGameOver = false;
-            
-            // Event Listener Jump
             window.addEventListener('keydown', (e) => { if(e.code === 'Space') jump(); });
-            canvas.addEventListener('touchstart', jump);
-            canvas.addEventListener('mousedown', jump);
-            
+            canvas.addEventListener('touchstart', jump); canvas.addEventListener('mousedown', jump);
             gameLoop();
         }
-
-        function jump() {
-            if(isGameOver) { initFlappyGame(); return; }
-            taaloV = -6; // Kekuatan loncat
-        }
-
+        function jump() { if(isGameOver) { initFlappyGame(); return; } taaloV = -6; }
         function gameLoop() {
             if(isGameOver) {
                 ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -620,47 +693,23 @@
                 return;
             }
             ctx.clearRect(0,0,canvas.width,canvas.height);
-            
-            // Fisika Taalo
             taaloV += gravity; taaloY += taaloV;
-            
-            // Gambar Taalo (Ganti gambar kalau jatuh/nabrak)
-            let currentImg = (taaloV > 5) ? imgKejedot : imgTerbang; // Kalau jatuh cepat pakai gambar kejedot
+            let currentImg = (taaloV > 5) ? imgKejedot : imgTerbang; 
             ctx.drawImage(currentImg, 50, taaloY, 35, 35);
 
-            // Bikin Pipa
             if(pipes.length === 0 || pipes[pipes.length-1].x < 150) {
-                let pipeY = Math.random() * (canvas.height - 150) + 50;
-                pipes.push({x: canvas.width, y: pipeY});
+                let pipeY = Math.random() * (canvas.height - 150) + 50; pipes.push({x: canvas.width, y: pipeY});
             }
-
-            // Gerakin Pipa & Cek Tabrakan
             for(let i=0; i<pipes.length; i++) {
                 let p = pipes[i]; p.x -= 3;
-                
-                // Gambar Pipa Atas & Bawah
-                ctx.fillStyle = "#0ea5e9"; // Warna neon blue
-                ctx.fillRect(p.x, 0, 40, p.y - 60); // Atas
-                ctx.fillRect(p.x, p.y + 60, 40, canvas.height - p.y - 60); // Bawah
-
-                // Deteksi Nabrak
+                ctx.fillStyle = "#0ea5e9"; 
+                ctx.fillRect(p.x, 0, 40, p.y - 60); ctx.fillRect(p.x, p.y + 60, 40, canvas.height - p.y - 60);
                 if(50+30 > p.x && 50 < p.x+40 && (taaloY < p.y-60 || taaloY+30 > p.y+60)) { isGameOver = true; playSuccessSound(); }
                 if(p.x === 50) score++;
             }
-            if(taaloY > canvas.height || taaloY < 0) isGameOver = true; // Nabrak tanah/langit
-
-            // Teks Skor
+            if(taaloY > canvas.height || taaloY < 0) isGameOver = true; 
             ctx.fillStyle = "white"; ctx.font = "20px Poppins"; ctx.fillText(score, 10, 30);
-            
             gameLoopRef = requestAnimationFrame(gameLoop);
-        }
-
-        window.addEventListener('load', () => { setTimeout(() => { document.getElementById('loader').style.opacity = '0'; setTimeout(() => { document.getElementById('loader').style.visibility = 'hidden'; }, 600); }, 1200); });
-  /* MESIN TERBANG TAALO YANG HILANG WKWK */
-        @keyframes floatTaalo {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
         }
     </script>
 </body>
