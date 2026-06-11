@@ -432,7 +432,7 @@
             <form onsubmit="generateTiketProgram(event)" style="text-align: left; margin-top: 20px;">
                 <div class="form-group">
                     <label class="title">Nomor NIA Anda *</label>
-                    <input type="text" id="inputNiaUser" placeholder="Cth: NIA-2026-001" required style="text-transform: uppercase;">
+                    <input type="text" id="inputNiaUser" placeholder="Cth: NIA001" required style="text-transform: uppercase;">
                 </div>
                 <div class="form-group" id="paketPilihanDiv">
                     <label class="title">Pilih Paket Ekstra *</label>
@@ -805,6 +805,13 @@
             document.getElementById('btnPrevTutor').style.visibility = (currentSlide === 1) ? 'hidden' : 'visible';
             document.getElementById('btnNextTutor').innerText = (currentSlide === totalSlides) ? 'Selesai & Paham' : 'Lanjut';
         }
+
+        // --- AUTO CAPSLOCK UNTUK SEMUA FORM INPUT MANUAL ---
+        document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+            input.addEventListener('input', function() {
+                this.value = this.value.toUpperCase();
+            });
+        });
     </script>
 </body>
 </html>
