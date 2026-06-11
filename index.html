@@ -585,7 +585,7 @@
                     document.getElementById('success-admin-modal').style.display = 'flex';
                     document.getElementById('displayNIA').innerText = hasil.nia; 
                     playSuccessSound(); // Bunyi ting pas dapet NIA!
-                    const waMessage = encodeURIComponent("Halo Admin,\nsaya sudah mengisi form alumni baru.\nNama: " + dataAlumni.namaLengkap + "\nNIA: " + hasil.nia + "\nMohon diaktivasi!");
+                    const waMessage = encodeURIComponent("Halo Admin,\nsaya sudah mengisi form NIA baru.\nNama: " + dataAlumni.namaLengkap + "\nNIA: " + hasil.nia + "\nMohon diaktivasi!");
                     document.getElementById('waDirectBtn').href = "https://wa.me/201551018457?text=" + waMessage;
                     document.getElementById('registrationForm').reset();
                 } else { alert('Sistem mendeteksi malfungsi: ' + hasil.error); }
