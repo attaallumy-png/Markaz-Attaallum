@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markaz At-Ta'allum | Portal Resmi</title>
     
     <link rel="icon" href="logo.png" type="image/png">
@@ -23,11 +25,7 @@
             --neon-glow-hover: 0 0 25px rgba(59, 130, 246, 0.8);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
             font-family: 'Poppins', sans-serif;
@@ -41,36 +39,23 @@
 
         /* 1. TIMED LOADING SCREEN */
         #loader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-deep);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-deep); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 1000000;
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
         .loader-spinner {
-            width: 50px; height: 50px;
-            border: 3px solid rgba(59, 130, 246, 0.1);
-            border-top: 3px solid var(--accent-glow);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            box-shadow: var(--neon-glow);
+            width: 50px; height: 50px; border: 3px solid rgba(59, 130, 246, 0.1);
+            border-top: 3px solid var(--accent-glow); border-radius: 50%;
+            animation: spin 1s linear infinite; box-shadow: var(--neon-glow);
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         /* 2. ENTRANCE MODAL */
         #entrance-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-deep);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-deep); display: flex; justify-content: center;
+            align-items: center; z-index: 99999; transition: opacity 0.6s ease, visibility 0.6s ease;
         }
         #entrance-modal.hide { opacity: 0; visibility: hidden; }
         .modal-welcome-box { text-align: center; padding: 20px; }
@@ -79,387 +64,152 @@
         .modal-subtitle { font-size: 14px; color: var(--text-dim); margin-bottom: 35px; }
         
         .btn-glow {
-            display: inline-block;
-            background-color: var(--accent-glow);
-            color: white;
-            font-weight: 600;
-            padding: 12px 35px;
-            border-radius: 30px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 1px;
-            box-shadow: var(--neon-glow);
-            transition: all 0.3s ease;
-            border: none;
-            text-align: center;
+            display: inline-block; background-color: var(--accent-glow); color: white;
+            font-weight: 600; padding: 12px 35px; border-radius: 30px; cursor: pointer;
+            text-transform: uppercase; font-size: 14px; letter-spacing: 1px;
+            box-shadow: var(--neon-glow); transition: all 0.3s ease; border: none; text-align: center;
         }
-        .btn-glow:hover {
-            box-shadow: var(--neon-glow-hover);
-            transform: translateY(-2px);
-        }
+        .btn-glow:hover { box-shadow: var(--neon-glow-hover); transform: translateY(-2px); }
 
         /* 3. HEADER NAVBAR */
         header {
-            background-color: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 15px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px);
+            padding: 15px 6%; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .header-logo-container { display: flex; align-items: center; gap: 12px; }
-        .header-logo { width: 35px; }
+        .header-logo-container { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .header-logo { width: 35px; transition: transform 0.2s; }
         .header-title { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
         .menu-icon { font-size: 22px; cursor: pointer; color: var(--text-dim); transition: 0.3s; }
-        .menu-icon:hover { color: var(--accent-glow); }
 
         /* 4. SIDEBAR MENU */
         #sidebar-menu {
-            position: fixed;
-            top: 0; right: -300px;
-            width: 260px; height: 100vh;
-            background-color: var(--bg-card);
-            box-shadow: -5px 0 25px rgba(0,0,0,0.5);
-            transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
-            z-index: 100000;
-            padding: 30px 25px;
-            display: flex;
-            flex-direction: column;
+            position: fixed; top: 0; right: -300px; width: 260px; height: 100vh;
+            background-color: var(--bg-card); box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+            transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1); z-index: 100000;
+            padding: 30px 25px; display: flex; flex-direction: column;
             border-left: 1px solid rgba(59, 130, 246, 0.2);
         }
         #sidebar-menu.show { right: 0; }
         .close-btn { align-self: flex-end; font-size: 22px; cursor: pointer; margin-bottom: 40px; color: var(--text-dim); }
         .sidebar-links { display: flex; flex-direction: column; gap: 25px; }
         .sidebar-links a { font-size: 15px; font-weight: 500; color: var(--text-dim); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); }
-        .sidebar-links a:hover { color: var(--accent-glow); border-color: var(--accent-glow); }
 
-        /* 5. HERO SECTION UPGRADED WITH LOGO & NEW GREETING */
-        #hero { padding: 60px 6% 30px; text-align: center; }
-        .hero-logo { width: 90px; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(59,130,246,0.2)); }
-        #hero h1 { font-size: 38px; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px; }
-        #hero p { font-size: 15px; color: var(--text-dim); max-width: 600px; margin: 0 auto; }
+        /* 5. AESTHETIC BANNER & TESTIMONIAL HERO */
+        #hero-banner {
+            padding: 60px 6%;
+            display: flex; flex-direction: column; align-items: center;
+            background: radial-gradient(circle at top, rgba(59, 130, 246, 0.15), transparent 60%);
+            text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .hero-title-main { font-size: 42px; font-weight: 700; margin-bottom: 15px; letter-spacing: -1px; }
+        .hero-title-main span { color: var(--accent-glow); text-shadow: var(--neon-glow); }
+        .hero-desc { color: var(--text-dim); max-width: 700px; margin-bottom: 40px; font-size: 15px; }
+        
+        .testimonial-slider {
+            width: 100%; max-width: 800px; background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
+            padding: 30px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .testi-content { font-style: italic; color: #cbd5e1; font-size: 15px; margin-bottom: 15px; }
+        .testi-author { color: var(--accent-glow); font-weight: 600; font-size: 14px; }
+        .testi-badge { background: rgba(59,130,246,0.1); color: #60a5fa; padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-left: 10px; }
 
-        /* 6. MODUL GRID UTAMA */
-        #services { padding: 30px 6% 60px; }
+        /* 6. MODUL GRID UTAMA (4 LAYANAN) */
+        #services { padding: 50px 6%; }
         .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 1000px;
-            margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px; max-width: 1100px; margin: 0 auto;
         }
         .service-card {
-            background-color: var(--bg-card);
-            padding: 35px 30px;
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
+            background-color: var(--bg-card); padding: 35px 25px; border-radius: 16px;
+            text-align: center; border: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.4s ease;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
         }
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(59, 130, 246, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-        .service-card i.card-icon { font-size: 36px; color: var(--accent-glow); margin-bottom: 20px; display: block; }
-        .service-card h3 { font-size: 19px; margin-bottom: 12px; font-weight: 600; }
-        .service-card p { font-size: 13px; color: var(--text-dim); margin-bottom: 25px; min-height: 50px; }
-        
-        /* FIXED PRECISION ARROW BUTTONS */
+        .service-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+        .service-card i.card-icon { font-size: 36px; color: var(--accent-glow); margin-bottom: 20px; }
+        .service-card h3 { font-size: 18px; margin-bottom: 10px; font-weight: 600; }
+        .service-card p { font-size: 13px; color: var(--text-dim); margin-bottom: 25px; min-height: 60px; }
         .btn-arrow {
-            display: inline-flex; 
-            width: 45px; 
-            height: 45px;
-            background-color: #1e293b; 
-            color: white;
-            border-radius: 50%; 
-            justify-content: center; 
-            align-items: center;
-            transition: 0.3s; 
-            border: 1px solid rgba(255,255,255,0.05);
-            cursor: pointer;
+            display: inline-flex; width: 45px; height: 45px; background-color: #1e293b; 
+            color: white; border-radius: 50%; justify-content: center; align-items: center;
+            transition: 0.3s; border: 1px solid rgba(255,255,255,0.05); cursor: pointer;
         }
-        .btn-arrow i { font-size: 15px; margin: 0; padding: 0; line-height: 1; }
-        .service-card:hover .btn-arrow {
-            background-color: var(--accent-glow);
-            box-shadow: var(--neon-glow);
-        }
+        .btn-arrow:hover { background-color: var(--accent-glow); box-shadow: var(--neon-glow); }
 
-        /* 7. OVERLAY MODAL CONFIGURATION */
+        /* OVERLAY MODALS */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(2, 6, 23, 0.96);
-            z-index: 200000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(2, 6, 23, 0.96); z-index: 200000; display: none;
+            justify-content: center; align-items: center; backdrop-filter: blur(10px);
             animation: fadeIn 0.3s ease forwards;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .modal-box {
-            background-color: var(--bg-card);
-            padding: 35px;
-            border-radius: 20px;
-            width: 92%;
-            max-width: 550px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        .scroll-form {
-            max-height: 440px;
-            overflow-y: auto;
-            padding-right: 8px;
-            margin-top: 20px;
-        }
+        .modal-box { background-color: var(--bg-card); padding: 35px; border-radius: 20px; width: 92%; max-width: 550px; border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; }
+        .scroll-form { max-height: 440px; overflow-y: auto; padding-right: 8px; margin-top: 20px; text-align: left; }
         .scroll-form::-webkit-scrollbar { width: 5px; }
         .scroll-form::-webkit-scrollbar-track { background: var(--bg-deep); }
         .scroll-form::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        .scroll-form::-webkit-scrollbar-thumb:hover { background: var(--accent-glow); }
 
+        /* FORM ELEMENTS */
         .form-group { margin-bottom: 22px; text-align: left; }
         .form-group label.title { font-weight: 500; display: block; margin-bottom: 8px; color: var(--text-main); font-size: 14px; }
         .form-group .note { font-size: 11px; color: #ef4444; margin-bottom: 8px; display: block; }
-        
-        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"] { 
-            width: 100%; padding: 12px 16px; 
-            background-color: var(--bg-input);
-            border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 8px; font-size: 13px; color: white;
-            transition: 0.3s;
-        }
+        .form-group input { width: 100%; padding: 12px 16px; background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; font-size: 13px; color: white; transition: 0.3s; }
         .form-group input:focus { outline: none; border-color: var(--accent-glow); box-shadow: 0 0 10px rgba(59,130,246,0.2); }
-        
         .radio-group { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
         .radio-group label { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color: var(--text-dim); }
-        .radio-group input[type="radio"] { width: 16px; height: 16px; accent-color: var(--accent-glow); cursor: pointer; }
-
-        /* LIST 7 PROGRAM PEMBELAJARAN STYLE */
-        .program-item-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            text-align: left;
-            transition: 0.3s;
-        }
-        .program-item-row:hover {
-            border-color: var(--accent-glow);
-            background: rgba(59, 130, 246, 0.03);
-        }
-        .program-info { display: flex; align-items: center; gap: 15px; }
-        .program-avatar-mock {
-            width: 45px; height: 45px;
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 16px;
-        }
-        .program-name { font-size: 14px; font-weight: 500; color: var(--text-main); }
-        .btn-daftar-prog {
-            background: #1e293b; border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-main); font-size: 11px; font-weight: 600;
-            padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: 0.3s;
-        }
-        .program-item-row:hover .btn-daftar-prog {
-            background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow);
-        }
-
-        /* LUXURY DIGITAL TICKET DESIGN FOR SCREENSHOTS */
-        .ticket-wrapper {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border: 2px solid var(--accent-glow);
-            box-shadow: var(--neon-glow);
-            border-radius: 16px;
-            padding: 25px;
-            position: relative;
-            text-align: left;
-            margin: 25px 0;
-        }
-        .ticket-header {
-            font-weight: 600;
-            color: var(--accent-glow);
-            border-bottom: 1px dashed rgba(255,255,255,0.15);
-            padding-bottom: 12px;
-            margin-bottom: 18px;
-            text-align: center;
-            font-size: 15px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .ticket-field { margin-bottom: 15px; }
-        .ticket-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
-        .ticket-value { font-size: 17px; font-weight: 600; color: white; margin-top: 2px; }
-        .ticket-status {
-            display: inline-block; background-color: rgba(234,179,8,0.15); color: #eab308;
-            padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-top: 5px;
-        }
-
-        /* FOOTER SYSTEM */
-        #connect { padding: 60px 6% 40px; border-top: 1px solid rgba(255,255,255,0.03); }
-        #connect h2 { font-size: 16px; letter-spacing: 1px; margin-bottom: 30px; font-weight: 600; }
-        .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
-        .contact-card { 
-            background-color: var(--bg-card); padding: 15px 25px; 
-            border-radius: 10px; font-weight: 500; font-size: 13px; 
-            letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.02);
-            display: flex; align-items: center; gap: 10px; transition: 0.3s;
-        }
-        .contact-card:hover { border-color: var(--accent-glow); color: var(--accent-glow); box-shadow: var(--neon-glow); }
-
-        /* GAYA UNTUK TOMBOL PILIHAN NIA DI MODAL (Secara Default) */
-        #pilihan-admin-modal .btn-glow {
-            background-color: #1e293b;
-            box-shadow: none;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        /* GAYA PAS KURSOR DIARAHIN (HOVER) */
-        #pilihan-admin-modal .btn-glow:hover {
-            background-color: #3b82f6;
-            color: white;
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.9);
-            transform: translateY(-3px);
-        }
-
-        /* GAYA TOMBOL KEMBALI / SECONDARY */
-        .btn-secondary-outlined {
-            display: inline-block;
-            background: transparent;
-            color: #ef4444;
-            padding: 10px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            border: 2px solid #ef4444;
-            transition: all 0.3s ease;
-            margin-top: 25px;
-        }
-        .btn-secondary-outlined:hover {
-            background-color: #ef4444;
-            color: white;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
-        }
-
-        /* ========================================= */
-        /* GAYA TAALO V2 (GEMINI STYLE) REVISED      */
-        /* ========================================= */
-        .taalo-v2-container {
-            max-width: 800px;
-            margin: 80px auto 50px auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
         
-        /* 👇👇 UPDATE AVATAR: TRANSPARAN & BEBAS LINGKARAN 👇👇 */
-        .taalo-v2-avatar-big {
-            width: 170px; /* Ukuran dibesarkan */
-            height: 170px;
-            object-fit: contain; /* Biar gambar gak gepeng/melar */
-            background: transparent; /* Pastikan transparan */
-            border: none; /* Hilangkan garis pinggir */
-            border-radius: 0; /* Hilangkan lingkaran dasar */
-            filter: drop-shadow(0 0 25px rgba(14, 165, 233, 0.7)); /* Efek glow neon mengikuti bentuk gambar */
-            margin-bottom: 15px;
-            animation: floatTaalo 3s ease-in-out infinite;
-        }
-        @keyframes floatTaalo {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        .taalo-v2-title {
-            color: white;
-            font-size: 28px;
-            margin-bottom: 5px;
-            text-align: center;
-            text-shadow: 0 0 15px rgba(255,255,255,0.2);
-        }
-        .taalo-v2-subtitle {
-            color: #94a3b8;
-            font-size: 15px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .taalo-v2-chat-area {
-            width: 100%;
-            max-height: 400px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding: 10px;
-            scrollbar-width: thin;
-            scrollbar-color: #0ea5e9 transparent;
-        }
-        .taalo-v2-input-wrapper {
-            width: 100%;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 40px;
-            display: flex;
-            padding: 10px 15px;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: all 0.3s;
-        }
-        .taalo-v2-input-wrapper:focus-within {
-            border-color: #0ea5e9;
-            box-shadow: 0 0 25px rgba(14, 165, 233, 0.4);
-            background: rgba(15, 23, 42, 0.9);
-        }
-        .taalo-v2-input-wrapper input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 16px;
-            padding: 10px 20px;
-            outline: none;
-            font-family: 'Poppins', sans-serif;
-        }
-        .taalo-v2-send-btn {
-            background: #0ea5e9;
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .taalo-v2-send-btn:hover {
-            transform: scale(1.1) rotate(10deg);
-            background: #0284c7;
+        /* PROGRAM LIST */
+        .program-item-row { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; border-radius: 12px; margin-bottom: 12px; transition: 0.3s; }
+        .program-item-row:hover { border-color: var(--accent-glow); background: rgba(59, 130, 246, 0.03); }
+        .program-info { display: flex; align-items: center; gap: 15px; }
+        .program-avatar-mock { width: 45px; height: 45px; background: linear-gradient(135deg, #1e3a8a, #3b82f6); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; }
+        .program-name { font-size: 14px; font-weight: 500; color: var(--text-main); }
+        .btn-daftar-prog { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); font-size: 11px; font-weight: 600; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+        .program-item-row:hover .btn-daftar-prog { background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow); }
+
+        /* TICKET */
+        .ticket-wrapper { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid var(--accent-glow); box-shadow: var(--neon-glow); border-radius: 16px; padding: 25px; margin: 25px 0; text-align: left; }
+        .ticket-header { color: var(--accent-glow); border-bottom: 1px dashed rgba(255,255,255,0.15); padding-bottom: 12px; margin-bottom: 18px; text-align: center; font-size: 15px; font-weight: 600; }
+        .ticket-field { margin-bottom: 15px; }
+        .ticket-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; }
+        .ticket-value { font-size: 15px; font-weight: 600; color: white; margin-top: 2px; }
+        
+        /* STUDY TIMER UI */
+        .timer-display { font-size: 60px; font-weight: 700; color: var(--accent-glow); font-variant-numeric: tabular-nums; text-shadow: var(--neon-glow); margin: 20px 0; }
+        .timer-controls button { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin: 0 5px; transition: 0.3s; font-weight: 600; }
+        .timer-controls button.active { background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow); }
+
+        /* FEEDBACK & FOOTER */
+        #feedback-section { padding: 40px 6%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: var(--bg-card); }
+        .feedback-input { width: 100%; max-width: 600px; padding: 15px; border-radius: 10px; background: var(--bg-deep); border: 1px solid rgba(255,255,255,0.1); color: white; margin-bottom: 15px; font-family: 'Poppins'; }
+        
+        #connect { padding: 40px 6%; text-align: center; }
+        .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+        .contact-card { background-color: var(--bg-card); padding: 12px 20px; border-radius: 10px; font-size: 13px; border: 1px solid rgba(255,255,255,0.02); display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .contact-card:hover { border-color: var(--accent-glow); color: var(--accent-glow); }
+
+        /* TAALO V2 (GEMINI STYLE) */
+        .taalo-v2-container { max-width: 800px; margin: 50px auto; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .taalo-v2-avatar-big { width: 150px; height: 150px; object-fit: contain; background: transparent; filter: drop-shadow(0 0 25px rgba(14, 165, 233, 0.6)); margin-bottom: 15px; animation: floatTaalo 3s ease-in-out infinite; }
+        .taalo-v2-title { color: white; font-size: 26px; margin-bottom: 5px; }
+        .taalo-v2-chat-area { width: 100%; max-height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; padding: 10px; }
+        .taalo-v2-input-wrapper { width: 100%; background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; display: flex; padding: 10px 15px; }
+        .taalo-v2-input-wrapper input { flex: 1; background: transparent; border: none; color: white; outline: none; font-family: 'Poppins'; padding: 5px 10px; }
+        .taalo-v2-send-btn { background: #0ea5e9; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+
+        /* FLAPPY GAME CANVAS */
+        #gameOverlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 999999; display: none; flex-direction: column; justify-content: center; align-items: center; }
+        canvas { border: 2px solid var(--accent-glow); box-shadow: var(--neon-glow); background: #0f172a; border-radius: 10px; max-width: 100%; }
+        .game-text { color: white; margin-top: 20px; font-weight: bold; }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-title-main { font-size: 28px; }
+            .grid-container { grid-template-columns: 1fr; }
+            .modal-box { padding: 25px 20px; width: 95%; }
+            .timer-display { font-size: 45px; }
         }
     </style>
 </head>
@@ -467,7 +217,7 @@
 
     <div id="loader">
         <div class="loader-spinner"></div>
-        <p style="margin-top: 20px; letter-spacing: 3px; font-size: 11px; color: var(--text-dim); font-weight: 300;">INITIALIZING PORTAL SYSTEM...</p>
+        <p style="margin-top: 20px; letter-spacing: 3px; font-size: 11px; color: var(--text-dim);">INITIALIZING SYSTEM...</p>
     </div>
 
     <div id="entrance-modal">
@@ -475,481 +225,426 @@
             <img src="logo.png" alt="Logo Markaz" class="modal-logo">
             <h1 class="modal-title">Markaz At-Ta'allum</h1>
             <p class="modal-subtitle">Portal Resmi Integrasi Informasi & Administrasi</p>
-            <button class="btn-glow" id="explore-btn-modal">Jelajahi Sekarang <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></button>
+            <button class="btn-glow" id="explore-btn-modal">Jelajahi Sekarang <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
 
     <header>
-        <div class="header-logo-container">
+        <div class="header-logo-container" onclick="triggerEasterEgg()">
             <img src="logo.png" alt="Logo" class="header-logo">
             <span class="header-title">Markaz At-Ta'allum</span>
         </div>
-        <div class="menu-icon"><i class="fa-solid fa-bars"></i></div>
+        <div class="menu-icon" onclick="document.getElementById('sidebar-menu').classList.add('show')"><i class="fa-solid fa-bars"></i></div>
     </header>
 
     <div id="sidebar-menu">
-        <div class="close-btn" id="close-menu"><i class="fa-solid fa-xmark"></i></div>
+        <div class="close-btn" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-xmark"></i></div>
         <div class="sidebar-links">
-            <a href="#hero"><i class="fa-solid fa-house" style="margin-right: 10px;"></i> Beranda</a>
-            <a href="#" onclick="event.preventDefault(); document.getElementById('sidebar-menu').classList.remove('show'); window.open('https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk');"><i class="fa-solid fa-book-open" style="margin-right: 10px;"></i> Profil Attaallum</a>
-            <a href="#services" onclick="document.getElementById('sidebar-menu').classList.remove('show');"><i class="fa-solid fa-folder" style="margin-right: 10px;"></i> Administrasi NIA</a>
-            <a href="#" onclick="event.preventDefault(); document.getElementById('sidebar-menu').classList.remove('show'); document.getElementById('program-pembelajaran-modal').style.display='flex';"><i class="fa-solid fa-graduation-cap" style="margin-right: 10px;"></i> Program Pembelajaran</a>
-            <a href="https://wa.me/201551018457" target="_blank"><i class="fa-solid fa-headset" style="margin-right: 10px;"></i> Hubungi CS Admin</a>
+            <a href="#hero-banner"><i class="fa-solid fa-house"></i> Beranda</a>
+            <a href="https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk" target="_blank"><i class="fa-solid fa-book-open"></i> Profil Attaallum</a>
+            <a href="#services"><i class="fa-solid fa-folder"></i> Administrasi NIA & Program</a>
+            <a href="https://wa.me/201551018457" target="_blank"><i class="fa-solid fa-headset"></i> Hubungi CS Admin</a>
         </div>
     </div>
 
-    <section id="hero">
-        <img src="logo.png" alt="Logo Attaallum" class="hero-logo">
-        <h1>Selamat Datang, Sobat Attaallum</h1>
-        <p>Sistem pengolahan data mandiri untuk mempermudah akses rekam berkas, pelaporan program pembelajaran, serta penerbitan Nomor Identitas Attaallum.</p>
+    <section id="hero-banner">
+        <h1 class="hero-title-main">Pusat Belajar Interaktif <span>Pelajar Mesir</span></h1>
+        <p class="hero-desc">Wadah pendidikan terpadu untuk mengembangkan ilmu, adab, dan percaya diri. Metode belajar hangat, interaktif, dan menyenangkan.</p>
+        
+        <div class="testimonial-slider" id="testiSlider">
+            <div id="testiContent" class="testi-content">"Belajar di At-Ta'allum rasanya kayak punya keluarga kedua. Suasananya hangat, ustadz dan ustadzahnya saling support!"</div>
+            <div id="testiAuthor" class="testi-author">Hafiz Habibullah <span class="testi-badge">Lolos Kuliah Al-Azhar</span></div>
+        </div>
     </section>
 
     <section id="services">
         <div class="grid-container">
-            
             <div class="service-card">
                 <i class="fa-solid fa-book-open card-icon"></i>
                 <h3>Profil Attaallum</h3>
-                <p>Pelajari visi, misi, rekam jejak, dan landasan operasional Markaz At-Ta'allum melalui booklet digital resmi.</p>
+                <p>Pelajari visi, misi, rekam jejak, dan metode belajar Markaz melalui booklet.</p>
                 <a href="https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk" target="_blank" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
-
             <div class="service-card">
                 <i class="fa-solid fa-id-card-clip card-icon"></i>
                 <h3>Administrasi NIA</h3>
-                <p>Pengajuan berkas data Nomor Identitas Attaallum (NIA) baru secara digital untuk seluruh anggota aktif.</p>
-                <a href="#" onclick="bukaPilihanAdmin(event)" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
+                <p>Pengajuan berkas data Nomor Identitas (NIA) baru secara digital.</p>
+                <a href="#" onclick="document.getElementById('pilihan-admin-modal').style.display='flex'" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
-
             <div class="service-card">
                 <i class="fa-solid fa-graduation-cap card-icon"></i>
                 <h3>Program Pembelajaran</h3>
-                <p>Eksplorasi dan pendaftaran berkas 7 program kelas unggulan akademik terpadu Markaz At-Ta'allum.</p>
-                <a href="#" onclick="event.preventDefault(); document.getElementById('program-pembelajaran-modal').style.display='flex';" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
+                <p>Pendaftaran berkas program kelas unggulan, istimewa, atau privat.</p>
+                <a href="#" onclick="document.getElementById('program-pembelajaran-modal').style.display='flex'" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
-
+            <div class="service-card" style="border-color: rgba(16,185,129,0.3);">
+                <i class="fa-solid fa-stopwatch card-icon" style="color: #10b981;"></i>
+                <h3>Ruang Fokus (Timer)</h3>
+                <p>Tingkatkan produktivitas belajar Anda dengan teknik Pomodoro khusus pelajar.</p>
+                <a href="#" onclick="document.getElementById('timer-modal').style.display='flex'" class="btn-arrow" style="background: #10b981;"><i class="fa-solid fa-play"></i></a>
+            </div>
         </div>
     </section>
 
-   <div id="pilihan-admin-modal" class="modal-overlay">
+    <div id="pilihan-admin-modal" class="modal-overlay">
         <div class="modal-box">
             <i class="fa-solid fa-shield-halved" style="font-size: 36px; color: var(--accent-glow); margin-bottom: 15px;"></i>
-            <h3 style="margin-bottom: 10px; font-size: 22px; color: #fff;">Pilih Status Administrasi</h3>
-            <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 30px;">Tentukan status Nomor Identitas Attaallum (NIA) Anda saat ini untuk melanjutkan proses.</p>
-            
-            <button onclick="bukaProgramLangsung()" class="btn-glow" style="width: 100%; margin-bottom: 15px;">1. Saya Sudah Punya NIA</button>
-            <button onclick="bukaFormBelumNIA()" class="btn-glow" style="width: 100%;">2. Saya Belum Punya NIA</button>
-            
-            <button onclick="tutupPilihanAdmin()" class="btn-secondary-outlined"><i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i> Batal / Kembali</button>
+            <h3>Pilih Status Administrasi</h3>
+            <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 30px;">Tentukan status Nomor Identitas Anda saat ini.</p>
+            <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" class="btn-glow" style="width: 100%; margin-bottom: 15px;">1. Saya Sudah Punya NIA</button>
+            <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'; document.getElementById('form-admin-modal').style.display='flex';" class="btn-glow" style="width: 100%;">2. Saya Belum Punya NIA</button>
+            <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'" class="btn-secondary-outlined">Batal</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="form-admin-modal">
-        <div class="modal-box" style="max-width: 600px; padding: 35px 30px;">
-            <h3 style="font-size: 22px; font-weight: 600; text-align: left; color: #fff;"><i class="fa-solid fa-file-pen" style="color: var(--accent-glow); margin-right: 10px;"></i>Formulir Data NIA</h3>
-            <p style="color: var(--text-dim); font-size: 12px; text-align: left; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">Isi data secara valid untuk penerbitan Nomor Identitas Attaallum otomatis.</p>
-            
+        <div class="modal-box" style="max-width: 600px;">
+            <h3><i class="fa-solid fa-file-pen" style="color: var(--accent-glow);"></i> Formulir Data NIA</h3>
             <form id="registrationForm" class="scroll-form" onsubmit="kirimDataForm(event)">
-                <div class="form-group">
-                    <label class="title">Email Aktif *</label>
-                    <input type="email" id="formEmail" placeholder="nama@domain.com" required>
-                </div>
-                <div class="form-group">
-                    <label class="title">Nama Lengkap *</label>
-                    <span class="note">Wajib sesuai paspor & menggunakan HURUF KAPITAL (contoh: JOKOWI)</span>
-                    <input type="text" id="formNama" placeholder="Jawaban Anda" style="text-transform: uppercase;" required>
-                </div>
-                <div class="form-group">
-                    <label class="title">Tempat, Tanggal Lahir *</label>
-                    <input type="text" id="formTTL" placeholder="Contoh: Jakarta, 1 Januari 2005" required>
-                </div>
-                <div class="form-group">
-                    <label class="title">Domisili di Mesir *</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="domisili" value="Darrasah" required> Darrasah</label>
-                        <label><input type="radio" name="domisili" value="Sabi'"> Sabi'</label>
-                        <label><input type="radio" name="domisili" value="Asyir"> Asyir</label>
-                        <label><input type="radio" name="domisili" value="Tamin"> Tamin</label>
-                        <label><input type="radio" name="domisili" value="Tabbah"> Tabbah</label>
-                        <label><input type="radio" name="domisili" value="Yang lain"> Yang lain</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="title">Kekeluargaan *</label>
-                    <input type="text" id="formKekeluargaan" placeholder="Jawaban Anda" required>
-                </div>
-                <div class="form-group">
-                    <label class="title">Tahun Kedatangan di Mesir *</label>
-                    <input type="number" id="formTahun" placeholder="Contoh: 2024" required>
-                </div>
-                <div class="form-group">
-                    <label class="title">Mediator Pendaftaran *</label>
-                    <input type="text" id="formMediator" placeholder="Jawaban Anda" required>
-                </div>
-                <div class="form-group">
-                    <label class="title">Jenjang Pendidikan Saat Ini *</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="jenjang" value="Dirosah Khosoh" required> Dirosah Khosoh</label>
-                        <label><input type="radio" name="jenjang" value="Ma'had Buuts"> Ma'had Buuts</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="title">Tingkat Kelas (Jika Dirosah Khosoh)</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="tkDirosah" value="Mubtadi Awal"> Mubtadi Awal</label>
-                        <label><input type="radio" name="tkDirosah" value="Mubtadi Tsani"> Mubtadi Tsani</label>
-                        <label><input type="radio" name="tkDirosah" value="Mutawassit Awal"> Mutawassit Awal</label>
-                        <label><input type="radio" name="tkDirosah" value="Mutawassit Tsani"> Mutawassit Tsani</label>
-                        <label><input type="radio" name="tkDirosah" value="Mutaqoddim Awal"> Mutaqoddim Awal</label>
-                        <label><input type="radio" name="tkDirosah" value="Mutaqoddim Tsani"> Mutaqoddim Tsani</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="title">Tingkat Kelas (Jika Ma'had Buuts)</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="tkMahad" value="1 Idady"> 1 Idady</label>
-                        <label><input type="radio" name="tkMahad" value="2 Idady"> 2 Idady</label>
-                        <label><input type="radio" name="tkMahad" value="3 Idady"> 3 Idady</label>
-                        <label><input type="radio" name="tkMahad" value="1 Tsanawy"> 1 Tsanawy</label>
-                        <label><input type="radio" name="tkMahad" value="2 Tsanawy"> 2 Tsanawy</label>
-                        <label><input type="radio" name="tkMahad" value="3 Tsanawy"> 3 Tsanawy</label>
-                    </div>
-             </div>
-                <div class="form-group">
-                    <label class="title">Nomor HP / WhatsApp Aktif *</label>
-                    <input type="text" id="formNoHP" placeholder="Contoh: +201551018457 atau 0812345678" required>
-                </div>
-                <button type="submit" class="btn-glow" style="width: 100%; margin-top: 15px; border-radius: 8px;">VALIDASI & DAFTARKAN NIA</button>
+                <div class="form-group"><label class="title">Email Aktif *</label><input type="email" id="formEmail" required></div>
+                <div class="form-group"><label class="title">Nama Lengkap *</label><input type="text" id="formNama" style="text-transform: uppercase;" required></div>
+                <div class="form-group"><label class="title">Tempat, Tanggal Lahir *</label><input type="text" id="formTTL" required></div>
+                <div class="form-group"><label class="title">Tahun Kedatangan & Mediator *</label><input type="text" id="formTahunMed" required placeholder="Cth: 2024 - Fulan"></div>
+                <div class="form-group"><label class="title">Nomor HP / WhatsApp Aktif *</label><input type="text" id="formNoHP" required></div>
+                <button type="submit" class="btn-glow" style="width: 100%;">VALIDASI & DAFTARKAN NIA</button>
             </form>
-            <p onclick="tutupFormBelumNIA()" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px; text-align: center;">KEMBALI</p>
+            <p onclick="document.getElementById('form-admin-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 15px;">KEMBALI</p>
         </div>
     </div>
 
     <div class="modal-overlay" id="program-pembelajaran-modal">
-        <div class="modal-box" style="max-width: 600px; padding: 35px 25px;">
-            <h3 style="font-size: 22px; font-weight: 600; text-align: left; color: #fff; margin-bottom: 5px;"><i class="fa-solid fa-layer-group" style="color: var(--accent-glow); margin-right: 10px;"></i>Program Pembelajaran</h3>
-            <p style="color: var(--text-dim); font-size: 12px; text-align: left; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">Daftar klaster bidang studi intensif reguler Markaz At-Ta'allum.</p>
-            
+        <div class="modal-box" style="max-width: 600px;">
+            <h3><i class="fa-solid fa-layer-group" style="color: var(--accent-glow);"></i> Program Pembelajaran</h3>
             <div class="scroll-form">
-                <div class="program-item-row">
-                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-language"></i></div><span class="program-name">Program Lughoh Azhary</span></div>
-                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Lughoh Azhary')">Daftar</button>
-                </div>
-                <div class="program-item-row">
-                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-file-pen"></i></div><span class="program-name">Program Imtihan Qobul</span></div>
-                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Imtihan Qobul')">Daftar</button>
-                </div>
-                <div class="program-item-row">
-                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-book"></i></div><span class="program-name">Program 1 Tsanawi</span></div>
-                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 1 Tsanawi')">Daftar</button>
-                </div>
-                <div class="program-item-row">
-                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-child"></i></div><span class="program-name">Program 2 I'dadi</span></div>
-                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 2 I\'dadi')">Daftar</button>
-                </div>
-                <div class="program-item-row">
-                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-book-bookmark"></i></div><span class="program-name">Program 2 Tsanawi</span></div>
-                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 2 Tsanawi')">Daftar</button>
-                </div>
-                <div class="program-item-row">
-                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-trophy"></i></div><span class="program-name">Program Musabaqoh 3 I'dadi</span></div>
-                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Musabaqoh 3 I\'dadi')">Daftar</button>
-                </div>
-                <div class="program-item-row">
-                    <div class="program-info"><div class="program-avatar-mock"><i class="fa-solid fa-award"></i></div><span class="program-name">Program Musabaqoh 3 Tsanawi</span></div>
-                    <button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Musabaqoh 3 Tsanawi')">Daftar</button>
-                </div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program Imtihan Qobul</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Imtihan Qobul')">Daftar</button></div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program Lughoh Azhary</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Lughoh Azhary')">Daftar</button></div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program 1 Tsanawi</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 1 Tsanawi')">Daftar</button></div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program 2 I'dadi</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 2 I\'dadi')">Daftar</button></div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program 2 Tsanawi</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program 2 Tsanawi')">Daftar</button></div>
+                <div class="program-item-row"><div class="program-info"><span class="program-name">Program Istimewa & Privat</span></div><button class="btn-daftar-prog" onclick="mintaNiaProgram('Program Istimewa / Privat')">Daftar</button></div>
             </div>
-            <p onclick="document.getElementById('program-pembelajaran-modal').style.display='none';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px; text-align: center;">TUTUP PANEL</p>
+            <p onclick="document.getElementById('program-pembelajaran-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">TUTUP</p>
         </div>
     </div>
 
     <div class="modal-overlay" id="input-nia-program-modal">
         <div class="modal-box" style="max-width: 450px;">
             <i class="fa-solid fa-key" style="font-size: 32px; color: var(--accent-glow); margin-bottom: 15px;"></i>
-            <h3 style="font-size: 20px;" id="titleNiaProg">Otorisasi Berkas Program</h3>
-            <p style="color: var(--text-dim); font-size: 12px; margin-bottom: 25px;">Masukkan Nomor Identitas Attaallum (NIA) resmi Anda untuk memvalidasi pemesanan kursi kelas.</p>
-            
-            <form onsubmit="generateTiketProgram(event)">
+            <h3 id="titleNiaProg">Otorisasi Berkas</h3>
+            <form onsubmit="generateTiketProgram(event)" style="text-align: left; margin-top: 20px;">
                 <div class="form-group">
                     <label class="title">Nomor NIA Anda *</label>
-                    <input type="text" id="inputNiaUser" placeholder="Contoh: NIA-2026-001" required style="text-transform: uppercase;">
+                    <input type="text" id="inputNiaUser" placeholder="Cth: NIA-2026-001" required style="text-transform: uppercase;">
                 </div>
-                <button type="submit" class="btn-glow" style="width: 100%; border-radius: 8px;">GENERATE TIKET PROGRAM 🎫</button>
+                
+                <div class="form-group" id="paketPilihanDiv">
+                    <label class="title">Pilih Paket Ekstra *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="paketProgram" value="Paket Mukhtar (1-5 Maddah)"> Mukhtar (1-5 Maddah)</label>
+                        <label><input type="radio" name="paketProgram" value="Paket Mubsit (6 Maddah)"> Mubsit (6 Maddah - Wajib Fiqih, Tauhid, Nahwu)</label>
+                        <label><input type="radio" name="paketProgram" value="Paket Mutqin (Semua Maddah)"> Mutqin (Semua Maddah)</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-glow" style="width: 100%;">GENERATE TIKET 🎫</button>
             </form>
-            <p onclick="document.getElementById('input-nia-program-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">KEMBALI</p>
+            <p onclick="document.getElementById('input-nia-program-modal').style.display='none';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">KEMBALI</p>
         </div>
     </div>
 
     <div class="modal-overlay" id="tiket-pendaftaran-modal">
         <div class="modal-box" style="max-width: 460px;">
             <i class="fa-solid fa-clipboard-check" style="font-size: 45px; color: #10b981;"></i>
-            <h3 style="font-size: 22px; margin-top: 10px;">Tiket Pendaftaran Generated!</h3>
-            <p style="color: var(--text-dim); font-size: 12px; margin-top: 5px;">Silakan screenshot (SS) area tiket di bawah ini untuk dikirimkan ke Admin.</p>
-            
+            <h3 style="margin-top: 10px;">Tiket Generated!</h3>
             <div class="ticket-wrapper">
                 <div class="ticket-header">BUKTI REGISTRASI PROGRAM</div>
-                <div class="ticket-field">
-                    <div class="ticket-label">IDENTITAS MAHASISWA (NIA)</div>
-                    <div class="ticket-value" id="tktNiaValue">NIA-XXXX-XXX</div>
-                </div>
-                <div class="ticket-field">
-                    <div class="ticket-label">PROGRAM LAYANAN YANG DIPILIH</div>
-                    <div class="ticket-value" id="tktProgValue">NAMA PROGRAM</div>
-                </div>
-                <div class="ticket-field">
-                    <div class="ticket-label">STATUS VALIDASI BERKAS</div>
-                    <div class="ticket-status">PENDING VERIFIKASI CS</div>
-                </div>
+                <div class="ticket-field"><div class="ticket-label">NIA</div><div class="ticket-value" id="tktNiaValue"></div></div>
+                <div class="ticket-field"><div class="ticket-label">PROGRAM</div><div class="ticket-value" id="tktProgValue"></div></div>
+                <div class="ticket-field" id="tktPaketField"><div class="ticket-label">PAKET</div><div class="ticket-value" id="tktPaketValue"></div></div>
+                <div class="ticket-status">PENDING VERIFIKASI</div>
             </div>
-            
-            <a id="waTiketBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: #22c55e; box-shadow: 0 0 15px rgba(34,197,94,0.3);"><i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i> KIRIM TIKET KE WA ADMIN</a>
-            <p onclick="location.reload()" style="color: var(--text-dim); cursor: pointer; font-size: 13px; font-weight: 500; margin-top: 20px;">KEMBALI KE BERANDA</p>
+            <a id="waTiketBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; background: #22c55e;"><i class="fa-brands fa-whatsapp"></i> KIRIM TIKET KE ADMIN</a>
+            <p onclick="location.reload()" style="color: var(--text-dim); cursor: pointer; font-size: 13px; margin-top: 20px;">KEMBALI</p>
         </div>
     </div>
 
-   <div class="modal-overlay" id="success-admin-modal">
-        <div class="modal-box" style="max-width: 450px;">
-            <i class="fa-solid fa-circle-check" style="font-size: 55px; color: #10b981; filter: drop-shadow(0 0 10px rgba(16,185,129,0.4));"></i>
-            <h3 style="font-size: 24px; margin-top: 15px; color: #fff;">Registrasi Berhasil!</h3>
-            <p style="color: var(--text-dim); margin-top: 8px; font-size: 13px;">Arsip digital Anda sukses terverifikasi. Nomor Identitas Attaallum (NIA) otomatis Anda adalah:</p>
+    <div class="modal-overlay" id="timer-modal">
+        <div class="modal-box" style="max-width: 400px;">
+            <i class="fa-solid fa-brain" style="font-size: 30px; color: #10b981; margin-bottom: 10px;"></i>
+            <h3>Ruang Fokus (Pomodoro)</h3>
+            <p style="font-size: 12px; color: var(--text-dim);">Fokus 25 Menit. Matikan gangguan.</p>
             
-            <div id="displayNIA" style="background-color: var(--bg-input); padding: 18px; border-radius: 10px; font-size: 26px; font-weight: 700; color: var(--accent-glow); letter-spacing: 4px; margin: 25px 0; border: 2px dashed var(--accent-glow); text-shadow: var(--neon-glow);">NIA-XXXX</div>
+            <div class="timer-display" id="time-display">25:00</div>
             
-            <p style="font-size: 11px; color: var(--text-dim); margin-bottom: 25px;">*Jangan lupa di-screenshot, kemudian klik tombol di bawah untuk melaporkan kode Anda ke CS.</p>
-            
-            <a id="waDirectBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: #22c55e; box-shadow: 0 0 15px rgba(34,197,94,0.4); display: block; margin-bottom: 15px; text-align: center;"><i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i> HUBUNGI CS ADMIN</a>
-            
-            <button onclick="document.getElementById('success-admin-modal').style.display='none';" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: transparent; border: 1px solid rgba(255,255,255,0.15); box-shadow: none; color: var(--text-dim); font-size: 13px;">Selesai / Kembali ke Beranda</button>
+            <div class="timer-controls">
+                <button id="btnStartTimer" onclick="startTimer()" class="active">Mulai</button>
+                <button onclick="pauseTimer()">Jeda</button>
+                <button onclick="resetTimer()">Reset</button>
+            </div>
+            <p onclick="document.getElementById('timer-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 25px;">TUTUP TIMER</p>
         </div>
     </div>
 
-    <div class="taalo-v2-container">
-        <img src="taalo.png" alt="Taalo AI" class="taalo-v2-avatar-big">
-        
-        <h2 class="taalo-v2-title">Halo, aku Taalo! 👋</h2>
-        <p class="taalo-v2-subtitle">Asisten Cerdas Markaz At-Ta'allum. Ada yang bisa aku bantu?</p>
-        
-        <div class="taalo-v2-chat-area" id="taaloV2Body"></div>
-        
-        <div class="taalo-v2-input-wrapper">
-            <input type="text" id="taaloV2Input" placeholder="Tanya seputar pendaftaran, NIA, program, atau pendiri..." onkeypress="if(event.key === 'Enter') sendTaaloV2Msg()">
-            <button class="taalo-v2-send-btn" onclick="sendTaaloV2Msg()">
-                <i class="fa-solid fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
+    <section id="feedback-section">
+        <h2 style="font-size: 22px; margin-bottom: 10px;">Kritik & Saran</h2>
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 20px;">Bantu Markaz jadi lebih baik! Pesan Anda akan dikirim ke Admin CS.</p>
+        <textarea id="pesanKritik" class="feedback-input" rows="4" placeholder="Ketik saran atau masukan Anda di sini..."></textarea><br>
+        <button onclick="kirimKritikWA()" class="btn-glow"><i class="fa-solid fa-paper-plane"></i> Kirim Masukan</button>
+    </section>
 
     <section id="connect">
         <h2>PORTAL DIREKTORI LAYANAN PUSAT</h2>
         <div class="contact-grid">
-            <a href="https://wa.me/201551018457" target="_blank" class="contact-card"><i class="fa-solid fa-headset" style="color: #22c55e;"></i> HUBUNGI CUSTOMER SERVICE (CS)</a>
+            <a href="https://wa.me/201551018457" target="_blank" class="contact-card"><i class="fa-solid fa-headset" style="color: #22c55e;"></i> HUBUNGI CS ADMIN</a>
             <a href="https://www.instagram.com/attaallumarkaz" target="_blank" class="contact-card"><i class="fa-brands fa-instagram" style="color: #ec4899;"></i> INSTAGRAM OFFICIAL</a>
-            <a href="https://linktr.ee/attaallumofc" target="_blank" class="contact-card"><i class="fa-solid fa-link" style="color: #3b82f6;"></i> LINKTREE RESMI</a>
-            <a href="https://maps.app.goo.gl/RUXohAtpph4bvUM2A" target="_blank" class="contact-card"><i class="fa-solid fa-location-dot" style="color: #ef4444;"></i> GOOGLE MAPS MARKAZ</a>
         </div>
     </section>
-    
+
+    <div class="taalo-v2-container">
+        <img src="taalo.png" alt="Taalo AI" class="taalo-v2-avatar-big">
+        <h2 class="taalo-v2-title">Halo, aku Taalo! 👋</h2>
+        <div class="taalo-v2-chat-area" id="taaloV2Body"></div>
+        <div class="taalo-v2-input-wrapper">
+            <input type="text" id="taaloV2Input" placeholder="Tanya seputar program, NIA, atau pembuat web..." onkeypress="if(event.key === 'Enter') sendTaaloV2Msg()">
+            <button class="taalo-v2-send-btn" onclick="sendTaaloV2Msg()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <div id="gameOverlay">
+        <h2 style="color: white; margin-bottom: 10px; text-shadow: 0 0 10px #0ea5e9;">FLAPPY TAALO</h2>
+        <canvas id="flappyCanvas" width="320" height="480"></canvas>
+        <p class="game-text">Tekan SPASI atau KLIK LAYAR untuk terbang!</p>
+        <button onclick="closeGame()" class="btn-secondary-outlined" style="margin-top: 15px;">Tutup Game</button>
+    </div>
+
     <script>
+        // ============================================
+        // AUDIO SFX SYSTEM (WEB AUDIO API - NO FILE NEEDED)
+        // ============================================
+        function playSuccessSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, ctx.currentTime); // Nada A5 (Ting!)
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.5);
+            } catch (e) { console.log("Audio not supported"); }
+        }
+
+        // ============================================
+        // TESTIMONIAL SLIDER DATA
+        // ============================================
+        const testimoniData = [
+            { text: '"Dulu saya kira Bahasa Arab itu susah, tapi dengan Attaallum ternyata jadi mudah banget! Guru-gurunya ngajarin dengan sederhana."', author: 'Ahmad Isna Asari', badge: 'Lolos Kuliah Al-Azhar' },
+            { text: '"Penyampaian guru sangat jelas dan detail serta mudah dipahami. Aku dapet kelas Tsanawi di Qobul kemarin!"', author: 'Noureen Qiana', badge: 'Peserta 2 Tsanawi' },
+            { text: '"Belajar di At-Ta\'allum rasanya kayak punya keluarga kedua. Bukan cuma dapet ilmu, tapi juga adab dan kedisiplinan."', author: 'Hafiz Habibullah', badge: 'Lolos Kuliah Al-Azhar' }
+        ];
+        let testiIndex = 0;
+        setInterval(() => {
+            testiIndex = (testiIndex + 1) % testimoniData.length;
+            document.getElementById('testiContent').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('testiContent').innerText = testimoniData[testiIndex].text;
+                document.getElementById('testiAuthor').innerHTML = `${testimoniData[testiIndex].author} <span class="testi-badge">${testimoniData[testiIndex].badge}</span>`;
+                document.getElementById('testiContent').style.opacity = 1;
+            }, 300);
+        }, 4000);
+
+        // ============================================
+        // STUDY TIMER (POMODORO) LOGIC
+        // ============================================
+        let timerInterval;
+        let timeLeft = 25 * 60; // 25 Menit
+        
+        function updateTimerDisplay() {
+            let m = Math.floor(timeLeft / 60);
+            let s = timeLeft % 60;
+            document.getElementById('time-display').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if(timeLeft > 0) { timeLeft--; updateTimerDisplay(); } 
+                else { clearInterval(timerInterval); playSuccessSound(); alert("Waktu fokus selesai! Istirahat 5 menit ya."); }
+            }, 1000);
+        }
+        function pauseTimer() { clearInterval(timerInterval); }
+        function resetTimer() { clearInterval(timerInterval); timeLeft = 25 * 60; updateTimerDisplay(); }
+
+        // ============================================
+        // ALUR PROGRAM & PAKET MUKHTAR/MUBSIT/MUTQIN
+        // ============================================
         let selectedProgramGlobal = '';
 
-        // =========================================
-        // OTAK TAALO V2 (GEMINI STYLE) - SUPER LENGKAP
-        // =========================================
-        function sendTaaloV2Msg() {
-            const inputField = document.getElementById('taaloV2Input');
-            const userText = inputField.value.trim();
-            if (userText === '') return;
-
-            const chatBody = document.getElementById('taaloV2Body');
-
-            // Munculin ketikan User
-            chatBody.innerHTML += `
-                <div style="align-self: flex-end; background: #0ea5e9; color: white; padding: 12px 20px; border-radius: 20px; border-bottom-right-radius: 0; max-width: 85%; font-size: 14px; line-height: 1.5;">
-                    ${userText}
-                </div>
-            `;
-            inputField.value = '';
-            chatBody.scrollTop = chatBody.scrollHeight;
-
-            // Efek Taalo V2 mikir dan balas
-            setTimeout(() => {
-                let aiResponse = "";
-                let lowerText = userText.toLowerCase();
-
-                // DATABASE PENGETAHUAN BERSUMBER DARI BOOKLET PDF
-                if (lowerText.includes('nia') || lowerText.includes('daftar')) {
-                    aiResponse = "Untuk mengurus NIA (Nomor Identitas Attaallum), Sobat bisa langsung mengisi formulir pendaftaran di halaman ini ya!";
-                } else if (lowerText.includes('program') || lowerText.includes('kelas') || lowerText.includes('unggulan') || lowerText.includes('privat')) {
-                    aiResponse = "Markaz At-Ta'allum punya 3 jenis program utama nih! 1) Program Unggulan (Qobul, Musabaqoh I'dady/Tsanawi, Lughoh Azhary). 2) Program Istimewa (Matan Ajrumiyyah, Mawaris, dll). 3) Program Privat sesuai request. Mau daftar yang mana?";
-                } else if (lowerText.includes('metode') || lowerText.includes('fasilitas') || lowerText.includes('suasana') || lowerText.includes('belajar')) {
-                    aiResponse = "Metode belajar kami itu Interaktif, Hangat, dan Menyenangkan dengan pendekatan 3 tahap: Mau, Sadar, Tekad! Fasilitasnya juga mantap, ada ruangan nyaman, modul, sampai diselingi games edukatif.";
-                } else if (lowerText.includes('alur') || lowerText.includes('tahap') || lowerText.includes('perjalanan') || lowerText.includes('step')) {
-                    aiResponse = "Peta perjalanan pelajar di Markaz dimulai dari: 1) Dirosah Khossoh (fokus B.Arab), 2) Imtihan Qobul, 3) Tingkat I'dadi/Tsanawi, lalu 4) Musabaqoh (ujian akselerasi ke Al-Azhar).";
-                } else if (lowerText.includes('visi') || lowerText.includes('misi') || lowerText.includes('tujuan')) {
-                    aiResponse = "Visi Markaz At-Ta'allum adalah menjadi pusat pembelajaran interaktif yang mengembangkan ilmu, adab, dan percaya diri murid. Misi kami sangat fokus pada pendampingan personal!";
-                } else if (lowerText.includes('profil') || lowerText.includes('sejarah') || lowerText.includes('founder') || lowerText.includes('attaallum')) {
-                    aiResponse = "Markaz At-Ta'allum didirikan pada tahun 2024 oleh Kak Hilwah Habibah. Kami hadir untuk membantu pelajar di Mesir memahami materi dengan lebih ringan, menyenangkan, dan beradab. Cek menu Profil di kiri atas ya!";
-                } else if (lowerText.includes('lokasi') || lowerText.includes('alamat') || lowerText.includes('kontak') || lowerText.includes('ig') || lowerText.includes('hubungi')) {
-                    aiResponse = "Markaz berlokasi di Hayy Sabik, Kairo, Mesir. Sobat bisa kontak kami via WA (+20 155 101 8457), Instagram (@attaallumarkaz), atau email (attaallumy@gmail.com).";
-                
-                // 👇 EASTER EGG SI PEMBUAT WEBSITE 👇
-                } else if (lowerText.includes('developer') || lowerText.includes('siapa yang buat') || lowerText.includes('pembuat') || lowerText.includes('buat web') || lowerText.includes('programmer')) {
-                    aiResponse = "Website canggih ini dibuat oleh Kak Luthfi Al-Fatih yang ganteng parah! 😎🔥 Full-stack developer kebanggaan Markaz At-Ta'allum!";
-                // 👆 ===================================== 👆
-
-                } else if (lowerText.includes('halo') || lowerText.includes('assalamualaikum') || lowerText.includes('hai')) {
-                    aiResponse = "Wa'alaikumsalam! Halo Sobat! Ada yang bisa Taalo bantu seputar program, metode belajar, atau info pendaftaran Markaz?";
-                } else {
-                    aiResponse = "Maaf, Taalo belum mengerti. 😅 Coba gunakan kata kunci spesifik seperti 'Profil', 'Fasilitas', 'Program', 'Alur', 'Kontak', atau 'Siapa yang buat web ini'.";
-                }
-
-                // Munculin balasan Taalo (Avatar kecil juga dibikin transparan & proporsional)
-                chatBody.innerHTML += `
-                    <div style="display: flex; gap: 12px; align-items: flex-start; max-width: 90%; margin-top: 5px;">
-                        <img src="taalo.png" style="width: 35px; height: 35px; object-fit: contain; background: transparent; filter: drop-shadow(0 0 5px rgba(14,165,233,0.5)); margin-top: 2px;">
-                        <div style="background: #1e293b; color: #e2e8f0; padding: 12px 20px; border-radius: 20px; border-bottom-left-radius: 0; font-size: 14px; line-height: 1.5; border: 1px solid rgba(255,255,255,0.05);">
-                            ${aiResponse}
-                        </div>
-                    </div>
-                `;
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }, 600);
-        }
-
-        // 1. TIMED LOADER SCREEN
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('loader');
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.visibility = 'hidden'; }, 600);
-            }, 1200); 
-        });
-
-        // 2. ENTRANCE SCREEN LOCK
-        const modalEnt = document.getElementById('entrance-modal');
-        const exploreBtn = document.getElementById('explore-btn-modal');
-        if (exploreBtn && modalEnt) {
-            exploreBtn.addEventListener('click', () => modalEnt.classList.add('hide'));
-        }
-
-        // 3. RESPONSIVE SIDEBAR NAVIGATION
-        const menuIcon = document.querySelector('.menu-icon');
-        const sidebarMenu = document.getElementById('sidebar-menu');
-        const closeMenuBtn = document.getElementById('close-menu');
-
-        if (menuIcon && sidebarMenu) {
-            menuIcon.addEventListener('click', () => sidebarMenu.classList.add('show'));
-        }
-        if (closeMenuBtn && sidebarMenu) {
-            closeMenuBtn.addEventListener('click', () => sidebarMenu.classList.remove('show'));
-        }
-
-        // 4. POPUP MANAGEMENT INTERFACE CONTROL
-        function bukaPilihanAdmin(event) {
-            event.preventDefault();
-            document.getElementById('pilihan-admin-modal').style.display = 'flex';
-        }
-        function tutupPilihanAdmin() {
-            document.getElementById('pilihan-admin-modal').style.display = 'none';
-        }
-        function bukaFormBelumNIA() {
-            tutupPilihanAdmin();
-            document.getElementById('form-admin-modal').style.display = 'flex';
-        }
-        function tutupFormBelumNIA() {
-            document.getElementById('form-admin-modal').style.display = 'none';
-        }
-        
-        // REQ: JIKA SUDAH PUNYA NIA, LANGSUNG JEBRET BUKA MODAL PILIHAN 7 PROGRAM
-        function bukaProgramLangsung() {
-            tutupPilihanAdmin();
-            document.getElementById('program-pembelajaran-modal').style.display = 'flex';
-        }
-
-        // 5. PROGRAM LAYANAN HANDLING ALUR TIKET
         function mintaNiaProgram(namaProgram) {
             selectedProgramGlobal = namaProgram;
             document.getElementById('program-pembelajaran-modal').style.display = 'none';
-            document.getElementById('titleNiaProg').innerText = 'Otorisasi - ' + namaProgram;
+            document.getElementById('titleNiaProg').innerText = 'Daftar ' + namaProgram;
+            
+            // Logika Sembunyikan Paket kalau Imtihan Qobul
+            const paketDiv = document.getElementById('paketPilihanDiv');
+            if(namaProgram === 'Program Imtihan Qobul') {
+                paketDiv.style.display = 'none';
+                document.querySelectorAll('input[name="paketProgram"]').forEach(rb => rb.required = false);
+            } else {
+                paketDiv.style.display = 'block';
+                document.querySelectorAll('input[name="paketProgram"]').forEach(rb => rb.required = true);
+            }
+            
             document.getElementById('input-nia-program-modal').style.display = 'flex';
         }
 
         function generateTiketProgram(event) {
             event.preventDefault();
             const niaUser = document.getElementById('inputNiaUser').value.toUpperCase();
+            let paketUser = "-";
             
+            if(selectedProgramGlobal !== 'Program Imtihan Qobul') {
+                const paketChecked = document.querySelector('input[name="paketProgram"]:checked');
+                if(paketChecked) paketUser = paketChecked.value;
+            }
+
             document.getElementById('input-nia-program-modal').style.display = 'none';
             document.getElementById('tiket-pendaftaran-modal').style.display = 'flex';
             
-            // Pasang teks ke dalam box tiket digital
+            playSuccessSound(); // Bunyi SFX Sukses!
+
             document.getElementById('tktNiaValue').innerText = niaUser;
             document.getElementById('tktProgValue').innerText = selectedProgramGlobal;
+            document.getElementById('tktPaketValue').innerText = paketUser;
             
-            // Siapkan teks otomatis ke WhatsApp Customer Service
-            const waText = encodeURIComponent("Halo Admin Customer Service Markaz Attaallum,\nsaya mau mendaftar program pembelajaran di website.\n\nBerikut Bukti Tiket Pendaftaran Saya:\nNomor NIA: " + niaUser + "\nProgram Pilihan: " + selectedProgramGlobal + "\nStatus: Pending Verifikasi\n\nSaya lampirkan hasil screenshot tiket digital resmi saya. Mohon konfirmasinya!");
+            if(paketUser === "-") document.getElementById('tktPaketField').style.display = 'none';
+            else document.getElementById('tktPaketField').style.display = 'block';
+            
+            const waText = encodeURIComponent(`Halo Admin Markaz,\nSaya mau mendaftar program:\n\nNIA: ${niaUser}\nProgram: ${selectedProgramGlobal}\nPaket: ${paketUser}\n\nLampiran SS Tiket Digital menyusul. Mohon konfirmasinya!`);
             document.getElementById('waTiketBtn').href = "https://wa.me/201551018457?text=" + waText;
         }
 
-        // ========================================================================
-        // 6. KABEL TRANSMISI DATA SPREADSHEET
-        // ========================================================================
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzi5Rb_VG2h65v1ENCK76kd1g2yq3YJbjOMiINZH_3EQ6NrIFSG57ozoqKg38lvOhHCwg/exec';
-        // ========================================================================
-
-        // 7. NEW NIA REGISTRATION DISPATCH ENGINE
-        function kirimDataForm(event) {
-            event.preventDefault();
-            
-            const submitBtn = event.target.querySelector('button[type="submit"]');
-            const teksAsli = submitBtn.innerText;
-            
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'MEMPROSES STRUKTUR DATA... ⏳';
-
-            const dataAlumni = {
-                email: document.getElementById('formEmail').value,
-                namaLengkap: document.getElementById('formNama').value.toUpperCase(),
-                ttl: document.getElementById('formTTL').value,
-                domisili: document.querySelector('input[name="domisili"]:checked') ? document.querySelector('input[name="domisili"]:checked').value : "",
-                kekeluargaan: document.getElementById('formKekeluargaan').value,
-                tahunKedatangan: document.getElementById('formTahun').value,
-                mediator: document.getElementById('formMediator').value,
-                jenjang: document.querySelector('input[name="jenjang"]:checked') ? document.querySelector('input[name="jenjang"]:checked').value : "",
-                tingkatDirosah: document.querySelector('input[name="tkDirosah"]:checked') ? document.querySelector('input[name="tkDirosah"]:checked').value : "-",
-                tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-",
-                noHP: document.getElementById('formNoHP').value
-            };
-            
-            fetch(scriptURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(dataAlumni)
-            })
-            .then(response => response.json())
-            .then(hasil => {
-                if (hasil.result === 'success') {
-                    tutupFormBelumNIA();
-                    document.getElementById('success-admin-modal').style.display = 'flex';
-                    document.getElementById('displayNIA').innerText = hasil.nia; 
-                    
-                    const waMessage = encodeURIComponent("Halo Admin Customer Service Markaz Attaallum,\nsaya sudah mengisi formulir data alumni baru di website dan sukses memverifikasi berkas.\n\nBerikut Detail Kode Saya:\nNama: " + dataAlumni.namaLengkap + "\nNomor NIA Resmi: " + hasil.nia + "\n\nMohon diaktivasi data identitas saya, terima kasih!");
-                    document.getElementById('waDirectBtn').href = "https://wa.me/201551018457?text=" + waMessage;
-                    
-                    document.getElementById('registrationForm').reset();
-                } else {
-                    alert('Sistem mendeteksi malfungsi: ' + hasil.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error Fatal!', error);
-                alert('Gagal mengirimkan transmisi data! Pastikan baris variabel scriptURL di baris 332 sudah diganti dengan Web App URL Google Script lo.');
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = teksAsli;
-            });
+        // ============================================
+        // FORM KRITIK & SARAN KE WA
+        // ============================================
+        function kirimKritikWA() {
+            const pesan = document.getElementById('pesanKritik').value;
+            if(pesan.trim() === "") { alert("Isi pesannya dulu ya!"); return; }
+            const waURL = "https://wa.me/201551018457?text=" + encodeURIComponent("HALO ADMIN, ada Masukan & Saran dari Website nih:\n\n\"" + pesan + "\"");
+            window.open(waURL, '_blank');
+            document.getElementById('pesanKritik').value = "";
         }
+
+        // ============================================
+        // OTAK TAALO AI V2
+        // ============================================
+        function sendTaaloV2Msg() {
+            const inputField = document.getElementById('taaloV2Input');
+            const userText = inputField.value.trim();
+            if (userText === '') return;
+
+            const chatBody = document.getElementById('taaloV2Body');
+            chatBody.innerHTML += `<div style="align-self: flex-end; background: #0ea5e9; padding: 10px 15px; border-radius: 15px; border-bottom-right-radius: 0; font-size: 13px; margin-top:5px;">${userText}</div>`;
+            inputField.value = ''; chatBody.scrollTop = chatBody.scrollHeight;
+
+            setTimeout(() => {
+                let aiResponse = ""; let low = userText.toLowerCase();
+                if (low.includes('developer') || low.includes('buat web')) {
+                    aiResponse = "Website keren ini dirancang eksklusif oleh Kak Luthfi Al-Fatih yang ganteng parah! 😎 Full-stack developer kesayangan Markaz!";
+                } else if (low.includes('nia')) { aiResponse = "Klik menu Administrasi NIA di atas buat daftar ya!";
+                } else if (low.includes('paket') || low.includes('maddah')) { aiResponse = "Kita sedia Paket Mukhtar (1-5 Maddah), Mubsit (6 Maddah wajib Fiqih dll), dan Mutqin (Semua Maddah). Pilih pas daftar program!";
+                } else { aiResponse = "Taalo siap bantu! Mau tanya soal Pendaftaran, Paket Program, atau Siapa Pembuat Web ini?"; }
+
+                chatBody.innerHTML += `<div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 5px;">
+                    <img src="taalo.png" style="width: 30px; height: 30px; object-fit:contain; filter: drop-shadow(0 0 5px #0ea5e9);">
+                    <div style="background: #1e293b; padding: 10px 15px; border-radius: 15px; border-bottom-left-radius: 0; font-size: 13px; border: 1px solid rgba(255,255,255,0.05);">${aiResponse}</div>
+                </div>`;
+                chatBody.scrollTop = chatBody.scrollHeight;
+                playSuccessSound(); // Bunyi ting pelan pas Taalo bales
+            }, 600);
+        }
+
+        // ============================================
+        // 5. EASTER EGG: FLAPPY TAALO MINI GAME
+        // ============================================
+        let logoClickCount = 0;
+        function triggerEasterEgg() {
+            logoClickCount++;
+            if(logoClickCount === 5) {
+                logoClickCount = 0;
+                document.getElementById('gameOverlay').style.display = 'flex';
+                initFlappyGame();
+            }
+        }
+        function closeGame() { document.getElementById('gameOverlay').style.display = 'none'; cancelAnimationFrame(gameLoopRef); }
+
+        let canvas, ctx, taaloY, taaloV, gravity, pipes, score, isGameOver, gameLoopRef;
+        let imgTerbang = new Image(); imgTerbang.src = 'taalo-terbang.png';
+        let imgKejedot = new Image(); imgKejedot.src = 'taalo-kejedot.png';
+
+        function initFlappyGame() {
+            canvas = document.getElementById('flappyCanvas');
+            ctx = canvas.getContext('2d');
+            taaloY = 200; taaloV = 0; gravity = 0.4; pipes = []; score = 0; isGameOver = false;
+            
+            // Event Listener Jump
+            window.addEventListener('keydown', (e) => { if(e.code === 'Space') jump(); });
+            canvas.addEventListener('touchstart', jump);
+            canvas.addEventListener('mousedown', jump);
+            
+            gameLoop();
+        }
+
+        function jump() {
+            if(isGameOver) { initFlappyGame(); return; }
+            taaloV = -6; // Kekuatan loncat
+        }
+
+        function gameLoop() {
+            if(isGameOver) {
+                ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.fillRect(0,0,canvas.width,canvas.height);
+                ctx.fillStyle = "white"; ctx.font = "20px Poppins"; ctx.fillText("GAME OVER! Skor: " + score, 60, 240);
+                return;
+            }
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            
+            // Fisika Taalo
+            taaloV += gravity; taaloY += taaloV;
+            
+            // Gambar Taalo (Ganti gambar kalau jatuh/nabrak)
+            let currentImg = (taaloV > 5) ? imgKejedot : imgTerbang; // Kalau jatuh cepat pakai gambar kejedot
+            ctx.drawImage(currentImg, 50, taaloY, 35, 35);
+
+            // Bikin Pipa
+            if(pipes.length === 0 || pipes[pipes.length-1].x < 150) {
+                let pipeY = Math.random() * (canvas.height - 150) + 50;
+                pipes.push({x: canvas.width, y: pipeY});
+            }
+
+            // Gerakin Pipa & Cek Tabrakan
+            for(let i=0; i<pipes.length; i++) {
+                let p = pipes[i]; p.x -= 3;
+                
+                // Gambar Pipa Atas & Bawah
+                ctx.fillStyle = "#0ea5e9"; // Warna neon blue
+                ctx.fillRect(p.x, 0, 40, p.y - 60); // Atas
+                ctx.fillRect(p.x, p.y + 60, 40, canvas.height - p.y - 60); // Bawah
+
+                // Deteksi Nabrak
+                if(50+30 > p.x && 50 < p.x+40 && (taaloY < p.y-60 || taaloY+30 > p.y+60)) { isGameOver = true; playSuccessSound(); }
+                if(p.x === 50) score++;
+            }
+            if(taaloY > canvas.height || taaloY < 0) isGameOver = true; // Nabrak tanah/langit
+
+            // Teks Skor
+            ctx.fillStyle = "white"; ctx.font = "20px Poppins"; ctx.fillText(score, 10, 30);
+            
+            gameLoopRef = requestAnimationFrame(gameLoop);
+        }
+
+        window.addEventListener('load', () => { setTimeout(() => { document.getElementById('loader').style.opacity = '0'; setTimeout(() => { document.getElementById('loader').style.visibility = 'hidden'; }, 600); }, 1200); });
     </script>
 </body>
 </html>
