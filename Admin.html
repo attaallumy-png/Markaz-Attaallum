@@ -3,76 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SELAIN ADMIN DILARANG MASUK</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Markaz At-Ta'allum | Portal Admin</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #020617; color: white; padding: 20px; text-align: center; }
-        .box { background: #0f172a; max-width: 500px; margin: 50px auto; padding: 30px; border-radius: 15px; border: 1px solid #10b981; }
-        input { width: 90%; padding: 12px; margin-bottom: 15px; border-radius: 8px; background: #1e293b; color: white; border: 1px solid #334155; }
-        button { width: 95%; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        #hasil-data { margin-top: 20px; background: #020617; padding: 15px; border-radius: 10px; text-align: left; display: none; }
-        .baris { border-bottom: 1px solid #334155; padding: 8px 0; font-size: 14px; }
-        .label { color: #94a3b8; font-size: 12px; display: block;}
+        /* LUXURY CYBERPUNK VARIABLES DARI INDEX.HTML */
+        :root {
+            --bg-deep: #020617;       
+            --bg-card: #0f172a;       
+            --bg-input: #1e293b;      
+            --accent-glow: #3b82f6;    
+            --text-main: #f8fafc;     
+            --text-dim: #94a3b8;      
+            --neon-glow: 0 0 15px rgba(59, 130, 246, 0.5);
+            --neon-glow-hover: 0 0 25px rgba(59, 130, 246, 0.8);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* MODAL BOX STYLE SAMA PERSIS KAYA DI INDEX */
+        .modal-box { 
+            background-color: var(--bg-card); 
+            padding: 40px; 
+            border-radius: 20px; 
+            width: 100%; 
+            max-width: 550px; 
+            border: 1px solid rgba(59, 130, 246, 0.2); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
+            text-align: center; 
+            animation: fadeIn 0.4s ease forwards;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .modal-box i { font-size: 36px; color: var(--accent-glow); margin-bottom: 15px; }
+        .modal-box h3 { color: white; margin-bottom: 10px; font-size: 22px; font-weight: 600; letter-spacing: 1px; }
+        .modal-box p { color: var(--text-dim); font-size: 13px; margin-bottom: 30px; }
+
+        /* FORM INPUTS */
+        .form-group { margin-bottom: 22px; text-align: left; }
+        input[type="text"], input[type="password"] { 
+            width: 100%; 
+            padding: 14px 16px; 
+            background-color: var(--bg-input); 
+            border: 1px solid rgba(255,255,255,0.05); 
+            border-radius: 8px; 
+            font-size: 14px; 
+            color: white; 
+            transition: 0.3s; 
+            font-family: 'Poppins'; 
+        }
+        input:focus { outline: none; border-color: var(--accent-glow); box-shadow: 0 0 10px rgba(59,130,246,0.2); }
+
+        /* GLOW BUTTON */
+        .btn-glow {
+            display: inline-block; width: 100%; background-color: var(--accent-glow); color: white;
+            font-weight: 600; padding: 14px; border-radius: 30px; cursor: pointer;
+            text-transform: uppercase; font-size: 14px; letter-spacing: 1px;
+            box-shadow: var(--neon-glow); transition: all 0.3s ease; border: none; text-align: center;
+        }
+        .btn-glow:hover { box-shadow: var(--neon-glow-hover); transform: translateY(-2px); }
+
+        /* HASIL PENCARIAN TICKET STYLE */
+        .ticket-wrapper { 
+            background: linear-gradient(135deg, #1e293b, #0f172a); 
+            border: 2px solid var(--accent-glow); 
+            box-shadow: var(--neon-glow); 
+            border-radius: 16px; 
+            padding: 25px; 
+            margin-top: 25px; 
+            text-align: left; 
+            display: none;
+        }
+        .ticket-header { color: var(--accent-glow); border-bottom: 1px dashed rgba(255,255,255,0.15); padding-bottom: 12px; margin-bottom: 18px; text-align: center; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+        .ticket-field { margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 8px; }
+        .ticket-field:last-child { border-bottom: none; }
+        .ticket-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; }
+        .ticket-value { font-size: 14px; font-weight: 500; color: white; margin-top: 4px; }
+
     </style>
 </head>
 <body>
 
-    <div class="box" id="loginArea">
-        <h2>AREA KHUSUS ADMINITRASI</h2>
-        <input type="password" id="pin" placeholder="Masukkan PIN (1234)">
-        <button onclick="masuk()">BUKA DASHBOARD</button>
+    <div class="modal-box" id="login-gate">
+        <i class="fa-solid fa-user-shield"></i>
+        <h3>Portal Admin Markaz</h3>
+        <p>Silakan masukkan PIN otorisasi untuk mengakses database santri.</p>
+        
+        <div class="form-group">
+            <input type="password" id="pinAdmin" placeholder="Masukkan PIN Master" style="text-align: center; letter-spacing: 3px;">
+        </div>
+        <button class="btn-glow" onclick="cekKunci()">LOGIN KE SISTEM <i class="fa-solid fa-arrow-right" style="font-size: 14px; margin-left: 5px; margin-bottom:0; color:white;"></i></button>
     </div>
 
-    <div class="box" id="dashboardArea" style="display: none;">
-        <h2>CARI DATA MURID</h2>
-        <input type="text" id="keyword" placeholder="Ketik NIA atau Nama (Cth: NIA-123)">
-        <button id="btnCari" onclick="cariData()">CARI DATA</button>
+    <div class="modal-box" id="admin-panel" style="display: none;">
+        <i class="fa-solid fa-server"></i>
+        <h3>Database Terpadu</h3>
+        <p>Cari dokumen pendaftaran santri langsung dari server pusat.</p>
+        
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="searchKeyword" placeholder="Ketik NIA atau Nama..." style="margin-bottom: 0; text-transform: uppercase;">
+            <button class="btn-glow" id="btnCari" onclick="cariData()" style="width: auto; padding: 0 25px; border-radius: 8px;"><i class="fa-solid fa-magnifying-glass" style="margin: 0; font-size: 14px; color: white;"></i></button>
+        </div>
 
-        <div id="hasil-data"></div>
+        <div class="ticket-wrapper" id="boxHasil">
+            <div class="ticket-header" id="txtSumberTab">DATABASE FOUND</div>
+            <div id="areaDaftarData"></div>
+        </div>
     </div>
 
     <script>
-        // PASTE URL BARU LU DI BAWAH INI (JANGAN HILANGIN TANDA KUTIPNYA)
+        // PASTE URL DEPLOYMENT TERBARU LU DI SINI
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxaVMfTBLPYPZnBwAAHctxeMKvpnqQ5VsotPkNynwDHnQnvh52CC7NQsFlwRp_QSnlqqw/exec';
 
-        function masuk() {
-            if(document.getElementById('pin').value === 'LUTPIGANTENG') {
-                document.getElementById('loginArea').style.display = 'none';
-                document.getElementById('dashboardArea').style.display = 'block';
-            } else { alert("PIN Salah!"); }
+        function cekKunci() {
+            if(document.getElementById('pinAdmin').value === '1234') {
+                document.getElementById('login-gate').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+            } else {
+                alert("Akses Ditolak! PIN Salah.");
+            }
         }
 
         function cariData() {
-            const keyword = document.getElementById('keyword').value.trim();
+            const keyword = document.getElementById('searchKeyword').value.trim();
             if(keyword === "") return;
             
             const btn = document.getElementById('btnCari');
-            const hasilBox = document.getElementById('hasil-data');
-            
-            btn.innerText = "MENCARI DATA... ⏳";
+            const box = document.getElementById('boxHasil');
+            const area = document.getElementById('areaDaftarData');
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin: 0; font-size: 14px; color: white;"></i>';
             btn.disabled = true;
-            hasilBox.style.display = "none";
-            hasilBox.innerHTML = "";
+            box.style.display = "none";
 
-            // INI JURUS ANTI NYANGKUT: redirect 'follow' dan parameter URL
-            const finalURL = scriptURL + "?nia=" + encodeURIComponent(keyword);
-
-            fetch(finalURL, { method: 'GET', redirect: 'follow' })
+            // WAJIB PAKE redirect: 'follow' BIAR GAK ERROR CORS / TERPUTUS
+            fetch(`${scriptURL}?action=cariSantri&nia=${encodeURIComponent(keyword)}`, {
+                method: 'GET',
+                redirect: 'follow'
+            })
             .then(res => res.json())
             .then(hasil => {
                 if(hasil.status === "sukses") {
-                    let isi = `<h4 style="color:#10b981; margin-top:0;">DITEMUKAN DI TAB: ${hasil.tab}</h4>`;
-                    for(let kunci in hasil.data) {
-                        isi += `<div class="baris"><span class="label">${kunci}</span><b>${hasil.data[kunci]}</b></div>`;
+                    document.getElementById('txtSumberTab').innerText = `DATA DARI: TAB ${hasil.tab}`;
+                    area.innerHTML = "";
+                    
+                    for (let key in hasil.data) {
+                        area.innerHTML += `
+                            <div class="ticket-field">
+                                <div class="ticket-label">${key}</div>
+                                <div class="ticket-value">${hasil.data[key]}</div>
+                            </div>
+                        `;
                     }
-                    hasilBox.innerHTML = isi;
-                    hasilBox.style.display = "block";
+                    box.style.display = "block";
                 } else {
-                    alert(hasil.pesan);
+                    alert("Waduh: " + hasil.pesan);
                 }
             })
-            .catch(error => alert("Sistem Error. Cek URL Web App lu!"))
-            .finally(() => { btn.innerText = "CARI DATA"; btn.disabled = false; });
+            .catch(err => {
+                console.error(err);
+                alert("Sistem Error: Koneksi ke server terputus.");
+            })
+            .finally(() => {
+                btn.innerHTML = '<i class="fa-solid fa-magnifying-glass" style="margin: 0; font-size: 14px; color: white;"></i>';
+                btn.disabled = false;
+            });
         }
     </script>
 </body>
