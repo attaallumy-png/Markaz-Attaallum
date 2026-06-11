@@ -233,10 +233,29 @@
             .timer-display { font-size: 45px; }
             .taalo-v2-avatar-big { width: 110px; height: 110px; }
         }
+   /* FLOATING TUTORIAL BUTTON & MODAL SLIDER */
+        .floating-help-btn {
+            position: fixed; bottom: 30px; right: 30px; background: var(--accent-glow); color: white;
+            padding: 12px 20px; border-radius: 30px; font-weight: 600; font-size: 13px; cursor: pointer;
+            box-shadow: var(--neon-glow); z-index: 90000; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2);
+        }
+        .floating-help-btn:hover { transform: translateY(-5px); box-shadow: var(--neon-glow-hover); }
+        
+        .tutorial-slide { display: none; text-align: center; animation: fadeIn 0.4s ease; }
+        .tutorial-slide.active { display: block; }
+        .tutor-icon-box { font-size: 50px; color: var(--accent-glow); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(59,130,246,0.5)); }
+        .tutor-title { font-size: 20px; font-weight: 700; color: white; margin-bottom: 10px; }
+        .tutor-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 25px; }
+        
+        .tutor-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+        .tutor-dot { height: 8px; width: 8px; background: #334155; border-radius: 50%; display: inline-block; margin: 0 4px; transition: 0.3s; }
+        .tutor-dot.active { background: var(--accent-glow); width: 20px; border-radius: 10px; box-shadow: var(--neon-glow); }
+        .btn-tutor { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-tutor.primary { background: var(--accent-glow); border-color: var(--accent-glow); }
+        .btn-tutor:hover { background: var(--accent-glow); box-shadow: var(--neon-glow); }
     </style>
 </head>
 <body>
-
     <div id="loader">
         <div class="loader-spinner"></div>
         <p style="margin-top: 20px; letter-spacing: 3px; font-size: 11px; color: var(--text-dim);">INITIALIZING SYSTEM...</p>
@@ -484,6 +503,47 @@
         </div>
     </div>
 
+    <div class="floating-help-btn" onclick="openTutorial()">
+        <i class="fa-solid fa-circle-question"></i> Panduan
+    </div>
+
+    <div class="modal-overlay" id="tutorial-modal">
+        <div class="modal-box" style="max-width: 450px;">
+            <div class="tutorial-slide active" id="slide-1">
+                <div class="tutor-icon-box"><i class="fa-solid fa-id-card"></i></div>
+                <h3 class="tutor-title">Langkah 1: Buat NIA Baru</h3>
+                <p class="tutor-desc">Sebelum memilih program kelas, pastikan Anda sudah memiliki <b>Nomor Identitas Attaallum (NIA)</b>. Jika belum, klik menu "Administrasi NIA" di beranda dan isi formulirnya.</p>
+            </div>
+            <div class="tutorial-slide" id="slide-2">
+                <div class="tutor-icon-box"><i class="fa-solid fa-layer-group"></i></div>
+                <h3 class="tutor-title">Langkah 2: Pilih Program Belajar</h3>
+                <p class="tutor-desc">Setelah memiliki NIA, masuk ke menu "Program Pembelajaran". Pilih kelas yang Anda inginkan (misal: 1 Tsanawi atau Lughoh Azhary).</p>
+            </div>
+            <div class="tutorial-slide" id="slide-3">
+                <div class="tutor-icon-box"><i class="fa-solid fa-ticket"></i></div>
+                <h3 class="tutor-title">Langkah 3: Otorisasi & Paket</h3>
+                <p class="tutor-desc">Masukkan NIA Anda dan pilih Paket Ekstra (Mukhtar, Mubsit, atau Mutqin). Sistem akan otomatis membuatkan <b>Tiket Digital</b> untuk Anda.</p>
+            </div>
+            <div class="tutorial-slide" id="slide-4">
+                <div class="tutor-icon-box"><i class="fa-brands fa-whatsapp" style="color: #22c55e;"></i></div>
+                <h3 class="tutor-title">Langkah 4: Lapor ke Admin</h3>
+                <p class="tutor-desc">Klik tombol kirim tiket ke WhatsApp Admin. Screenshot layar tiket Anda dan kirimkan bukti tersebut bersama bukti pembayaran ke Admin untuk aktivasi!</p>
+            </div>
+
+            <div class="tutor-controls">
+                <button class="btn-tutor" id="btnPrevTutor" onclick="changeSlide(-1)" style="visibility: hidden;">Kembali</button>
+                <div>
+                    <span class="tutor-dot active" id="dot-1"></span>
+                    <span class="tutor-dot" id="dot-2"></span>
+                    <span class="tutor-dot" id="dot-3"></span>
+                    <span class="tutor-dot" id="dot-4"></span>
+                </div>
+                <button class="btn-tutor primary" id="btnNextTutor" onclick="changeSlide(1)">Lanjut</button>
+            </div>
+            <p onclick="closeTutorial()" style="color: #ef4444; cursor: pointer; font-size: 12px; font-weight: 600; margin-top: 25px; text-align: center;">TUTUP PANDUAN</p>
+        </div>
+    </div>
+    
     <div id="gameOverlay">
         <h2 style="color: white; margin-bottom: 10px; text-shadow: 0 0 10px #0ea5e9;">FLAPPY TAALO</h2>
         <canvas id="flappyCanvas" width="320" height="480"></canvas>
@@ -710,6 +770,40 @@
             if(taaloY > canvas.height || taaloY < 0) isGameOver = true; 
             ctx.fillStyle = "white"; ctx.font = "20px Poppins"; ctx.fillText(score, 10, 30);
             gameLoopRef = requestAnimationFrame(gameLoop);
+        }
+ 
+        // --- 10. SYSTEM ONBOARDING TUTORIAL ---
+        let currentSlide = 1;
+        const totalSlides = 4;
+
+        function openTutorial() {
+            document.getElementById('tutorial-modal').style.display = 'flex';
+            currentSlide = 1; updateTutorialUI();
+        }
+
+        function closeTutorial() {
+            document.getElementById('tutorial-modal').style.display = 'none';
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if(currentSlide > totalSlides) { closeTutorial(); return; }
+            updateTutorialUI();
+        }
+
+        function updateTutorialUI() {
+            // Sembunyikan semua slide & matikan semua titik
+            for(let i=1; i<=totalSlides; i++) {
+                document.getElementById('slide-'+i).classList.remove('active');
+                document.getElementById('dot-'+i).classList.remove('active');
+            }
+            // Nyalakan slide & titik yang aktif
+            document.getElementById('slide-'+currentSlide).classList.add('active');
+            document.getElementById('dot-'+currentSlide).classList.add('active');
+
+            // Atur tombol
+            document.getElementById('btnPrevTutor').style.visibility = (currentSlide === 1) ? 'hidden' : 'visible';
+            document.getElementById('btnNextTutor').innerText = (currentSlide === totalSlides) ? 'Selesai & Paham' : 'Lanjut';
         }
     </script>
 </body>
