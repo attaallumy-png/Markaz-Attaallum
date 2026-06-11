@@ -220,6 +220,19 @@
         .taalo-v2-input-wrapper input { flex: 1; background: transparent; border: none; color: white; outline: none; font-family: 'Poppins'; padding: 5px 10px; }
         .taalo-v2-send-btn { background: #0ea5e9; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
 
+        /* DEMO QRIS SCANNER */
+        .qris-scanner-box {
+            position: relative; width: 180px; height: 180px; margin: 0 auto 20px auto;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png') center/cover;
+            border: 4px solid white; border-radius: 10px; overflow: hidden;
+        }
+        .qris-scanner-line {
+            position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: #10b981; box-shadow: 0 0 15px #10b981;
+            animation: scan 2s infinite linear;
+        }
+        @keyframes scan { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+
         /* FLAPPY GAME CANVAS */
         #gameOverlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 999999; display: none; flex-direction: column; justify-content: center; align-items: center; }
         canvas { border: 2px solid var(--accent-glow); box-shadow: var(--neon-glow); background: #0f172a; border-radius: 10px; max-width: 100%; }
@@ -427,26 +440,51 @@
     <div class="modal-overlay" id="universal-program-modal">
         <div class="modal-box" style="max-width: 600px; border-color: #10b981;">
             <h3 id="universalFormTitle" style="color: white; text-align: left; margin-bottom:15px;"><i class="fa-solid fa-file-signature" style="color: #10b981;"></i> Form Pendaftaran</h3>
+            
             <form id="universalDynamicForm" class="scroll-form" onsubmit="handleUniversalSubmit(event)">
-                
                 <div id="dynamic-fields-area"></div>
-
-                <button type="submit" id="universalSubmitBtn" class="btn-glow" style="width: 100%; margin-top: 15px; background: #10b981; box-shadow: 0 0 15px rgba(16,185,129,0.4);">SUBMIT & AMBIL TIKET 🎫</button>
+                <button type="submit" id="universalSubmitBtn" class="btn-glow" style="width: 100%; margin-top: 15px; background: #10b981; box-shadow: 0 0 15px rgba(16,185,129,0.4);">LANJUT KE PEMBAYARAN 💳</button>
             </form>
+
             <p onclick="document.getElementById('universal-program-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">KEMBALI</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="payment-demo-modal">
+        <div class="modal-box" style="max-width: 450px;">
+            <h3 style="color: white; margin-bottom: 5px;"><i class="fa-solid fa-wallet" style="color: #10b981;"></i> Konfirmasi Pembayaran</h3>
+            <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 20px;">Silakan scan QRIS di bawah ini menggunakan M-Banking atau E-Wallet (Khusus Demo Uji Coba Web).</p>
+            
+            <div class="qris-scanner-box">
+                <div class="qris-scanner-line"></div>
+            </div>
+            
+            <div style="background: var(--bg-input); padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span style="font-size: 13px; color: var(--text-dim);">Total Tagihan:</span>
+                    <span style="font-size: 16px; color: #10b981; font-weight: bold;">Rp 500.000</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="font-size: 13px; color: var(--text-dim);">Program:</span>
+                    <span id="demoProgName" style="font-size: 13px; color: white; font-weight: 500;">-</span>
+                </div>
+            </div>
+
+            <button id="btnProsesBayar" onclick="eksekusiPembayaranDanKirim()" class="btn-glow" style="width: 100%; background: #3b82f6;">SAYA SUDAH BAYAR (SIMULASI) 🚀</button>
+            <p onclick="document.getElementById('payment-demo-modal').style.display='none'; document.getElementById('universal-program-modal').style.display='flex';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 15px;">BATAL</p>
         </div>
     </div>
 
     <div class="modal-overlay" id="tiket-pendaftaran-modal">
         <div class="modal-box" style="max-width: 460px;">
             <i class="fa-solid fa-clipboard-check" style="font-size: 45px; color: #10b981;"></i>
-            <h3 style="margin-top: 10px; color:white;">Tiket Generated!</h3>
+            <h3 style="margin-top: 10px; color:white;">Pembayaran & Tiket Sukses!</h3>
             <div class="ticket-wrapper">
                 <div class="ticket-header">BUKTI REGISTRASI PROGRAM</div>
                 <div class="ticket-field" id="tktNiaRow"><div class="ticket-label">NIA</div><div class="ticket-value" id="tktNiaValue"></div></div>
                 <div class="ticket-field"><div class="ticket-label">PROGRAM</div><div class="ticket-value" id="tktProgValue"></div></div>
                 <div class="ticket-field" id="tktDetailRow"><div class="ticket-label">DETAIL SELEKSI / METODE</div><div class="ticket-value" id="tktDetailValue"></div></div>
-                <div class="ticket-field"><div class="ticket-label">STATUS DATA</div><div class="ticket-value" style="color: #10b981;"><i class="fa-solid fa-cloud-arrow-up"></i> SUKSES TERKIRIM</div></div>
+                <div class="ticket-field"><div class="ticket-label">STATUS PEMBAYARAN</div><div class="ticket-value" style="color: #10b981;"><i class="fa-solid fa-check-double"></i> LUNAS (TERVERIFIKASI)</div></div>
             </div>
             <a id="waTiketBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; background: #22c55e;"><i class="fa-brands fa-whatsapp"></i> KIRIM TIKET & BUKTI KE ADMIN</a>
             <p onclick="document.getElementById('tiket-pendaftaran-modal').style.display='none'" style="color: var(--text-dim); cursor: pointer; font-size: 13px; margin-top: 20px;">KEMBALI KE BERANDA</p>
@@ -484,7 +522,7 @@
     </section>
 
     <div class="taalo-v2-container">
-        <img src="taalo.png" alt="Taalo AI" class="taalo-v2-avatar-big">
+        <img src="taalo.png" alt="Taalo AI" class="taalo-v2-avatar-big" onerror="this.src='https://via.placeholder.com/150?text=Taalo'">
         <h2 class="taalo-v2-title">Halo, aku Taalo! 👋</h2>
         <div class="taalo-v2-chat-area" id="taaloV2Body"></div>
         <div class="taalo-v2-input-wrapper">
@@ -879,17 +917,15 @@
             applyUniversalCapslock();
         }
 
-        // --- 8. PROSES HANDLER POST DATA (TANPA FOTO) ---
+        // --- 8. PROSES HANDLER POST DATA & PEMBAYARAN DEMO ---
+        let tempPayloadData = {};
+
+        // Tahap 1: Kumpulin data form trus panggil modal bayar
         function handleUniversalSubmit(event) {
             event.preventDefault();
-            const submitBtn = document.getElementById('universalSubmitBtn');
-            const originalText = submitBtn.innerText;
             
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'PROSES DATA KE SERVER... ⏳';
-
             // Kumpulkan payload data TANPA file upload
-            let payload = {
+            tempPayloadData = {
                 formType: currentActiveProgram === 'Lughoh Azhary' ? 'Lughoh_Azhari' : 'Pendaftaran_Umum',
                 programName: currentActiveProgram,
                 email: document.getElementById('univEmail') ? document.getElementById('univEmail').value : '-',
@@ -897,10 +933,10 @@
                 ttl: document.getElementById('univTTL') ? document.getElementById('univTTL').value : '-',
                 niaUser: document.getElementById('univNia') ? document.getElementById('univNia').value.toUpperCase() : 'JALUR_LUGHOH',
                 waSiswa: document.getElementById('univWA_Siswa').value,
-                waOrtu: document.getElementById('univWA_Ortu').value,
+                waOrtu: document.getElementById('univWA_Ortu') ? document.getElementById('univWA_Ortu').value : '-',
                 payment: document.getElementById('univPay') ? document.getElementById('univPay').value : 'KONFIRMASI_ADMIN',
-                fileName: "Tanpa_Foto", // Dummy value
-                fileData: "" // Empty string
+                fileName: "Tanpa_Foto", 
+                fileData: "" 
             };
 
             let detail1 = document.getElementById('univDetail_1') ? document.getElementById('univDetail_1').value : '-';
@@ -913,41 +949,62 @@
             document.querySelectorAll('input[name="maddah"]:checked').forEach(cb => checkedMaddah.push(cb.value));
             let maddahString = checkedMaddah.join(', ');
 
-            payload.details = `Detail1: ${detail1} | Detail2: ${detail2} | Detail3: ${detail3} | Detail4: ${detail4} | Detail5: ${detail5} | Maddah: ${maddahString || '-'}`;
+            tempPayloadData.details = `Detail1: ${detail1} | Detail2: ${detail2} | Detail3: ${detail3} | Detail4: ${detail4} | Detail5: ${detail5} | Maddah: ${maddahString || '-'}`;
 
-            fetch(scriptURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(hasil => {
-                if(hasil.result === 'success') {
-                    document.getElementById('universal-program-modal').style.display = 'none';
-                    document.getElementById('tiket-pendaftaran-modal').style.display = 'flex';
-                    playSuccessSound();
+            // Set UI di Modal Pembayaran
+            document.getElementById('demoProgName').innerText = currentActiveProgram;
 
-                    if (payload.niaUser === 'JALUR_LUGHOH') {
-                        document.getElementById('tktNiaRow').style.display = 'none';
-                    } else {
-                        document.getElementById('tktNiaRow').style.display = 'block';
-                        document.getElementById('tktNiaValue').innerText = payload.niaUser;
-                    }
-                    
-                    document.getElementById('tktProgValue').innerText = payload.programName;
-                    document.getElementById('tktDetailValue').innerText = (detail1 !== '-') ? detail1 : 'Biodata Penuh Tersimpan';
+            // Pindah modal
+            document.getElementById('universal-program-modal').style.display = 'none';
+            document.getElementById('payment-demo-modal').style.display = 'flex';
+        }
 
-                    const waText = encodeURIComponent(`Halo Admin Markaz,\nSaya telah mendaftar program pembelajaran baru melalui portal website pusat.\n\nProgram: ${payload.programName}\nNIA/Nama: ${payload.niaUser} / ${payload.namaLengkap}\nNo WA Aktif: ${payload.waSiswa}\nStatus Foto: Akan menyusul.\n\nMohon dicek berkas pendaftaran data saya, Syukron!`);
-                    document.getElementById('waTiketBtn').href = "https://wa.me/201551018457?text=" + waText;
-                    
-                    document.getElementById('universalDynamicForm').reset();
-                } else { alert("Gagal verifikasi berkas server: " + hasil.error); }
-            })
-            .catch(err => { console.error(err); alert("Koneksi transmisi database terputus!"); })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = originalText;
-            });
+        // Tahap 2: Klik tombol bayar QRIS -> Tembak Google Sheet -> Muncul Tiket
+        function eksekusiPembayaranDanKirim() {
+            const btn = document.getElementById('btnProsesBayar');
+            btn.innerHTML = 'MEMVERIFIKASI SALDO QRIS... ⏳';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = 'MENGIRIM DATA KE DATABASE... 🚀';
+                
+                fetch(scriptURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(tempPayloadData)
+                })
+                .then(res => res.json())
+                .then(hasil => {
+                    if(hasil.result === 'success') {
+                        document.getElementById('payment-demo-modal').style.display = 'none';
+                        document.getElementById('tiket-pendaftaran-modal').style.display = 'flex';
+                        playSuccessSound();
+
+                        if (tempPayloadData.niaUser === 'JALUR_LUGHOH') {
+                            document.getElementById('tktNiaRow').style.display = 'none';
+                        } else {
+                            document.getElementById('tktNiaRow').style.display = 'block';
+                            document.getElementById('tktNiaValue').innerText = tempPayloadData.niaUser;
+                        }
+                        
+                        document.getElementById('tktProgValue').innerText = tempPayloadData.programName;
+                        
+                        // Extract detail 1 buat ditampilin di tiket
+                        let detail1 = document.getElementById('univDetail_1') ? document.getElementById('univDetail_1').value : '-';
+                        document.getElementById('tktDetailValue').innerText = (detail1 !== '-') ? detail1 : 'Biodata Penuh Tersimpan';
+
+                        const waText = encodeURIComponent(`Halo Admin Markaz,\nSaya telah mendaftar program pembelajaran baru & LUNAS melalui portal QRIS Demo.\n\nProgram: ${tempPayloadData.programName}\nNIA/Nama: ${tempPayloadData.niaUser} / ${tempPayloadData.namaLengkap}\nNo WA Aktif: ${tempPayloadData.waSiswa}\nStatus Foto: Menyusul.\n\nMohon dicek berkas pendaftaran saya, Syukron!`);
+                        document.getElementById('waTiketBtn').href = "https://wa.me/201551018457?text=" + waText;
+                        
+                        document.getElementById('universalDynamicForm').reset();
+                    } else { alert("Gagal verifikasi berkas server: " + hasil.error); }
+                })
+                .catch(err => { console.error(err); alert("Koneksi transmisi database terputus!"); })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'SAYA SUDAH BAYAR (SIMULASI) 🚀';
+                });
+            }, 1500); // Simulasi nunggu bank 1.5 detik
         }
 
         // --- 9. AUTO CAPSLOCK SAKTI UNIVERSAL ---
@@ -983,7 +1040,7 @@
                 } else if (low.includes('nia')) { aiResponse = "Klik menu Administrasi NIA di atas buat daftar ya!";
                 } else { aiResponse = "Taalo siap bantu! Mau tanya soal Pendaftaran, Paket, atau Pembuat Web ini?"; }
                 chatBody.innerHTML += `<div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 5px;">
-                    <img src="taalo.png" style="width: 30px; height: 30px; object-fit:contain; filter: drop-shadow(0 0 5px #0ea5e9);">
+                    <img src="taalo.png" style="width: 30px; height: 30px; object-fit:contain; filter: drop-shadow(0 0 5px #0ea5e9);" onerror="this.src='https://via.placeholder.com/30?text=AI'">
                     <div style="background: #1e293b; padding: 10px 15px; border-radius: 15px; border-bottom-left-radius: 0; font-size: 13px; border: 1px solid rgba(255,255,255,0.05);">${aiResponse}</div>
                 </div>`;
                 chatBody.scrollTop = chatBody.scrollHeight;
