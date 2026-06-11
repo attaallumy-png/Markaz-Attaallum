@@ -215,11 +215,19 @@
 </head>
 <body>
 
-    <div id="loader">
+   <div id="loader">
         <div class="loader-spinner"></div>
         <p style="margin-top: 20px; letter-spacing: 3px; font-size: 11px; color: var(--text-dim);">INITIALIZING SYSTEM...</p>
     </div>
-
+    <script>
+        setTimeout(() => {
+            const loader = document.getElementById('loader');
+            if(loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 400);
+            }
+        }, 800); // 800ms (kurang dari 1 detik) langsung tembus!
+    </script>
     <div id="entrance-modal">
         <div class="modal-welcome-box">
             <img src="logo.png" alt="Logo Markaz" class="modal-logo">
