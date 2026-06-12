@@ -390,6 +390,10 @@
                     </div>
                 </div>
                 <div class="form-group"><label class="title">Nomor HP / WhatsApp Aktif *</label><input type="text" id="formNoHP" required></div>
+                <div class="form-group">
+                     <label class="title">Buat Password Login *</label>
+                     <input type="password" id="formPassword" placeholder="Buat password unik untuk portal" required>
+                </div> 
                 <button type="submit" class="btn-glow" style="width: 100%; margin-top: 15px;">VALIDASI & DAFTARKAN NIA</button>
             </form>
             <p onclick="document.getElementById('form-admin-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 15px;">KEMBALI</p>
@@ -594,6 +598,7 @@
         const testimoniData = [
             { text: '"Belajar di attaallum keren sekali!"', author: 'Luthfi Al-Fatih', badge: 'Lead Developer' },
             { text: '"Dulu saya kira Bahasa Arab itu susah, dengan Attaallum ternyata jadi mudah banget!"', author: 'Ahmad Isna Asari', badge: 'Lolos Kuliah Al-Azhar' },
+            { text: '"attalum menjadi tempat belajar yang sangat membantu Penjelasanny jelas dan mudah diikuti."', author: 'Abdul Rahim Mufid', badge: 'Peraih 2 Idadi' },
             { text: '"Penyampaian guru sangat jelas dan detail serta mudah dipahami."', author: 'Noureen Qiana', badge: 'Peserta 2 Tsanawi' }
         ];
         let testiIndex = 0;
@@ -650,7 +655,8 @@
                 jenjang: document.querySelector('input[name="jenjang"]:checked') ? document.querySelector('input[name="jenjang"]:checked').value : "",
                 tingkatDirosah: document.querySelector('input[name="tkDirosah"]:checked') ? document.querySelector('input[name="tkDirosah"]:checked').value : "-",
                 tingkatMahad: document.querySelector('input[name="tkMahad"]:checked') ? document.querySelector('input[name="tkMahad"]:checked').value : "-",
-                noHP: document.getElementById('formNoHP').value
+                noHP: document.getElementById('formNoHP').value,
+                password: document.getElementById('formPassword').value,
             };
             
             fetch(scriptURL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(dataAlumni) })
