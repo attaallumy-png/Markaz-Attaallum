@@ -904,36 +904,44 @@
         // --- 8. PROSES HANDLER POST DATA & PEMBAYARAN DEMO ---
         let tempPayloadData = {};
 
-        // Tahap 1: Kumpulin data form trus panggil modal bayar
+       // Tahap 1: Kumpulin data form trus panggil modal bayar
         function handleUniversalSubmit(event) {
             event.preventDefault();
             
-            // Kumpulkan payload data TANPA file upload
-            tempPayloadData = {
-                formType: currentActiveProgram === 'Lughoh Azhary' ? 'Lughoh_Azhari' : 'Pendaftaran_Umum',
-                programName: currentActiveProgram,
-                email: document.getElementById('univEmail') ? document.getElementById('univEmail').value : '-',
-                namaLengkap: document.getElementById('univNama') ? document.getElementById('univNama').value.toUpperCase() : '-',
-                ttl: document.getElementById('univTTL') ? document.getElementById('univTTL').value : '-',
-                niaUser: document.getElementById('univNia') ? document.getElementById('univNia').value.toUpperCase() : 'JALUR_LUGHOH',
-                waSiswa: document.getElementById('univWA_Siswa').value,
-                waOrtu: document.getElementById('univWA_Ortu') ? document.getElementById('univWA_Ortu').value : '-',
-                payment: document.getElementById('univPay') ? document.getElementById('univPay').value : 'KONFIRMASI_ADMIN',
-                fileName: "Tanpa_Foto", 
-                fileData: "" 
-            };
-
-            let detail1 = document.getElementById('univDetail_1') ? document.getElementById('univDetail_1').value : '-';
-            let detail2 = document.getElementById('univDetail_2') ? document.getElementById('univDetail_2').value : '-';
-            let detail3 = document.getElementById('univDetail_3') ? document.getElementById('univDetail_3').value : '-';
-            let detail4 = document.getElementById('univDetail_4') ? document.getElementById('univDetail_4').value : '-';
-            let detail5 = document.getElementById('univDetail_5') ? document.getElementById('univDetail_5').value : '-';
+            // Ambil data inputan detail secara mandiri
+            let d1 = document.getElementById('univDetail_1') ? document.getElementById('univDetail_1').value : '';
+            let d2 = document.getElementById('univDetail_2') ? document.getElementById('univDetail_2').value : '';
+            let d3 = document.getElementById('univDetail_3') ? document.getElementById('univDetail_3').value : '';
+            let d4 = document.getElementById('univDetail_4') ? document.getElementById('univDetail_4').value : '';
+            let d5 = document.getElementById('univDetail_5') ? document.getElementById('univDetail_5').value : '';
             
             let checkedMaddah = [];
             document.querySelectorAll('input[name="maddah"]:checked').forEach(cb => checkedMaddah.push(cb.value));
             let maddahString = checkedMaddah.join(', ');
 
-            tempPayloadData.details = `Detail1: ${detail1} | Detail2: ${detail2} | Detail3: ${detail3} | Detail4: ${detail4} | Detail5: ${detail5} | Maddah: ${maddahString || '-'}`;
+            tempPayloadData = {
+                formType: currentActiveProgram === 'Lughoh Azhary' ? 'Lughoh_Azhari' : 'Pendaftaran_Umum',
+                programName: currentActiveProgram,
+                email: document.getElementById('univEmail') ? document.getElementById('univEmail').value : '',
+                namaLengkap: document.getElementById('univNama') ? document.getElementById('univNama').value.toUpperCase() : '',
+                ttl: document.getElementById('univTTL') ? document.getElementById('univTTL').value : '',
+                niaUser: document.getElementById('univNia') ? document.getElementById('univNia').value.toUpperCase() : 'JALUR_LUGHOH',
+                waSiswa: document.getElementById('univWA_Siswa').value,
+                waOrtu: document.getElementById('univWA_Ortu') ? document.getElementById('univWA_Ortu').value : '',
+                payment: document.getElementById('univPay') ? document.getElementById('univPay').value : 'KONFIRMASI_ADMIN',
+                fileName: "Tanpa_Foto", 
+                fileData: "",
+                
+                // 🔥 OBATNYA DI SINI: Kirim data detail satu-satu secara terpisah!
+                detail1: d1,
+                detail2: d2,
+                detail3: d3,
+                detail4: d4,
+                detail5: d5
+            };
+
+            // Baris gabungan ini biarin tetep ada khusus buat cadangan Pendaftaran_Umum
+            tempPayloadData.details = `Detail1: ${d1} | Detail2: ${d2} | Detail3: ${d3} | Detail4: ${d4} | Detail5: ${d5} | Maddah: ${maddahString || ''}`;
 
             // Set UI di Modal Pembayaran
             document.getElementById('demoProgName').innerText = currentActiveProgram;
