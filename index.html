@@ -1025,29 +1025,50 @@
             document.getElementById('pesanKritik').value = "";
         }
 
-        // --- 11. TAALO AI SYSTEM ---
-        function sendTaaloV2Msg() {
-            const inputField = document.getElementById('taaloV2Input');
-            const userText = inputField.value.trim();
-            if (userText === '') return;
-            const chatBody = document.getElementById('taaloV2Body');
-            chatBody.innerHTML += `<div style="align-self: flex-end; background: #0ea5e9; padding: 10px 15px; border-radius: 15px; border-bottom-right-radius: 0; font-size: 13px; margin-top:5px;">${userText}</div>`;
-            inputField.value = ''; chatBody.scrollTop = chatBody.scrollHeight;
-            setTimeout(() => {
-                let aiResponse = ""; let low = userText.toLowerCase();
-                if (low.includes('developer') || low.includes('buat web')) {
-                    aiResponse = "Website ini dirancang oleh Kak Luthfi Al-Fatih yang ganteng parah! 😎 Lead developer Markaz!";
-                } else if (low.includes('nia')) { aiResponse = "Klik menu Administrasi NIA di atas buat daftar ya!";
-                } else { aiResponse = "Taalo siap bantu! Mau tanya soal Pendaftaran, Paket, atau Pembuat Web ini?"; }
-                chatBody.innerHTML += `<div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 5px;">
-                    <img src="taalo.png" style="width: 30px; height: 30px; object-fit:contain; filter: drop-shadow(0 0 5px #0ea5e9);" onerror="this.src='https://via.placeholder.com/30?text=AI'">
-                    <div style="background: #1e293b; padding: 10px 15px; border-radius: 15px; border-bottom-left-radius: 0; font-size: 13px; border: 1px solid rgba(255,255,255,0.05);">${aiResponse}</div>
-                </div>`;
-                chatBody.scrollTop = chatBody.scrollHeight;
-                playSuccessSound(); 
-            }, 600);
-        }
+     // ... 11. TAALO AI SYSTEM (POWERED BY GEMINI) ...
+function sendTaaloV2Msg() {
+    const inputField = document.getElementById('taaloV2Input');
+    const userText = inputField.value.trim();
+    if (userText === '') return;
 
+    const chatBody = document.getElementById('taaloV2Body');
+
+    // 1. MUNCULIN CHAT MURID DI LAYAR 
+    // (Biarin style-nya pakai punya lu yang udah cakep itu)
+    chatBody.innerHTML += `<div style="align-self: flex-end; background: #3b82f6; padding: 10px 15px; border-radius: 12px 12px 0 12px; margin-bottom: 10px; color: white;">${userText}</div>`;
+    inputField.value = '';
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // 2. MUNCULIN STATUS LOADING (TAALO MIKIR)
+    const loadingId = 'taalo-mikir-' + Date.now();
+    chatBody.innerHTML += `<div id="${loadingId}" style="align-self: flex-start; background: #1e293b; padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px; color: #94a3b8; font-style: italic;">Memproses memori...</div>`;
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    // 🔴 MASUKIN URL WEB APP DARI GOOGLE APPS SCRIPT LU DI SINI:
+    const scriptWebappURL = "https://script.google.com/macros/s/AKfycbzFtKGS3PXk37KLQHHBnKYfFepgek8wflytyiAeG0FBo2VHf9mNxotwNdfCLDBb8NzxjQ/exec";
+
+    // 3. JEMBATAN API: KIRIM PESAN KE OTAK PUSAT
+    fetch(`${scriptWebappURL}?action=chatTaalo&pesan=${encodeURIComponent(userText)}`, {
+        method: 'GET',
+        redirect: 'follow'
+    })
+    .then(res => res.json())
+    .then(data => {
+        // Hapus tulisan loading
+        document.getElementById(loadingId).remove(); 
+        
+        // Munculin jawaban cerdas dari AI
+        chatBody.innerHTML += `<div style="align-self: flex-start; background: #1e293b; padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px; color: white;">${data.balasan}</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+    })
+    .catch(err => {
+        // Kalau internet putus atau error
+        document.getElementById(loadingId).remove();
+        chatBody.innerHTML += `<div style="align-self: flex-start; background: #7f1d1d; padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px; color: #fca5a5;">Waduh, koneksi otak Taalo lagi terputus nih cuy.</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+    });
+}
+     
         // --- 12. EASTER EGG FLAPPY TAALO GAME SYSTEM ---
         let logoClickCount = 0;
         function triggerEasterEgg() {
