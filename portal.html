@@ -3,187 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal VVIP Markaz At-Ta'allum</title>
+    <title>Portal Murid | Markaz At-Ta'allum</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* CSS VARIABEL BUAT SISTEM TEMA */
+        /* 🎨 DATA VARIABEL CSS UNTUK TEMA INTERAKTIF */
         :root {
             --bg-utama: #f8fafc;
             --text-utama: #0f172a;
-            --card-bg: rgba(255, 255, 255, 0.8);
-            --card-border: rgba(255, 255, 255, 0.3);
-            --btn-color: #3b82f6;
+            --text-mutam: #64748b;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --accent-color: #3b82f6;
+            --input-bg: #f8fafc;
         }
 
-        /* DAFTAR TEMA PESENAN LU */
-        body.tema-pink { --bg-utama: #fdf2f8; --text-utama: #831843; --card-bg: rgba(252, 231, 243, 0.8); --btn-color: #db2777; }
-        body.tema-merah { --bg-utama: #fef2f2; --text-utama: #7f1d1d; --card-bg: rgba(254, 226, 226, 0.8); --btn-color: #dc2626; }
-        body.tema-biru { --bg-utama: #eff6ff; --text-utama: #1e3a8a; --card-bg: rgba(219, 234, 254, 0.8); --btn-color: #2563eb; }
-        body.tema-hijau { --bg-utama: #f0fdf4; --text-utama: #14532d; --card-bg: rgba(220, 252, 231, 0.8); --btn-color: #16a34a; }
-        body.tema-hitam { --bg-utama: #0f172a; --text-utama: #f8fafc; --card-bg: rgba(30, 41, 59, 0.8); --btn-color: #475569; --card-border: rgba(255, 255, 255, 0.1); }
-        body.tema-putih { --bg-utama: #ffffff; --text-utama: #000000; --card-bg: rgba(243, 244, 246, 0.8); --btn-color: #6b7280; }
+        /* VERSI TEMA KHUSUS REQ LU (PINK, MERAH, BIRU, HIJAU, PUTIH, HITAM) */
+        body.tema-pink { --bg-utama: #fff1f2; --text-utama: #4c0519; --text-mutam: #9d174d; --card-bg: #ffffff; --card-border: #fce7f3; --accent-color: #db2777; --input-bg: #fff1f2; }
+        body.tema-merah { --bg-utama: #fef2f2; --text-utama: #450a0a; --text-mutam: #991b1b; --card-bg: #ffffff; --card-border: #fee2e2; --accent-color: #dc2626; --input-bg: #fef2f2; }
+        body.tema-biru { --bg-utama: #f0f9ff; --text-utama: #0c4a6e; --text-mutam: #0369a1; --card-bg: #ffffff; --card-border: #e0f2fe; --accent-color: #0284c7; --input-bg: #f0f9ff; }
+        body.tema-hijau { --bg-utama: #f0fdf4; --text-utama: #052e16; --text-mutam: #166534; --card-bg: #ffffff; --card-border: #dcfce7; --accent-color: #16a34a; --input-bg: #f0fdf4; }
+        body.tema-putih { --bg-utama: #ffffff; --text-utama: #1e293b; --text-mutam: #64748b; --card-bg: #f8fafc; --card-border: #e2e8f0; --accent-color: #475569; --input-bg: #ffffff; }
+        body.tema-hitam { --bg-utama: #090d16; --text-utama: #f8fafc; --text-mutam: #94a3b8; --card-bg: #111827; --card-border: #1f2937; --accent-color: #38bdf8; --input-bg: #1f2937; }
 
-        /* GAYA DASAR & GLASSMORPHISM */
+        /* 🖥️ GLOBAL STYLES */
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif; /* Otomatis ke font utama website elit */
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             background-color: var(--bg-utama);
             color: var(--text-utama);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: all 0.4s ease-in-out;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        .glass-card {
+        /* 📦 CONTAINER UTAMA (CONTAINER CARD) */
+        .portal-container {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
+            border-radius: 24px;
+            padding: 35px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
             transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border: 1px solid #cbd5e1;
-            box-sizing: border-box;
-            font-size: 14px;
+        /* 🔐 FORM LOGIN INTERFACE */
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 10px;
-            background-color: var(--btn-color);
+        .login-header .logo-icon {
+            background: var(--accent-color);
             color: white;
-            font-weight: bold;
-            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 20px -5px var(--accent-color);
+        }
+
+        .login-header h2 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .login-header p {
+            font-size: 13px;
+            color: var(--text-mutam);
+            margin-top: 5px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-mutam);
+            font-size: 16px;
+        }
+
+        .input-group input, .select-group select {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            color: var(--text-utama);
+            font-size: 14px;
+            outline: none;
             transition: 0.3s;
         }
 
-        button:hover {
-            opacity: 0.8;
+        .input-group input:focus, .select-group select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
 
-        /* ANIMASI LOADING */
-        #pesan-loading {
+        /* 🖥️ PROFILE ATAS (DASHBOARD MODE) */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            border-bottom: 2px dashed var(--card-border);
+            text-align: left;
+        }
+
+        .profile-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 600;
+            box-shadow: 0 8px 16px -4px var(--accent-color);
+        }
+
+        .profile-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .profile-info .nia-tag {
+            font-size: 11px;
+            color: var(--text-mutam);
+            font-weight: 500;
+        }
+
+        .badge-program {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        /* 🎨 THEME ADJUSTER CONTROL */
+        .theme-control-box {
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .theme-control-box label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-mutam);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .select-group {
+            position: relative;
+        }
+
+        .select-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-mutam);
+            pointer-events: none;
+        }
+
+        /* BUTTON CONTROLS */
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            box-shadow: 0 8px 20px -6px var(--accent-color);
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-logout {
+            background: #ef4444;
+            box-shadow: 0 8px 20px -6px #ef4444;
+            margin-top: 25px;
+        }
+
+        /* STATUS INDIKATOR LOAD */
+        #loading-overlay {
             font-size: 12px;
             font-style: italic;
+            color: var(--text-mutam);
             margin-top: 10px;
             display: none;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div id="halaman-login" class="glass-card">
-        <h2>Masuk Portal</h2>
-        <p style="font-size: 12px; margin-bottom: 20px;">Gunakan NIA dan Password lu</p>
+    <div class="portal-container">
         
-        <input type="text" id="input-nia" placeholder="Nomor NIA (Contoh: NIA001)">
-        <input type="password" id="input-pass" placeholder="Password">
-        
-        <button onclick="prosesLogin()">Masuk Sekarang 🚀</button>
-        <div id="pesan-loading">Mencari data di server...</div>
-    </div>
+        <div id="wrapper-login">
+            <div class="login-header">
+                <div class="logo-icon">
+                    <i class="fa-solid : fa-user-shield"></i>
+                </div>
+                <h2>Portal Murid</h2>
+                <p>Silakan gunakan NIA & Password resmi lu</p>
+            </div>
 
-    <div id="halaman-dashboard" class="glass-card" style="display: none;">
-        <h1 id="nama-display">Halo, Murid!</h1>
-        <p id="program-display" style="font-weight: bold; margin-bottom: 30px;">Program: -</p>
-        
-        <label style="font-size: 14px;">Ganti Tema Ruangan:</label>
-        <select id="pilihan-tema" onchange="gantiTema(this.value)">
-            <option value="putih">1. Putih (Bersih)</option>
-            <option value="pink">2. Pink (Soft)</option>
-            <option value="merah">3. Merah (Berani)</option>
-            <option value="biru">4. Biru (Tenang)</option>
-            <option value="hijau">5. Hijau (Adem)</option>
-            <option value="hitam">6. Hitam (Dark Mode)</option>
-        </select>
+            <div class="input-group">
+                <i class="fa-solid fa-id-card"></i>
+                <input type="text" id="node-nia" placeholder="Masukkan Nomor NIA (ex: NIA001)">
+            </div>
 
-        <button onclick="logout()" style="background-color: #ef4444; margin-top: 30px;">Keluar</button>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="node-pass" placeholder="Masukkan Password Akun">
+            </div>
+
+            <button class="btn-action" onclick="eksekusiLogin()">
+                Masuk Ruangan <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </button>
+            <div id="loading-overlay"><i class="fa-solid fa-spinner fa-spin"></i> Membaca database server...</div>
+        </div>
+
+        <div id="wrapper-dashboard" style="display: none;">
+            
+            <div class="profile-section">
+                <div class="profile-avatar" id="avatar-inisial">U</div>
+                <div class="profile-info">
+                    <h3 id="nama-display">Nama Santri</h3>
+                    <div class="nia-tag"><i class="fa-solid fa-fingerprint"></i> <span id="nia-display">NIA-000</span></div>
+                    <div class="badge-program" id="program-display">Nama Program</div>
+                </div>
+            </div>
+
+            <div class="theme-control-box">
+                <label><i class="fa-solid fa-palette"></i> ATUR WARNA TEMA RUANGAN LU:</label>
+                <div class="select-group">
+                    <i class="fa-solid fa-paint-roller"></i>
+                    <select id="dropdown-tema" onchange="sinkronisasiTema(this.value)">
+                        <option value="putih">1. Putih (Bersih & Terang)</option>
+                        <option value="pink">2. Pink (Aura Soft)</option>
+                        <option value="merah">3. Merah (Semangat Membara)</option>
+                        <option value="biru">4. Biru (Teknologi / Cyber)</option>
+                        <option value="hijau">5. Hijau (Relaksasi Adem)</option>
+                        <option value="hitam">6. Hitam (Mode Gelap Misterius)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-action btn-logout" onclick="eksekusiLogout()">
+                Keluar Sesi <i class="fa-solid fa-power-off"></i>
+            </button>
+        </div>
+
     </div>
 
     <script>
-        // 🔴 MASUKIN URL APPS SCRIPT LU YANG BARU DI SINI:
-        const scriptURL = "https://script.google.com/macros/s/AKfycbwbiUtJuXS0q1Cw2lzoKt1CRtQcs26AdXzLusfALmHqJ9kEiYEOD1Qx_GD1BRCr9DDSdw/exec";
+        // 🔴 PASTE URL WEB APP DARI DEPLOYMENT BARU SPREADSHEET LU DI SINI:
+        const linkAppsScript = "https://script.google.com/macros/s/AKfycbwbiUtJuXS0q1Cw2lzoKt1CRtQcs26AdXzLusfALmHqJ9kEiYEOD1Qx_GD1BRCr9DDSdw/exec";
         
-        let sesiNiaSekarang = "";
+        let tokenSesiNia = "";
 
-        // 1. FUNGSI TOMBOL LOGIN
-        function prosesLogin() {
-            const nia = document.getElementById('input-nia').value.trim();
-            const pass = document.getElementById('input-pass').value.trim();
-            const loading = document.getElementById('pesan-loading');
+        // 🚀 METODE AKSI LOGIN
+        function eksekusiLogin() {
+            const nia = document.getElementById('node-nia').value.trim();
+            const pass = document.getElementById('node-pass').value.trim();
+            const loader = document.getElementById('loading-overlay');
 
-            if(nia === "" || pass === "") {
-                alert("Isi dulu cuy NIA sama Passwordnya!");
+            if (nia === "" || pass === "") {
+                alert("Eits, isi dulu NIA dan Password lu cuy!");
                 return;
             }
 
-            loading.style.display = "block";
+            loader.style.display = "block";
 
-            // Nembak ke jalur loginMurid
-            fetch(`${scriptURL}?action=loginMurid&nia=${nia}&password=${pass}`)
+            fetch(`${linkAppsScript}?action=loginMurid&nia=${nia}&password=${pass}`)
             .then(res => res.json())
-            .then(data => {
-                loading.style.display = "none";
+            .then(resData => {
+                loader.style.display = "none";
 
                 if (data.status === "sukses") {
-                    sesiNiaSekarang = nia;
+                    tokenSesiNia = nia;
                     
-                    // Masukin data ke layar
-                    document.getElementById('nama-display').innerText = "Halo, " + data.nama;
-                    document.getElementById('program-display').innerText = "Program: " + data.program;
+                    // Suntik data ke Dashboard UI
+                    document.getElementById('nama-display').innerText = data.nama;
+                    document.getElementById('nia-display').innerText = nia.toUpperCase();
+                    document.getElementById('program-display').innerText = data.program;
                     
-                    // Ganti halaman
-                    document.getElementById('halaman-login').style.display = "none";
-                    document.getElementById('halaman-dashboard').style.display = "block";
+                    // Setup Avatar Berdasarkan Huruf Depan Nama
+                    document.getElementById('avatar-inisial').innerText = data.nama.charAt(0).toUpperCase();
+                    
+                    // Transisi Animasi Sembunyi & Munculin Blok
+                    document.getElementById('wrapper-login').style.display = "none";
+                    document.getElementById('wrapper-dashboard').style.display = "block";
 
-                    // Set tema bawaan dari database
-                    gantiTema(data.tema, false); // false = jangan save ke database lagi, kan cuma nge-load
-                    document.getElementById('pilihan-tema').value = data.tema;
+                    // Load Setelan Warna Murid Berdasarkan Catatan Sheet
+                    sinkronisasiTema(data.tema, false); 
+                    document.getElementById('dropdown-tema').value = data.tema;
 
                 } else {
                     alert(data.pesan);
                 }
             })
-            .catch(error => {
-                loading.style.display = "none";
-                alert("Waduh, gagal nyambung ke server nih!");
+            .catch(err => {
+                loader.style.display = "none";
+                alert("Waduh, koneksi ke server database putus cuy!");
             });
         }
 
-        // 2. FUNGSI GANTI TEMA
-        function gantiTema(warnaBaru, saveKeDatabase = true) {
-            // Hapus kelas tema lama
+        // 🎨 METODE AKSI UPDATE WARNA TEMA TEMPAT
+        function sinkronisasiTema(opsiWarna, pushToDatabase = true) {
+            // Reset tema lama di body
             document.body.className = '';
-            // Tambahin kelas tema baru
-            document.body.classList.add('tema-' + warnaBaru);
+            // Terapkan class tema yang baru dipilih
+            document.body.classList.add('tema-' + opsiWarna);
 
-            // Tembak ke Apps Script buat ngesave pilihan tema ini
-            if (saveKeDatabase && sesiNiaSekarang !== "") {
-                fetch(`${scriptURL}?action=simpanTema&nia=${sesiNiaSekarang}&tema=${warnaBaru}`);
+            // Jika status kirim true, lempar data diam-diam ke Sheet kolom ke-5 (Kolom E)
+            if (pushToDatabase && tokenSesiNia !== "") {
+                fetch(`${linkAppsScript}?action=simpanTema&nia=${tokenSesiNia}&tema=${opsiWarna}`);
             }
         }
 
-        // 3. FUNGSI LOGOUT (Balik ke awal)
-        function logout() {
-            sesiNiaSekarang = "";
-            document.getElementById('input-nia').value = "";
-            document.getElementById('input-pass').value = "";
-            document.getElementById('halaman-dashboard').style.display = "none";
-            document.getElementById('halaman-login').style.display = "block";
-            gantiTema('putih', false); // Balikin tema ke normal
+        // 🚪 METODE AKSI KELUAR PORTAL
+        function eksekusiLogout() {
+            tokenSesiNia = "";
+            document.getElementById('node-nia').value = "";
+            document.getElementById('node-pass').value = "";
+            document.getElementById('wrapper-dashboard').style.display = "none";
+            document.getElementById('wrapper-login').style.display = "block";
+            sinkronisasiTema('putih', false); // Kembalikan warna body ke normal
         }
     </script>
 </body>
