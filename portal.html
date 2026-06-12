@@ -307,52 +307,54 @@
         
         let tokenSesiNia = "";
 
-        // 🚀 METODE AKSI LOGIN
-        function eksekusiLogin() {
-            const nia = document.getElementById('node-nia').value.trim();
-            const pass = document.getElementById('node-pass').value.trim();
-            const loader = document.getElementById('loading-overlay');
+        // 🚀 METODE AKSI LOGIN (VERSI BERSIH & BEBAS TYPO)
+function eksekusiLogin() {
+    const nia = document.getElementById('node-nia').value.trim();
+    const pass = document.getElementById('node-pass').value.trim();
+    const loader = document.getElementById('loading-overlay');
 
-            if (nia === "" || pass === "") {
-                alert("Eits, isi dulu NIA dan Password lu cuy!");
-                return;
-            }
+    if (nia === "" || pass === "") {
+        alert("Eits, isi dulu NIA dan Password lu cuy!");
+        return;
+    }
 
-            loader.style.display = "block";
+    loader.style.display = "block";
 
-            fetch(`${linkAppsScript}?action=loginMurid&nia=${nia}&password=${pass}`)
-            .then(res => res.json())
-            .then(resData => {
-                loader.style.display = "none";
+    fetch(`${linkAppsScript}?action=loginMurid&nia=${nia}&password=${pass}`)
+    .then(res => res.json())
+    .then(data => { 
+        // SEKARANG VARIABELNYA UDAH 'data', SESUAI DENGAN RESPONS DARI BACKEND
+        loader.style.display = "none";
 
-                if (data.status === "sukses") {
-                    tokenSesiNia = nia;
-                    
-                    // Suntik data ke Dashboard UI
-                    document.getElementById('nama-display').innerText = data.nama;
-                    document.getElementById('nia-display').innerText = nia.toUpperCase();
-                    document.getElementById('program-display').innerText = data.program;
-                    
-                    // Setup Avatar Berdasarkan Huruf Depan Nama
-                    document.getElementById('avatar-inisial').innerText = data.nama.charAt(0).toUpperCase();
-                    
-                    // Transisi Animasi Sembunyi & Munculin Blok
-                    document.getElementById('wrapper-login').style.display = "none";
-                    document.getElementById('wrapper-dashboard').style.display = "block";
+        if (data.status === "sukses") {
+            tokenSesiNia = nia;
+            
+            // Suntik data ke Dashboard UI
+            document.getElementById('nama-display').innerText = data.nama;
+            document.getElementById('nia-display').innerText = nia.toUpperCase();
+            document.getElementById('program-display').innerText = data.program;
+            
+            // Setup Avatar Berdasarkan Huruf Depan Nama
+            document.getElementById('avatar-inisial').innerText = data.nama.charAt(0).toUpperCase();
+            
+            // Transisi Animasi Sembunyi & Munculin Blok
+            document.getElementById('wrapper-login').style.display = "none";
+            document.getElementById('wrapper-dashboard').style.display = "block";
 
-                    // Load Setelan Warna Murid Berdasarkan Catatan Sheet
-                    sinkronisasiTema(data.tema, false); 
-                    document.getElementById('dropdown-tema').value = data.tema;
+            // Load Setelan Warna Murid Berdasarkan Catatan Sheet
+            sinkronisasiTema(data.tema, false); 
+            document.getElementById('dropdown-tema').value = data.tema;
 
-                } else {
-                    alert(data.pesan);
-                }
-            })
-            .catch(err => {
-                loader.style.display = "none";
-                alert("Waduh, koneksi ke server database putus cuy!");
-            });
+        } else {
+            alert(data.pesan);
         }
+    })
+    .catch(err => {
+        loader.style.display = "none";
+        alert("Waduh, koneksi ke server database putus cuy!");
+        console.error("Detail Error:", err);
+    });
+}
 
         // 🎨 METODE AKSI UPDATE WARNA TEMA TEMPAT
         function sinkronisasiTema(opsiWarna, pushToDatabase = true) {
