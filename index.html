@@ -915,10 +915,11 @@
             let d4 = document.getElementById('univDetail_4') ? document.getElementById('univDetail_4').value : '';
             let d5 = document.getElementById('univDetail_5') ? document.getElementById('univDetail_5').value : '';
             
+            // Mengambil semua check list pelajaran (Maddah) yang dicentang murid
             let checkedMaddah = [];
             document.querySelectorAll('input[name="maddah"]:checked').forEach(cb => checkedMaddah.push(cb.value));
             let maddahString = checkedMaddah.join(', ');
-
+            
             tempPayloadData = {
                 formType: currentActiveProgram === 'Lughoh Azhary' ? 'Lughoh_Azhari' : 'Pendaftaran_Umum',
                 programName: currentActiveProgram,
@@ -932,16 +933,16 @@
                 fileName: "Tanpa_Foto", 
                 fileData: "",
                 
-                // 🔥 OBATNYA DI SINI: Kirim data detail satu-satu secara terpisah!
+               // 🔥 OBATNYA: Kirim semua opsi pilihan secara terpisah satu-satu!
                 detail1: d1,
                 detail2: d2,
                 detail3: d3,
                 detail4: d4,
-                detail5: d5
+                detail5: d5,
+                maddah: maddahString
             };
 
-            // Baris gabungan ini biarin tetep ada khusus buat cadangan Pendaftaran_Umum
-            tempPayloadData.details = `Detail1: ${d1} | Detail2: ${d2} | Detail3: ${d3} | Detail4: ${d4} | Detail5: ${d5} | Maddah: ${maddahString || ''}`;
+            tempPayloadData.details = `Detail1: ${d1} | Detail2: ${d2} | Detail3: ${d3} | Detail4: ${d4} | Detail5: ${d5} | Maddah: ${maddahString || '-'}`;
 
             // Set UI di Modal Pembayaran
             document.getElementById('demoProgName').innerText = currentActiveProgram;
