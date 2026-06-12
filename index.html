@@ -1045,7 +1045,7 @@ function sendTaaloV2Msg() {
     chatBody.scrollTop = chatBody.scrollHeight;
 
     // 🔴 MASUKIN URL WEB APP DARI GOOGLE APPS SCRIPT LU DI SINI:
-    const scriptWebappURL = "https://script.google.com/macros/s/AKfycbzFtKGS3PXk37KLQHHBnKYfFepgek8wflytyiAeG0FBo2VHf9mNxotwNdfCLDBb8NzxjQ/exec";
+    const scriptWebappURL = "https://script.google.com/macros/s/AKfycbyxU28ez6lZT7NIp3D5dJagJRWhWSX57pnXDpmtVcZIAibmHR1PC5NmAGd_eWWeRTXdmQ/exec";
 
     // 3. JEMBATAN API: KIRIM PESAN KE OTAK PUSAT
     fetch(`${scriptWebappURL}?action=chatTaalo&pesan=${encodeURIComponent(userText)}`, {
