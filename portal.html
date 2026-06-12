@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal VVIP Markaz At-Ta'allum</title>
+    <style>
+        /* CSS VARIABEL BUAT SISTEM TEMA */
+        :root {
+            --bg-utama: #f8fafc;
+            --text-utama: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --card-border: rgba(255, 255, 255, 0.3);
+            --btn-color: #3b82f6;
+        }
+
+        /* DAFTAR TEMA PESENAN LU */
+        body.tema-pink { --bg-utama: #fdf2f8; --text-utama: #831843; --card-bg: rgba(252, 231, 243, 0.8); --btn-color: #db2777; }
+        body.tema-merah { --bg-utama: #fef2f2; --text-utama: #7f1d1d; --card-bg: rgba(254, 226, 226, 0.8); --btn-color: #dc2626; }
+        body.tema-biru { --bg-utama: #eff6ff; --text-utama: #1e3a8a; --card-bg: rgba(219, 234, 254, 0.8); --btn-color: #2563eb; }
+        body.tema-hijau { --bg-utama: #f0fdf4; --text-utama: #14532d; --card-bg: rgba(220, 252, 231, 0.8); --btn-color: #16a34a; }
+        body.tema-hitam { --bg-utama: #0f172a; --text-utama: #f8fafc; --card-bg: rgba(30, 41, 59, 0.8); --btn-color: #475569; --card-border: rgba(255, 255, 255, 0.1); }
+        body.tema-putih { --bg-utama: #ffffff; --text-utama: #000000; --card-bg: rgba(243, 244, 246, 0.8); --btn-color: #6b7280; }
+
+        /* GAYA DASAR & GLASSMORPHISM */
+        body {
+            background-color: var(--bg-utama);
+            color: var(--text-utama);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.4s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            transition: all 0.4s ease;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--btn-color);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* ANIMASI LOADING */
+        #pesan-loading {
+            font-size: 12px;
+            font-style: italic;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="halaman-login" class="glass-card">
+        <h2>Masuk Portal</h2>
+        <p style="font-size: 12px; margin-bottom: 20px;">Gunakan NIA dan Password lu</p>
+        
+        <input type="text" id="input-nia" placeholder="Nomor NIA (Contoh: NIA001)">
+        <input type="password" id="input-pass" placeholder="Password">
+        
+        <button onclick="prosesLogin()">Masuk Sekarang 🚀</button>
+        <div id="pesan-loading">Mencari data di server...</div>
+    </div>
+
+    <div id="halaman-dashboard" class="glass-card" style="display: none;">
+        <h1 id="nama-display">Halo, Murid!</h1>
+        <p id="program-display" style="font-weight: bold; margin-bottom: 30px;">Program: -</p>
+        
+        <label style="font-size: 14px;">Ganti Tema Ruangan:</label>
+        <select id="pilihan-tema" onchange="gantiTema(this.value)">
+            <option value="putih">1. Putih (Bersih)</option>
+            <option value="pink">2. Pink (Soft)</option>
+            <option value="merah">3. Merah (Berani)</option>
+            <option value="biru">4. Biru (Tenang)</option>
+            <option value="hijau">5. Hijau (Adem)</option>
+            <option value="hitam">6. Hitam (Dark Mode)</option>
+        </select>
+
+        <button onclick="logout()" style="background-color: #ef4444; margin-top: 30px;">Keluar</button>
+    </div>
+
+    <script>
+        // 🔴 MASUKIN URL APPS SCRIPT LU YANG BARU DI SINI:
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwbiUtJuXS0q1Cw2lzoKt1CRtQcs26AdXzLusfALmHqJ9kEiYEOD1Qx_GD1BRCr9DDSdw/exec";
+        
+        let sesiNiaSekarang = "";
+
+        // 1. FUNGSI TOMBOL LOGIN
+        function prosesLogin() {
+            const nia = document.getElementById('input-nia').value.trim();
+            const pass = document.getElementById('input-pass').value.trim();
+            const loading = document.getElementById('pesan-loading');
+
+            if(nia === "" || pass === "") {
+                alert("Isi dulu cuy NIA sama Passwordnya!");
+                return;
+            }
+
+            loading.style.display = "block";
+
+            // Nembak ke jalur loginMurid
+            fetch(`${scriptURL}?action=loginMurid&nia=${nia}&password=${pass}`)
+            .then(res => res.json())
+            .then(data => {
+                loading.style.display = "none";
+
+                if (data.status === "sukses") {
+                    sesiNiaSekarang = nia;
+                    
+                    // Masukin data ke layar
+                    document.getElementById('nama-display').innerText = "Halo, " + data.nama;
+                    document.getElementById('program-display').innerText = "Program: " + data.program;
+                    
+                    // Ganti halaman
+                    document.getElementById('halaman-login').style.display = "none";
+                    document.getElementById('halaman-dashboard').style.display = "block";
+
+                    // Set tema bawaan dari database
+                    gantiTema(data.tema, false); // false = jangan save ke database lagi, kan cuma nge-load
+                    document.getElementById('pilihan-tema').value = data.tema;
+
+                } else {
+                    alert(data.pesan);
+                }
+            })
+            .catch(error => {
+                loading.style.display = "none";
+                alert("Waduh, gagal nyambung ke server nih!");
+            });
+        }
+
+        // 2. FUNGSI GANTI TEMA
+        function gantiTema(warnaBaru, saveKeDatabase = true) {
+            // Hapus kelas tema lama
+            document.body.className = '';
+            // Tambahin kelas tema baru
+            document.body.classList.add('tema-' + warnaBaru);
+
+            // Tembak ke Apps Script buat ngesave pilihan tema ini
+            if (saveKeDatabase && sesiNiaSekarang !== "") {
+                fetch(`${scriptURL}?action=simpanTema&nia=${sesiNiaSekarang}&tema=${warnaBaru}`);
+            }
+        }
+
+        // 3. FUNGSI LOGOUT (Balik ke awal)
+        function logout() {
+            sesiNiaSekarang = "";
+            document.getElementById('input-nia').value = "";
+            document.getElementById('input-pass').value = "";
+            document.getElementById('halaman-dashboard').style.display = "none";
+            document.getElementById('halaman-login').style.display = "block";
+            gantiTema('putih', false); // Balikin tema ke normal
+        }
+    </script>
+</body>
+</html>
