@@ -241,7 +241,7 @@
             ubahTema(savedTheme, false);
         }
 
-        function ubahTema(namaTema, isSimpanKeServer = true) {
+       function ubahTema(namaTema, isSimpanKeServer = true) {
             // Hapus semua class tema dulu
             document.body.className = '';
             
@@ -250,15 +250,27 @@
                 document.body.classList.add(`theme-${namaTema}`);
             }
             
-            // Simpan di browser
+            // Simpan di browser lokal
             localStorage.setItem('temaPortal', namaTema);
 
-            // Simpan ke Spreadsheet (Background Task)
+            // 🔥 INI JALUR TOL KE SERVER YANG UDAH DIPERBAIKI 🔥
             if (isSimpanKeServer && sessionStorage.getItem('niaMurid')) {
                 const nia = sessionStorage.getItem('niaMurid');
-                // Fitur simpan ke GS (Lu harus tambahin logika update di doGet/doPost Code.gs lu nanti)
-                fetch(`${scriptURL}?action=updateTema&nia=${nia}&tema=${namaTema}`, { method: 'GET', mode: 'no-cors' })
-                .catch(err => console.log("Gagal simpan tema ke server, tapi aman di lokal."));
+                const urlUpdate = `${scriptURL}?action=updateTema&nia=${encodeURIComponent(nia)}&tema=${encodeURIComponent(namaTema)}`;
+                
+                // Kita pake fetch normal biar kelihatan errornya
+                fetch(urlUpdate)
+                .then(response => response.json())
+                .then(hasil => {
+                    if (hasil.status === "sukses") {
+                        console.log("Tema " + namaTema + " sukses dikunci di Database!");
+                    } else {
+                        alert("Gagal nyimpen tema ke database: " + hasil.pesan);
+                    }
+                })
+                .catch(error => {
+                    console.log("Koneksi nyimpen tema lagi delay, tapi tema lokal aman.");
+                });
             }
         }
 
