@@ -3,380 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Murid | Markaz At-Ta'allum</title>
+    <title>Markaz At-Ta'allum | Ruang Murid</title>
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* 🎨 DATA VARIABEL CSS UNTUK TEMA INTERAKTIF */
+        /* LUXURY SYSTEM VARIABLES (Samaan kayak halaman depan) */
         :root {
-            --bg-utama: #f8fafc;
-            --text-utama: #0f172a;
-            --text-mutam: #64748b;
-            --card-bg: #ffffff;
-            --card-border: #e2e8f0;
-            --accent-color: #3b82f6;
-            --input-bg: #f8fafc;
+            --bg-deep: #020617;       
+            --bg-card: #0f172a;       
+            --bg-input: #1e293b;      
+            --accent-glow: #3b82f6;    
+            --text-main: #f8fafc;     
+            --text-dim: #94a3b8;      
+            --neon-glow: 0 0 15px rgba(59, 130, 246, 0.5);
+            --neon-glow-hover: 0 0 25px rgba(59, 130, 246, 0.8);
+            --success: #10b981;
         }
 
-        /* VERSI TEMA KHUSUS REQ LU (PINK, MERAH, BIRU, HIJAU, PUTIH, HITAM) */
-        body.tema-pink { --bg-utama: #fff1f2; --text-utama: #4c0519; --text-mutam: #9d174d; --card-bg: #ffffff; --card-border: #fce7f3; --accent-color: #db2777; --input-bg: #fff1f2; }
-        body.tema-merah { --bg-utama: #fef2f2; --text-utama: #450a0a; --text-mutam: #991b1b; --card-bg: #ffffff; --card-border: #fee2e2; --accent-color: #dc2626; --input-bg: #fef2f2; }
-        body.tema-biru { --bg-utama: #f0f9ff; --text-utama: #0c4a6e; --text-mutam: #0369a1; --card-bg: #ffffff; --card-border: #e0f2fe; --accent-color: #0284c7; --input-bg: #f0f9ff; }
-        body.tema-hijau { --bg-utama: #f0fdf4; --text-utama: #052e16; --text-mutam: #166534; --card-bg: #ffffff; --card-border: #dcfce7; --accent-color: #16a34a; --input-bg: #f0fdf4; }
-        body.tema-putih { --bg-utama: #ffffff; --text-utama: #1e293b; --text-mutam: #64748b; --card-bg: #f8fafc; --card-border: #e2e8f0; --accent-color: #475569; --input-bg: #ffffff; }
-        body.tema-hitam { --bg-utama: #090d16; --text-utama: #f8fafc; --text-mutam: #94a3b8; --card-bg: #111827; --card-border: #1f2937; --accent-color: #38bdf8; --input-bg: #1f2937; }
-
-        /* 🖥️ GLOBAL STYLES */
-        * {
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif; /* Otomatis ke font utama website elit */
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            background-color: var(--bg-utama);
-            color: var(--text-utama);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex; flex-direction: column; min-height: 100vh;
         }
 
-        /* 📦 CONTAINER UTAMA (CONTAINER CARD) */
-        .portal-container {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 35px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+        /* HEADER NAVBAR */
+        header {
+            background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px);
+            padding: 15px 6%; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
+        .header-logo-container { display: flex; align-items: center; gap: 12px; }
+        .header-logo { width: 35px; }
+        .header-title { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-main); }
+        .btn-logout { background: transparent; border: 1px solid var(--text-dim); color: var(--text-dim); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-logout:hover { border-color: #ef4444; color: white; background: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
 
-        /* 🔐 FORM LOGIN INTERFACE */
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
+        /* MAIN PORTAL AREA */
+        main { padding: 30px 6%; flex-grow: 1; display: flex; flex-direction: column; gap: 25px; }
+
+        /* SECTION PROFIL */
+        .profile-card {
+            background-color: var(--bg-card); padding: 25px; border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex; align-items: center; gap: 20px;
+            animation: fadeInDown 0.5s ease;
         }
-
-        .login-header .logo-icon {
-            background: var(--accent-color);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 18px;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            margin-bottom: 15px;
-            box-shadow: 0 10px 20px -5px var(--accent-color);
-        }
-
-        .login-header h2 {
-            font-size: 22px;
-            font-weight: 600;
-        }
-
-        .login-header p {
-            font-size: 13px;
-            color: var(--text-mutam);
-            margin-top: 5px;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-mutam);
-            font-size: 16px;
-        }
-
-        .input-group input, .select-group select {
-            width: 100%;
-            padding: 14px 15px 14px 45px;
-            background-color: var(--input-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            color: var(--text-utama);
-            font-size: 14px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus, .select-group select:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-        }
-
-        /* 🖥️ PROFILE ATAS (DASHBOARD MODE) */
-        .profile-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
-            border-bottom: 2px dashed var(--card-border);
-            text-align: left;
-        }
-
+        .avatar-container { position: relative; }
         .profile-avatar {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: var(--accent-color);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            font-weight: 600;
-            box-shadow: 0 8px 16px -4px var(--accent-color);
+            width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+            border: 3px solid var(--accent-glow); box-shadow: var(--neon-glow);
         }
-
-        .profile-info h3 {
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        .profile-info .nia-tag {
-            font-size: 11px;
-            color: var(--text-mutam);
-            font-weight: 500;
-        }
-
-        .badge-program {
-            display: inline-block;
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-color);
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 500;
-            margin-top: 4px;
-        }
-
-        /* 🎨 THEME ADJUSTER CONTROL */
-        .theme-control-box {
-            text-align: left;
-            margin-top: 15px;
-        }
-
-        .theme-control-box label {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-mutam);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .select-group {
-            position: relative;
-        }
-
-        .select-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-mutam);
-            pointer-events: none;
-        }
-
-        /* BUTTON CONTROLS */
-        .btn-action {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 14px;
-            background: var(--accent-color);
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
+        .btn-change-photo {
+            position: absolute; bottom: 0; right: 0; background: var(--accent-glow); color: white;
+            width: 25px; height: 25px; border-radius: 50%; border: none; cursor: pointer;
+            font-size: 12px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 5px rgba(0,0,0,0.5);
             transition: 0.3s;
-            box-shadow: 0 8px 20px -6px var(--accent-color);
         }
+        .btn-change-photo:hover { transform: scale(1.1); box-shadow: var(--neon-glow-hover); }
+        
+        .profile-info { display: flex; flex-direction: column; }
+        .welcome-msg { font-size: 12px; color: var(--text-dim); }
+        .student-name { font-size: 20px; font-weight: 700; color: var(--text-main); line-height: 1.2; margin-bottom: 5px; }
+        .student-details { font-size: 11px; color: var(--text-dim); background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 15px; display: inline-block; }
+        .student-details span { color: var(--accent-glow); font-weight: 600; margin-right: 10px; }
 
-        .btn-action:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
+        /* DASHBOARD GRID */
+        .dashboard-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
         }
-
-        .btn-logout {
-            background: #ef4444;
-            box-shadow: 0 8px 20px -6px #ef4444;
-            margin-top: 25px;
+        .dash-card {
+            background-color: var(--bg-card); padding: 20px; border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.03); transition: all 0.3s ease;
+            display: flex; flex-direction: column; animation: fadeInUp 0.5s ease;
         }
+        .dash-card:hover { transform: translateY(-3px); border-color: rgba(59, 130, 246, 0.3); }
+        .dash-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+        .dash-card-title { font-size: 14px; font-weight: 600; color: var(--text-main); text-transform: uppercase; letter-spacing: 1px; }
+        .dash-card-icon { font-size: 18px; color: var(--accent-glow); filter: drop-shadow(var(--neon-glow)); }
 
-        /* STATUS INDIKATOR LOAD */
-        #loading-overlay {
-            font-size: 12px;
-            font-style: italic;
-            color: var(--text-mutam);
-            margin-top: 10px;
-            display: none;
-            text-align: center;
+        /* Absen Diagram */
+        .chart-container { position: relative; width: 100%; height: 180px; display: flex; justify-content: center; align-items: center; }
+        #attendanceChart { max-width: 180px; max-height: 180px; }
+        .attendance-stats { display: flex; justify-content: center; gap: 15px; margin-top: 10px; font-size: 12px; color: var(--text-dim); }
+        .stat-item span { font-weight: 700; color: var(--text-main); margin-right: 3px; }
+        .dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+
+        /* Nilai Terbaru */
+        .grades-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .grade-item {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            padding: 10px 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .grade-item:hover { background: rgba(59, 130, 246, 0.03); border-color: var(--accent-glow); }
+        .maddah-name { font-size: 13px; font-weight: 500; }
+        .maddah-score { font-size: 16px; font-weight: 700; color: var(--success); text-shadow: 0 0 5px var(--success); }
+
+        /* FOOTER */
+        footer { padding: 20px 6%; text-align: center; font-size: 11px; color: var(--text-dim); border-top: 1px solid rgba(255,255,255,0.05); }
+
+        /* ANIMATIONS */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .profile-card { flex-direction: column; text-align: center; }
+            .student-name { font-size: 18px; }
+            main { padding: 20px 5%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="portal-container">
-        
-        <div id="wrapper-login">
-            <div class="login-header">
-                <div class="logo-icon">
-                    <i class="fa-solid : fa-user-shield"></i>
-                </div>
-                <h2>Portal Murid</h2>
-                <p>Silakan gunakan NIA & Password resmi lu</p>
-            </div>
-
-            <div class="input-group">
-                <i class="fa-solid fa-id-card"></i>
-                <input type="text" id="node-nia" placeholder="Masukkan Nomor NIA (ex: NIA001)">
-            </div>
-
-            <div class="input-group">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" id="node-pass" placeholder="Masukkan Password Akun">
-            </div>
-
-            <button class="btn-action" onclick="eksekusiLogin()">
-                Masuk Ruangan <i class="fa-solid fa-arrow-right-to-bracket"></i>
-            </button>
-            <div id="loading-overlay"><i class="fa-solid fa-spinner fa-spin"></i> Membaca database server...</div>
+    <header>
+        <div class="header-logo-container">
+            <img src="logo.png" alt="Logo" class="header-logo">
+            <span class="header-title">Markaz Ruang Murid</span>
         </div>
+        <button class="btn-logout" onclick="logOutMurid()"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
+    </header>
 
-        <div id="wrapper-dashboard" style="display: none;">
+    <main>
+        <section class="profile-card">
+            <div class="avatar-container">
+                <img src="" alt="Avatar Murid" class="profile-avatar" id="portalAvatar">
+                <button class="btn-change-photo" onclick="alert('Fitur upload foto profil beneran dioprek setelah urusan database rampung ya Komandan!')"><i class="fa-solid fa-camera"></i></button>
+            </div>
+            <div class="profile-info">
+                <span class="welcome-msg">Ahlan Wa Sahlan, Sobat Attaallum!</span>
+                <h1 class="student-name" id="portalNama">Memuat Nama...</h1>
+                <div class="student-details">
+                    NIA: <span id="portalNia">...</span> Program: <span id="portalProgram">...</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-grid">
             
-            <div class="profile-section">
-                <div class="profile-avatar" id="avatar-inisial">U</div>
-                <div class="profile-info">
-                    <h3 id="nama-display">Nama Santri</h3>
-                    <div class="nia-tag"><i class="fa-solid fa-fingerprint"></i> <span id="nia-display">NIA-000</span></div>
-                    <div class="badge-program" id="program-display">Nama Program</div>
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <span class="dash-card-title">Ringkasan Kehadiran</span>
+                    <i class="fa-solid fa-id-badge dash-card-icon"></i>
+                </div>
+                <div class="chart-container">
+                    <canvas id="attendanceChart"></canvas>
+                </div>
+                <div class="attendance-stats">
+                    <div class="stat-item"><span class="dot" style="background: var(--success);"></span> <span id="absentPresent">20</span> Hadir</div>
+                    <div class="stat-item"><span class="dot" style="background: #ef4444;"></span> <span id="absentBad">2</span> Absen</div>
                 </div>
             </div>
 
-            <div class="theme-control-box">
-                <label><i class="fa-solid fa-palette"></i> ATUR WARNA TEMA RUANGAN LU:</label>
-                <div class="select-group">
-                    <i class="fa-solid fa-paint-roller"></i>
-                    <select id="dropdown-tema" onchange="sinkronisasiTema(this.value)">
-                        <option value="putih">1. Putih (Bersih & Terang)</option>
-                        <option value="pink">2. Pink (Aura Soft)</option>
-                        <option value="merah">3. Merah (Semangat Membara)</option>
-                        <option value="biru">4. Biru (Teknologi / Cyber)</option>
-                        <option value="hijau">5. Hijau (Relaksasi Adem)</option>
-                        <option value="hitam">6. Hitam (Mode Gelap Misterius)</option>
-                    </select>
+            <div class="dash-card" style="border-color: rgba(16,185,129,0.2);">
+                <div class="dash-card-header">
+                    <span class="dash-card-title">Nilai Imtihan Terbaru</span>
+                    <i class="fa-solid fa-graduation-cap dash-card-icon" style="color: var(--success);"></i>
                 </div>
+                <ul class="grades-list">
+                    <li class="grade-item"><span class="maddah-name">Fiqh</span><span class="maddah-score">98</span></li>
+                    <li class="grade-item"><span class="maddah-name">Nahwu</span><span class="maddah-score">95</span></li>
+                    <li class="grade-item"><span class="maddah-name">Hadist</span><span class="maddah-score">100</span></li>
+                    <li class="grade-item"><span class="maddah-name">Siroh</span><span class="maddah-score">88</span></li>
+                </ul>
             </div>
 
-            <button class="btn-action btn-logout" onclick="eksekusiLogout()">
-                Keluar Sesi <i class="fa-solid fa-power-off"></i>
-            </button>
-        </div>
+            <div class="dash-card" style="border-color: rgba(245,158,11,0.2);">
+                <div class="dash-card-header">
+                    <span class="dash-card-title">Pengumuman Markaz</span>
+                    <i class="fa-solid fa-bullhorn dash-card-icon" style="color: #f59e0b;"></i>
+                </div>
+                <p style="font-size: 12px; color: #cbd5e1; background: rgba(245,158,11,0.05); padding: 10px; border-radius: 8px; border: 1px dashed rgba(245,158,11,0.3);">Selamat kepada para peraih Asyroh Awail Batch 14 Imtihan Qobul! Cek profil Instagram resmi untuk melihat pengumuman nilai lengkap.</p>
+            </div>
 
-    </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Markaz At-Ta'allum Terpadu. Portal Ruang Murid v1.1 | #NoPegalNoGain</p>
+    </footer>
 
     <script>
-        // 🔴 PASTE URL WEB APP DARI DEPLOYMENT BARU SPREADSHEET LU DI SINI:
-        const linkAppsScript = "https://script.google.com/macros/s/AKfycbwbiUtJuXS0q1Cw2lzoKt1CRtQcs26AdXzLusfALmHqJ9kEiYEOD1Qx_GD1BRCr9DDSdw/exec";
-        
-        let tokenSesiNia = "";
+        // --- 1. OTORISASI PORTAL LIVE DENGAN SESSION STORAGE ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ambil lemparan data dari sistem login index.html kemarin
+            const namaMurid = sessionStorage.getItem('namaMurid');
+            const niaMurid = sessionStorage.getItem('niaMurid');
+            const programMurid = sessionStorage.getItem('programMurid');
 
-        // 🚀 METODE AKSI LOGIN (VERSI BERSIH & BEBAS TYPO)
-function eksekusiLogin() {
-    const nia = document.getElementById('node-nia').value.trim();
-    const pass = document.getElementById('node-pass').value.trim();
-    const loader = document.getElementById('loading-overlay');
-
-    if (nia === "" || pass === "") {
-        alert("Eits, isi dulu NIA dan Password lu cuy!");
-        return;
-    }
-
-    loader.style.display = "block";
-
-    fetch(`${linkAppsScript}?action=loginMurid&nia=${nia}&password=${pass}`)
-    .then(res => res.json())
-    .then(data => { 
-        // SEKARANG VARIABELNYA UDAH 'data', SESUAI DENGAN RESPONS DARI BACKEND
-        loader.style.display = "none";
-
-        if (data.status === "sukses") {
-            tokenSesiNia = nia;
-            
-            // Suntik data ke Dashboard UI
-            document.getElementById('nama-display').innerText = data.nama;
-            document.getElementById('nia-display').innerText = nia.toUpperCase();
-            document.getElementById('program-display').innerText = data.program;
-            
-            // Setup Avatar Berdasarkan Huruf Depan Nama
-            document.getElementById('avatar-inisial').innerText = data.nama.charAt(0).toUpperCase();
-            
-            // Transisi Animasi Sembunyi & Munculin Blok
-            document.getElementById('wrapper-login').style.display = "none";
-            document.getElementById('wrapper-dashboard').style.display = "block";
-
-            // Load Setelan Warna Murid Berdasarkan Catatan Sheet
-            sinkronisasiTema(data.tema, false); 
-            document.getElementById('dropdown-tema').value = data.tema;
-
-        } else {
-            alert(data.pesan);
-        }
-    })
-    .catch(err => {
-        loader.style.display = "none";
-        alert("Waduh, koneksi ke server database putus cuy!");
-        console.error("Detail Error:", err);
-    });
-}
-
-        // 🎨 METODE AKSI UPDATE WARNA TEMA TEMPAT
-        function sinkronisasiTema(opsiWarna, pushToDatabase = true) {
-            // Reset tema lama di body
-            document.body.className = '';
-            // Terapkan class tema yang baru dipilih
-            document.body.classList.add('tema-' + opsiWarna);
-
-            // Jika status kirim true, lempar data diam-diam ke Sheet kolom ke-5 (Kolom E)
-            if (pushToDatabase && tokenSesiNia !== "") {
-                fetch(`${linkAppsScript}?action=simpanTema&nia=${tokenSesiNia}&tema=${opsiWarna}`);
+            // SISTEM PENGAMAN JALAN TOL: Jika masuk langsung tanpa login, usir balik!
+            if (!namaMurid || !niaMurid) {
+                alert("Akses ditolak! Silakan login terlebih dahulu melalui portal depan.");
+                window.location.href = 'index.html';
+                return;
             }
+
+            // Pasang data asli spreadsheet ke UI Portal
+            document.getElementById('portalNama').innerText = namaMurid;
+            document.getElementById('portalNia').innerText = niaMurid;
+            document.getElementById('portalProgram').innerText = programMurid;
+            
+            // Generate avatar otomatis berdasarkan inisial nama asli mereka
+            const initials = namaMurid.split(' ').map(n => n[0]).join('').toUpperCase().substring(0,3);
+            document.getElementById('portalAvatar').src = `https://via.placeholder.com/150/1e293b/f8fafc?text=${initials}`;
+
+            // Jalankan diagram absensi
+            initAttendanceChart(); 
+        });
+
+        // --- 2. SISTEM DIAGRAM ABSENSI (CHART.JS LIVE GRAPH) ---
+        function initAttendanceChart() {
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+            
+            // Data Kehadiran Demo (Bisa lu sesuaikan manual dulu sebelum bikin database absen)
+            const dataHadir = 20;
+            const dataAbsen = 2;
+            const persentaseHadir = Math.round((dataHadir / (dataHadir + dataAbsen)) * 100);
+
+            document.getElementById('absentPresent').innerText = dataHadir;
+            document.getElementById('absentBad').innerText = dataAbsen;
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Hadir', 'Absen'],
+                    datasets: [{
+                        data: [dataHadir, dataAbsen],
+                        backgroundColor: ['#10b981', '#ef4444'],
+                        borderWidth: 1,
+                        borderColor: '#020617',
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            titleFont: { family: 'Poppins', size: 13, weight: '600' },
+                            bodyFont: { family: 'Poppins', size: 12 },
+                            cornerRadius: 8,
+                            displayColors: false
+                        }
+                    },
+                    animation: { animateScale: true, animateRotate: true }
+                },
+                plugins: [{
+                    id: 'counter',
+                    afterDraw(chart) {
+                        const { width, height } = chart;
+                        const { ctx } = chart;
+                        ctx.save();
+                        
+                        // Gambar Teks Persentase Angka Tengah
+                        ctx.font = '700 36px Poppins';
+                        ctx.fillStyle = '#f8fafc';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(persentaseHadir + '%', width / 2, height / 2);
+                        
+                        // Gambar Sub-Judul Bawah Angka
+                        ctx.font = '500 11px Poppins';
+                        ctx.fillStyle = '#94a3b8';
+                        ctx.fillText('KEHADIRAN', width / 2, height / 2 + 30);
+                    }
+                }]
+            });
         }
 
-        // 🚪 METODE AKSI KELUAR PORTAL
-        function eksekusiLogout() {
-            tokenSesiNia = "";
-            document.getElementById('node-nia').value = "";
-            document.getElementById('node-pass').value = "";
-            document.getElementById('wrapper-dashboard').style.display = "none";
-            document.getElementById('wrapper-login').style.display = "block";
-            sinkronisasiTema('putih', false); // Kembalikan warna body ke normal
+        // --- 3. SISTEM LOGOUT SECARA BERSIH ---
+        function logOutMurid() {
+            if (confirm("Apakah Anda yakin ingin keluar dari Ruang Murid?")) {
+                // Bersihkan semua riwayat login dari memori browser
+                sessionStorage.clear();
+                // Tendang balik ke halaman utama
+                window.location.href = 'index.html';
+            }
         }
     </script>
 </body>
