@@ -1130,6 +1130,49 @@ function sendTaaloV2Msg() {
             document.getElementById('btnPrevTutor').style.visibility = (currentSlide === 1) ? 'hidden' : 'visible';
             document.getElementById('btnNextTutor').innerText = (currentSlide === totalSlides) ? 'Selesai & Paham' : 'Lanjut';
         }
+   // ==========================================
+// FUNGSI LOGIN MURID MENUJU PORTAL
+// ==========================================
+function prosesLoginMurid(event) {
+    event.preventDefault(); // Biar halaman gak me-refresh pas tombol diklik
+
+    // Ganti ID ini sesuai dengan ID inputan di form login HTML lu ya!
+    // Misalnya id="formNiaLogin" dan id="formPasswordLogin"
+    const inputNia = document.getElementById('formNiaLogin').value; 
+    const inputPassword = document.getElementById('formPasswordLogin').value; 
+    
+    // GANTI PAKE URL SCRIPT WEB APP LU YANG ASLI!
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx37q1RwaOUq2MlLYsg7kYajjjdGnqff_FGsfQKsAarQFPRhlOdGiXBKGY0Enbkzj7G/exec'; 
+
+    // Kita bikin jalur tol nembak ke fitur "loginMurid" di doGet (Code.gs)
+    const urlLogin = `${scriptURL}?action=loginMurid&nia=${encodeURIComponent(inputNia)}&password=${encodeURIComponent(inputPassword)}`;
+
+    // Tampilkan loading kalau lu mau (opsional)
+    console.log("Sedang memverifikasi data...");
+
+    fetch(urlLogin)
+        .then(response => response.json())
+        .then(hasil => {
+            if (hasil.status === "sukses") {
+                // 🔥 INI DIA KUNCI SAKTINYA! TITIP DATA KE DOMPET (SESSION STORAGE) 🔥
+                sessionStorage.setItem('namaMurid', hasil.nama);
+                sessionStorage.setItem('niaMurid', inputNia);
+                sessionStorage.setItem('programMurid', hasil.program);
+
+                alert("Login Berhasil! Mengalihkan ke Ruang Murid...");
+                
+                // PINDAH KE HALAMAN PORTAL
+                window.location.href = 'portal.html';
+            } else {
+                // Kalau password/NIA salah
+                alert("Login Gagal: " + hasil.pesan);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Error jaringan. Server lagi sibuk atau URL Script salah!");
+        });
+} 
     </script>
 </body>
 </html>
