@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Ruang Kendali Rahasia | Admin Markaz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #020617; color: white; font-family: 'Poppins', sans-serif; display: flex; justify-content: center; padding: 50px 20px; }
+        .admin-box { background: #0f172a; padding: 30px; border-radius: 15px; border: 1px solid #10b981; width: 100%; max-width: 500px; box-shadow: 0 0 20px rgba(16,185,129,0.3); }
+        h2 { color: #10b981; margin-bottom: 20px; text-align: center; }
+        input, textarea { width: 100%; padding: 12px; background: #1e293b; border: 1px solid #334155; border-radius: 8px; color: white; margin-bottom: 15px; font-family: 'Poppins'; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #059669; box-shadow: 0 0 15px rgba(16,185,129,0.5); }
+    </style>
+</head>
+<body>
+
+    <div id="kunciAdmin" style="position: fixed; top:0; left:0; width:100%; height:100%; background:#020617; z-index:99; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+        <h2 style="color:#ef4444;">RESTRICTED AREA</h2>
+        <input type="password" id="passAdmin" placeholder="Password Admin..." style="width: 300px; text-align: center;">
+        <button onclick="bukaKendali()" style="width: 300px; background:#ef4444;">BUKA KENDALI</button>
+    </div>
+
+    <div class="admin-box">
+        <h2>Papan Siar Markaz 📢</h2>
+        <form onsubmit="kirimPengumuman(event)">
+            <label>Judul Pengumuman</label>
+            <input type="text" id="judulInput" placeholder="Cth: Hasil Ujian Nahwu" required>
+            
+            <label>Isi Pengumuman / Nilai</label>
+            <textarea id="isiInput" rows="6" placeholder="Ketik pengumuman di sini..." required></textarea>
+            
+            <button type="submit" id="btnKirim">🚀 KIRIM KE WEB UTAMA</button>
+        </form>
+    </div>
+
+    <script>
+        // GANTI PAKE URL SCRIPT LU!
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbx37q1RwaOUq2MlLYsg7kYajjjdGnqff_FGsfQKsAarQFPRhlOdGiXBKGY0Enbkzj7G/exec';
+
+        // Gembok abal-abal biar ga sembarang orang buka web ini
+        function bukaKendali() {
+            if(document.getElementById('passAdmin').value === "bosmarkaz") {
+                document.getElementById('kunciAdmin').style.display = "none";
+            } else {
+                alert("Hayo lu siapa? Akses ditolak!");
+            }
+        }
+
+        function kirimPengumuman(event) {
+            event.preventDefault();
+            const btn = document.getElementById('btnKirim');
+            btn.innerText = "MENGIRIM..."; btn.disabled = true;
+
+            const judul = document.getElementById('judulInput').value;
+            const isi = document.getElementById('isiInput').value;
+
+            fetch(`${scriptURL}?action=tambahPengumuman&judul=${encodeURIComponent(judul)}&isi=${encodeURIComponent(isi)}`)
+            .then(res => res.json())
+            .then(hasil => {
+                if(hasil.status === "sukses") {
+                    alert("Sukses! Pengumuman udah live di Web Utama!");
+                    document.getElementById('judulInput').value = '';
+                    document.getElementById('isiInput').value = '';
+                } else {
+                    alert("Gagal cuy: " + hasil.pesan);
+                }
+            })
+            .catch(err => alert("Jaringan error!"))
+            .finally(() => { btn.innerText = "🚀 KIRIM KE WEB UTAMA"; btn.disabled = false; });
+        }
+    </script>
+</body>
+</html>
