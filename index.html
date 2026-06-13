@@ -295,9 +295,9 @@
    <div id="sidebar-menu">
     <div class="close-btn" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-xmark"></i></div>
     <div class="sidebar-links">
-        <a href="portal.html" style="color: #3b82f6; font-weight: 700; background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 8px; border-left: 3px solid #3b82f6;">
-            <i class="fa-solid fa-door-open"></i> MASUK RUANG MURID
-        </a>
+       <a href="#" onclick="document.getElementById('login-modal').style.display='flex'; document.getElementById('sidebar-menu').classList.remove('show'); event.preventDefault();" style="color: #3b82f6; font-weight: 700; background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 8px; border-left: 3px solid #3b82f6;">
+    <i class="fa-solid fa-door-open"></i> MASUK RUANG MURID
+</a>
         
         <a href="#hero-banner" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-house"></i> Beranda</a>
         <a href="https://drive.google.com/file/d/1QhEyydo7UXrwEYsbBLJoqk6XJ5REDN8e/view?usp=drivesdk" target="_blank"><i class="fa-solid fa-book-open"></i> Profil Attaallum</a>
@@ -348,6 +348,28 @@
         </div>
     </section>
 
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-box" style="max-width: 400px;">
+            <h3 style="color: white; margin-bottom:15px; text-align:left;">
+                <i class="fa-solid fa-right-to-bracket" style="color: var(--accent-glow);"></i> Masuk Ruang Murid
+            </h3>
+            
+            <form id="loginForm" class="scroll-form" onsubmit="prosesLoginMurid(event)">
+                <div class="form-group">
+                    <label class="title">Nomor NIA</label>
+                    <input type="text" id="formNiaLogin" placeholder="Contoh: NIA001" required style="text-transform: uppercase;">
+                </div>
+                <div class="form-group">
+                    <label class="title">Password</label>
+                    <input type="password" id="formPasswordLogin" placeholder="Masukkan Password Anda" required>
+                </div>
+                <button type="submit" class="btn-glow" style="width: 100%; margin-top: 15px;">LOGIN SEKARANG</button>
+            </form>
+
+            <p onclick="document.getElementById('login-modal').style.display='none'" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 15px;">BATAL / KEMBALI</p>
+        </div>
+    </div>
+   
     <div id="pilihan-admin-modal" class="modal-overlay">
         <div class="modal-box">
             <i class="fa-solid fa-shield-halved" style="font-size: 36px; color: var(--accent-glow); margin-bottom: 15px;"></i>
