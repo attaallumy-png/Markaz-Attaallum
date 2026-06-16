@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+   <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e3a5f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="At-Ta'allum">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markaz At-Ta'allum | Portal Resmi</title>
@@ -1248,6 +1254,14 @@ function muatIlanPusat() {
         containerIlan.innerHTML = `<p style="color: #ef4444; font-size: 12px;">Gagal menyinkronkan data I'lan Muhim.</p>`;
     });
 }
+ 
+        if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then((reg) => console.log('Aplikasi At-Ta\'allum Berhasil Didaftarkan!', reg.scope))
+        .catch((err) => console.log('Aplikasi Gagal Didaftarkan:', err));
+    });
+  }
     </script>
 </body>
 </html>
