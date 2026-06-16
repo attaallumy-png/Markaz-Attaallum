@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ataallum-v1';
+const CACHE_NAME = 'ataallum-v2';
 const assets = [
   './index.html',
 ];
