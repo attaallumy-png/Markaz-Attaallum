@@ -1,9 +1,6 @@
 const CACHE_NAME = 'ataallum-v1';
 const assets = [
   './index.html',
-  // Lu bisa tambahin file CSS atau logo lu di sini biar bisa dibuka offline, contoh:
-  './style.css',
-  './logo.png'
 ];
 
 // Jalankan pemasangan mesin cache
