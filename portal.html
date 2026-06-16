@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -127,6 +127,7 @@
     </header>
 
     <main id="main-dashboard">
+        
         <section class="profile-card">
             <img src="" alt="Avatar" class="profile-avatar" id="portalAvatar">
             <div>
@@ -148,12 +149,17 @@
             </div>
 
             <div class="dash-card">
-                <div class="dash-card-header"><span>Nilai Imtihan Terbaru</span> <i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="dash-card-header">
+                    <span>Nilai Imtihan Terbaru</span> 
+                    <i class="fa-solid fa-spinner fa-spin" id="iconStatusRapor" style="transition: 0.3s; color: #3b82f6;"></i>
+                </div>
                 <ul class="grades-list">
-                    <li class="grade-item">Fiqh <span class="score">98</span></li>
-                    <li class="grade-item">Nahwu <span class="score">95</span></li>
-                    <li class="grade-item">Siroh <span class="score">88</span></li>
-                    <li class="grade-item">Hadist <span class="score">100</span></li>
+                    <li class="grade-item">Fiqih <span class="score" id="nilaiFiqih">...</span></li>
+                    <li class="grade-item">Tauhid <span class="score" id="nilaiTauhid">...</span></li>
+                    <li class="grade-item">Tafsir <span class="score" id="nilaiTafsir">...</span></li>
+                    <li class="grade-item">Hadist <span class="score" id="nilaiHadist">...</span></li>
+                    <li class="grade-item">Siroh <span class="score" id="nilaiSiroh">...</span></li>
+                    <li class="grade-item">Nahwu <span class="score" id="nilaiNahwu">...</span></li>
                 </ul>
             </div>
 
@@ -172,7 +178,7 @@
     </main>
 
     <script>
-        // GANTI SAMA URL GOOGLE SCRIPT LU KOMANDAN!
+        // 🔥 JANGAN LUPA: GANTI SAMA URL APPS SCRIPT LU YANG PALING BARU KOMANDAN! 🔥
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec'; 
 
         // 1. CEK OTORISASI SAAT HALAMAN DIBUKA
@@ -196,7 +202,6 @@
             const inputNia = document.getElementById('portalNiaLogin').value.toUpperCase();
             const inputPass = document.getElementById('portalPassLogin').value;
 
-            // Nembak ke backend Code.gs
             fetch(`${scriptURL}?action=loginMurid&nia=${encodeURIComponent(inputNia)}&password=${encodeURIComponent(inputPass)}`)
             .then(res => res.json())
             .then(hasil => {
@@ -205,7 +210,6 @@
                     sessionStorage.setItem('niaMurid', inputNia);
                     sessionStorage.setItem('programMurid', hasil.program);
                     
-                    // Kalau di database lu udah nyimpen tema (kolom E), pakai itu. Kalau kosong, pakai default
                     const temaDB = hasil.tema || 'dark';
                     localStorage.setItem('temaPortal', temaDB);
 
@@ -218,7 +222,7 @@
             .finally(() => { btn.innerText = 'BUKA PORTAL'; btn.disabled = false; });
         }
 
-        // 3. MUAT DATA UI & FOTO PROFIL INISIAL
+        // 3. MUAT DATA UI DIBARENGI NARIK NILAI
         function muatDataDashboard() {
             const nama = sessionStorage.getItem('namaMurid');
             const nia = sessionStorage.getItem('niaMurid');
@@ -227,11 +231,44 @@
             document.getElementById('portalNiaUi').innerText = nia;
             document.getElementById('portalProgramUi').innerText = sessionStorage.getItem('programMurid');
             
-            // API Bikin Profil Inisial Super Kece
             const urlInisial = `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=random&color=fff&size=150&bold=true`;
             document.getElementById('portalAvatar').src = urlInisial;
             
             initAttendanceChart();
+            
+            // Panggil sihir penarik nilai
+            tarikDataNilai(nia);
+        }
+
+        // 🔥 FUNGSI BARU: PENYEDOT NILAI DARI GOOGLE SHEETS 🔥
+        function tarikDataNilai(niaMurid) {
+            fetch(`${scriptURL}?action=getNilai&nia=${encodeURIComponent(niaMurid)}`)
+            .then(response => response.json())
+            .then(data => {
+                const iconStatus = document.getElementById('iconStatusRapor');
+                
+                if (data.status === "sukses") {
+                    document.getElementById('nilaiFiqih').innerText = data.fiqih !== "" ? data.fiqih : "-";
+                    document.getElementById('nilaiTauhid').innerText = data.tauhid !== "" ? data.tauhid : "-";
+                    document.getElementById('nilaiTafsir').innerText = data.tafsir !== "" ? data.tafsir : "-";
+                    document.getElementById('nilaiHadist').innerText = data.hadist !== "" ? data.hadist : "-";
+                    document.getElementById('nilaiSiroh').innerText = data.siroh !== "" ? data.siroh : "-";
+                    document.getElementById('nilaiNahwu').innerText = data.nahwu !== "" ? data.nahwu : "-";
+                    
+                    iconStatus.style.color = '#10b981'; 
+                    iconStatus.className = 'fa-solid fa-check-double';
+                } else {
+                    document.querySelectorAll('.score').forEach(el => el.innerText = "-");
+                    iconStatus.style.color = '#f59e0b'; 
+                    iconStatus.className = 'fa-solid fa-clock-rotate-left';
+                }
+            })
+            .catch(error => {
+                console.error("Gagal nyedot nilai:", error);
+                document.querySelectorAll('.score').forEach(el => el.innerText = "Err");
+                document.getElementById('iconStatusRapor').style.color = '#ef4444'; 
+                document.getElementById('iconStatusRapor').className = 'fa-solid fa-triangle-exclamation';
+            });
         }
 
         // 4. SISTEM TEMA WARNA-WARNI & AUTO SAVE
@@ -242,35 +279,21 @@
         }
 
        function ubahTema(namaTema, isSimpanKeServer = true) {
-            // Hapus semua class tema dulu
             document.body.className = '';
-            
-            // Tambahin class tema yang dipilih kalau bukan dark
             if (namaTema !== 'dark') {
                 document.body.classList.add(`theme-${namaTema}`);
             }
-            
-            // Simpan di browser lokal
             localStorage.setItem('temaPortal', namaTema);
 
-            // 🔥 INI JALUR TOL KE SERVER YANG UDAH DIPERBAIKI 🔥
             if (isSimpanKeServer && sessionStorage.getItem('niaMurid')) {
                 const nia = sessionStorage.getItem('niaMurid');
                 const urlUpdate = `${scriptURL}?action=updateTema&nia=${encodeURIComponent(nia)}&tema=${encodeURIComponent(namaTema)}`;
                 
-                // Kita pake fetch normal biar kelihatan errornya
                 fetch(urlUpdate)
                 .then(response => response.json())
                 .then(hasil => {
-                    if (hasil.status === "sukses") {
-                        console.log("Tema " + namaTema + " sukses dikunci di Database!");
-                    } else {
-                        alert("Gagal nyimpen tema ke database: " + hasil.pesan);
-                    }
-                })
-                .catch(error => {
-                    console.log("Koneksi nyimpen tema lagi delay, tapi tema lokal aman.");
-                });
+                    if (hasil.status === "sukses") console.log("Tema " + namaTema + " sukses dikunci!");
+                }).catch(error => { console.log("Koneksi save tema delay."); });
             }
         }
 
@@ -280,7 +303,6 @@
             const ctx = document.getElementById('attendanceChart').getContext('2d');
             if (absenChart) absenChart.destroy();
             
-            // Warna diagram ngikutin tema (Accent Glow dari CSS)
             const style = getComputedStyle(document.body);
             const warnaUtama = style.getPropertyValue('--accent-glow').trim() || '#3b82f6';
 
