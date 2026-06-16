@@ -111,7 +111,7 @@
 
     <div class="scanner-card">
         <h1>Scan QR <span>Absensi</span></h1>
-        <p class="subtitle">Arahkan kamera HP lu tepat ke QR Code ID Card Santri untuk mencatat kehadiran.</p>
+        <p class="subtitle">Arahkan kamera HP lu tepat ke QR Code ID Card Murid untuk mencatat kehadiran.</p>
 
         <div class="preview-wrapper" id="boxWrapper">
             <div class="placeholder-box" id="placeholder">
@@ -126,7 +126,7 @@
         </button>
     </div>
 
-    <script>
+      <script>
         let html5Qrcode;
         let isScanning = false;
 
@@ -134,8 +134,30 @@
         const placeholder = document.getElementById('placeholder');
         const boxWrapper = document.getElementById('boxWrapper');
 
+        // 🔥 FUNGSI SAKTI BUAT SUARA "TIIIT" KASIR INDOMARET 🔥
+        function playBeep() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                oscillator.type = 'sine'; // Suara gelombang halus
+                oscillator.frequency.setValueAtTime(850, audioCtx.currentTime); // Nada tinggi 850Hz (Tit!)
+
+                gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime); // Volume
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2); // Durasi suara 0.2 detik
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.2);
+            } catch (e) {
+                console.log("Browser ga support suara bray");
+            }
+        }
+
         actionBtn.addEventListener('click', async () => {
-            // Instansiasi objek scanner ke div #reader bray
             if (!html5Qrcode) {
                 html5Qrcode = new Html5Qrcode("reader");
             }
@@ -147,21 +169,22 @@
                 boxWrapper.style.boxShadow = `0 0 25px rgba(59, 130, 246, 0.4)`;
 
                 const config = { 
-                    fps: 15, // Kecepatan scan frame per detik (makin tinggi makin responsif)
+                    fps: 15, 
                     qrbox: (width, height) => {
-                        return { width: width * 0.7, height: height * 0.7 } // Ukuran kotak target scan di tengah
+                        return { width: width * 0.7, height: height * 0.7 } 
                     }
                 };
 
                 try {
-                    // Paksa pakai kamera belakang (facingMode environment)
                     await html5Qrcode.start(
                         { facingMode: "environment" }, 
                         config,
-                        // Kalo sukses dapet teks QR Code
                         (decodedText) => {
                             isScanning = false;
-                            html5Qrcode.stop(); // Matikan kamera biar ga nge-loop scan terus
+                            html5Qrcode.stop(); 
+                            
+                            // 🔊 BUNYIKAN SUARA TIIIT DI SINI BRAY!
+                            playBeep();
                             
                             // Efek kosmetik sukses
                             actionBtn.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
@@ -171,10 +194,8 @@
                             boxWrapper.style.border = `2px solid var(--accent-green)`;
                             boxWrapper.style.boxShadow = `0 0 25px rgba(16, 185, 129, 0.4)`;
 
-                            // 🚨 NOTIFIKASI SEMENTARA SEBELUM DIKIRIM KE SPREADSHEET
                             alert(`BOOM! QR Code Terbaca: ${decodedText}`);
                         },
-                        // Kalo gagal scan (biasanya karena gerak atau burem, di-ignore biar terus nyari)
                         (errorMessage) => {
                             // Biarkan kosong biar dia nyari terus sampai dapet fokus yang pas
                         }
@@ -185,8 +206,8 @@
                     actionBtn.innerHTML = '<i class="fa-solid fa-stop"></i> Matikan Scanner';
 
                 } catch (error) {
-                    console.error("Gagal dapet izin:", error);
-                    alert("Waduh gagal bray, pastiin lu izinin akses kamera pas pop-up muncul!");
+                    console.error(error);
+                    alert("Izinin akses kamera bray!");
                     placeholder.style.display = 'block';
                     boxWrapper.style.border = `2px dashed #1E293B`;
                     boxWrapper.style.boxShadow = `none`;
