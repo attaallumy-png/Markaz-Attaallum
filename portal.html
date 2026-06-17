@@ -196,6 +196,7 @@
     </main>
 
     <script>
+        // URL Apps Script lu udah tertanam aman!
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec'; 
 
         // 1. CEK OTORISASI SAAT HALAMAN DIBUKA
@@ -251,40 +252,38 @@
             const urlInisial = `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=random&color=fff&size=150&bold=true`;
             document.getElementById('portalAvatar').src = urlInisial;
             
-            // Panggil Sihir Database 
+            // 🔥 Rapor Ditarik Pakai NIA, Tapi Absen Ditarik Pakai NAMA 🔥
             tarikDataNilai(nia);
-            tarikDataAbsensi(nia);
+            tarikDataAbsensi(nama); 
         }
 
-        // 🔥 FUNGSI BARU: PENYEDOT ABSENSI & GENERATE KALENDER 🔥
-        function tarikDataAbsensi(niaMurid) {
+        // 🔥 FUNGSI BARU: PENYEDOT ABSENSI BERDASARKAN NAMA 🔥
+        function tarikDataAbsensi(namaMurid) {
             const grid = document.getElementById('calendarGrid');
             const icon = document.getElementById('iconStatusAbsen');
             grid.innerHTML = '<div style="grid-column: span 7; text-align: center; font-size: 12px; padding: 20px 0; color: var(--text-dim);"><i class="fa-solid fa-spinner fa-spin"></i> Menyinkronkan kalender...</div>';
             
-            fetch(`${scriptURL}?action=getAbsensi&nia=${encodeURIComponent(niaMurid)}`)
+            // Perhatikan link-nya: sekarang mengirim parameter &nama=
+            fetch(`${scriptURL}?action=getAbsensi&nama=${encodeURIComponent(namaMurid)}`)
             .then(res => res.json())
             .then(data => {
                 if (data.status === "sukses") {
-                    grid.innerHTML = ''; // Hapus loading
+                    grid.innerHTML = ''; 
                     
                     const totalHari = 30; // Simulasi 30 Hari Sebulan
                     let tglHadir = data.dates || []; 
                     
-                    // Bikin kotak-kotak tanggal dari 1 sampai 30
                     for(let i = 1; i <= totalHari; i++) {
                         let box = document.createElement('div');
                         box.className = 'day-box';
                         box.innerText = i;
                         
-                        // Kalo tanggal i (misal: 15) ada di data Google Sheet, nyalakan lampunya!
                         if(tglHadir.includes(i)) {
                             box.classList.add('hadir');
                         }
                         grid.appendChild(box);
                     }
 
-                    // Update Angka
                     document.getElementById('absentPresent').innerText = data.hadir;
                     let alfa = totalHari - data.hadir;
                     document.getElementById('absentBad').innerText = alfa < 0 ? 0 : alfa;
