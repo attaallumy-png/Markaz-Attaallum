@@ -8,29 +8,24 @@
     <link rel="icon" href="logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    
     <style>
         /* === SISTEM TEMA WARNA BANYAK === */
-        /* 1. Dark Blue (Default) */
         :root {
             --bg-deep: #020617; --bg-card: #0f172a; --bg-input: #1e293b;      
             --accent-glow: #3b82f6; --text-main: #f8fafc; --text-dim: #94a3b8;      
             --neon-glow: 0 0 15px rgba(59, 130, 246, 0.5); --success: #10b981;
         }
-        /* 2. Light Mode */
         body.theme-light {
             --bg-deep: #f8fafc; --bg-card: #ffffff; --bg-input: #f1f5f9;      
             --accent-glow: #3b82f6; --text-main: #0f172a; --text-dim: #64748b;      
             --neon-glow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
-        /* 3. Emerald Green */
         body.theme-emerald {
             --bg-deep: #022c22; --bg-card: #064e3b; --bg-input: #0f766e;      
             --accent-glow: #10b981; --text-main: #ecfdf5; --text-dim: #a7f3d0;      
             --neon-glow: 0 0 15px rgba(16, 185, 129, 0.5);
         }
-        /* 4. Royal Purple */
         body.theme-purple {
             --bg-deep: #2e1065; --bg-card: #4c1d95; --bg-input: #6d28d9;      
             --accent-glow: #a855f7; --text-main: #f3e8ff; --text-dim: #d8b4fe;      
@@ -47,9 +42,7 @@
         .header-title { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
         .header-controls { display: flex; align-items: center; gap: 10px; }
         
-        /* THEME SELECTOR */
         .theme-select { background: var(--bg-input); color: var(--text-main); border: 1px solid var(--text-dim); padding: 8px 12px; border-radius: 20px; font-family: 'Poppins'; font-size: 12px; cursor: pointer; outline: none; }
-        
         .btn-logout { background: transparent; border: 1px solid #ef4444; color: #ef4444; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         .btn-logout:hover { color: white; background: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
 
@@ -67,16 +60,33 @@
         .dash-card { background-color: var(--bg-card); padding: 20px; border-radius: 16px; border: 1px solid rgba(128,128,128,0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .dash-card-header { font-size: 14px; font-weight: 600; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid rgba(128,128,128,0.1); padding-bottom: 10px; color: var(--accent-glow); }
         
-        /* DIAGRAM ABSEN */
-        .chart-container { position: relative; width: 100%; height: 160px; display: flex; justify-content: center; }
-        .attendance-stats { display: flex; justify-content: center; gap: 15px; margin-top: 10px; font-size: 12px; }
+        /* 🔥 CSS GRID KALENDER FUTURISTIK 🔥 */
+        .calendar-container { padding: 10px 0; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .day-box { 
+            aspect-ratio: 1; 
+            background: rgba(128,128,128,0.05); 
+            border: 1px solid rgba(128,128,128,0.1); 
+            border-radius: 6px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 11px; font-weight: 600; color: var(--text-dim); 
+            transition: all 0.4s ease; 
+        }
+        .day-box.hadir { 
+            background: var(--accent-glow); 
+            color: #ffffff; 
+            box-shadow: var(--neon-glow); 
+            border-color: transparent;
+            transform: scale(1.05);
+        }
+        .attendance-stats { display: flex; justify-content: center; gap: 15px; margin-top: 15px; font-size: 12px; padding-top: 15px; border-top: 1px dashed rgba(128,128,128,0.2); }
         
         /* TABEL NILAI */
         .grades-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
         .grade-item { background: var(--bg-input); padding: 10px 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(128,128,128,0.1); }
         .grade-item span.score { font-weight: bold; color: var(--success); }
 
-        /* 🔥 MINI GAME TIC TAC TOE 🔥 */
+        /* MINI GAME TIC TAC TOE */
         .game-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 10px; }
         .game-cell { background: var(--bg-input); height: 80px; display: flex; justify-content: center; align-items: center; font-size: 36px; font-weight: bold; border-radius: 8px; cursor: pointer; color: var(--accent-glow); border: 1px solid rgba(128,128,128,0.2); transition: 0.2s; }
         .game-cell:hover { background: var(--accent-glow); color: white; box-shadow: var(--neon-glow); }
@@ -140,18 +150,26 @@
         <section class="dashboard-grid">
             
             <div class="dash-card">
-                <div class="dash-card-header"><span>Ringkasan Kehadiran</span> <i class="fa-solid fa-chart-pie"></i></div>
-                <div class="chart-container"><canvas id="attendanceChart"></canvas></div>
+                <div class="dash-card-header">
+                    <span>Kalender Kehadiran</span> 
+                    <i class="fa-solid fa-calendar-check" id="iconStatusAbsen" style="transition: 0.3s;"></i>
+                </div>
+                
+                <div class="calendar-container">
+                    <div class="calendar-grid" id="calendarGrid">
+                        </div>
+                </div>
+
                 <div class="attendance-stats">
-                    <div><span style="color:#10b981; font-weight:bold;" id="absentPresent">20</span> Hadir</div>
-                    <div><span style="color:#ef4444; font-weight:bold;" id="absentBad">2</span> Absen</div>
+                    <div><span style="color:#10b981; font-weight:bold;" id="absentPresent">0</span> Hadir</div>
+                    <div><span style="color:#ef4444; font-weight:bold;" id="absentBad">0</span> Absen</div>
                 </div>
             </div>
 
             <div class="dash-card">
                 <div class="dash-card-header">
                     <span>Nilai Imtihan Terbaru</span> 
-                    <i class="fa-solid fa-spinner fa-spin" id="iconStatusRapor" style="transition: 0.3s; color: #3b82f6;"></i>
+                    <i class="fa-solid fa-graduation-cap" id="iconStatusRapor" style="transition: 0.3s;"></i>
                 </div>
                 <ul class="grades-list">
                     <li class="grade-item">Fiqih <span class="score" id="nilaiFiqih">...</span></li>
@@ -178,7 +196,6 @@
     </main>
 
     <script>
-        // 🔥 JANGAN LUPA: GANTI SAMA URL APPS SCRIPT LU YANG PALING BARU KOMANDAN! 🔥
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec'; 
 
         // 1. CEK OTORISASI SAAT HALAMAN DIBUKA
@@ -222,7 +239,7 @@
             .finally(() => { btn.innerText = 'BUKA PORTAL'; btn.disabled = false; });
         }
 
-        // 3. MUAT DATA UI DIBARENGI NARIK NILAI
+        // 3. MUAT DATA UI DIBARENGI NARIK NILAI & ABSENSI
         function muatDataDashboard() {
             const nama = sessionStorage.getItem('namaMurid');
             const nia = sessionStorage.getItem('niaMurid');
@@ -234,19 +251,60 @@
             const urlInisial = `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=random&color=fff&size=150&bold=true`;
             document.getElementById('portalAvatar').src = urlInisial;
             
-            initAttendanceChart();
-            
-            // Panggil sihir penarik nilai
+            // Panggil Sihir Database 
             tarikDataNilai(nia);
+            tarikDataAbsensi(nia);
         }
 
-        // 🔥 FUNGSI BARU: PENYEDOT NILAI DARI GOOGLE SHEETS 🔥
+        // 🔥 FUNGSI BARU: PENYEDOT ABSENSI & GENERATE KALENDER 🔥
+        function tarikDataAbsensi(niaMurid) {
+            const grid = document.getElementById('calendarGrid');
+            const icon = document.getElementById('iconStatusAbsen');
+            grid.innerHTML = '<div style="grid-column: span 7; text-align: center; font-size: 12px; padding: 20px 0; color: var(--text-dim);"><i class="fa-solid fa-spinner fa-spin"></i> Menyinkronkan kalender...</div>';
+            
+            fetch(`${scriptURL}?action=getAbsensi&nia=${encodeURIComponent(niaMurid)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "sukses") {
+                    grid.innerHTML = ''; // Hapus loading
+                    
+                    const totalHari = 30; // Simulasi 30 Hari Sebulan
+                    let tglHadir = data.dates || []; 
+                    
+                    // Bikin kotak-kotak tanggal dari 1 sampai 30
+                    for(let i = 1; i <= totalHari; i++) {
+                        let box = document.createElement('div');
+                        box.className = 'day-box';
+                        box.innerText = i;
+                        
+                        // Kalo tanggal i (misal: 15) ada di data Google Sheet, nyalakan lampunya!
+                        if(tglHadir.includes(i)) {
+                            box.classList.add('hadir');
+                        }
+                        grid.appendChild(box);
+                    }
+
+                    // Update Angka
+                    document.getElementById('absentPresent').innerText = data.hadir;
+                    let alfa = totalHari - data.hadir;
+                    document.getElementById('absentBad').innerText = alfa < 0 ? 0 : alfa;
+                    
+                    icon.style.color = '#10b981';
+                }
+            })
+            .catch(err => {
+                console.error("Gagal nyedot kalender:", err);
+                grid.innerHTML = '<div style="grid-column: span 7; text-align: center; color: #ef4444; font-size: 12px;">Gagal memuat data</div>';
+                icon.style.color = '#ef4444';
+            });
+        }
+
+        // FUNGSI PENYEDOT NILAI DARI GOOGLE SHEETS
         function tarikDataNilai(niaMurid) {
             fetch(`${scriptURL}?action=getNilai&nia=${encodeURIComponent(niaMurid)}`)
             .then(response => response.json())
             .then(data => {
                 const iconStatus = document.getElementById('iconStatusRapor');
-                
                 if (data.status === "sukses") {
                     document.getElementById('nilaiFiqih').innerText = data.fiqih !== "" ? data.fiqih : "-";
                     document.getElementById('nilaiTauhid').innerText = data.tauhid !== "" ? data.tauhid : "-";
@@ -271,14 +329,14 @@
             });
         }
 
-        // 4. SISTEM TEMA WARNA-WARNI & AUTO SAVE
+        // SISTEM TEMA WARNA-WARNI & AUTO SAVE
         function terapkanTemaTersimpan() {
             const savedTheme = localStorage.getItem('temaPortal') || 'dark';
             document.getElementById('themeSelector').value = savedTheme;
             ubahTema(savedTheme, false);
         }
 
-       function ubahTema(namaTema, isSimpanKeServer = true) {
+        function ubahTema(namaTema, isSimpanKeServer = true) {
             document.body.className = '';
             if (namaTema !== 'dark') {
                 document.body.classList.add(`theme-${namaTema}`);
@@ -297,23 +355,7 @@
             }
         }
 
-        // 5. CHART DIAGRAM ABSEN
-        let absenChart;
-        function initAttendanceChart() {
-            const ctx = document.getElementById('attendanceChart').getContext('2d');
-            if (absenChart) absenChart.destroy();
-            
-            const style = getComputedStyle(document.body);
-            const warnaUtama = style.getPropertyValue('--accent-glow').trim() || '#3b82f6';
-
-            absenChart = new Chart(ctx, {
-                type: 'doughnut', 
-                data: { labels: ['Hadir', 'Absen'], datasets: [{ data: [20, 2], backgroundColor: [warnaUtama, '#ef4444'], borderWidth: 0 }] },
-                options: { cutout: '75%', plugins: { legend: { display: false } } }
-            });
-        }
-
-        // 6. MINI GAME TIC TAC TOE
+        // MINI GAME TIC TAC TOE
         let board = ['', '', '', '', '', '', '', '', ''];
         let currentPlayer = 'X';
         let gameActive = true;
@@ -348,7 +390,7 @@
             document.querySelectorAll('.game-cell').forEach(c => c.innerText = '');
         }
 
-        // 7. LOGOUT
+        // LOGOUT
         function logOutMurid() {
             sessionStorage.clear();
             window.location.reload();
