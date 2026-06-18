@@ -2,10 +2,10 @@
 <html lang="id">
 <head>
     <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1e3a5f">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="At-Ta'allum">
+    <meta name="theme-color" content="#1e3a5f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="At-Ta'allum">
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* LUXURY SYSTEM VARIABLES */
+        /* ========================================= */
+        /* 🔥 REVOLUSI SISTEM TEMA MULTI WARNA 🔥 */
+        /* ========================================= */
         :root {
             --bg-deep: #020617;       
             --bg-card: #0f172a;       
@@ -29,7 +31,16 @@
             --text-dim: #94a3b8;      
             --neon-glow: 0 0 15px rgba(59, 130, 246, 0.5);
             --neon-glow-hover: 0 0 25px rgba(59, 130, 246, 0.8);
+            --border-line: rgba(128, 128, 128, 0.2);
         }
+        
+        body.theme-light { --bg-deep: #f8fafc; --bg-card: #ffffff; --bg-input: #f1f5f9; --accent-glow: #3b82f6; --text-main: #0f172a; --text-dim: #64748b; }
+        body.theme-pink { --bg-deep: #fdf2f8; --bg-card: #fce7f3; --bg-input: #fbcfe8; --accent-glow: #ec4899; --text-main: #831843; --text-dim: #be185d; }
+        body.theme-lightblue { --bg-deep: #f0f9ff; --bg-card: #e0f2fe; --bg-input: #bae6fd; --accent-glow: #0284c7; --text-main: #0c4a6e; --text-dim: #0369a1; }
+        body.theme-green { --bg-deep: #022c22; --bg-card: #064e3b; --bg-input: #0f766e; --accent-glow: #10b981; --text-main: #ecfdf5; --text-dim: #a7f3d0; }
+        body.theme-gold { --bg-deep: #1c1917; --bg-card: #292524; --bg-input: #44403c; --accent-glow: #fbbf24; --text-main: #fffbeb; --text-dim: #fde68a; }
+        body.theme-brown { --bg-deep: #3e2723; --bg-card: #4e342e; --bg-input: #5d4037; --accent-glow: #d97706; --text-main: #fff8e1; --text-dim: #ffe082; }
+        body.theme-purple { --bg-deep: #2e1065; --bg-card: #3b0764; --bg-input: #4c1d95; --accent-glow: #c084fc; --text-main: #faf5ff; --text-dim: #e9d5ff; }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -39,6 +50,7 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: all 0.4s ease;
         }
 
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
@@ -51,7 +63,7 @@
             transition: opacity 0.4s ease, visibility 0.4s ease;
         }
         .loader-spinner {
-            width: 50px; height: 50px; border: 3px solid rgba(59, 130, 246, 0.1);
+            width: 50px; height: 50px; border: 3px solid var(--border-line);
             border-top: 3px solid var(--accent-glow); border-radius: 50%;
             animation: spin 1s linear infinite; box-shadow: var(--neon-glow);
         }
@@ -65,8 +77,8 @@
         }
         #entrance-modal.hide { opacity: 0; visibility: hidden; }
         .modal-welcome-box { text-align: center; padding: 20px; }
-        .modal-logo { width: 130px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); }
-        .modal-title { font-size: 32px; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; }
+        .modal-logo { width: 130px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(128,128,128,0.1)); }
+        .modal-title { font-size: 32px; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; color: var(--text-main); }
         .modal-subtitle { font-size: 14px; color: var(--text-dim); margin-bottom: 35px; }
         
         .btn-glow {
@@ -75,13 +87,13 @@
             text-transform: uppercase; font-size: 14px; letter-spacing: 1px;
             box-shadow: var(--neon-glow); transition: all 0.3s ease; border: none; text-align: center;
         }
-        .btn-glow:hover { box-shadow: var(--neon-glow-hover); transform: translateY(-2px); }
+        .btn-glow:hover { box-shadow: var(--neon-glow-hover); transform: translateY(-2px); color: white;}
 
         .btn-choice-abu {
-            display: inline-block; background-color: #334155; color: #cbd5e1;
+            display: inline-block; background-color: var(--bg-input); color: var(--text-main);
             font-weight: 600; padding: 12px 35px; border-radius: 30px; cursor: pointer;
             text-transform: uppercase; font-size: 14px; letter-spacing: 1px;
-            transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.05); text-align: center; width: 100%; margin-bottom: 15px;
+            transition: all 0.3s ease; border: 1px solid var(--border-line); text-align: center; width: 100%; margin-bottom: 15px;
         }
         .btn-choice-abu:hover {
             background-color: var(--accent-glow); color: white;
@@ -95,16 +107,26 @@
         }
         .btn-secondary-outlined:hover { background-color: #ef4444; color: white; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
 
-        /* 3. HEADER NAVBAR */
+        /* 3. HEADER NAVBAR & TEMA SELECTOR */
         header {
-            background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px);
+            background-color: var(--bg-card); opacity: 0.95; backdrop-filter: blur(10px);
             padding: 15px 6%; display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-line);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
         .header-logo-container { display: flex; align-items: center; gap: 12px; cursor: pointer; }
         .header-logo { width: 35px; transition: transform 0.2s; }
-        .header-title { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .header-title { font-size: 16px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-main); }
         .menu-icon { font-size: 22px; cursor: pointer; color: var(--text-dim); transition: 0.3s; }
+        
+        .theme-select-index {
+            background: var(--bg-input); color: var(--text-main);
+            border: 1px solid var(--border-line); padding: 6px 12px;
+            border-radius: 20px; font-family: 'Poppins'; font-size: 11px; font-weight: 600;
+            cursor: pointer; outline: none; transition: 0.3s;
+        }
+        .theme-select-index:hover { border-color: var(--accent-glow); }
+        .theme-select-index option { background: var(--bg-card); color: var(--text-main); }
 
         /* 4. SIDEBAR MENU */
         #sidebar-menu {
@@ -112,33 +134,32 @@
             background-color: var(--bg-card); box-shadow: -5px 0 25px rgba(0,0,0,0.5);
             transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1); z-index: 100000;
             padding: 30px 25px; display: flex; flex-direction: column;
-            border-left: 1px solid rgba(59, 130, 246, 0.2);
+            border-left: 1px solid var(--border-line);
         }
         #sidebar-menu.show { right: 0; }
         .close-btn { align-self: flex-end; font-size: 22px; cursor: pointer; margin-bottom: 40px; color: var(--text-dim); }
         .sidebar-links { display: flex; flex-direction: column; gap: 25px; }
-        .sidebar-links a { font-size: 15px; font-weight: 500; color: var(--text-dim); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .sidebar-links a { font-size: 15px; font-weight: 500; color: var(--text-dim); padding-bottom: 8px; border-bottom: 1px solid var(--border-line); }
 
         /* 5. AESTHETIC BANNER & TESTIMONIAL HERO */
         #hero-banner {
-            padding: 60px 6%;
-            display: flex; flex-direction: column; align-items: center;
-            background: radial-gradient(circle at top, rgba(59, 130, 246, 0.15), transparent 60%);
-            text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 60px 6%; display: flex; flex-direction: column; align-items: center;
+            background: radial-gradient(circle at top, rgba(128, 128, 128, 0.1), transparent 60%);
+            text-align: center; border-bottom: 1px solid var(--border-line);
         }
-        .hero-title-main { font-size: 42px; font-weight: 700; margin-bottom: 15px; letter-spacing: -1px; }
+        .hero-title-main { font-size: 42px; font-weight: 700; margin-bottom: 15px; letter-spacing: -1px; color: var(--text-main); }
         .hero-title-main span { color: var(--accent-glow); text-shadow: var(--neon-glow); }
         .hero-desc { color: var(--text-dim); max-width: 700px; margin-bottom: 40px; font-size: 15px; }
         
         .testimonial-slider {
-            width: 100%; max-width: 800px; background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
-            padding: 30px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%; max-width: 800px; background: var(--bg-input);
+            border: 1px solid var(--border-line); border-radius: 20px;
+            padding: 30px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             min-height: 140px; display: flex; flex-direction: column; justify-content: center;
         }
-        .testi-content { font-style: italic; color: #cbd5e1; font-size: 15px; margin-bottom: 15px; transition: opacity 0.4s ease; }
+        .testi-content { font-style: italic; color: var(--text-main); font-size: 15px; margin-bottom: 15px; transition: opacity 0.4s ease; }
         .testi-author { color: var(--accent-glow); font-weight: 600; font-size: 14px; transition: opacity 0.4s ease; }
-        .testi-badge { background: rgba(59,130,246,0.1); color: #60a5fa; padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-left: 10px; }
+        .testi-badge { background: var(--bg-card); color: var(--accent-glow); padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-left: 10px; border: 1px solid var(--accent-glow); }
 
         /* 6. MODUL GRID UTAMA (4 LAYANAN) */
         #services { padding: 50px 6%; }
@@ -148,39 +169,43 @@
         }
         .service-card {
             background-color: var(--bg-card); padding: 35px 25px; border-radius: 16px;
-            text-align: center; border: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.4s ease;
+            text-align: center; border: 1px solid var(--border-line); transition: all 0.4s ease;
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
         }
-        .service-card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+        .service-card:hover { transform: translateY(-5px); border-color: var(--accent-glow); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
         .service-card i.card-icon { font-size: 36px; color: var(--accent-glow); margin-bottom: 20px; }
-        .service-card h3 { font-size: 18px; margin-bottom: 10px; font-weight: 600; }
+        .service-card h3 { font-size: 18px; margin-bottom: 10px; font-weight: 600; color: var(--text-main); }
         .service-card p { font-size: 13px; color: var(--text-dim); margin-bottom: 25px; min-height: 60px; }
         .btn-arrow {
-            display: inline-flex; width: 45px; height: 45px; background-color: #1e293b; 
-            color: white; border-radius: 50%; justify-content: center; align-items: center;
-            transition: 0.3s; border: 1px solid rgba(255,255,255,0.05); cursor: pointer;
+            display: inline-flex; width: 45px; height: 45px; background-color: var(--bg-input); 
+            color: var(--text-main); border-radius: 50%; justify-content: center; align-items: center;
+            transition: 0.3s; border: 1px solid var(--border-line); cursor: pointer;
         }
-        .btn-arrow:hover { background-color: var(--accent-glow); box-shadow: var(--neon-glow); }
+        .btn-arrow:hover { background-color: var(--accent-glow); box-shadow: var(--neon-glow); color: white; border-color: transparent;}
 
         /* OVERLAY MODALS & FORM */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(2, 6, 23, 0.96); z-index: 200000; display: none;
-            justify-content: center; align-items: center; backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.85); z-index: 200000; display: none;
+            justify-content: center; align-items: center; backdrop-filter: blur(8px);
             animation: fadeIn 0.3s ease forwards;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .modal-box { background-color: var(--bg-card); padding: 35px; border-radius: 20px; width: 92%; max-width: 550px; border: 1px solid rgba(59, 130, 246, 0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; }
+        .modal-box { background-color: var(--bg-card); padding: 35px; border-radius: 20px; width: 92%; max-width: 550px; border: 1px solid var(--accent-glow); box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center; }
         
         .scroll-form { max-height: 440px; overflow-y: auto; padding-right: 8px; margin-top: 20px; text-align: left; }
         .scroll-form::-webkit-scrollbar { width: 5px; }
         .scroll-form::-webkit-scrollbar-track { background: var(--bg-deep); }
-        .scroll-form::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .scroll-form::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 10px; }
 
         .form-group { margin-bottom: 22px; text-align: left; }
         .form-group label.title { font-weight: 500; display: block; margin-bottom: 8px; color: var(--text-main); font-size: 14px; }
         .form-group .note { font-size: 11px; color: #10b981; margin-bottom: 8px; display: block; line-height: 1.4; }
-        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"], .form-group select { width: 100%; padding: 12px 16px; background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; font-size: 13px; color: white; transition: 0.3s; font-family: 'Poppins'; }
+        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="number"], .form-group input[type="password"], .form-group select { 
+            width: 100%; padding: 12px 16px; background-color: var(--bg-input); 
+            border: 1px solid var(--border-line); border-radius: 8px; font-size: 13px; 
+            color: var(--text-main); transition: 0.3s; font-family: 'Poppins'; 
+        }
         .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent-glow); box-shadow: 0 0 10px rgba(59,130,246,0.2); }
         .radio-group { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
         .radio-group label { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color: var(--text-dim); }
@@ -188,49 +213,49 @@
         .checkbox-grid label { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color: var(--text-dim); }
 
         /* PROGRAM LIST */
-        .program-item-row { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; border-radius: 12px; margin-bottom: 12px; transition: 0.3s; }
-        .program-item-row:hover { border-color: var(--accent-glow); background: rgba(59, 130, 246, 0.03); }
+        .program-item-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg-input); border: 1px solid var(--border-line); padding: 15px 20px; border-radius: 12px; margin-bottom: 12px; transition: 0.3s; }
+        .program-item-row:hover { border-color: var(--accent-glow); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .program-info { display: flex; align-items: center; gap: 15px; }
         .program-name { font-size: 14px; font-weight: 500; color: var(--text-main); }
-        .btn-daftar-prog { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); font-size: 11px; font-weight: 600; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: 0.3s; }
-        .program-item-row:hover .btn-daftar-prog { background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow); }
+        .btn-daftar-prog { background: var(--bg-deep); border: 1px solid var(--border-line); color: var(--text-main); font-size: 11px; font-weight: 600; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+        .program-item-row:hover .btn-daftar-prog { background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow); color: white;}
 
         /* TICKET */
-        .ticket-wrapper { background: linear-gradient(135deg, #1e293b, #0f172a); border: 2px solid var(--accent-glow); box-shadow: var(--neon-glow); border-radius: 16px; padding: 25px; margin: 25px 0; text-align: left; }
-        .ticket-header { color: var(--accent-glow); border-bottom: 1px dashed rgba(255,255,255,0.15); padding-bottom: 12px; margin-bottom: 18px; text-align: center; font-size: 15px; font-weight: 600; }
+        .ticket-wrapper { background: var(--bg-input); border: 2px solid var(--accent-glow); box-shadow: var(--neon-glow); border-radius: 16px; padding: 25px; margin: 25px 0; text-align: left; }
+        .ticket-header { color: var(--accent-glow); border-bottom: 1px dashed var(--border-line); padding-bottom: 12px; margin-bottom: 18px; text-align: center; font-size: 15px; font-weight: 600; }
         .ticket-field { margin-bottom: 15px; }
         .ticket-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; }
-        .ticket-value { font-size: 15px; font-weight: 600; color: white; margin-top: 2px; }
+        .ticket-value { font-size: 15px; font-weight: 600; color: var(--text-main); margin-top: 2px; }
         
         /* STUDY TIMER UI */
         .timer-display { font-size: 60px; font-weight: 700; color: var(--accent-glow); font-variant-numeric: tabular-nums; text-shadow: var(--neon-glow); margin: 20px 0; }
-        .timer-controls button { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin: 0 5px; transition: 0.3s; font-weight: 600; }
-        .timer-controls button:hover, .timer-controls button.active { background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow); }
+        .timer-controls button { background: var(--bg-input); border: 1px solid var(--border-line); color: var(--text-main); padding: 10px 20px; border-radius: 8px; cursor: pointer; margin: 0 5px; transition: 0.3s; font-weight: 600; }
+        .timer-controls button:hover, .timer-controls button.active { background: var(--accent-glow); border-color: var(--accent-glow); box-shadow: var(--neon-glow); color: white;}
 
         /* FEEDBACK & FOOTER */
-        #feedback-section { padding: 40px 6%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: var(--bg-card); }
-        .feedback-input { width: 100%; max-width: 600px; padding: 15px; border-radius: 10px; background: var(--bg-deep); border: 1px solid rgba(255,255,255,0.1); color: white; margin-bottom: 15px; font-family: 'Poppins'; }
+        #feedback-section { padding: 40px 6%; text-align: center; border-top: 1px solid var(--border-line); background: var(--bg-card); }
+        .feedback-input { width: 100%; max-width: 600px; padding: 15px; border-radius: 10px; background: var(--bg-input); border: 1px solid var(--border-line); color: var(--text-main); margin-bottom: 15px; font-family: 'Poppins'; }
         
         #connect { padding: 40px 6%; text-align: center; }
         .contact-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .contact-card { background-color: var(--bg-card); padding: 12px 20px; border-radius: 10px; font-size: 13px; border: 1px solid rgba(255,255,255,0.02); display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .contact-card { background-color: var(--bg-card); padding: 12px 20px; border-radius: 10px; font-size: 13px; border: 1px solid var(--border-line); display: flex; align-items: center; gap: 10px; transition: 0.3s; color: var(--text-main);}
         .contact-card:hover { border-color: var(--accent-glow); color: var(--accent-glow); }
 
         /* TAALO V2 (GEMINI STYLE) */
         .taalo-v2-container { max-width: 800px; margin: 50px auto; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .taalo-v2-avatar-big { width: 150px; height: 150px; object-fit: contain; background: transparent; filter: drop-shadow(0 0 25px rgba(14, 165, 233, 0.6)); margin-bottom: 15px; animation: floatTaalo 3s ease-in-out infinite; }
         @keyframes floatTaalo { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
-        .taalo-v2-title { color: white; font-size: 26px; margin-bottom: 5px; }
+        .taalo-v2-title { color: var(--text-main); font-size: 26px; margin-bottom: 5px; }
         .taalo-v2-chat-area { width: 100%; max-height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; padding: 10px; }
-        .taalo-v2-input-wrapper { width: 100%; background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; display: flex; padding: 10px 15px; }
-        .taalo-v2-input-wrapper input { flex: 1; background: transparent; border: none; color: white; outline: none; font-family: 'Poppins'; padding: 5px 10px; }
-        .taalo-v2-send-btn { background: #0ea5e9; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+        .taalo-v2-input-wrapper { width: 100%; background: var(--bg-input); border: 1px solid var(--border-line); border-radius: 40px; display: flex; padding: 10px 15px; }
+        .taalo-v2-input-wrapper input { flex: 1; background: transparent; border: none; color: var(--text-main); outline: none; font-family: 'Poppins'; padding: 5px 10px; }
+        .taalo-v2-send-btn { background: var(--accent-glow); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
 
         /* DEMO QRIS SCANNER */
         .qris-scanner-box {
             position: relative; width: 180px; height: 180px; margin: 0 auto 20px auto;
             background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png') center/cover;
-            border: 4px solid white; border-radius: 10px; overflow: hidden;
+            border: 4px solid var(--text-main); border-radius: 10px; overflow: hidden;
         }
         .qris-scanner-line {
             position: absolute; top: 0; left: 0; width: 100%; height: 4px;
@@ -255,43 +280,43 @@
         .tutorial-slide { display: none; text-align: center; animation: fadeIn 0.4s ease; }
         .tutorial-slide.active { display: block; }
         .tutor-icon-box { font-size: 50px; color: var(--accent-glow); margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(59,130,246,0.5)); }
-        .tutor-title { font-size: 20px; font-weight: 700; color: white; margin-bottom: 10px; }
+        .tutor-title { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 10px; }
         .tutor-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 25px; }
         
         .tutor-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
-        .tutor-dot { height: 8px; width: 8px; background: #334155; border-radius: 50%; display: inline-block; margin: 0 4px; transition: 0.3s; }
+        .tutor-dot { height: 8px; width: 8px; background: var(--border-line); border-radius: 50%; display: inline-block; margin: 0 4px; transition: 0.3s; }
         .tutor-dot.active { background: var(--accent-glow); width: 20px; border-radius: 10px; box-shadow: var(--neon-glow); }
-        .btn-tutor { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn-tutor.primary { background: var(--accent-glow); border-color: var(--accent-glow); }
-        .btn-tutor:hover { background: var(--accent-glow); box-shadow: var(--neon-glow); }
+        .btn-tutor { background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border-line); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-tutor.primary { background: var(--accent-glow); border-color: var(--accent-glow); color: white;}
+        .btn-tutor:hover { background: var(--accent-glow); box-shadow: var(--neon-glow); color: white;}
 
-        /* 🔥 TAMBAHAN BARU: SISTEM NOTIFIKASI PENGUMUMAN 🔥 */
+        /* 🔥 SISTEM NOTIFIKASI PENGUMUMAN 🔥 */
         .floating-bell {
-            position: fixed; bottom: 90px; right: 30px; /* Ditaruh di atas tombol panduan */
-            background: #1e293b; color: var(--accent-glow);
+            position: fixed; bottom: 90px; right: 30px; 
+            background: var(--bg-card); color: var(--accent-glow);
             width: 50px; height: 50px; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            font-size: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            cursor: pointer; z-index: 9999; transition: 0.3s; border: 1px solid rgba(59,130,246,0.3);
+            font-size: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer; z-index: 9999; transition: 0.3s; border: 1px solid var(--border-line);
         }
         .floating-bell:hover { transform: scale(1.1); box-shadow: var(--neon-glow-hover); background: var(--accent-glow); color: white; }
         .notif-badge {
             position: absolute; top: -2px; right: -2px;
             background: #ef4444; width: 14px; height: 14px;
-            border-radius: 50%; border: 2px solid #0f172a;
+            border-radius: 50%; border: 2px solid var(--bg-deep);
             display: none;
         }
         .notif-toast {
             position: fixed; bottom: 150px; right: 30px;
-            background: #1e293b; border: 1px solid rgba(59, 130, 246, 0.3);
+            background: var(--bg-card); border: 1px solid var(--accent-glow);
             width: 300px; padding: 20px; border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: #f8fafc;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); color: var(--text-main);
             transform: translateY(20px); opacity: 0; pointer-events: none;
             transition: all 0.4s ease; z-index: 9998;
         }
         .notif-toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
-        .notif-toast h4 { margin: 0 0 10px 0; color: #3b82f6; font-size: 15px; display: flex; align-items: center; gap: 8px;}
-        .notif-toast p { margin: 0; font-size: 12px; color: #94a3b8; line-height: 1.5; }
+        .notif-toast h4 { margin: 0 0 10px 0; color: var(--accent-glow); font-size: 15px; display: flex; align-items: center; gap: 8px;}
+        .notif-toast p { margin: 0; font-size: 12px; color: var(--text-dim); line-height: 1.5; }
         .close-toast { position: absolute; top: 15px; right: 15px; cursor: pointer; color: #ef4444; font-size: 14px; }
 
         /* MOBILE RESPONSIVE */
@@ -325,16 +350,29 @@
             <img src="logo.png" alt="Logo" class="header-logo">
             <span class="header-title">Markaz At-Ta'allum</span>
         </div>
-        <div class="menu-icon" onclick="document.getElementById('sidebar-menu').classList.add('show')"><i class="fa-solid fa-bars"></i></div>
+        
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <select id="themeSelectorIndex" class="theme-select-index" onchange="gantiTemaGlobal(this.value)">
+                <option value="dark">⚫ Hitam</option>
+                <option value="light">⚪ Putih</option>
+                <option value="pink">🌸 Pink</option>
+                <option value="lightblue">🌊 Biru Muda</option>
+                <option value="green">🌲 Hijau</option>
+                <option value="gold">👑 Emas</option>
+                <option value="brown">☕ Coklat</option>
+                <option value="purple">🔮 Ungu</option>
+            </select>
+            <div class="menu-icon" onclick="document.getElementById('sidebar-menu').classList.add('show')"><i class="fa-solid fa-bars"></i></div>
+        </div>
     </header> 
    
     <div id="sidebar-menu">
     <div class="close-btn" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-xmark"></i></div>
     <div class="sidebar-links">
-      <a href="portal.html" style="color: #3b82f6; font-weight: 700; background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 8px; border-left: 3px solid #3b82f6;">
+      <a href="portal.html" style="color: var(--accent-glow); font-weight: 700; background: var(--bg-input); padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-glow);">
     <i class="fa-solid fa-door-open"></i> MASUK RUANG MURID
 </a>
-        <a href="absen.html" class="btn-hero-absen">
+        <a href="absen.html" class="btn-hero-absen" style="color: var(--text-main);">
     <i class="fa-solid fa-qrcode"></i> SCAN ABSENSI DI SINI
 </a>
         <a href="#hero-banner" onclick="document.getElementById('sidebar-menu').classList.remove('show')"><i class="fa-solid fa-house"></i> Beranda</a>
@@ -344,7 +382,7 @@
     </div>
 </div>  
     <section id="hero-banner">
-        <img src="logo.png" alt="Logo Attaallum" style="width: 100px; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(59,130,246,0.4));">
+        <img src="logo.png" alt="Logo Attaallum" style="width: 100px; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--border-line));">
         <h1 class="hero-title-main">Selamat Datang <span>Sobat Attaallum</span></h1>
         <p class="hero-desc">Wadah pendidikan terpadu untuk mengembangkan ilmu, adab, dan percaya diri. Metode belajar hangat, interaktif, dan menyenangkan.</p>
         
@@ -377,18 +415,18 @@
                 <p>Pendaftaran berkas program kelas unggulan, istimewa, atau privat.</p>
                 <a href="#" onclick="document.getElementById('program-pembelajaran-modal').style.display='flex'; event.preventDefault();" class="btn-arrow"><i class="fa-solid fa-arrow-right"></i></a>
             </div>
-            <div class="service-card" style="border-color: rgba(16,185,129,0.3);">
+            <div class="service-card" style="border-color: rgba(16,185,129,0.5);">
                 <i class="fa-solid fa-stopwatch card-icon" style="color: #10b981;"></i>
                 <h3>Ruang Fokus (Timer)</h3>
                 <p>Tingkatkan produktivitas belajar Anda dengan teknik Pomodoro khusus pelajar.</p>
-                <a href="#" onclick="document.getElementById('timer-modal').style.display='flex'; event.preventDefault();" class="btn-arrow" style="background: #10b981;"><i class="fa-solid fa-play"></i></a>
+                <a href="#" onclick="document.getElementById('timer-modal').style.display='flex'; event.preventDefault();" class="btn-arrow" style="background: #10b981; color: white; border-color: transparent;"><i class="fa-solid fa-play"></i></a>
             </div>
         </div>
     </section>
 
     <div class="modal-overlay" id="login-modal">
         <div class="modal-box" style="max-width: 400px;">
-            <h3 style="color: white; margin-bottom:15px; text-align:left;">
+            <h3 style="color: var(--text-main); margin-bottom:15px; text-align:left;">
                 <i class="fa-solid fa-right-to-bracket" style="color: var(--accent-glow);"></i> Masuk Ruang Murid
             </h3>
             
@@ -411,7 +449,7 @@
     <div id="pilihan-admin-modal" class="modal-overlay">
         <div class="modal-box">
             <i class="fa-solid fa-shield-halved" style="font-size: 36px; color: var(--accent-glow); margin-bottom: 15px;"></i>
-            <h3 style="margin-bottom: 10px; color:white;">Pilih Status Administrasi</h3>
+            <h3 style="margin-bottom: 10px; color: var(--text-main);">Pilih Status Administrasi</h3>
             <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 30px;">Tentukan status Nomor Identitas Anda saat ini.</p>
             
             <button onclick="document.getElementById('pilihan-admin-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" class="btn-choice-abu">1. Saya Sudah Punya NIA</button>
@@ -423,7 +461,7 @@
 
     <div class="modal-overlay" id="form-admin-modal">
         <div class="modal-box" style="max-width: 600px;">
-            <h3 style="color: white; margin-bottom:15px; text-align:left;"><i class="fa-solid fa-file-pen" style="color: var(--accent-glow);"></i> Formulir Data NIA</h3>
+            <h3 style="color: var(--text-main); margin-bottom:15px; text-align:left;"><i class="fa-solid fa-file-pen" style="color: var(--accent-glow);"></i> Formulir Data NIA</h3>
             <form id="registrationForm" class="scroll-form" onsubmit="kirimDataForm(event)">
                 <div class="form-group"><label class="title">Email Aktif *</label><input type="email" id="formEmail" required></div>
                 <div class="form-group"><label class="title">Nama Lengkap *</label><input type="text" id="formNama" required></div>
@@ -452,10 +490,7 @@
                 <div class="form-group"><label class="title">Nomor WhatsApp Aktif *</label><input type="text" id="formNoHP" required></div>
                 <div class="form-group">
                      <label class="title">Buat Password Login *</label>
-                   <input type="password" id="formPassword" placeholder="Buat password unik untuk portal..." required 
-style="width: 100%; padding: 12px; background: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; font-family: 'Poppins'; box-sizing: border-box; outline: none; transition: 0.3s;"
-onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 10px rgba(59, 130, 246, 0.5)';"
-onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none';">
+                   <input type="password" id="formPassword" placeholder="Buat password unik untuk portal..." required>
                 </div> 
                 <button type="submit" class="btn-glow" style="width: 100%; margin-top: 15px;">VALIDASI & DAFTARKAN NIA</button>
             </form>
@@ -466,7 +501,7 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
     <div class="modal-overlay" id="success-admin-modal">
         <div class="modal-box" style="max-width: 450px;">
             <i class="fa-solid fa-circle-check" style="font-size: 55px; color: #10b981; filter: drop-shadow(0 0 10px rgba(16,185,129,0.4));"></i>
-            <h3 style="font-size: 24px; margin-top: 15px; color: #fff;">Registrasi Berhasil!</h3>
+            <h3 style="font-size: 24px; margin-top: 15px; color: var(--text-main);">Registrasi Berhasil!</h3>
             <p style="color: var(--text-dim); margin-top: 8px; font-size: 13px;">Nomor Identitas Attaallum (NIA) otomatis Anda adalah:</p>
             <div id="displayNIA" style="background-color: var(--bg-input); padding: 18px; border-radius: 10px; font-size: 26px; font-weight: 700; color: var(--accent-glow); letter-spacing: 4px; margin: 25px 0; border: 2px dashed var(--accent-glow); text-shadow: var(--neon-glow);">NIA-XXXX</div>
             <a id="waDirectBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; border-radius: 8px; background-color: #22c55e; display: block; margin-bottom: 15px;"><i class="fa-brands fa-whatsapp"></i> HUBUNGI CS ADMIN</a>
@@ -476,7 +511,7 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
 
     <div class="modal-overlay" id="program-pembelajaran-modal">
         <div class="modal-box" style="max-width: 600px;">
-            <h3 style="color: white; text-align: left; margin-bottom:15px;"><i class="fa-solid fa-layer-group" style="color: var(--accent-glow);"></i> Program Pembelajaran</h3>
+            <h3 style="color: var(--text-main); text-align: left; margin-bottom:15px;"><i class="fa-solid fa-layer-group" style="color: var(--accent-glow);"></i> Program Pembelajaran</h3>
             <div class="scroll-form">
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program Private</span></div><button class="btn-daftar-prog" onclick="bukaFormPintar('Private')">Daftar</button></div>
                 <div class="program-item-row"><div class="program-info"><span class="program-name">Program Imtihan Qobul</span></div><button class="btn-daftar-prog" onclick="bukaFormPintar('Imtihan Qobul')">Daftar</button></div>
@@ -490,11 +525,11 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
 
     <div class="modal-overlay" id="universal-program-modal">
         <div class="modal-box" style="max-width: 600px; border-color: #10b981;">
-            <h3 id="universalFormTitle" style="color: white; text-align: left; margin-bottom:15px;"><i class="fa-solid fa-file-signature" style="color: #10b981;"></i> Form Pendaftaran</h3>
+            <h3 id="universalFormTitle" style="color: var(--text-main); text-align: left; margin-bottom:15px;"><i class="fa-solid fa-file-signature" style="color: #10b981;"></i> Form Pendaftaran</h3>
             
             <form id="universalDynamicForm" class="scroll-form" onsubmit="handleUniversalSubmit(event)">
                 <div id="dynamic-fields-area"></div>
-                <button type="submit" id="universalSubmitBtn" class="btn-glow" style="width: 100%; margin-top: 15px; background: #10b981; box-shadow: 0 0 15px rgba(16,185,129,0.4);">LANJUT KE PEMBAYARAN 💳</button>
+                <button type="submit" id="universalSubmitBtn" class="btn-glow" style="width: 100%; margin-top: 15px; background: #10b981; box-shadow: 0 0 15px rgba(16,185,129,0.4); color: white;">LANJUT KE PEMBAYARAN 💳</button>
             </form>
 
             <p onclick="document.getElementById('universal-program-modal').style.display='none'; document.getElementById('program-pembelajaran-modal').style.display='flex';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 20px;">KEMBALI</p>
@@ -503,25 +538,25 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
 
     <div class="modal-overlay" id="payment-demo-modal">
         <div class="modal-box" style="max-width: 450px;">
-            <h3 style="color: white; margin-bottom: 5px;"><i class="fa-solid fa-wallet" style="color: #10b981;"></i> Konfirmasi Pembayaran</h3>
+            <h3 style="color: var(--text-main); margin-bottom: 5px;"><i class="fa-solid fa-wallet" style="color: #10b981;"></i> Konfirmasi Pembayaran</h3>
             <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 20px;">Silakan scan QRIS di bawah ini menggunakan M-Banking atau E-Wallet (Khusus Demo Uji Coba Web).</p>
             
             <div class="qris-scanner-box">
                 <div class="qris-scanner-line"></div>
             </div>
             
-            <div style="background: var(--bg-input); padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left;">
+            <div style="background: var(--bg-input); padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left; border: 1px solid var(--border-line);">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
                     <span style="font-size: 13px; color: var(--text-dim);">Total Tagihan:</span>
                     <span style="font-size: 16px; color: #10b981; font-weight: bold;">Rp 500.000</span>
                 </div>
                 <div style="display: flex; justify-content: space-between;">
                     <span style="font-size: 13px; color: var(--text-dim);">Program:</span>
-                    <span id="demoProgName" style="font-size: 13px; color: white; font-weight: 500;">-</span>
+                    <span id="demoProgName" style="font-size: 13px; color: var(--text-main); font-weight: 500;">-</span>
                 </div>
             </div>
 
-            <button id="btnProsesBayar" onclick="eksekusiPembayaranDanKirim()" class="btn-glow" style="width: 100%; background: #3b82f6;">SAYA SUDAH BAYAR (SIMULASI) 🚀</button>
+            <button id="btnProsesBayar" onclick="eksekusiPembayaranDanKirim()" class="btn-glow" style="width: 100%; background: #3b82f6; color: white;">SAYA SUDAH BAYAR (SIMULASI) 🚀</button>
             <p onclick="document.getElementById('payment-demo-modal').style.display='none'; document.getElementById('universal-program-modal').style.display='flex';" style="color: #ef4444; cursor: pointer; font-size: 13px; font-weight: 600; margin-top: 15px;">BATAL</p>
         </div>
     </div>
@@ -529,7 +564,7 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
     <div class="modal-overlay" id="tiket-pendaftaran-modal">
         <div class="modal-box" style="max-width: 460px;">
             <i class="fa-solid fa-clipboard-check" style="font-size: 45px; color: #10b981;"></i>
-            <h3 style="margin-top: 10px; color:white;">Pembayaran & Tiket Sukses!</h3>
+            <h3 style="margin-top: 10px; color: var(--text-main);">Pembayaran & Tiket Sukses!</h3>
             <div class="ticket-wrapper">
                 <div class="ticket-header">BUKTI REGISTRASI PROGRAM</div>
                 <div class="ticket-field" id="tktNiaRow"><div class="ticket-label">NIA</div><div class="ticket-value" id="tktNiaValue"></div></div>
@@ -537,7 +572,7 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
                 <div class="ticket-field" id="tktDetailRow"><div class="ticket-label">DETAIL SELEKSI / METODE</div><div class="ticket-value" id="tktDetailValue"></div></div>
                 <div class="ticket-field"><div class="ticket-label">STATUS PEMBAYARAN</div><div class="ticket-value" style="color: #10b981;"><i class="fa-solid fa-check-double"></i> LUNAS (TERVERIFIKASI)</div></div>
             </div>
-            <a id="waTiketBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; background: #22c55e;"><i class="fa-brands fa-whatsapp"></i> KIRIM TIKET & BUKTI KE ADMIN</a>
+            <a id="waTiketBtn" href="#" target="_blank" class="btn-glow" style="width: 100%; background: #22c55e; color: white;"><i class="fa-brands fa-whatsapp"></i> KIRIM TIKET & BUKTI KE ADMIN</a>
             <p onclick="document.getElementById('tiket-pendaftaran-modal').style.display='none'" style="color: var(--text-dim); cursor: pointer; font-size: 13px; margin-top: 20px;">KEMBALI KE BERANDA</p>
         </div>
     </div>
@@ -545,7 +580,7 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
     <div class="modal-overlay" id="timer-modal">
         <div class="modal-box" style="max-width: 400px;">
             <i class="fa-solid fa-brain" style="font-size: 30px; color: #10b981; margin-bottom: 10px;"></i>
-            <h3 style="color:white;">Ruang Fokus (Pomodoro)</h3>
+            <h3 style="color: var(--text-main);">Ruang Fokus (Pomodoro)</h3>
             <p style="font-size: 12px; color: var(--text-dim);">Fokus 25 Menit. Matikan gangguan.</p>
             <div class="timer-display" id="time-display">25:00</div>
             <div class="timer-controls">
@@ -557,9 +592,9 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
         </div>
     </div>
 
-    <section id="section-ilan" style="padding: 30px 6% 10px 6%; background: radial-gradient(circle at top, rgba(59, 130, 246, 0.05), transparent 80%);">
+    <section id="section-ilan" style="padding: 30px 6% 10px 6%; background: radial-gradient(circle at top, rgba(128, 128, 128, 0.05), transparent 80%);">
         <div style="max-width: 1100px; margin: 0 auto;">
-            <h2 style="font-size: 18px; font-weight: 700; letter-spacing: 1px; color: #3b82f6; text-shadow: var(--neon-glow); margin-bottom: 15px; text-transform: uppercase;">
+            <h2 style="font-size: 18px; font-weight: 700; letter-spacing: 1px; color: var(--accent-glow); text-shadow: var(--neon-glow); margin-bottom: 15px; text-transform: uppercase;">
                 <i class="fa-solid fa-bullhorn" style="animation: pulse 1.5s infinite;"></i> I'lan Muhim
             </h2>
             
@@ -570,14 +605,14 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
     </section>
    
     <section id="feedback-section">
-        <h2 style="font-size: 22px; margin-bottom: 10px;">Kritik & Saran</h2>
+        <h2 style="font-size: 22px; margin-bottom: 10px; color: var(--text-main);">Kritik & Saran</h2>
         <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 20px;">Bantu Markaz jadi lebih baik! Pesan Anda akan dikirim ke Admin CS.</p>
         <textarea id="pesanKritik" class="feedback-input" rows="4" placeholder="Ketik saran atau masukan Anda di sini..."></textarea><br>
         <button onclick="kirimKritikWA()" class="btn-glow"><i class="fa-solid fa-paper-plane"></i> Kirim Masukan</button>
     </section>
 
     <section id="connect">
-        <h2>PORTAL DIREKTORI LAYANAN PUSAT</h2>
+        <h2 style="color: var(--text-main);">PORTAL DIREKTORI LAYANAN PUSAT</h2>
         <div class="contact-grid">
             <a href="https://wa.me/201551018457" target="_blank" class="contact-card"><i class="fa-solid fa-headset" style="color: #22c55e;"></i> HUBUNGI CS ADMIN</a>
             <a href="https://www.instagram.com/attaallumarkaz" target="_blank" class="contact-card"><i class="fa-brands fa-instagram" style="color: #ec4899;"></i> INSTAGRAM OFFICIAL</a>
@@ -655,7 +690,7 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
     </div>
 
     <script>
-        // --- 5. GOOGLE SHEET WEB APP URL (Pusat Database Lu) ---
+        // --- GOOGLE SHEET WEB APP URL (Pusat Database Lu) ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec';
 
         // Variabel global untuk nyimpen memori notifikasi
@@ -672,8 +707,27 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
             }, 800);
             applyUniversalCapslock();
             muatIlanPusat();
-            cekNotifikasiPusat(); // Panggil fungsi mata-mata notif!
+            cekNotifikasiPusat(); 
+            muatTemaTersimpan(); // 🔥 LOAD TEMA TERSIMPAN PAS BUKA WEB
         });
+
+        // ==========================================
+        // 🔥 FUNGSI GANTI TEMA GLOBAL (SINKRON PORTAL)
+        // ==========================================
+        function gantiTemaGlobal(namaTema) {
+            document.body.className = '';
+            if (namaTema !== 'dark') {
+                document.body.classList.add(`theme-${namaTema}`);
+            }
+            // Simpan ke memori HP biar sinkron sama portal murid!
+            localStorage.setItem('temaPortal', namaTema);
+        }
+
+        function muatTemaTersimpan() {
+            const savedTheme = localStorage.getItem('temaPortal') || 'dark';
+            document.getElementById('themeSelectorIndex').value = savedTheme;
+            gantiTemaGlobal(savedTheme);
+        }
 
         // --- FUNGSI MATA-MATA NOTIFIKASI PENGUMUMAN ---
         function cekNotifikasiPusat() {
@@ -689,7 +743,6 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
                     const terakhirDibaca = localStorage.getItem('notifTerakhir');
                     
                     if (terakhirDibaca !== dataPengumumanAktif) {
-                        // Nyalain titik merah dan munculin pop-up otomatis setelah delay dikit
                         document.getElementById('badgeMerah').style.display = 'block';
                         setTimeout(() => { document.getElementById('boxNotif').classList.add('show'); }, 2500);
                     }
@@ -821,7 +874,6 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
             
             let htmlContent = '';
 
-            // 1. KONDISI FORM UNTUK PROGRAM PRIVATE
             if(namaProgram === 'Private') {
                 htmlContent = `
                     <div class="form-group"><label class="title">Nomor NIA Anda *</label><input type="text" id="univNia" placeholder="Cth: NIA340" required style="text-transform: uppercase;"></div>
@@ -854,7 +906,6 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
                     </div>
                 `;
             }
-            // 2. KONDISI FORM UNTUK PROGRAM IMTIHAN QOBUL
             else if(namaProgram === 'Imtihan Qobul') {
                 htmlContent = `
                     <div class="form-group"><label class="title">Nomor NIA Anda *</label><input type="text" id="univNia" placeholder="Cth: NIA340" required style="text-transform: uppercase;"></div>
@@ -900,7 +951,6 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
                     </div>
                 `;
             }
-            // 3. KONDISI FORM UNTUK MUSABAQOH 3 I'DADI
             else if(namaProgram === 'Musabaqoh 3 I\'dadi') {
                 htmlContent = `
                     <div class="form-group"><label class="title">Nomor NIA Anda *</label><input type="text" id="univNia" placeholder="Cth: NIA340" required style="text-transform: uppercase;"></div>
@@ -955,7 +1005,6 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
                     </div>
                 `;
             }
-            // 4. KONDISI FORM UNTUK MUSABAQOH 3 TSANAWI
             else if(namaProgram === 'Musabaqoh 3 Tsanawi') {
                 htmlContent = `
                     <div class="form-group"><label class="title">Nomor NIA Anda *</label><input type="text" id="univNia" placeholder="Cth: NIA340" required style="text-transform: uppercase;"></div>
@@ -998,7 +1047,6 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
                     </div>
                 `;
             }
-            // 5. KONDISI FORM UNTUK LUGHOH AZHARY
             else if(namaProgram === 'Lughoh Azhary') {
                 htmlContent = `
                     <div class="form-group"><label class="title">Email *</label><input type="email" id="univEmail" required></div>
@@ -1039,18 +1087,15 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
         // --- 8. PROSES HANDLER POST DATA & PEMBAYARAN DEMO ---
         let tempPayloadData = {};
 
-       // Tahap 1: Kumpulin data form trus panggil modal bayar
         function handleUniversalSubmit(event) {
             event.preventDefault();
             
-            // Ambil data inputan detail secara mandiri
             let d1 = document.getElementById('univDetail_1') ? document.getElementById('univDetail_1').value : '';
             let d2 = document.getElementById('univDetail_2') ? document.getElementById('univDetail_2').value : '';
             let d3 = document.getElementById('univDetail_3') ? document.getElementById('univDetail_3').value : '';
             let d4 = document.getElementById('univDetail_4') ? document.getElementById('univDetail_4').value : '';
             let d5 = document.getElementById('univDetail_5') ? document.getElementById('univDetail_5').value : '';
             
-            // Mengambil semua check list pelajaran (Maddah) yang dicentang murid
             let checkedMaddah = [];
             document.querySelectorAll('input[name="maddah"]:checked').forEach(cb => checkedMaddah.push(cb.value));
             let maddahString = checkedMaddah.join(', ');
@@ -1067,8 +1112,6 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
                 payment: document.getElementById('univPay') ? document.getElementById('univPay').value : 'KONFIRMASI_ADMIN',
                 fileName: "Tanpa_Foto", 
                 fileData: "",
-                
-               // 🔥 OBATNYA: Kirim semua opsi pilihan secara terpisah satu-satu!
                 detail1: d1,
                 detail2: d2,
                 detail3: d3,
@@ -1078,16 +1121,11 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
             };
 
             tempPayloadData.details = `Detail1: ${d1} | Detail2: ${d2} | Detail3: ${d3} | Detail4: ${d4} | Detail5: ${d5} | Maddah: ${maddahString || '-'}`;
-
-            // Set UI di Modal Pembayaran
             document.getElementById('demoProgName').innerText = currentActiveProgram;
-
-            // Pindah modal
             document.getElementById('universal-program-modal').style.display = 'none';
             document.getElementById('payment-demo-modal').style.display = 'flex';
         }
 
-        // Tahap 2: Klik tombol bayar QRIS -> Tembak Google Sheet -> Muncul Tiket
         function eksekusiPembayaranDanKirim() {
             const btn = document.getElementById('btnProsesBayar');
             btn.innerHTML = 'MEMVERIFIKASI SALDO QRIS... ⏳';
@@ -1116,8 +1154,6 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
                         }
                         
                         document.getElementById('tktProgValue').innerText = tempPayloadData.programName;
-                        
-                        // Extract detail 1 buat ditampilin di tiket
                         let detail1 = document.getElementById('univDetail_1') ? document.getElementById('univDetail_1').value : '-';
                         document.getElementById('tktDetailValue').innerText = (detail1 !== '-') ? detail1 : 'Biodata Penuh Tersimpan';
 
@@ -1132,7 +1168,7 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
                     btn.disabled = false;
                     btn.innerHTML = 'SAYA SUDAH BAYAR (SIMULASI) 🚀';
                 });
-            }, 1500); // Simulasi nunggu bank 1.5 detik
+            }, 1500); 
         }
 
         // --- 9. AUTO CAPSLOCK SAKTI UNIVERSAL ---
@@ -1153,50 +1189,37 @@ onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='no
             document.getElementById('pesanKritik').value = "";
         }
 
-     // ... 11. TAALO AI SYSTEM (POWERED BY GEMINI) ...
-function sendTaaloV2Msg() {
-    const inputField = document.getElementById('taaloV2Input');
-    const userText = inputField.value.trim();
-    if (userText === '') return;
+        // ... 11. TAALO AI SYSTEM ...
+        function sendTaaloV2Msg() {
+            const inputField = document.getElementById('taaloV2Input');
+            const userText = inputField.value.trim();
+            if (userText === '') return;
 
-    const chatBody = document.getElementById('taaloV2Body');
+            const chatBody = document.getElementById('taaloV2Body');
+            chatBody.innerHTML += `<div style="align-self: flex-end; background: var(--accent-glow); padding: 10px 15px; border-radius: 12px 12px 0 12px; margin-bottom: 10px; color: white;">${userText}</div>`;
+            inputField.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
 
-    // 1. MUNCULIN CHAT MURID DI LAYAR 
-    // (Biarin style-nya pakai punya lu yang udah cakep itu)
-    chatBody.innerHTML += `<div style="align-self: flex-end; background: #3b82f6; padding: 10px 15px; border-radius: 12px 12px 0 12px; margin-bottom: 10px; color: white;">${userText}</div>`;
-    inputField.value = '';
-    chatBody.scrollTop = chatBody.scrollHeight;
+            const loadingId = 'taalo-mikir-' + Date.now();
+            chatBody.innerHTML += `<div id="${loadingId}" style="align-self: flex-start; background: var(--bg-input); padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px; color: var(--text-dim); font-style: italic; border: 1px solid var(--border-line);">Memproses memori...</div>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
 
-    // 2. MUNCULIN STATUS LOADING (TAALO MIKIR)
-    const loadingId = 'taalo-mikir-' + Date.now();
-    chatBody.innerHTML += `<div id="${loadingId}" style="align-self: flex-start; background: #1e293b; padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px; color: #94a3b8; font-style: italic;">Memproses memori...</div>`;
-    chatBody.scrollTop = chatBody.scrollHeight;
+            const scriptWebappURL = "https://script.google.com/macros/s/AKfycbyAANj0622a-tg0tGUqB_qhOIaFEhk9ORLyC3k4_lyKh3HNbO0WOfGVIPjZ8ZZZRQmlrQ/exec";
 
-    // 🔴 MASUKIN URL WEB APP DARI GOOGLE APPS SCRIPT LU DI SINI:
-    const scriptWebappURL = "https://script.google.com/macros/s/AKfycbyAANj0622a-tg0tGUqB_qhOIaFEhk9ORLyC3k4_lyKh3HNbO0WOfGVIPjZ8ZZZRQmlrQ/exec";
-
-    // 3. JEMBATAN API: KIRIM PESAN KE OTAK PUSAT
-    fetch(`${scriptWebappURL}?action=chatTaalo&pesan=${encodeURIComponent(userText)}`, {
-        method: 'GET',
-        redirect: 'follow'
-    })
-    .then(res => res.json())
-    .then(data => {
-        // Hapus tulisan loading
-        document.getElementById(loadingId).remove(); 
-        
-        // Munculin jawaban cerdas dari AI
-        chatBody.innerHTML += `<div style="align-self: flex-start; background: #1e293b; padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px; color: white;">${data.balasan}</div>`;
-        chatBody.scrollTop = chatBody.scrollHeight;
-    })
-    .catch(err => {
-        // Kalau internet putus atau error
-        document.getElementById(loadingId).remove();
-        chatBody.innerHTML += `<div style="align-self: flex-start; background: #7f1d1d; padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px; color: #fca5a5;">Waduh, koneksi otak Taalo lagi terputus nih cuy.</div>`;
-        chatBody.scrollTop = chatBody.scrollHeight;
-    });
-}
-     
+            fetch(`${scriptWebappURL}?action=chatTaalo&pesan=${encodeURIComponent(userText)}`, { method: 'GET', redirect: 'follow' })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById(loadingId).remove(); 
+                chatBody.innerHTML += `<div style="align-self: flex-start; background: var(--bg-input); padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px; color: var(--text-main); border: 1px solid var(--border-line);">${data.balasan}</div>`;
+                chatBody.scrollTop = chatBody.scrollHeight;
+            })
+            .catch(err => {
+                document.getElementById(loadingId).remove();
+                chatBody.innerHTML += `<div style="align-self: flex-start; background: #7f1d1d; padding: 10px 15px; border-radius: 12px 12px 12px 0; margin-bottom: 10px; color: #fca5a5;">Waduh, koneksi otak Taalo lagi terputus nih cuy.</div>`;
+                chatBody.scrollTop = chatBody.scrollHeight;
+            });
+        }
+             
         // --- 12. EASTER EGG FLAPPY TAALO GAME SYSTEM ---
         let logoClickCount = 0;
         function triggerEasterEgg() {
@@ -1259,93 +1282,81 @@ function sendTaaloV2Msg() {
             document.getElementById('btnPrevTutor').style.visibility = (currentSlide === 1) ? 'hidden' : 'visible';
             document.getElementById('btnNextTutor').innerText = (currentSlide === totalSlides) ? 'Selesai & Paham' : 'Lanjut';
         }
-   // ==========================================
-// FUNGSI LOGIN MURID MENUJU PORTAL
-// ==========================================
-function prosesLoginMurid(event) {
-    event.preventDefault(); // Biar halaman gak me-refresh pas tombol diklik
 
-    // Ganti ID ini sesuai dengan ID inputan di form login HTML lu ya!
-    // Misalnya id="formNiaLogin" dan id="formPasswordLogin"
-    const inputNia = document.getElementById('formNiaLogin').value; 
-    const inputPassword = document.getElementById('formPasswordLogin').value; 
-    
-    // GANTI PAKE URL SCRIPT WEB APP LU YANG ASLI!
-    const scriptURLLogin = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec'; 
-
-    // Kita bikin jalur tol nembak ke fitur "loginMurid" di doGet (Code.gs)
-    const urlLogin = `${scriptURLLogin}?action=loginMurid&nia=${encodeURIComponent(inputNia)}&password=${encodeURIComponent(inputPassword)}`;
-
-    // Tampilkan loading kalau lu mau (opsional)
-    console.log("Sedang memverifikasi data...");
-
-    fetch(urlLogin)
-        .then(response => response.json())
-        .then(hasil => {
-            if (hasil.status === "sukses") {
-                // 🔥 INI DIA KUNCI SAKTINYA! TITIP DATA KE DOMPET (SESSION STORAGE) 🔥
-                sessionStorage.setItem('namaMurid', hasil.nama);
-                sessionStorage.setItem('niaMurid', inputNia);
-                sessionStorage.setItem('programMurid', hasil.program);
-
-                alert("Login Berhasil! Mengalihkan ke Ruang Murid...");
-                
-                // PINDAH KE HALAMAN PORTAL
-                window.location.href = 'portal.html';
-            } else {
-                // Kalau password/NIA salah
-                alert("Login Gagal: " + hasil.pesan);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert("Error jaringan. Server lagi sibuk atau URL Script salah!");
-        });
-} 
- // ==========================================
-// FUNGSI LOAD DATA UNTUK PAPAN I'LAN MUHIM
-// ==========================================
-function muatIlanPusat() {
-    const containerIlan = document.getElementById('papan-ilan-pusat');
-    
-    // Tetap nembak action getPengumuman dari sheet Pengumuman bray!
-    fetch(`${scriptURL}?action=getPengumuman`)
-    .then(res => res.json())
-    .then(hasil => {
-        if (hasil.status === "sukses" && hasil.data.length > 0) {
-            containerIlan.innerHTML = ''; // Hapus tulisan loading
+        // ==========================================
+        // FUNGSI LOGIN MURID MENUJU PORTAL
+        // ==========================================
+        function prosesLoginMurid(event) {
+            event.preventDefault(); 
+            const inputNia = document.getElementById('formNiaLogin').value; 
+            const inputPassword = document.getElementById('formPasswordLogin').value; 
             
-            // Render datanya ke komponen web
-            hasil.data.forEach(ilan => {
-                containerIlan.innerHTML += `
-                    <div style="background-color: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.15); box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.08); padding-bottom: 8px; flex-wrap: wrap; gap: 10px;">
-                            <h3 style="font-size: 15px; font-weight: 600; color: white; letter-spacing: 0.5px;">${ilan.judul}</h3>
-                            <span style="font-size: 11px; color: var(--text-dim); background: rgba(255,255,255,0.03); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
-                                <i class="fa-solid fa-calendar-day" style="color: #3b82f6;"></i> ${ilan.tanggal}
-                            </span>
-                        </div>
-                        <p style="color: #cbd5e1; font-size: 13px; line-height: 1.6; white-space: pre-line;">${ilan.isi}</p>
-                    </div>
-                `;
+            // Pake scriptURL yang di atas buat manggil doGet
+            const urlLogin = `${scriptURL}?action=loginMurid&nia=${encodeURIComponent(inputNia)}&password=${encodeURIComponent(inputPassword)}`;
+
+            console.log("Sedang memverifikasi data...");
+
+            fetch(urlLogin)
+                .then(response => response.json())
+                .then(hasil => {
+                    if (hasil.status === "sukses") {
+                        sessionStorage.setItem('namaMurid', hasil.nama);
+                        sessionStorage.setItem('niaMurid', inputNia);
+                        sessionStorage.setItem('programMurid', hasil.program);
+
+                        alert("Login Berhasil! Mengalihkan ke Ruang Murid...");
+                        window.location.href = 'portal.html';
+                    } else {
+                        alert("Login Gagal: " + hasil.pesan);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Error jaringan. Server lagi sibuk atau URL Script salah!");
+                });
+        } 
+
+        // ==========================================
+        // FUNGSI LOAD DATA UNTUK PAPAN I'LAN MUHIM
+        // ==========================================
+        function muatIlanPusat() {
+            const containerIlan = document.getElementById('papan-ilan-pusat');
+            
+            fetch(`${scriptURL}?action=getPengumuman`)
+            .then(res => res.json())
+            .then(hasil => {
+                if (hasil.status === "sukses" && hasil.data.length > 0) {
+                    containerIlan.innerHTML = ''; 
+                    hasil.data.forEach(ilan => {
+                        containerIlan.innerHTML += `
+                            <div style="background-color: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border-line); box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px dashed var(--border-line); padding-bottom: 8px; flex-wrap: wrap; gap: 10px;">
+                                    <h3 style="font-size: 15px; font-weight: 600; color: var(--text-main); letter-spacing: 0.5px;">${ilan.judul}</h3>
+                                    <span style="font-size: 11px; color: var(--text-main); background: var(--bg-input); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-line);">
+                                        <i class="fa-solid fa-calendar-day" style="color: var(--accent-glow);"></i> ${ilan.tanggal}
+                                    </span>
+                                </div>
+                                <p style="color: var(--text-dim); font-size: 13px; line-height: 1.6; white-space: pre-line;">${ilan.isi}</p>
+                            </div>
+                        `;
+                    });
+                } else {
+                    containerIlan.innerHTML = `<p style="color: var(--text-dim); font-size: 12px; font-style: italic;">Belum ada maklumat resmi atau pengumuman terbaru.</p>`;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                containerIlan.innerHTML = `<p style="color: #ef4444; font-size: 12px;">Gagal menyinkronkan data I'lan Muhim.</p>`;
             });
-        } else {
-            containerIlan.innerHTML = `<p style="color: var(--text-dim); font-size: 12px; font-style: italic;">Belum ada maklumat resmi atau pengumuman terbaru.</p>`;
         }
-    })
-    .catch(err => {
-        console.error(err);
-        containerIlan.innerHTML = `<p style="color: #ef4444; font-size: 12px;">Gagal menyinkronkan data I'lan Muhim.</p>`;
-    });
-}
- 
+         
         if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js')
-        .then((reg) => console.log('Aplikasi At-Ta\'allum Berhasil Didaftarkan!', reg.scope))
-        .catch((err) => console.log('Aplikasi Gagal Didaftarkan:', err));
-    });
-  }
+            window.addEventListener('load', () => {
+              navigator.serviceWorker.register('sw.js')
+                .then((reg) => console.log('Aplikasi At-Ta\'allum Berhasil Didaftarkan!', reg.scope))
+                .catch((err) => console.log('Aplikasi Gagal Didaftarkan:', err));
+            });
+        }
     </script>
 </body>
 </html>
