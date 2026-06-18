@@ -1265,6 +1265,95 @@ function muatIlanPusat() {
         .catch((err) => console.log('Aplikasi Gagal Didaftarkan:', err));
     });
   }
+   <style>
+        /* CSS Lonceng Notifikasi & Toast Pop-up */
+        .floating-bell {
+            position: fixed; bottom: 90px; right: 30px; /* Di atas tombol panduan */
+            background: #1e293b; color: #3b82f6;
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            cursor: pointer; z-index: 9999; transition: 0.3s; border: 1px solid rgba(59,130,246,0.3);
+        }
+        .floating-bell:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(59, 130, 246, 0.8); background: #3b82f6; color: white; }
+        
+        .notif-badge {
+            position: absolute; top: -2px; right: -2px;
+            background: #ef4444; width: 14px; height: 14px;
+            border-radius: 50%; border: 2px solid #0f172a;
+            display: none; /* Sembunyi secara default */
+        }
+        
+        .notif-toast {
+            position: fixed; bottom: 150px; right: 30px;
+            background: #1e293b; border: 1px solid rgba(59, 130, 246, 0.3);
+            width: 300px; padding: 20px; border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: #f8fafc;
+            transform: translateY(20px); opacity: 0; pointer-events: none;
+            transition: all 0.4s ease; z-index: 9998;
+        }
+        .notif-toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+        .notif-toast h4 { margin: 0 0 10px 0; color: #3b82f6; font-size: 15px; display: flex; align-items: center; gap: 8px;}
+        .notif-toast p { margin: 0; font-size: 12px; color: #94a3b8; line-height: 1.5; }
+        .close-toast { position: absolute; top: 15px; right: 15px; cursor: pointer; color: #ef4444; font-size: 14px; }
+
+        @media (max-width: 768px) {
+            .notif-toast { bottom: 140px; right: 15px; width: calc(100% - 30px); }
+        }
+    </style>
+
+    <div class="floating-bell" onclick="toggleNotif()">
+        <i class="fa-solid fa-bell"></i>
+        <div class="notif-badge" id="badgeMerah"></div>
+    </div>
+
+    <div class="notif-toast" id="boxNotif">
+        <i class="fa-solid fa-xmark close-toast" onclick="toggleNotif()"></i>
+        <h4><i class="fa-solid fa-bullhorn"></i> Pengumuman Baru!</h4>
+        <div style="font-size: 10px; color: #10b981; margin-bottom: 5px;" id="tglNotif">Memuat...</div>
+        <p id="isiNotif">Sedang memeriksa maklumat terbaru...</p>
+    </div>
+
+    <script>
+        // URL Apps Script khusus untuk modul notif ini
+        const urlServerNotif = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec'; 
+        let dataPengumumanAktif = "";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch(`${urlServerNotif}?action=getPengumuman`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "sukses" && data.data.length > 0) {
+                    const terbaru = data.data[0];
+                    document.getElementById('tglNotif').innerText = terbaru.tanggal + " - " + terbaru.judul;
+                    document.getElementById('isiNotif').innerText = terbaru.isi;
+                    
+                    dataPengumumanAktif = terbaru.judul + terbaru.isi;
+                    
+                    // Cek di memori HP (Local Storage)
+                    const terakhirDibaca = localStorage.getItem('notifTerakhir');
+                    
+                    if (terakhirDibaca !== dataPengumumanAktif) {
+                        document.getElementById('badgeMerah').style.display = 'block'; // Nyalain titik merah
+                        setTimeout(() => { document.getElementById('boxNotif').classList.add('show'); }, 2500); // Munculin pop-up
+                    }
+                } else {
+                    document.getElementById('isiNotif').innerText = "Belum ada pengumuman saat ini.";
+                }
+            })
+            .catch(err => console.log("Gagal ngecek notif:", err));
+        });
+
+        function toggleNotif() {
+            const box = document.getElementById('boxNotif');
+            box.classList.toggle('show');
+            
+            // Simpan ke memori kalau udah dibuka
+            if(box.classList.contains('show') && dataPengumumanAktif !== "") {
+                document.getElementById('badgeMerah').style.display = 'none';
+                localStorage.setItem('notifTerakhir', dataPengumumanAktif);
+            }
+        }
     </script>
 </body>
 </html>
