@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+
     <style>
         /* === SISTEM TEMA WARNA BANYAK === */
         :root {
@@ -94,9 +96,33 @@
         .login-box label { display: block; text-align: left; font-size: 13px; margin-bottom: 5px; color: #94a3b8; }
         .login-box input { width: 100%; padding: 12px; background: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; font-family: 'Poppins'; margin-bottom: 15px; }
         .btn-glow { background: #3b82f6; color: white; padding: 12px; width: 100%; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+
+        /* 🔥 MODAL KHUSUS CROP FOTO 🔥 */
+        #cropModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(2, 6, 23, 0.95); z-index: 999999;
+            flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .crop-container { width: 100%; max-width: 400px; max-height: 60vh; background: #1e293b; border-radius: 12px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .crop-container img { max-width: 100%; display: block; }
+        .crop-actions { margin-top: 20px; display: flex; gap: 15px; width: 100%; max-width: 400px; }
+        .btn-crop-cancel { flex: 1; padding: 12px; background: transparent; color: #ef4444; border: 1px solid #ef4444; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Poppins'; }
+        .btn-crop-save { flex: 2; padding: 12px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Poppins'; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
     </style>
 </head>
 <body>
+
+    <div id="cropModal">
+        <h3 style="margin-bottom: 15px; color: white;">Sesuaikan Foto Profil</h3>
+        <div class="crop-container">
+            <img id="imageToCrop" src="" alt="Foto untuk dicrop">
+        </div>
+        <div class="crop-actions">
+            <button class="btn-crop-cancel" onclick="tutupCropModal()">Batal</button>
+            <button class="btn-crop-save" onclick="prosesCropDanUpload()"><i class="fa-solid fa-crop"></i> Crop & Upload</button>
+        </div>
+    </div>
 
     <div id="login-overlay">
         <div class="login-box">
@@ -136,7 +162,7 @@
             <div class="avatar-wrapper">
                 <img src="" alt="Avatar" class="profile-avatar" id="portalAvatar">
                 <button class="btn-edit-pp" onclick="document.getElementById('inputFoto').click()"><i class="fa-solid fa-camera"></i></button>
-                <input type="file" id="inputFoto" accept="image/*" style="display: none;" onchange="uploadKeImgBB()">
+                <input type="file" id="inputFoto" accept="image/*" style="display: none;" onchange="siapkanCrop(event)">
             </div>
             <div>
                 <div style="font-size: 12px; color: var(--text-dim);">Ahlan Wa Sahlan, Sobat Attaallum!</div>
@@ -147,17 +173,14 @@
         </section>
 
         <section class="dashboard-grid">
-            
             <div class="dash-card">
                 <div class="dash-card-header">
                     <span>Kalender Kehadiran</span> 
                     <i class="fa-solid fa-calendar-check" id="iconStatusAbsen" style="transition: 0.3s;"></i>
                 </div>
-                
                 <div class="calendar-container">
                     <div class="calendar-grid" id="calendarGrid"></div>
                 </div>
-
                 <div class="attendance-stats">
                     <div><span style="color:#10b981; font-weight:bold;" id="absentPresent">0</span> Hadir</div>
                     <div><span style="color:#ef4444; font-weight:bold;" id="absentBad">0</span> Absen</div>
@@ -181,11 +204,8 @@
 
             <div class="dash-card">
                 <div class="dash-card-header"><span>Zona Hiburan</span> <i class="fa-solid fa-gamepad"></i></div>
-                
                 <a href="ruang-game.html" class="btn-arcade"><i class="fa-solid fa-rocket" style="margin-right: 5px;"></i> MASUK RUANG ARCADE V2</a>
-                
                 <hr style="border: 0; border-top: 1px dashed rgba(128,128,128,0.2); margin: 15px 0;">
-
                 <div style="font-size: 12px; text-align: center; color: var(--text-dim);">Atau Main Tic-Tac-Toe:</div>
                 <div class="game-board" id="board">
                     <div class="game-cell" onclick="makeMove(0)"></div><div class="game-cell" onclick="makeMove(1)"></div><div class="game-cell" onclick="makeMove(2)"></div>
@@ -195,9 +215,10 @@
                 <div class="game-status" id="gameStatus">Giliran: X</div>
                 <button class="btn-reset-game" onclick="resetGame()">Main Lagi</button>
             </div>
-
         </section>
     </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec'; 
@@ -234,11 +255,10 @@
                     const temaDB = hasil.tema || 'dark';
                     localStorage.setItem('temaPortal', temaDB);
 
-                    // 🔥 AKTIF SAKTI: Sistem narik link foto dari database pas login!
                     if(hasil.foto && hasil.foto !== "") {
                         sessionStorage.setItem('fotoMurid', hasil.foto);
                     } else {
-                        sessionStorage.removeItem('fotoMurid'); // Bersihin memori klo emg gada foto
+                        sessionStorage.removeItem('fotoMurid'); 
                     }
 
                     document.getElementById('login-overlay').style.display = 'none';
@@ -250,7 +270,7 @@
             .finally(() => { btn.innerText = 'BUKA PORTAL'; btn.disabled = false; });
         }
 
-        // 3. MUAT DATA UI DIBARENGI NARIK NILAI & ABSENSI
+        // 3. MUAT DATA UI
         function muatDataDashboard() {
             const nama = sessionStorage.getItem('namaMurid');
             const nia = sessionStorage.getItem('niaMurid');
@@ -259,7 +279,6 @@
             document.getElementById('portalNiaUi').innerText = nia;
             document.getElementById('portalProgramUi').innerText = sessionStorage.getItem('programMurid');
             
-            // 🔥 SEARH RESI FOTO: Ambil link Cloudinary dari memori lokal HP
             const fotoTersimpan = sessionStorage.getItem('fotoMurid');
             const urlInisial = fotoTersimpan ? fotoTersimpan : `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=random&color=fff&size=150&bold=true`;
             document.getElementById('portalAvatar').src = urlInisial;
@@ -268,31 +287,81 @@
             tarikDataAbsensi(nama); 
         }
 
+
         // =================================================================
-        // 🔥 FITUR DEWA: UPLOAD FOTO KE CLOUDINARY (ANTI NGEBUG) 🔥
+        // 🔥 FITUR DEWA V2: CROPPER.JS + CLOUDINARY 🔥
         // =================================================================
-        function uploadKeImgBB() {
-            const fileInput = document.getElementById('inputFoto');
-            const statusTeks = document.getElementById('statusUpload');
-            const imgElement = document.getElementById('portalAvatar');
-            const niaAktif = sessionStorage.getItem('niaMurid');
-            
-            if (fileInput.files.length === 0) return;
-            const fileFoto = fileInput.files[0];
-            
-            if (fileFoto.size > 5 * 1024 * 1024) {
+        let cropper; // Variabel nyimpen mesin pemotong
+
+        // A. Pas milih foto dari galeri
+        function siapkanCrop(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Maksimal 5MB biar HP gak ngelag pas nge-crop
+            if (file.size > 5 * 1024 * 1024) {
                 alert("Buset! Foto lu kegedean bray, maksimal 5MB aja yak!");
+                event.target.value = ''; // Reset input
                 return;
             }
 
-            statusTeks.innerText = "Lagi terbang ke Cloudinary... 🚀";
+            // Baca foto jadi preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageElement = document.getElementById('imageToCrop');
+                imageElement.src = e.target.result;
+                
+                // Munculin Layar Modal Crop
+                document.getElementById('cropModal').style.display = 'flex';
+
+                // Bersihin cropper lama kalau ada
+                if(cropper) { cropper.destroy(); }
+
+                // Nyalain mesin pemotong dengan rasio 1:1 (Persegi/Kotak)
+                cropper = new Cropper(imageElement, {
+                    aspectRatio: 1, 
+                    viewMode: 1, // Biar foto gak keluar batas
+                    dragMode: 'move',
+                    autoCropArea: 0.8, // Ukuran kotak potong 80% dari layar
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    background: false
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // B. Kalau murid batalin crop
+        function tutupCropModal() {
+            document.getElementById('cropModal').style.display = 'none';
+            if(cropper) cropper.destroy();
+            document.getElementById('inputFoto').value = ''; // Reset file input
+        }
+
+        // C. Pas tombol "Crop & Upload" diklik!
+        function prosesCropDanUpload() {
+            if (!cropper) return;
+
+            const statusTeks = document.getElementById('statusUpload');
+            statusTeks.innerText = "Lagi nge-crop & terbang ke Cloudinary... 🚀";
             statusTeks.style.color = "#f59e0b"; 
 
+            // 1. Ambil hasil potongannya (Resolusi dipatok 400x400 biar ringan tapi HD)
+            const canvas = cropper.getCroppedCanvas({ width: 400, height: 400 });
+            
+            // Ubah potongan foto jadi kode Base64 (Format JPG biar enteng)
+            const base64Image = canvas.toDataURL('image/jpeg', 0.8);
+
+            // 2. Tutup layar crop
+            tutupCropModal();
+
+            // 3. Kirim ke Cloudinary
             const CLOUD_NAME = "ddxq4gdpb"; 
             const UPLOAD_PRESET = "markaz_foto"; 
+            const niaAktif = sessionStorage.getItem('niaMurid');
 
             const formData = new FormData();
-            formData.append("file", fileFoto);
+            formData.append("file", base64Image); // Kirim hasil crop
             formData.append("upload_preset", UPLOAD_PRESET);
 
             fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { 
@@ -303,13 +372,13 @@
             .then(data => {
                 if (data.secure_url) {
                     const linkFotoBaru = data.secure_url; 
-                    imgElement.src = linkFotoBaru;
-                    sessionStorage.setItem('fotoMurid', linkFotoBaru);
+                    document.getElementById('portalAvatar').src = linkFotoBaru; // Tampil di layar
+                    sessionStorage.setItem('fotoMurid', linkFotoBaru); // Simpan di memori
                     
                     statusTeks.innerText = "Cloudinary Sukses! Lapor admin... 📡";
                     statusTeks.style.color = "#3b82f6"; 
 
-                    // LAPOR KE GOOGLE SHEETS
+                    // 4. Lapor link foto baru ke GS
                     const urlUpdateGS = `${scriptURL}?action=updateFoto&nia=${niaAktif}&urlFoto=${encodeURIComponent(linkFotoBaru)}`;
                     fetch(urlUpdateGS)
                     .then(res => res.json())
@@ -327,7 +396,7 @@
                     });
                     
                 } else {
-                    statusTeks.innerText = "Gagal upload: Preset salah atau belum Unsigned!";
+                    statusTeks.innerText = "Gagal upload Cloudinary!";
                     statusTeks.style.color = "#ef4444";
                 }
             })
@@ -338,8 +407,9 @@
             });
         }
 
+
         // =================================================================
-        // 🔥 FITUR KEMBALI: PENYEDOT ABSENSI BERDASARKAN NAMA (FIXED) 🔥
+        // SISA FUNGSI (ABSENSI, NILAI, TEMA, GAME) TETAP SAMA KAYA SEBELUMNYA
         // =================================================================
         function tarikDataAbsensi(namaMurid) {
             const grid = document.getElementById('calendarGrid');
@@ -374,7 +444,6 @@
             });
         }
 
-        // FUNGSI PENYEDOT NILAI DARI GOOGLE SHEETS
         function tarikDataNilai(niaMurid) {
             fetch(`${scriptURL}?action=getNilai&nia=${encodeURIComponent(niaMurid)}`)
             .then(response => response.json())
@@ -400,7 +469,6 @@
             });
         }
 
-        // SISTEM TEMA WARNA-WARNI & AUTO SAVE
         function terapkanTemaTersimpan() {
             const savedTheme = localStorage.getItem('temaPortal') || 'dark';
             document.getElementById('themeSelector').value = savedTheme;
@@ -419,7 +487,6 @@
             }
         }
 
-        // MINI GAME TIC TAC TOE
         let board = ['', '', '', '', '', '', '', '', ''];
         let currentPlayer = 'X';
         let gameActive = true;
@@ -453,7 +520,6 @@
             document.querySelectorAll('.game-cell').forEach(c => c.innerText = '');
         }
 
-        // LOGOUT
         function logOutMurid() {
             sessionStorage.clear();
             window.location.reload();
