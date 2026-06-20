@@ -203,9 +203,6 @@
         // URL Apps Script lu udah tertanam aman!
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec'; 
 
-        // 🚨 KUNCI SAKTI IMGBB LU (GANTI PAKE KODE DARI WEB IMGBB) 🚨
-        const IMGBB_API_KEY = 'a4ad8c9d4b2274f27bd8d8f107619166';  
-
         // 1. CEK OTORISASI SAAT HALAMAN DIBUKA
         document.addEventListener('DOMContentLoaded', () => {
             const namaMurid = sessionStorage.getItem('namaMurid');
@@ -268,10 +265,10 @@
             tarikDataAbsensi(nama); 
         }
 
-      // =================================================================
-        // 🔥 FITUR UPLOAD FOTO KE IMGBB (PAKE KUNCI BARU LU) 🔥
+     // =================================================================
+        // 🔥 FITUR DEWA: UPLOAD FOTO KE CLOUDINARY (ANTI NGEBUG) 🔥
         // =================================================================
-        function uploadKeImgBB() {
+        function uploadKeImgBB() { // Namanya tetep ini aja biar tombol HTML lu gak usah diubah
             const fileInput = document.getElementById('inputFoto');
             const statusTeks = document.getElementById('statusUpload');
             const imgElement = document.getElementById('portalAvatar');
@@ -285,30 +282,34 @@
                 return;
             }
 
-            statusTeks.innerText = "Lagi nyedot foto... ⏳";
-            statusTeks.style.color = "#f59e0b"; // Warna kuning
+            statusTeks.innerText = "Lagi terbang ke Cloudinary... 🚀";
+            statusTeks.style.color = "#f59e0b"; 
 
-            // Bikin paketan datanya (Sesuai dokumen ImgBB: 'image' bisa binary file)
-            const formData = new FormData();
-            formData.append("image", fileFoto);
-
-            // 🔥 INI KUNCI SAKTI LU YANG BARU! 🔥
-            const API_KEY_BARU = "a4ad8c9d4b2274f27bd8d8f107619166";
+            // 🚨 GANTI PAKE CLOUD NAME LU SENDIRI DARI DASHBOARD CLOUDINARY 🚨
+            const CLOUD_NAME = "ddxq4gdpb"; 
             
-            // 1. TEMBAK KE SERVER IMGBB
-            fetch(`https://api.imgbb.com/1/upload?key=${API_KEY_BARU}`, { 
+            // 🚨 GANTI PAKE NAMA PRESET YANG BARUSAN LU BIKIN (Harus Unsigned!) 🚨
+            const UPLOAD_PRESET = "markaz_foto"; 
+
+            const formData = new FormData();
+            formData.append("file", fileFoto);
+            formData.append("upload_preset", UPLOAD_PRESET);
+
+            // 1. TEMBAK LANGSUNG KE SERVER CLOUDINARY
+            fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { 
                 method: 'POST', 
                 body: formData 
             })
             .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    const linkFotoBaru = result.data.url; 
+            .then(data => {
+                if (data.secure_url) {
+                    // Berhasil! Cloudinary ngasih link HTTPS fotonya
+                    const linkFotoBaru = data.secure_url; 
                     imgElement.src = linkFotoBaru;
                     sessionStorage.setItem('fotoMurid', linkFotoBaru);
                     
-                    statusTeks.innerText = "Sukses upload! Nyimpen ke database... 🚀";
-                    statusTeks.style.color = "#3b82f6"; // Warna biru
+                    statusTeks.innerText = "Cloudinary Sukses! Lapor admin... 📡";
+                    statusTeks.style.color = "#3b82f6"; 
 
                     // 2. LAPOR KE GOOGLE SHEETS
                     const urlUpdateGS = `${scriptURL}?action=updateFoto&nia=${niaAktif}&urlFoto=${encodeURIComponent(linkFotoBaru)}`;
@@ -316,64 +317,29 @@
                     .then(res => res.json())
                     .then(hasil => {
                         if(hasil.status === "sukses") {
-                            statusTeks.innerText = "Foto tersimpan permanen! ✅";
-                            statusTeks.style.color = "#10b981"; // Warna ijo
-                            setTimeout(() => { statusTeks.innerText = ""; }, 3000); // Ilangin teksnya setelah 3 detik
+                            statusTeks.innerText = "Sempurna! Foto tersimpan permanen! ✅";
+                            statusTeks.style.color = "#10b981"; 
+                            setTimeout(() => { statusTeks.innerText = ""; }, 3000); 
                         }
                     })
                     .catch(err => {
                         console.error("Gagal lapor GS:", err);
-                        statusTeks.innerText = "Foto terganti, tapi gagal lapor admin! ⚠️";
+                        statusTeks.innerText = "Terganti, tapi gagal lapor admin! ⚠️";
                         statusTeks.style.color = "#ef4444";
                     });
                     
                 } else {
-                    // Kalau gagal, kita tampilin pesan error langsung dari ImgBB
-                    statusTeks.innerText = "Gagal upload: " + result.error.message;
+                    statusTeks.innerText = "Gagal upload: Preset salah atau belum Unsigned!";
                     statusTeks.style.color = "#ef4444";
+                    console.log(data);
                 }
             })
             .catch(error => {
-                console.error("Error ImgBB:", error);
+                console.error("Error Cloudinary:", error);
                 statusTeks.innerText = "Koneksi terputus bray!";
                 statusTeks.style.color = "#ef4444";
             });
         }
-
-        // FUNGSI PENYEDOT ABSENSI BERDASARKAN NAMA
-        function tarikDataAbsensi(namaMurid) {
-            const grid = document.getElementById('calendarGrid');
-            const icon = document.getElementById('iconStatusAbsen');
-            grid.innerHTML = '<div style="grid-column: span 7; text-align: center; font-size: 12px; padding: 20px 0; color: var(--text-dim);"><i class="fa-solid fa-spinner fa-spin"></i> Menyinkronkan kalender...</div>';
-            
-            fetch(`${scriptURL}?action=getAbsensi&nama=${encodeURIComponent(namaMurid)}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "sukses") {
-                    grid.innerHTML = ''; 
-                    const totalHari = 30; 
-                    let tglHadir = data.dates || []; 
-                    
-                    for(let i = 1; i <= totalHari; i++) {
-                        let box = document.createElement('div');
-                        box.className = 'day-box';
-                        box.innerText = i;
-                        if(tglHadir.includes(i)) box.classList.add('hadir');
-                        grid.appendChild(box);
-                    }
-
-                    document.getElementById('absentPresent').innerText = data.hadir;
-                    let alfa = totalHari - data.hadir;
-                    document.getElementById('absentBad').innerText = alfa < 0 ? 0 : alfa;
-                    icon.style.color = '#10b981';
-                }
-            })
-            .catch(err => {
-                grid.innerHTML = '<div style="grid-column: span 7; text-align: center; color: #ef4444; font-size: 12px;">Gagal memuat data</div>';
-                icon.style.color = '#ef4444';
-            });
-        }
-
         // FUNGSI PENYEDOT NILAI DARI GOOGLE SHEETS
         function tarikDataNilai(niaMurid) {
             fetch(`${scriptURL}?action=getNilai&nia=${encodeURIComponent(niaMurid)}`)
