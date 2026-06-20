@@ -113,7 +113,7 @@
            🎮 2. CSS AREA PLAYING GAME 🎮
            ================================================================= */
         #gamePlayArea {
-            display: none; /* Sembunyiin dulu bray! */
+            display: none; 
             margin-top: 40px;
             text-align: center;
             width: 100%;
@@ -124,6 +124,7 @@
         .game-title { font-size: 28px; margin-bottom: 5px; text-shadow: var(--neon-glow); }
         .game-desc { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; }
 
+        /* 🔥 FIX ANTI-GEPENG & ANTI-KEPELESET 🔥 */
         canvas {
             background-color: var(--bg-card);
             border: 2px solid var(--accent-glow);
@@ -131,10 +132,12 @@
             box-shadow: var(--neon-glow);
             width: 100%;
             max-width: 600px;
-            height: 200px;
+            height: auto; /* Biar melar proporsional */
+            aspect-ratio: 2 / 1; /* Rasio Lanskap HP */
             display: block;
             margin: 0 auto;
             cursor: pointer;
+            touch-action: none; /* Cegah layar scroll pas di-tap */
         }
 
         .score-board {
@@ -189,7 +192,7 @@
             <div style="font-size: 14px; color: var(--text-dim); margin-top: 4px;">High Score: <span id="highScore">0</span></div>
         </div>
 
-        <canvas id="gameCanvas" width="600" height="200"></canvas>
+        <canvas id="gameCanvas" width="600" height="300"></canvas>
         
         <button class="btn-action-game btn-restart" id="btnRestart" onclick="resetGame()"><i class="fa-solid fa-rotate-right"></i> MAIN LAGI</button>
         <br>
@@ -209,19 +212,19 @@
         // =================================================================
         // 🔥 JAVASCRIPT: FITUR GANTI GAMBAR & PRELOAD (DEWA) 🔥
         // =================================================================
-        // Kita siapin slot nama file gambarnya dulu bray!
         let imgLari = new Image(); 
-        imgLari.src = 'taalo-lari.png'; // 🚨 Gambar 1: Taalo naik kuda (sedang lari)
+        imgLari.src = 'taalo-lari.png'; 
 
         let imgKejedot = new Image(); 
-        imgKejedot.src = 'taalokejedot.png'; // 🚨 Gambar 2: Taalo pusing pas nabrak (Game Over)
+        imgKejedot.src = 'taalokejedot.png'; // 🚨 Sesuai request lu!
 
         let imgKitab = new Image(); 
-        imgKitab.src = 'kitab.png'; // 🚨 Gambar 3: Gambar Tumpukan Kitab Asli (Obstacle)
+        imgKitab.src = 'kitab.png'; 
 
-        // Variabel Game (Tetap sama)
-        let taalo = { x: 50, y: 150, width: 40, height: 40, dy: 0, jumpPower: -10, grounded: false };
-        let gravity = 0.6;
+        // 🔥 FIX UKURAN TAALO MAKIN GEDE & PROPORSIONAL 🔥
+        // x = 50, y = 240 (Biar napak di lantai karena tinggi canvas 300)
+        let taalo = { x: 50, y: 240, width: 60, height: 60, dy: 0, jumpPower: -12, grounded: false };
+        let gravity = 0.7; // Gravitasi disesuain
         let obstacles = [];
         let gameSpeed = 5;
         let score = 0;
@@ -230,16 +233,14 @@
         let isGameOver = false;
         let animationId;
 
-        // FUNGSI PILIH GAME DARI MENU
         function pilihGame(gameName) {
             if(gameName === 'taalo-run') {
-                menuArea.style.display = 'none'; // Sembunyiin Menu
-                playArea.style.display = 'block'; // Munculin Game
-                resetGame(); // Start game
+                menuArea.style.display = 'none'; 
+                playArea.style.display = 'block'; 
+                resetGame(); 
             }
         }
 
-        // FUNGSI KELUAR KE MENU
         function keluarGame() {
             isGameOver = true;
             cancelAnimationFrame(animationId);
@@ -247,7 +248,6 @@
             menuArea.style.display = 'grid';
         }
 
-        // GAME LOGIC V2 (DINO TAALO)
         highScoreElement.innerText = bestScore;
 
         function jump() {
@@ -262,9 +262,11 @@
         canvas.addEventListener('mousedown', jump);
 
         function spawnObstacle() {
-            // Lebar kitab tumpuk kita bikin 30px, tinggi acak 30-50px
-            let sizeH = Math.random() * 20 + 30; 
-            obstacles.push({ x: canvas.width, y: canvas.height - sizeH, width: 30, height: sizeH });
+            // 🔥 FIX BENTUK KITAB BIAR GAK GEPENG 🔥
+            let obsWidth = 45; 
+            // Tinggi dibikin bervariasi dikit antara 50px - 70px biar kayak tumpukan buku yang beda-beda
+            let obsHeight = Math.random() * 20 + 50; 
+            obstacles.push({ x: canvas.width, y: canvas.height - obsHeight, width: obsWidth, height: obsHeight });
         }
 
         function update() {
@@ -275,11 +277,9 @@
             taalo.dy += gravity; taalo.y += taalo.dy;
             if (taalo.y + taalo.height >= canvas.height) { taalo.y = canvas.height - taalo.height; taalo.dy = 0; taalo.grounded = true; }
 
-            // 🔥 GAMBAR TAALO (KONDISIONAL) 🔥
             if(!isGameOver) {
-                // Kalau lagi lari, gambar taalo-lari.png
                 if(imgLari.complete) { ctx.drawImage(imgLari, taalo.x, taalo.y, taalo.width, taalo.height); } 
-                else { ctx.fillStyle = '#3b82f6'; ctx.fillRect(taalo.x, taalo.y, taalo.width, taalo.height); } // Fallback kotak biru
+                else { ctx.fillStyle = '#3b82f6'; ctx.fillRect(taalo.x, taalo.y, taalo.width, taalo.height); } 
             }
 
             // 2. Sistem Rintangan
@@ -290,16 +290,15 @@
                 let obs = obstacles[i];
                 obs.x -= gameSpeed;
 
-                // 🔥 GAMBAR RINTANGAN (KITAB ASLI) 🔥
                 if(imgKitab.complete) {
-                    // Gambar kitab.png sesuai ukuran obs
                     ctx.drawImage(imgKitab, obs.x, obs.y, obs.width, obs.height);
                 } else {
-                    ctx.fillStyle = '#ef4444'; ctx.fillRect(obs.x, obs.y, obs.width, obs.height); // Fallback merah doang
+                    ctx.fillStyle = '#ef4444'; ctx.fillRect(obs.x, obs.y, obs.width, obs.height); 
                 }
 
                 // Cek Tabrakan
-                if ( taalo.x < obs.x + obs.width && taalo.x + taalo.width > obs.x && taalo.y < obs.y + obs.height && taalo.y + taalo.height > obs.y ) { gameOver(); }
+                // Sedikit penyesuaian hitbox biar gak terlalu gampang mati (toleransi 5px)
+                if ( taalo.x + 5 < obs.x + obs.width && taalo.x + taalo.width - 5 > obs.x && taalo.y + 5 < obs.y + obs.height && taalo.y + taalo.height - 5 > obs.y ) { gameOver(); }
             }
             obstacles = obstacles.filter(obs => obs.x + obs.width > 0);
 
@@ -315,20 +314,17 @@
             isGameOver = true;
             cancelAnimationFrame(animationId);
             
-            // 🔥 GAMBAR TAALO NABRAK (KEJEDOT) 🔥
             if(imgKejedot.complete) {
-                // Timpa gambar lari tadi pake gambar kejedot di posisi terakhir
                 ctx.drawImage(imgKejedot, taalo.x, taalo.y, taalo.width, taalo.height);
             }
 
-            // Overlay Merah transparan pas mati
             ctx.fillStyle = "rgba(239, 68, 68, 0.4)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             ctx.fillStyle = "white"; ctx.font = "bold 24px Poppins"; ctx.textAlign = "center";
             ctx.fillText("YAHH NABRAK KITAB! 😭", canvas.width/2, canvas.height/2);
             
-            btnRestart.style.display = "block"; // Munculin tombol main lagi
+            btnRestart.style.display = "block"; 
 
             let finalScore = Math.floor(score / 10);
             if (finalScore > bestScore) {
@@ -339,13 +335,12 @@
         }
 
         function resetGame() {
-            taalo.y = 150; taalo.dy = 0; obstacles = []; score = 0; gameSpeed = 5; frameCount = 0; isGameOver = false;
+            // 🔥 Reset Posisi Y ke 240 biar napak lantai
+            taalo.y = 240; taalo.dy = 0; obstacles = []; score = 0; gameSpeed = 5; frameCount = 0; isGameOver = false;
             btnRestart.style.display = "none";
             update();
         }
 
-        // Jangan langsung dipanggil di luar bray, nunggu pilih game!
-        // update(); 
     </script>
 </body>
 </html>
