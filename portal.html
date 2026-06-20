@@ -48,7 +48,7 @@
 
         main { padding: 30px 6%; flex-grow: 1; display: flex; flex-direction: column; gap: 25px; }
         
-        /* 🔥 PROFIL & UPLOAD PP 🔥 */
+        /* PROFIL & UPLOAD PP */
         .profile-card { background-color: var(--bg-card); padding: 25px; border-radius: 20px; border: 1px solid rgba(128, 128, 128, 0.1); display: flex; align-items: center; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .avatar-wrapper { position: relative; display: inline-block; }
         .profile-avatar { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent-glow); box-shadow: var(--neon-glow); object-fit: cover; }
@@ -84,7 +84,7 @@
         .btn-reset-game { background: transparent; border: 1px solid var(--accent-glow); color: var(--accent-glow); width: 100%; padding: 8px; border-radius: 8px; margin-top: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .btn-reset-game:hover { background: var(--accent-glow); color: white; }
         
-        /* 🔥 TOMBOL ARCADE 🔥 */
+        /* TOMBOL ARCADE */
         .btn-arcade { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 12px; width: 100%; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; display: block; text-align: center; text-decoration: none; margin-top: 15px; font-size: 14px; box-shadow: var(--neon-glow); transition: 0.3s; }
         .btn-arcade:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(139, 92, 246, 0.6); }
 
@@ -200,7 +200,6 @@
     </main>
 
     <script>
-        // URL Apps Script lu udah tertanam aman!
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec'; 
 
         // 1. CEK OTORISASI SAAT HALAMAN DIBUKA
@@ -235,8 +234,12 @@
                     const temaDB = hasil.tema || 'dark';
                     localStorage.setItem('temaPortal', temaDB);
 
-                    // 🔥 Kalau dari server nanti return URL Foto, lu bisa simpan juga:
-                    // if(hasil.foto) sessionStorage.setItem('fotoMurid', hasil.foto);
+                    // 🔥 AKTIF SAKTI: Sistem narik link foto dari database pas login!
+                    if(hasil.foto && hasil.foto !== "") {
+                        sessionStorage.setItem('fotoMurid', hasil.foto);
+                    } else {
+                        sessionStorage.removeItem('fotoMurid'); // Bersihin memori klo emg gada foto
+                    }
 
                     document.getElementById('login-overlay').style.display = 'none';
                     muatDataDashboard();
@@ -256,7 +259,7 @@
             document.getElementById('portalNiaUi').innerText = nia;
             document.getElementById('portalProgramUi').innerText = sessionStorage.getItem('programMurid');
             
-            // 🔥 LOAD FOTO PROFIL 🔥
+            // 🔥 SEARH RESI FOTO: Ambil link Cloudinary dari memori lokal HP
             const fotoTersimpan = sessionStorage.getItem('fotoMurid');
             const urlInisial = fotoTersimpan ? fotoTersimpan : `https://ui-avatars.com/api/?name=${encodeURIComponent(nama)}&background=random&color=fff&size=150&bold=true`;
             document.getElementById('portalAvatar').src = urlInisial;
@@ -265,10 +268,10 @@
             tarikDataAbsensi(nama); 
         }
 
-     // =================================================================
+        // =================================================================
         // 🔥 FITUR DEWA: UPLOAD FOTO KE CLOUDINARY (ANTI NGEBUG) 🔥
         // =================================================================
-        function uploadKeImgBB() { // Namanya tetep ini aja biar tombol HTML lu gak usah diubah
+        function uploadKeImgBB() {
             const fileInput = document.getElementById('inputFoto');
             const statusTeks = document.getElementById('statusUpload');
             const imgElement = document.getElementById('portalAvatar');
@@ -285,17 +288,13 @@
             statusTeks.innerText = "Lagi terbang ke Cloudinary... 🚀";
             statusTeks.style.color = "#f59e0b"; 
 
-            // 🚨 GANTI PAKE CLOUD NAME LU SENDIRI DARI DASHBOARD CLOUDINARY 🚨
             const CLOUD_NAME = "ddxq4gdpb"; 
-            
-            // 🚨 GANTI PAKE NAMA PRESET YANG BARUSAN LU BIKIN (Harus Unsigned!) 🚨
             const UPLOAD_PRESET = "markaz_foto"; 
 
             const formData = new FormData();
             formData.append("file", fileFoto);
             formData.append("upload_preset", UPLOAD_PRESET);
 
-            // 1. TEMBAK LANGSUNG KE SERVER CLOUDINARY
             fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { 
                 method: 'POST', 
                 body: formData 
@@ -303,7 +302,6 @@
             .then(response => response.json())
             .then(data => {
                 if (data.secure_url) {
-                    // Berhasil! Cloudinary ngasih link HTTPS fotonya
                     const linkFotoBaru = data.secure_url; 
                     imgElement.src = linkFotoBaru;
                     sessionStorage.setItem('fotoMurid', linkFotoBaru);
@@ -311,7 +309,7 @@
                     statusTeks.innerText = "Cloudinary Sukses! Lapor admin... 📡";
                     statusTeks.style.color = "#3b82f6"; 
 
-                    // 2. LAPOR KE GOOGLE SHEETS
+                    // LAPOR KE GOOGLE SHEETS
                     const urlUpdateGS = `${scriptURL}?action=updateFoto&nia=${niaAktif}&urlFoto=${encodeURIComponent(linkFotoBaru)}`;
                     fetch(urlUpdateGS)
                     .then(res => res.json())
@@ -331,7 +329,6 @@
                 } else {
                     statusTeks.innerText = "Gagal upload: Preset salah atau belum Unsigned!";
                     statusTeks.style.color = "#ef4444";
-                    console.log(data);
                 }
             })
             .catch(error => {
@@ -340,6 +337,43 @@
                 statusTeks.style.color = "#ef4444";
             });
         }
+
+        // =================================================================
+        // 🔥 FITUR KEMBALI: PENYEDOT ABSENSI BERDASARKAN NAMA (FIXED) 🔥
+        // =================================================================
+        function tarikDataAbsensi(namaMurid) {
+            const grid = document.getElementById('calendarGrid');
+            const icon = document.getElementById('iconStatusAbsen');
+            grid.innerHTML = '<div style="grid-column: span 7; text-align: center; font-size: 12px; padding: 20px 0; color: var(--text-dim);"><i class="fa-solid fa-spinner fa-spin"></i> Menyinkronkan kalender...</div>';
+            
+            fetch(`${scriptURL}?action=getAbsensi&nama=${encodeURIComponent(namaMurid)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "sukses") {
+                    grid.innerHTML = ''; 
+                    const totalHari = 30; 
+                    let tglHadir = data.dates || []; 
+                    
+                    for(let i = 1; i <= totalHari; i++) {
+                        let box = document.createElement('div');
+                        box.className = 'day-box';
+                        box.innerText = i;
+                        if(tglHadir.includes(i)) box.classList.add('hadir');
+                        grid.appendChild(box);
+                    }
+
+                    document.getElementById('absentPresent').innerText = data.hadir;
+                    let alfa = totalHari - data.hadir;
+                    document.getElementById('absentBad').innerText = alfa < 0 ? 0 : alfa;
+                    icon.style.color = '#10b981';
+                }
+            })
+            .catch(err => {
+                grid.innerHTML = '<div style="grid-column: span 7; text-align: center; color: #ef4444; font-size: 12px;">Gagal memuat data</div>';
+                icon.style.color = '#ef4444';
+            });
+        }
+
         // FUNGSI PENYEDOT NILAI DARI GOOGLE SHEETS
         function tarikDataNilai(niaMurid) {
             fetch(`${scriptURL}?action=getNilai&nia=${encodeURIComponent(niaMurid)}`)
