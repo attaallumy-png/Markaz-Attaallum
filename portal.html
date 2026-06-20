@@ -204,7 +204,7 @@
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxh6oRWJhHY00ilNDebB8SJySQBMsbJdpYbOouluIChBXiTZSaMhPt42Go7giyxIhxI/exec'; 
 
         // 🚨 KUNCI SAKTI IMGBB LU (GANTI PAKE KODE DARI WEB IMGBB) 🚨
-        const IMGBB_API_KEY = '5ac07a82019c62d34d26a65d83dec21d'; 
+        const IMGBB_API_KEY = 'a0faf2070564df3abe45e44a8f016025'; 
 
         // 1. CEK OTORISASI SAAT HALAMAN DIBUKA
         document.addEventListener('DOMContentLoaded', () => {
@@ -268,8 +268,8 @@
             tarikDataAbsensi(nama); 
         }
 
-        // =================================================================
-        // 🔥 FITUR BARU: UPLOAD FOTO KE IMGBB & GOOGLE SHEETS 🔥
+      // =================================================================
+        // 🔥 FITUR BARU: UPLOAD FOTO KE IMGBB & GOOGLE SHEETS (VERSI ANTI-ERROR 400) 🔥
         // =================================================================
         function uploadKeImgBB() {
             const fileInput = document.getElementById('inputFoto');
@@ -285,51 +285,59 @@
                 return;
             }
 
-            statusTeks.innerText = "Lagi nyedot foto... ⏳";
+            statusTeks.innerText = "Lagi nge-pack foto... ⏳";
             statusTeks.style.color = "#f59e0b"; // Warna kuning
 
-            const formData = new FormData();
-            formData.append("image", fileFoto);
+            // 🔥 JURUS BARU: CONVERT FOTO KE BASE64 BIAR IMGBB GAK REWEL 🔥
+            const reader = new FileReader();
+            reader.readAsDataURL(fileFoto);
+            reader.onloadend = function() {
+                // Potong tulisan "data:image/jpeg;base64," di depannya biar ImgBB gak bingung
+                const base64Image = reader.result.split(',')[1];
+                
+                const formData = new FormData();
+                formData.append("image", base64Image); // Kirim versi teks (Base64)
 
-            // 1. TEMBAK KE SERVER IMGBB
-            fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: formData })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    const linkFotoBaru = result.data.url; 
-                    imgElement.src = linkFotoBaru;
-                    sessionStorage.setItem('fotoMurid', linkFotoBaru);
-                    
-                    statusTeks.innerText = "Sukses upload! Nyimpen ke database... 🚀";
-                    statusTeks.style.color = "#3b82f6"; // Warna biru
+                // 1. TEMBAK KE SERVER IMGBB
+                fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: 'POST', body: formData })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        const linkFotoBaru = result.data.url; 
+                        imgElement.src = linkFotoBaru;
+                        sessionStorage.setItem('fotoMurid', linkFotoBaru);
+                        
+                        statusTeks.innerText = "Sukses upload! Nyimpen ke database... 🚀";
+                        statusTeks.style.color = "#3b82f6"; // Warna biru
 
-                    // 2. LAPOR KE GOOGLE SHEETS
-                    const urlUpdateGS = `${scriptURL}?action=updateFoto&nia=${niaAktif}&urlFoto=${encodeURIComponent(linkFotoBaru)}`;
-                    fetch(urlUpdateGS)
-                    .then(res => res.json())
-                    .then(hasil => {
-                        if(hasil.status === "sukses") {
-                            statusTeks.innerText = "Foto tersimpan permanen! ✅";
-                            statusTeks.style.color = "#10b981"; // Warna ijo
-                            setTimeout(() => { statusTeks.innerText = ""; }, 3000); // Ilangin teksnya setelah 3 detik
-                        }
-                    })
-                    .catch(err => {
-                        console.error("Gagal lapor GS:", err);
-                        statusTeks.innerText = "Foto terganti, tapi gagal lapor admin! ⚠️";
+                        // 2. LAPOR KE GOOGLE SHEETS
+                        const urlUpdateGS = `${scriptURL}?action=updateFoto&nia=${niaAktif}&urlFoto=${encodeURIComponent(linkFotoBaru)}`;
+                        fetch(urlUpdateGS)
+                        .then(res => res.json())
+                        .then(hasil => {
+                            if(hasil.status === "sukses") {
+                                statusTeks.innerText = "Foto tersimpan permanen! ✅";
+                                statusTeks.style.color = "#10b981"; // Warna ijo
+                                setTimeout(() => { statusTeks.innerText = ""; }, 3000); // Ilangin teksnya setelah 3 detik
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal lapor GS:", err);
+                            statusTeks.innerText = "Foto terganti, tapi gagal lapor admin! ⚠️";
+                            statusTeks.style.color = "#ef4444";
+                        });
+                        
+                    } else {
+                        statusTeks.innerText = "Gagal upload ke server foto!";
                         statusTeks.style.color = "#ef4444";
-                    });
-                    
-                } else {
-                    statusTeks.innerText = "Gagal upload ke server foto!";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error ImgBB:", error);
+                    statusTeks.innerText = "Koneksi terputus bray!";
                     statusTeks.style.color = "#ef4444";
-                }
-            })
-            .catch(error => {
-                console.error("Error ImgBB:", error);
-                statusTeks.innerText = "Koneksi terputus bray!";
-                statusTeks.style.color = "#ef4444";
-            });
+                });
+            };
         }
 
 
