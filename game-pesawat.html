@@ -11,7 +11,7 @@
     
     <style>
         :root {
-            --bg-space: #010409; --bg-card: #0f172a; --accent-glow: #3b82f6;   
+            --bg-space: #020617; --bg-card: #0f172a; --accent-glow: #3b82f6;   
             --text-main: #f8fafc; --text-dim: #94a3b8; --success: #10b981;
             --neon-glow: 0 0 15px rgba(59, 130, 246, 0.5);
         }
@@ -26,32 +26,38 @@
         .header-title { font-weight: 700; color: var(--accent-glow); letter-spacing: 1px; }
 
         /* 1. SELECTION SCREEN */
-        #selection-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0f172a 0%, #010409 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 50; padding: 20px; transition: 0.5s; }
-        #selection-screen h1 { font-size: 36px; margin-bottom: 10px; text-shadow: var(--neon-glow); color: var(--accent-glow); }
-        #selection-screen p { color: var(--text-dim); margin-bottom: 40px; font-size: 14px; }
-        .ship-options { display: flex; gap: 30px; max-width: 800px; width: 100%; justify-content: center; flex-wrap: wrap; }
-        .ship-card { background: var(--bg-card); border: 2px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; width: 280px; text-align: center; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
+        #selection-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 50; padding: 20px; transition: 0.5s; }
+        #selection-screen h1 { font-size: 28px; font-weight: 800; margin-bottom: 10px; text-align: center; text-shadow: var(--neon-glow); color: var(--accent-glow); }
+        #selection-screen p { color: var(--text-dim); text-align: center; margin-bottom: 40px; font-size: 13px; max-width: 500px; }
+        .ship-options { display: flex; gap: 20px; max-width: 600px; width: 100%; justify-content: center; flex-wrap: wrap; }
+        .ship-card { background: var(--bg-card); border: 2px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 20px; width: 260px; text-align: center; cursor: pointer; transition: 0.3s; position: relative; }
         .ship-card:hover { border-color: var(--accent-glow); transform: translateY(-5px); box-shadow: var(--neon-glow); }
-        .ship-card img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 20px; }
-        .ship-card h3 { font-size: 18px; margin-bottom: 5px; }
-        .ship-card .stats { font-size: 11px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.6; }
+        
+        /* Preview kapal pake CSS Vector */
+        .ship-preview-box { height: 70px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
+        .preview-speedster { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 45px solid #3b82f6; filter: drop-shadow(0 0 8px #3b82f6); }
+        .preview-tank { width: 40px; height: 45px; background: #10b981; border-radius: 6px; position: relative; filter: drop-shadow(0 0 8px #10b981); }
+        .preview-tank::before { content:''; position: absolute; top: -10px; left: 15px; width: 10px; height: 15px; background: #0f766e; }
+
+        .ship-card h3 { font-size: 16px; margin-bottom: 5px; }
+        .ship-card .stats { font-size: 11px; color: var(--text-dim); margin-bottom: 15px; line-height: 1.6; }
         .ship-card span.stat-val { color: var(--success); font-weight: 600; }
-        .btn-select { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 12px; cursor: pointer; }
+        .btn-select { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 12px; cursor: pointer; width: 100%; }
         .ship-card:hover .btn-select { background: var(--accent-glow); box-shadow: 0 0 10px rgba(59, 130, 246, 0.8); }
 
         /* 2. GAME SCREEN */
         #game-screen { display: none; position: relative; width: 100%; flex-grow: 1; flex-direction: column; align-items: center; justify-content: center; z-index: 10; }
-        canvas { background-color: #010409; border: 4px solid var(--bg-card); border-radius: 12px; box-shadow: 0 0 30px rgba(0,0,0,0.5); cursor: none; touch-action: none; }
-        #ui { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 40px; font-size: 16px; font-weight: 700; color: white; background: rgba(15, 23, 42, 0.7); padding: 10px 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(5px); z-index: 20; width: 600px; max-width: 90%; justify-content: space-around; }
-        #boss-health-container { display: none; margin-top: 10px; width: 600px; max-width: 90%; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 10px; overflow: hidden; }
-        #boss-health-bar { height: 10px; background: #ef4444; width: 100%; transition: 0.1s; box-shadow: 0 0 10px rgba(239, 68, 68, 0.7); }
+        canvas { background-color: #020617; border: 2px solid rgba(255,255,255,0.05); border-radius: 12px; box-shadow: 0 0 30px rgba(0,0,0,0.5); width: 100%; max-width: 500px; aspect-ratio: 5/6; touch-action: none; }
+        #ui { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); display: flex; font-size: 15px; font-weight: 700; color: white; background: rgba(15, 23, 42, 0.8); padding: 8px 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(5px); z-index: 20; width: 90%; max-width: 450px; justify-content: center; }
+        #boss-health-container { display: none; margin-top: 10px; width: 90%; max-width: 450px; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 10px; overflow: hidden; z-index: 30; }
+        #boss-health-bar { height: 80px; background: #ef4444; width: 100%; transition: 0.1s; box-shadow: 0 0 10px rgba(239, 68, 68, 0.7); }
 
         /* 3. GAME OVER OVERLAY */
-        #end-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(1, 4, 9, 0.9); z-index: 100; flex-direction: column; align-items: center; justify-content: center; }
-        #end-title { font-size: 48px; font-weight: 800; margin-bottom: 10px; }
-        #end-score { font-size: 20px; color: var(--text-dim); margin-bottom: 40px; }
-        .end-actions { display: flex; gap: 20px; }
-        .btn-end { padding: 12px 35px; border-radius: 30px; font-family: 'Poppins'; font-weight: 600; cursor: pointer; transition: 0.3s; border: none; }
+        #end-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(1, 4, 9, 0.95); z-index: 100; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        #end-title { font-size: 36px; font-weight: 800; margin-bottom: 10px; text-align: center; }
+        #end-score { font-size: 18px; color: var(--text-dim); margin-bottom: 40px; }
+        .end-actions { display: flex; gap: 15px; width: 100%; max-width: 400px; }
+        .btn-end { flex: 1; padding: 12px; border-radius: 30px; font-family: 'Poppins'; font-weight: 600; cursor: pointer; transition: 0.3s; border: none; font-size: 13px; }
         .btn-restart { background-color: var(--accent-glow); color: white; box-shadow: var(--neon-glow); }
         .btn-exit { background-color: transparent; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.1); }
     </style>
@@ -65,20 +71,20 @@
 
     <div id="selection-screen">
         <h1>MARSHAL, PILIH ARMADA LU!</h1>
-        <p>Final Boss alien mothership udah deket, tentuin nasib Markaz sekarang.</p>
+        <p>Final Boss alien mothership udah deket, tentuin nasib Markaz sekarang bray.</p>
         
         <div class="ship-options">
             <div class="ship-card" onclick="pilihPesawat(0)">
-                <img src="image_1.png" alt="Ship Speedster">
+                <div class="ship-preview-box"><div class="preview-speedster"></div></div>
                 <h3>MARKAZ SPEEDSTER V1</h3>
-                <p class="stats">Speed: <span class="stat-val">⭐⭐⭐⭐⭐</span><br>Ammo: <span class="stat-val">⭐⭐⭐⭐</span><br>Armor: <span class="stat-val">⭐</span></p>
+                <p class="stats">Speed: <span class="stat-val">⚡⚡⚡⚡⚡</span><br>Fires: <span class="stat-val">Cepat 🔫</span></p>
                 <button class="btn-select">PILIH MODEL INI</button>
             </div>
             
             <div class="ship-card" onclick="pilihPesawat(1)">
-                <img src="image_2.png" alt="Ship Tank">
+                <div class="ship-preview-box"><div class="preview-tank"></div></div>
                 <h3>MARKAZ TANK V1</h3>
-                <p class="stats">Speed: <span class="stat-val">⭐⭐⭐</span><br>Ammo: <span class="stat-val">⭐⭐⭐⭐⭐</span><br>Armor: <span class="stat-val">⭐⭐⭐</span></p>
+                <p class="stats">Speed: <span class="stat-val">⚡⚡⚡</span><br>Fires: <span class="stat-val">Sakit 🔥</span></p>
                 <button class="btn-select">PILIH MODEL INI</button>
             </div>
         </div>
@@ -86,14 +92,14 @@
 
     <div id="game-screen">
         <div id="ui">
-            <div>SKOR: <span id="currentScore" style="color: var(--success);">0</span></div>
+            <div>SKOR JALUR DEWA: <span id="currentScore" style="color: var(--success);">0</span></div>
         </div>
         
-        <canvas id="gameCanvas" width="600" height="700"></canvas>
+        <canvas id="gameCanvas" width="500" height="600"></canvas>
         
         <div id="boss-health-container">
-            <div style="font-size: 10px; color: #ef4444; padding: 2px 10px; text-transform: uppercase; font-weight: 700;">FINAL BOSS: ALIEN MOTHERSHIP</div>
-            <div id="boss-health-bar"></div>
+            <div style="font-size: 10px; color: #ef4444; padding: 4px 10px; text-transform: uppercase; font-weight: 700; text-align: center;">FINAL BOSS: ALIEN MOTHERSHIP</div>
+            <div style="width: 100%; background: #334155; height: 10px;"><div id="boss-health-bar"></div></div>
         </div>
     </div>
 
@@ -107,7 +113,6 @@
     </div>
 
     <script>
-        // DOM Elements
         const selectScreen = document.getElementById('selection-screen');
         const gameScreen = document.getElementById('game-screen');
         const canvas = document.getElementById('gameCanvas');
@@ -117,206 +122,240 @@
         const bossHealthBar = document.getElementById('boss-health-bar');
         const endOverlay = document.getElementById('end-overlay');
 
-        // 🔥 ASET GAMBAR DEWA (HASIL GENERATE) 🔥
-        const imgBg = new Image(); imgBg.src = 'image_0.png'; // Space background
-        const imgEnemies = new Image(); imgEnemies.src = 'image_3.png'; // Alien fighter
-        const imgBoss = new Image(); imgBoss.src = 'image_4.png'; // Mothership Boss
-        
-        // Data Pesawat Player
+        // Data Tipe Pesawat Player (Pure Engine Vector)
         const playerShipModels = [
-            { src: 'image_1.png', speed: 8, bulletSpeed: -12, fireRate: 150, width: 60, height: 60 }, // Speedster
-            { src: 'image_2.png', speed: 5, bulletSpeed: -8, fireRate: 350, width: 70, height: 70 }   // Tank
+            { type: 'speedster', speed: 8, fireRate: 150, color: '#3b82f6' }, 
+            { type: 'tank', speed: 5, fireRate: 300, color: '#10b981' }   
         ];
-        
-        const imgPlayer = new Image();
 
-        // Variabel Game (Top-Down Engine)
-        let player = { x: canvas.width/2 - 30, y: canvas.height - 100, width: 60, height: 60, speed: 5, health: 1 };
+        // Engine State
+        let player = { x: 225, y: 500, width: 50, height: 50, speed: 5, color: '#3b82f6' };
         let bullets = [];
         let enemies = [];
-        let boss = { x: canvas.width/2 - 150, y: -300, width: 300, height: 200, health: 100, maxHealth: 100, active: false, dy: 1, dx: 3 };
+        let stars = []; // Efek bintang gerak buatan kode internal
+        let boss = { x: 150, y: -150, width: 200, height: 80, health: 50, maxHealth: 50, active: false, dx: 2, dy: 0.5 };
         
-        let keys = { ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false, Space: false };
+        let keys = { ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false, KeyW: false, KeyS: false, KeyA: false, KeyD: false };
         let score = 0;
         let isGameOver = false;
-        let isWin = false;
-        let canShoot = true;
         let lastFireTime = 0;
         let selectedShipData = null;
-        let backgroundScrollY = 0;
 
-        // FUNGSI PILIH PESAWAT
+        // BIKIN MATRIKS BINTANG PROSEDURAL (Biar ada efek terbang)
+        for (let i = 0; i < 40; i++) {
+            stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, size: Math.random() * 2, speed: Math.random() * 2 + 1 });
+        }
+
         function pilihPesawat(index) {
             selectedShipData = playerShipModels[index];
-            imgPlayer.src = selectedShipData.src;
-            
-            // Terapkan Stats
+            player.color = selectedShipData.color;
             player.speed = selectedShipData.speed;
-            player.width = selectedShipData.width;
-            player.height = selectedShipData.height;
 
-            // Transisi ke Game
             selectScreen.style.opacity = 0;
             setTimeout(() => {
                 selectScreen.style.display = 'none';
                 gameScreen.style.display = 'flex';
                 resetGame();
-                update(); // Start Game Loop
-            }, 500);
+                update(); // Jalankan Loop Game
+            }, 400);
         }
 
-        // INPUT HANDLING (Mobile & Desktop)
-        // Desktop
+        // CONTROL KEYBOARD (LAPTOP)
         window.addEventListener('keydown', e => { if (keys.hasOwnProperty(e.code)) keys[e.code] = true; });
         window.addEventListener('keyup', e => { if (keys.hasOwnProperty(e.code)) keys[e.code] = false; });
         
-        // Mobile (Touch to move + Auto-shoot)
+        // CONTROL TOUCH SCREEN (HP) - DRAG & DROP POSITIONING
         canvas.addEventListener('touchmove', e => {
-            if (isGameOver || !gameScreen.style.display === 'flex') return;
+            if (isGameOver) return;
+            e.preventDefault();
             const touch = e.touches[0];
             const rect = canvas.getBoundingClientRect();
-            player.x = (touch.clientX - rect.left) * (canvas.width / rect.width) - player.width/2;
-            player.y = (touch.clientY - rect.top) * (canvas.height / rect.height) - player.height/2;
-            // Mobile auto-shoot handled in update loop
-        });
+            
+            // Konversi posisi sentuhan jari ke koordinat Canvas internal
+            let targetX = (touch.clientX - rect.left) * (canvas.width / rect.width) - player.width/2;
+            let targetY = (touch.clientY - rect.top) * (canvas.height / rect.height) - player.height/2;
+            
+            player.x = targetX;
+            player.y = targetY;
+        }, { passive: false });
 
-        // FUNGSI GAME LOGIC V1 (SPACE SHOOTER)
+        // SPAWNER MUSUH KROCO
         function spawnEnemy() {
-            if(boss.active || isGameOver) return;
+            if(boss.active || isGameOver || !selectedShipData) return;
             enemies.push({
-                x: Math.random() * (canvas.width - 40),
-                y: -50, width: 40, height: 40, speed: Math.random() * 2 + 2
+                x: Math.random() * (canvas.width - 35),
+                y: -40, width: 35, height: 35, speed: Math.random() * 2 + 2,
+                color: `hsl(${Math.random() * 40 + 340}, 80%, 60%)` // Variasi warna merah alien
             });
         }
-        setInterval(spawnEnemy, 1000); // Spawn musuh tiap detik
+        setInterval(spawnEnemy, 800);
 
-        function shoot() {
-            if (isGameOver || !canShoot) return;
+        // MEKANIK TEMBAK OTOMATIS (Biar di HP tinggal gerakin jari doang)
+        function autoShoot() {
             const now = Date.now();
             if (now - lastFireTime > selectedShipData.fireRate) {
-                bullets.push({ 
-                    x: player.x + player.width/2 - 4, y: player.y, 
-                    width: 8, height: 20, speed: selectedShipData.bulletSpeed 
-                });
+                bullets.push({ x: player.x + player.width/2 - 3, y: player.y - 15, width: 6, height: 15 });
                 lastFireTime = now;
             }
-        }
-
-        function drawBackground() {
-            backgroundScrollY += 1;
-            if(backgroundScrollY >= canvas.height) backgroundScrollY = 0;
-            ctx.drawImage(imgBg, 0, backgroundScrollY, canvas.width, canvas.height);
-            ctx.drawImage(imgBg, 0, backgroundScrollY - canvas.height, canvas.width, canvas.height);
         }
 
         function checkCollision(obj1, obj2) {
             return obj1.x < obj2.x + obj2.width && obj1.x + obj1.width > obj2.x && obj1.y < obj2.y + obj2.height && obj1.y + obj1.height > obj2.y;
         }
 
-        function gameOver() {
+        function triggerGameOver() {
             isGameOver = true;
-            document.getElementById('end-score').innerText = "Skor Akhir: " + score;
+            document.getElementById('end-score').innerText = "Skor Akhir Lu: " + score;
             endOverlay.style.display = 'flex';
         }
 
-        function win() {
-            isWin = true;
+        function triggerWin() {
             isGameOver = true;
-            document.getElementById('end-title').innerText = "MISSION SUCCESS!";
+            document.getElementById('end-title').innerText = "MISSION SUCCESS! 🎉";
             document.getElementById('end-title').style.color = "var(--success)";
-            document.getElementById('end-score').innerText = "Alien Mothership Hancur! Skor: " + score;
+            document.getElementById('end-score').innerText = "Mothership Alien Hancur Total! Skor Akhir: " + score;
             endOverlay.style.display = 'flex';
         }
 
-        // 🔥 MAIN UPDATE LOOP 🔥
+        // 🔥 THE ENGINE LOOP GAMEPLAY AUTOMATION 🔥
         function update() {
             if (isGameOver) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawBackground();
+            
+            // A. Clear Screen & Draw Bintang
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#ffffff';
+            stars.forEach(s => {
+                s.y += s.speed;
+                if (s.y > canvas.height) s.y = 0;
+                ctx.fillRect(s.x, s.y, s.size, s.size);
+            });
 
-            // 1. Fisika Player (Movement)
+            // B. Gerakan Player Keyboard
             if (keys.ArrowUp || keys.KeyW) player.y -= player.speed;
             if (keys.ArrowDown || keys.KeyS) player.y += player.speed;
             if (keys.ArrowLeft || keys.KeyA) player.x -= player.speed;
             if (keys.ArrowRight || keys.KeyD) player.x += player.speed;
-            // Mobile Auto-shoot if touch is active (implied by move)
-            if (canvas.ontouchstart !== null || keys.Space) shoot();
             
-            // Batasan Layar
+            // Batas Dinding Arena
             if(player.x < 0) player.x = 0; if(player.x + player.width > canvas.width) player.x = canvas.width - player.width;
             if(player.y < 0) player.y = 0; if(player.y + player.height > canvas.height) player.y = canvas.height - player.height;
-            
-            if(imgPlayer.complete) ctx.drawImage(imgPlayer, player.x, player.y, player.width, player.height);
 
-            // 2. Sistem Peluru
-            bullets.forEach((b, i) => {
-                b.y += b.speed;
-                // Gambar Peluru (Neon Blue)
-                ctx.fillStyle = "#3b82f6"; ctx.shadowBlur = 10; ctx.shadowColor = "#3b82f6";
+            // Trigger Tembak Otomatis
+            autoShoot();
+
+            // C. Gambar Player (Sistem Vector Neon Glow)
+            ctx.shadowBlur = 15; ctx.shadowColor = player.color;
+            ctx.fillStyle = player.color;
+            if (selectedShipData.type === 'speedster') {
+                // Gambar Segitiga Jet Tempur yang Sleek
+                ctx.beginPath();
+                ctx.moveTo(player.x + player.width/2, player.y);
+                ctx.lineTo(player.x, player.y + player.height);
+                ctx.lineTo(player.x + player.width, player.y + player.height);
+                ctx.closePath();
+                ctx.fill();
+            } else {
+                // Gambar Tank Tempur Armor Kotak Gahar
+                ctx.fillRect(player.x, player.y + 10, player.width, player.height - 10);
+                ctx.fillStyle = '#0f766e';
+                ctx.fillRect(player.x + player.width/2 - 6, player.y, 12, 15);
+            }
+            ctx.shadowBlur = 0; // Reset efek glow
+
+            // D. Update & Gambar Peluru
+            ctx.fillStyle = '#38bdf8';
+            ctx.shadowBlur = 10; ctx.shadowColor = '#38bdf8';
+            bullets.forEach((b, bi) => {
+                b.y -= 10; // Kecepatan peluru naik
                 ctx.fillRect(b.x, b.y, b.width, b.height);
-                ctx.shadowBlur = 0; // Reset shadow
-
-                if (b.y < 0) bullets.splice(i, 1);
+                if (b.y < -20) bullets.splice(bi, 1);
             });
+            ctx.shadowBlur = 0;
 
-            // 3. Sistem Musuh Biasa
-            enemies.forEach((e, i) => {
+            // E. Update & Gambar Kroco Alien
+            enemies.forEach((e, ei) => {
                 e.y += e.speed;
-                if(imgEnemies.complete) ctx.drawImage(imgEnemies, e.x, e.y, e.width, e.height);
                 
-                // Tabrakan Peluru -> Musuh
+                // Draw Alien Bentuk Belah Ketupat Merah Glowing
+                ctx.fillStyle = e.color;
+                ctx.shadowBlur = 8; ctx.shadowColor = e.color;
+                ctx.beginPath();
+                ctx.moveTo(e.x + e.width/2, e.y);
+                ctx.lineTo(e.x + e.width, e.y + e.height/2);
+                ctx.lineTo(e.x + e.width/2, e.y + e.height);
+                ctx.lineTo(e.x, e.y + e.height/2);
+                ctx.closePath();
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                // Cek Tabrakan Peluru -> Alien Kroco
                 bullets.forEach((b, bi) => {
-                    if(checkCollision(b, e)) {
-                        enemies.splice(i, 1); bullets.splice(bi, 1);
-                        score += 10; scoreElement.innerText = score;
+                    if (checkCollision(b, e)) {
+                        enemies.splice(ei, 1);
+                        bullets.splice(bi, 1);
+                        score += 10;
+                        scoreElement.innerText = score;
                     }
                 });
 
-                // Tabrakan Musuh -> Player
-                if(checkCollision(player, e)) gameOver();
-                
-                if (e.y > canvas.height) enemies.splice(i, 1);
+                // Cek Tabrakan Kroco -> Player
+                if (checkCollision(player, e)) triggerGameOver();
+
+                if (e.y > canvas.height) enemies.splice(ei, 1);
             });
 
-            // 4. 🔥 SISTEM FINAL BOSS (ALIEN MOTHERSHIP) 🔥
-            if (score >= 300 && !boss.active) { // Muncul di skor 300
-                boss.active = true; 
-                enemies = []; // Bersihin kroco
-                bossHealthContainer.style.display = 'block'; // Munculin UI HP
+            // F. 👑 KONDISI BANGKITNYA FINAL BOSS MOTHERSHIP 👑
+            if (score >= 200 && !boss.active) {
+                boss.active = true;
+                enemies = []; // Hapus kroco biar fokus by-one
+                bossHealthContainer.style.display = 'block';
             }
 
             if (boss.active) {
-                // Pergerakan Masuk Boss
-                if (boss.y < 50) { boss.y += boss.dy; } 
-                else {
-                    // Pergerakan Pola By One (Side to Side)
+                // Animasi Masuk Screen
+                if (boss.y < 40) {
+                    boss.y += boss.dy;
+                } else {
+                    // Pola Gerak Kanan-Kiri Boss
                     boss.x += boss.dx;
-                    if(boss.x < 0 || boss.x + boss.width > canvas.width) boss.dx *= -1;
+                    if(boss.x < 10 || boss.x + boss.width > canvas.width - 10) boss.dx *= -1;
                 }
 
-                if(imgBoss.complete) ctx.drawImage(imgBoss, boss.x, boss.y, boss.width, boss.height);
+                // Gambar Induk Alien Mothership Raksasa (Ungu Metalik)
+                ctx.fillStyle = '#a855f7';
+                ctx.shadowBlur = 20; ctx.shadowColor = '#a855f7';
+                ctx.fillRect(boss.x, boss.y, boss.width, boss.height);
+                // Inti Senjata Boss Tengah
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(boss.x + boss.width/2 - 20, boss.y + boss.height - 10, 40, 15);
+                ctx.shadowBlur = 0;
 
-                // Tabrakan Peluru -> Boss
+                // Cek Tabrakan Peluru -> Final Boss
                 bullets.forEach((b, bi) => {
-                    if(checkCollision(b, boss)) {
+                    if (checkCollision(b, boss)) {
                         bullets.splice(bi, 1);
-                        boss.health -= 1; // 1 damage per peluru
-                        let healthPercent = (boss.health / boss.maxHealth) * 100;
-                        bossHealthBar.style.width = healthPercent + "%";
-                        score += 2; scoreElement.innerText = score; // Skor kecil pas nembak boss
+                        boss.health -= 1;
+                        
+                        let persenDarah = (boss.health / boss.maxHealth) * 100;
+                        bossHealthBar.style.width = persenDarah + '%';
+                        score += 5;
+                        scoreElement.innerText = score;
 
-                        if(boss.health <= 0) win();
+                        if (boss.health <= 0) triggerWin();
                     }
                 });
-                
-                // Boss gak nembak di V1, cuma nge-tank
+
+                // Jika player nekat tabrakan sama tubuh raksasa boss
+                if(checkCollision(player, boss)) triggerGameOver();
             }
 
             requestAnimationFrame(update);
         }
 
         function resetGame() {
-            player.x = canvas.width/2 - player.width/2; player.y = canvas.height - 100; bullets = []; enemies = []; score = 0; scoreElement.innerText = 0; isGameOver = false; isWin = false; boss.active = false; boss.y = -300; boss.health = boss.maxHealth; bossHealthBar.style.width = "100%"; bossHealthContainer.style.display = 'none'; endOverlay.style.display = 'none';
+            player.x = 225; player.y = 500; bullets = []; enemies = []; score = 0; scoreElement.innerText = 0; isGameOver = false; boss.active = false; boss.y = -150; boss.x = 150; boss.health = boss.maxHealth; bossHealthBar.style.width = '100%'; bossHealthContainer.style.display = 'none'; endOverlay.style.display = 'none';
         }
     </script>
 </body>
