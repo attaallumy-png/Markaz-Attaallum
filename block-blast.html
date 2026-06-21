@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Blast | Markaz Arcade</title>
+    
+    <link rel="icon" href="logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-deep: #020617; --bg-card: #0f172a; 
+            --accent-purple: #a855f7; --purple-glow: 0 0 15px rgba(168, 85, 247, 0.6);
+            --text-main: #f8fafc; --text-dim: #94a3b8;
+            --cell-empty: #1e293b; --cell-border: rgba(255,255,255,0.05);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-deep); color: var(--text-main);
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh; overflow: hidden; touch-action: none; /* Anti scroll pas main */
+        }
+
+        /* HEADER */
+        header {
+            width: 100%; padding: 15px 6%; background-color: var(--bg-card);
+            border-bottom: 1px solid var(--cell-border);
+            display: flex; justify-content: space-between; align-items: center; z-index: 100;
+        }
+        .back-btn { color: var(--text-dim); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 8px; font-weight: 600; }
+        .back-btn:hover { color: white; }
+        .header-title { font-weight: 800; color: var(--accent-purple); letter-spacing: 1px; text-shadow: var(--purple-glow); }
+
+        /* UI SKOR */
+        .score-board {
+            display: flex; justify-content: space-between; width: 100%; max-width: 400px;
+            padding: 20px; margin-top: 10px; font-weight: 800; font-size: 24px;
+        }
+        .score-box { display: flex; flex-direction: column; align-items: center; }
+        .score-label { font-size: 11px; color: var(--text-dim); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* MAIN BOARD (8x8 GRID) */
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 2px;
+            width: 90vw; max-width: 360px; height: 90vw; max-height: 360px;
+            background: var(--bg-card); border: 2px solid rgba(168, 85, 247, 0.3);
+            border-radius: 8px; padding: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .cell {
+            background-color: var(--cell-empty);
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+
+        /* Kalo cell lagi kena hover valid */
+        .cell.highlight { background-color: rgba(168, 85, 247, 0.4); box-shadow: inset 0 0 10px var(--accent-purple); }
+        
+        /* Animasi hancur (Blast) */
+        .cell.blast { animation: blastAnim 0.4s ease-out; background-color: white !important; box-shadow: 0 0 20px white !important; }
+        @keyframes blastAnim { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.8; } 100% { transform: scale(0); opacity: 0; } }
+
+        /* TRAY (Tempat 3 Balok di Bawah) */
+        #tray {
+            display: flex; justify-content: space-around; align-items: center;
+            width: 100%; max-width: 400px; margin-top: 30px; height: 120px;
+        }
+
+        .shape-container {
+            display: grid; gap: 2px; cursor: grab;
+            transition: transform 0.2s;
+        }
+        .shape-container:active { cursor: grabbing; }
+        
+        /* Balok Satuan */
+        .block {
+            width: clamp(20px, 6vw, 30px);
+            height: clamp(20px, 6vw, 30px);
+            border-radius: 4px;
+        }
+        .block.empty { background: transparent; }
+
+        /* KELAS WARNA BALOK (Neon Style) */
+        .color-1 { background: #ef4444; box-shadow: inset 0 0 8px rgba(0,0,0,0.3), 0 0 5px rgba(239,68,68,0.5); border: 1px solid #fca5a5; } /* Merah */
+        .color-2 { background: #3b82f6; box-shadow: inset 0 0 8px rgba(0,0,0,0.3), 0 0 5px rgba(59,130,246,0.5); border: 1px solid #93c5fd; } /* Biru */
+        .color-3 { background: #10b981; box-shadow: inset 0 0 8px rgba(0,0,0,0.3), 0 0 5px rgba(16,185,129,0.5); border: 1px solid #6ee7b7; } /* Hijau */
+        .color-4 { background: #f59e0b; box-shadow: inset 0 0 8px rgba(0,0,0,0.3), 0 0 5px rgba(245,158,11,0.5); border: 1px solid #fcd34d; } /* Kuning */
+        .color-5 { background: #a855f7; box-shadow: inset 0 0 8px rgba(0,0,0,0.3), 0 0 5px rgba(168,85,247,0.5); border: 1px solid #d8b4fe; } /* Ungu */
+        .color-6 { background: #06b6d4; box-shadow: inset 0 0 8px rgba(0,0,0,0.3), 0 0 5px rgba(6,182,212,0.5); border: 1px solid #67e8f9; } /* Cyan */
+
+        /* Shape yang lagi di-drag (Melayang) */
+        .dragging {
+            position: fixed; pointer-events: none; z-index: 1000;
+            transform: scale(1.2); /* Digedein dikit pas dipegang */
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+        }
+
+        /* OVERLAY GAME OVER */
+        #end-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 6, 23, 0.95); z-index: 2000;
+            flex-direction: column; align-items: center; justify-content: center; padding: 20px;
+        }
+        #end-title { font-size: 36px; font-weight: 800; margin-bottom: 10px; text-align: center; color: #ef4444; }
+        #end-score { font-size: 18px; color: var(--text-dim); margin-bottom: 40px; text-align: center; }
+        .btn-restart { background-color: var(--accent-purple); color: white; padding: 12px 30px; border-radius: 30px; border: none; font-weight: 700; font-family: 'Poppins'; cursor: pointer; box-shadow: var(--purple-glow); margin-bottom: 15px; }
+        .btn-exit { background: transparent; color: var(--text-dim); border: 1px solid var(--cell-border); padding: 10px 30px; border-radius: 30px; cursor: pointer; font-family: 'Poppins'; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="ruang-game.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Menu</a>
+        <div class="header-title"><i class="fa-solid fa-cubes-stacked"></i> BLOCK BLAST</div>
+    </header>
+
+    <div class="score-board">
+        <div class="score-box"><span class="score-label">SKOR</span><span id="scoreDisplay" style="color: var(--accent-purple);">0</span></div>
+        <div class="score-box"><span class="score-label">BEST</span><span id="bestDisplay">0</span></div>
+    </div>
+
+    <div id="game-board"></div>
+
+    <div id="tray"></div>
+
+    <div id="end-overlay">
+        <h1 id="end-title">MENTOK BRAY!</h1>
+        <p>Gak ada ruang lagi buat naruh balok.</p>
+        <p id="end-score">Skor Lu: 0</p>
+        <button class="btn-restart" onclick="initGame()"><i class="fa-solid fa-rotate-right"></i> MAIN LAGI</button>
+        <button class="btn-exit" onclick="window.location.href='ruang-game.html'"><i class="fa-solid fa-door-open"></i> KELUAR</button>
+    </div>
+
+    <script>
+        // CONFIG
+        const BOARD_SIZE = 8;
+        let board = []; // 2D array [row][col] (0 = kosong, 1-6 = id warna)
+        let score = 0;
+        let bestScore = localStorage.getItem('blockBlastBest') || 0;
+        document.getElementById('bestDisplay').innerText = bestScore;
+
+        const boardEl = document.getElementById('game-board');
+        const trayEl = document.getElementById('tray');
+        const scoreEl = document.getElementById('scoreDisplay');
+        const endOverlay = document.getElementById('end-overlay');
+
+        // DATABASE SHAPE (Kumpulan Balok ala Tetris)
+        // 1 = Ada blok, 0 = Kosong
+        const SHAPES = [
+            [[1]], // 1x1 Titik
+            [[1,1]], // 1x2 Horizontal
+            [[1],[1]], // 2x1 Vertikal
+            [[1,1,1]], // 1x3 Horizontal
+            [[1],[1],[1]], // 3x1 Vertikal
+            [[1,1,1,1]], // 1x4 Horizontal
+            [[1],[1],[1],[1]], // 4x1 Vertikal
+            [[1,1],[1,1]], // 2x2 Kotak
+            [[1,1,1],[1,1,1],[1,1,1]], // 3x3 Kotak Besar
+            [[1,0],[1,1]], // L Kecil
+            [[0,1],[1,1]], // L Kecil Terbalik
+            [[1,1],[1,0]], // L Kecil Atas
+            [[1,1],[0,1]], // L Kecil Atas Terbalik
+            [[1,0,0],[1,0,0],[1,1,1]], // L Besar
+            [[0,0,1],[0,0,1],[1,1,1]], // L Besar Terbalik
+            [[1,1,1],[0,1,0]], // T Shape
+            [[0,1,0],[1,1,1]]  // T Shape Terbalik
+        ];
+
+        // VARIABEL DRAG & DROP
+        let activeShape = null; // Elemen DOM yg lagi ditarik
+        let activeMatrix = null; // Pola matriks shape yg ditarik
+        let activeColorClass = '';
+        let startX = 0, startY = 0;
+        let shapeOffsetX = 0, shapeOffsetY = 0;
+
+        // 1. INISIALISASI GAME
+        function initGame() {
+            score = 0; updateScore(0);
+            endOverlay.style.display = 'none';
+            boardEl.innerHTML = '';
+            board = [];
+
+            // Bikin matriks & elemen grid kosong 8x8
+            for (let r = 0; r < BOARD_SIZE; r++) {
+                let row = [];
+                for (let c = 0; c < BOARD_SIZE; c++) {
+                    row.push(0);
+                    let cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.id = `cell-${r}-${c}`;
+                    boardEl.appendChild(cell);
+                }
+                board.push(row);
+            }
+            fillTray();
+        }
+
+        // 2. MENGISI 3 BALOK ACAK KE TRAY
+        function fillTray() {
+            trayEl.innerHTML = '';
+            for(let i=0; i<3; i++) {
+                spawnSingleShape();
+            }
+            checkGameOver(); // Cek apakah balok yg baru keluar masih bisa muat
+        }
+
+        function spawnSingleShape() {
+            let shapeMatrix = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+            let colorId = Math.floor(Math.random() * 6) + 1; // Warna 1-6
+            let colorClass = `color-${colorId}`;
+
+            let rows = shapeMatrix.length;
+            let cols = shapeMatrix[0].length;
+
+            let container = document.createElement('div');
+            container.className = 'shape-container';
+            container.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            
+            // Simpan data internal ke elemennya
+            container.dataset.matrix = JSON.stringify(shapeMatrix);
+            container.dataset.color = colorClass;
+
+            for(let r=0; r<rows; r++) {
+                for(let c=0; c<cols; c++) {
+                    let block = document.createElement('div');
+                    block.className = shapeMatrix[r][c] ? `block ${colorClass}` : 'block empty';
+                    container.appendChild(block);
+                }
+            }
+
+            // Pasang sensor sentuh/mouse
+            container.addEventListener('pointerdown', handleDragStart);
+            trayEl.appendChild(container);
+        }
+
+        // =================================================================
+        // 🔥 SISTEM DRAG AND DROP (TOUCH & MOUSE SUPPORT) 🔥
+        // =================================================================
+        function handleDragStart(e) {
+            if(e.button !== 0 && e.type === 'pointerdown' && e.pointerType === 'mouse') return; // Cuma klik kiri
+            
+            let originalShape = e.currentTarget;
+            activeMatrix = JSON.parse(originalShape.dataset.matrix);
+            activeColorClass = originalShape.dataset.color;
+
+            // Bikin kloningan (Ghost) buat melayang ikutin jari
+            activeShape = originalShape.cloneNode(true);
+            activeShape.className = 'shape-container dragging';
+            document.body.appendChild(activeShape);
+
+            // Sembunyiin aslinya dari tray
+            originalShape.style.visibility = 'hidden';
+            originalShape.id = 'hidden-origin'; // Buat ditandain kalo batal
+
+            // Kalkulasi offset jari biar balok ada sedikit di ATAS jari pas ditarik (biar keliatan)
+            const rect = originalShape.getBoundingClientRect();
+            shapeOffsetX = e.clientX - rect.left;
+            // Kalo di HP, angkat balok agak ke atas (sekitar 50px) biar jempol gak nutupin balok
+            shapeOffsetY = e.pointerType === 'touch' ? (e.clientY - rect.top) + 50 : (e.clientY - rect.top);
+
+            moveGhostShape(e.clientX, e.clientY);
+
+            document.addEventListener('pointermove', handleDragMove);
+            document.addEventListener('pointerup', handleDragEnd);
+        }
+
+        function handleDragMove(e) {
+            if(!activeShape) return;
+            moveGhostShape(e.clientX, e.clientY);
+
+            // Cek posisi kotak grid mana yg lagi ketiban
+            clearHighlights();
+            let dropTarget = getValidDropPosition(e.clientX, e.clientY);
+            if (dropTarget) {
+                highlightGrid(dropTarget.r, dropTarget.c, activeMatrix);
+            }
+        }
+
+        function handleDragEnd(e) {
+            if(!activeShape) return;
+
+            document.removeEventListener('pointermove', handleDragMove);
+            document.removeEventListener('pointerup', handleDragEnd);
+
+            let dropTarget = getValidDropPosition(e.clientX, e.clientY);
+            let origin = document.getElementById('hidden-origin');
+
+            if (dropTarget) {
+                // DROP SUKSES! Tempel ke Grid
+                placeShapeOnBoard(dropTarget.r, dropTarget.c, activeMatrix, activeColorClass);
+                origin.remove(); // Hapus permanen dari tray
+                score += getBlocksCount(activeMatrix); // Tambah skor naruh
+                updateScore(score);
+                
+                checkAndClearLines(); // Cek meledak gak
+
+                // Kalo tray kosong, isi ulang 3
+                if(trayEl.children.length === 0) {
+                    fillTray();
+                } else {
+                    checkGameOver(); // Cek apa sisa balok di tray msh bisa dimasukin
+                }
+            } else {
+                // DROP GAGAL! Balikin ke Tray
+                origin.style.visibility = 'visible';
+                origin.removeAttribute('id');
+            }
+
+            // Bersihin kloningan melayang
+            activeShape.remove();
+            activeShape = null;
+            clearHighlights();
+        }
+
+        function moveGhostShape(x, y) {
+            activeShape.style.left = (x - shapeOffsetX) + 'px';
+            activeShape.style.top = (y - shapeOffsetY) + 'px';
+        }
+
+        // =================================================================
+        // SISTEM GRID LOGIC & DETEKSI TABRAKAN
+        // =================================================================
+        
+        // Nyari tau jari lu lagi di atas baris/kolom berapa
+        function getValidDropPosition(clientX, clientY) {
+            const boardRect = boardEl.getBoundingClientRect();
+            // Offset dari titik pointer ke sudut kiri atas balok yg lagi dipegang
+            let shapeLeft = clientX - shapeOffsetX;
+            let shapeTop = clientY - shapeOffsetY;
+
+            // Konversi posisi pixel ke index grid (0-7)
+            let cellWidth = boardRect.width / BOARD_SIZE;
+            let col = Math.round((shapeLeft - boardRect.left) / cellWidth);
+            let row = Math.round((shapeTop - boardRect.top) / cellWidth);
+
+            if (canPlaceShape(row, col, activeMatrix)) {
+                return { r: row, c: col };
+            }
+            return null;
+        }
+
+        function canPlaceShape(startRow, startCol, matrix) {
+            for(let r=0; r<matrix.length; r++) {
+                for(let c=0; c<matrix[0].length; c++) {
+                    if (matrix[r][c]) {
+                        let targetR = startRow + r;
+                        let targetC = startCol + c;
+                        // Kalo out of bounds atau udah ada isinya = Gak bisa
+                        if (targetR < 0 || targetR >= BOARD_SIZE || targetC < 0 || targetC >= BOARD_SIZE || board[targetR][targetC] !== 0) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        function placeShapeOnBoard(startRow, startCol, matrix, colorClass) {
+            for(let r=0; r<matrix.length; r++) {
+                for(let c=0; c<matrix[0].length; c++) {
+                    if (matrix[r][c]) {
+                        board[startRow + r][startCol + c] = colorClass;
+                        let cell = document.getElementById(`cell-${startRow+r}-${startCol+c}`);
+                        cell.className = `cell ${colorClass}`;
+                    }
+                }
+            }
+        }
+
+        // Nyorot (Highlight) grid pas balok digeser di atasnya
+        function highlightGrid(startRow, startCol, matrix) {
+            for(let r=0; r<matrix.length; r++) {
+                for(let c=0; c<matrix[0].length; c++) {
+                    if (matrix[r][c]) {
+                        let cell = document.getElementById(`cell-${startRow+r}-${startCol+c}`);
+                        if(cell) cell.classList.add('highlight');
+                    }
+                }
+            }
+        }
+
+        function clearHighlights() {
+            let cells = document.querySelectorAll('.cell');
+            cells.forEach(c => c.classList.remove('highlight'));
+        }
+
+        // =================================================================
+        // SISTEM LEDAKAN (BLAST) ROW & COL
+        // =================================================================
+        function checkAndClearLines() {
+            let rowsToClear = [];
+            let colsToClear = [];
+
+            // Cek Baris (Row)
+            for (let r = 0; r < BOARD_SIZE; r++) {
+                let isFull = true;
+                for (let c = 0; c < BOARD_SIZE; c++) {
+                    if (board[r][c] === 0) { isFull = false; break; }
+                }
+                if (isFull) rowsToClear.push(r);
+            }
+
+            // Cek Kolom (Column)
+            for (let c = 0; c < BOARD_SIZE; c++) {
+                let isFull = true;
+                for (let r = 0; r < BOARD_SIZE; r++) {
+                    if (board[r][c] === 0) { isFull = false; break; }
+                }
+                if (isFull) colsToClear.push(c);
+            }
+
+            // Kalo ada yang harus dihapus
+            if (rowsToClear.length > 0 || colsToClear.length > 0) {
+                // Kombinasi skor: makin banyak garis pecah barengan, makin gede kombonya!
+                let linesCleared = rowsToClear.length + colsToClear.length;
+                score += linesCleared * 10 * linesCleared; // Combo Multiplier
+                updateScore(score);
+
+                // Tandain Array jadi Kosong
+                rowsToClear.forEach(r => { for(let c=0; c<BOARD_SIZE; c++) board[r][c] = 0; });
+                colsToClear.forEach(c => { for(let r=0; r<BOARD_SIZE; r++) board[r][c] = 0; });
+
+                // Putar Animasi CSS di UI
+                rowsToClear.forEach(r => {
+                    for(let c=0; c<BOARD_SIZE; c++) {
+                        let cell = document.getElementById(`cell-${r}-${c}`);
+                        cell.className = 'cell blast'; 
+                    }
+                });
+                colsToClear.forEach(c => {
+                    for(let r=0; r<BOARD_SIZE; r++) {
+                        let cell = document.getElementById(`cell-${r}-${c}`);
+                        cell.className = 'cell blast';
+                    }
+                });
+
+                // Hapus class blast setelah animasi selesai (0.4 detik) biar balik normal
+                setTimeout(() => {
+                    renderBoardUI(); 
+                }, 400);
+            }
+        }
+
+        // Paksa UI nyesuain sama array board internal
+        function renderBoardUI() {
+            for(let r=0; r<BOARD_SIZE; r++) {
+                for(let c=0; c<BOARD_SIZE; c++) {
+                    let cell = document.getElementById(`cell-${r}-${c}`);
+                    if (board[r][c] === 0) {
+                        cell.className = 'cell';
+                    } else {
+                        cell.className = `cell ${board[r][c]}`;
+                    }
+                }
+            }
+        }
+
+        // =================================================================
+        // CEK GAME OVER (Kalo mentok gak ada ruang)
+        // =================================================================
+        function checkGameOver() {
+            let shapesInTray = trayEl.querySelectorAll('.shape-container');
+            let canPlaceAny = false;
+
+            // Tes satu-satu balok di tray, dicocokin ke tiap petak 8x8
+            shapesInTray.forEach(shapeEl => {
+                if(shapeEl.style.visibility === 'hidden') return; // Skip kloningan
+                let matrix = JSON.parse(shapeEl.dataset.matrix);
+                
+                for(let r=0; r<BOARD_SIZE; r++) {
+                    for(let c=0; c<BOARD_SIZE; c++) {
+                        if (canPlaceShape(r, c, matrix)) {
+                            canPlaceAny = true;
+                        }
+                    }
+                }
+            });
+
+            if (!canPlaceAny) {
+                // GAME OVER!
+                document.getElementById('end-score').innerText = "Skor Lu: " + score;
+                if(score > bestScore) {
+                    bestScore = score;
+                    localStorage.setItem('blockBlastBest', bestScore);
+                    document.getElementById('bestDisplay').innerText = bestScore;
+                }
+                endOverlay.style.display = 'flex';
+            }
+        }
+
+        function getBlocksCount(matrix) {
+            let count = 0;
+            for(let r=0; r<matrix.length; r++) {
+                for(let c=0; c<matrix[0].length; c++) {
+                    if(matrix[r][c]) count++;
+                }
+            }
+            return count;
+        }
+
+        function updateScore(newScore) {
+            scoreEl.innerText = newScore;
+            // Efek detak bentar pas skor naik
+            scoreEl.style.transform = 'scale(1.2)';
+            setTimeout(() => scoreEl.style.transform = 'scale(1)', 200);
+        }
+
+        // JALANIN GAME PERTAMA KALI
+        initGame();
+        
+    </script>
+</body>
+</html>
