@@ -84,33 +84,22 @@
 
         .game-card i.main-icon {
             font-size: 50px;
-            color: var(--accent-glow);
             margin-bottom: 20px;
-            text-shadow: var(--neon-glow);
         }
 
         .game-card h3 { font-size: 20px; margin-bottom: 10px; font-weight: 700; }
         .game-card p { font-size: 13px; color: var(--text-dim); margin-bottom: 25px; line-height: 1.6; }
 
         .btn-play-card {
-            background: var(--accent-glow);
             color: white; border: none;
             padding: 10px 25px; border-radius: 30px;
             font-family: 'Poppins'; font-weight: 600; font-size: 14px;
-        }
-
-        /* Coming Soon Card */
-        .card-soon { opacity: 0.5; cursor: not-allowed; }
-        .card-soon:hover { transform: none; border-color: var(--border-line); box-shadow: none; }
-        .soon-badge {
-            position: absolute; top: 15px; right: -30px;
-            background: #ef4444; color: white;
-            padding: 5px 35px; transform: rotate(45deg);
-            font-size: 10px; font-weight: 700;
+            cursor: pointer;
+            width: 100%;
         }
 
         /* =================================================================
-           🎮 2. CSS AREA PLAYING GAME 🎮
+           🎮 2. CSS AREA PLAYING GAME TAALO RUN 🎮
            ================================================================= */
         #gamePlayArea {
             display: none; 
@@ -124,7 +113,6 @@
         .game-title { font-size: 28px; margin-bottom: 5px; text-shadow: var(--neon-glow); }
         .game-desc { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; }
 
-        /* 🔥 FIX ANTI-GEPENG & ANTI-KEPELESET 🔥 */
         canvas {
             background-color: var(--bg-card);
             border: 2px solid var(--accent-glow);
@@ -132,12 +120,12 @@
             box-shadow: var(--neon-glow);
             width: 100%;
             max-width: 600px;
-            height: auto; /* Biar melar proporsional */
-            aspect-ratio: 2 / 1; /* Rasio Lanskap HP */
+            height: auto; 
+            aspect-ratio: 2 / 1; 
             display: block;
             margin: 0 auto;
             cursor: pointer;
-            touch-action: none; /* Cegah layar scroll pas di-tap */
+            touch-action: none; 
         }
 
         .score-board {
@@ -163,24 +151,33 @@
 <body>
 
     <header>
-        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+        <a href="portal.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali ke Portal</a>
         <div class="header-title"><i class="fa-solid fa-gamepad"></i> RUANG ARCADE</div>
     </header>
 
     <div id="gameMenu">
-        <div class="game-card" onclick="pilihGame('taalo-run')">
-            <i class="fa-solid fa-horse-head main-icon"></i> <h3>TAALO RUN V2</h3>
-            <p>Taalo lagi naik kuda nih bray! Bantuin dia lompatin tumpukan kitab Markaz yang berantakan.</p>
-            <button class="btn-play-card">Mainkan Sekarang <i class="fa-solid fa-play" style="margin-left: 5px; font-size: 12px;"></i></button>
+        
+        <div class="game-card" onclick="window.location.href='game-pesawat.html'" style="border-color: rgba(59, 130, 246, 0.3);">
+            <i class="fa-solid fa-rocket main-icon" style="color: #3b82f6; text-shadow: 0 0 15px #3b82f6;"></i> 
+            <h3>SPACE SHOOTER V2</h3>
+            <p>Selamatkan bumi Markaz dari serangan Alien Mothership. Hadapi 4 tingkat kesulitan mematikan!</p>
+            <button class="btn-play-card" style="background: #3b82f6;">Pindah ke Arena <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></button>
         </div>
 
-        <div class="game-card card-soon">
-            <div class="soon-badge">SOON</div>
-            <i class="fa-solid fa-square-xmark main-icon"></i>
-            <h3>XOXO Markaz</h3>
-            <p>Uji kecerdasan lu lawan AI Taalo di game silang-bulat klasik. Masih dibangun bray!</p>
-            <button class="btn-play-card" style="background: #475569;">Sabar Dulu</button>
+        <div class="game-card" onclick="pilihGame('taalo-run')" style="border-color: rgba(16, 185, 129, 0.3);">
+            <i class="fa-solid fa-horse-head main-icon" style="color: #10b981; text-shadow: 0 0 15px #10b981;"></i> 
+            <h3>TAALO RUN V2</h3>
+            <p>Taalo lagi naik kuda nih bray! Bantuin dia lompatin tumpukan kitab Markaz yang berantakan.</p>
+            <button class="btn-play-card" style="background: #10b981;">Mainkan Sekarang <i class="fa-solid fa-play" style="margin-left: 5px; font-size: 12px;"></i></button>
         </div>
+
+        <div class="game-card" onclick="window.location.href='block-blast.html'" style="border-color: rgba(168, 85, 247, 0.3);">
+            <i class="fa-solid fa-cubes-stacked main-icon" style="color: #a855f7; text-shadow: 0 0 15px #a855f7;"></i>
+            <h3>BLOCK BLAST</h3>
+            <p>Susun balok-balok tetris buat ngosongin papan. Latih ketajaman otak lu di sela-sela hafalan!</p>
+            <button class="btn-play-card" style="background: #a855f7;">Pindah ke Arena <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></button>
+        </div>
+
     </div>
 
     <div id="gamePlayArea">
@@ -210,21 +207,14 @@
         const btnRestart = document.getElementById('btnRestart');
 
         // =================================================================
-        // 🔥 JAVASCRIPT: FITUR GANTI GAMBAR & PRELOAD (DEWA) 🔥
+        // JAVASCRIPT: TAALO RUN LOGIC
         // =================================================================
-        let imgLari = new Image(); 
-        imgLari.src = 'taalo-lari.png'; 
+        let imgLari = new Image(); imgLari.src = 'taalo-lari.png'; 
+        let imgKejedot = new Image(); imgKejedot.src = 'taalokejedot.png';
+        let imgKitab = new Image(); imgKitab.src = 'kitab.png'; 
 
-        let imgKejedot = new Image(); 
-        imgKejedot.src = 'taalokejedot.png'; // 🚨 Sesuai request lu!
-
-        let imgKitab = new Image(); 
-        imgKitab.src = 'kitab.png'; 
-
-        // 🔥 FIX UKURAN TAALO MAKIN GEDE & PROPORSIONAL 🔥
-        // x = 50, y = 240 (Biar napak di lantai karena tinggi canvas 300)
         let taalo = { x: 50, y: 240, width: 60, height: 60, dy: 0, jumpPower: -12, grounded: false };
-        let gravity = 0.7; // Gravitasi disesuain
+        let gravity = 0.7; 
         let obstacles = [];
         let gameSpeed = 5;
         let score = 0;
@@ -233,6 +223,7 @@
         let isGameOver = false;
         let animationId;
 
+        // FUNGSI GANTI LAYAR
         function pilihGame(gameName) {
             if(gameName === 'taalo-run') {
                 menuArea.style.display = 'none'; 
@@ -262,9 +253,7 @@
         canvas.addEventListener('mousedown', jump);
 
         function spawnObstacle() {
-            // 🔥 FIX BENTUK KITAB BIAR GAK GEPENG 🔥
             let obsWidth = 45; 
-            // Tinggi dibikin bervariasi dikit antara 50px - 70px biar kayak tumpukan buku yang beda-beda
             let obsHeight = Math.random() * 20 + 50; 
             obstacles.push({ x: canvas.width, y: canvas.height - obsHeight, width: obsWidth, height: obsHeight });
         }
@@ -296,8 +285,6 @@
                     ctx.fillStyle = '#ef4444'; ctx.fillRect(obs.x, obs.y, obs.width, obs.height); 
                 }
 
-                // Cek Tabrakan
-                // Sedikit penyesuaian hitbox biar gak terlalu gampang mati (toleransi 5px)
                 if ( taalo.x + 5 < obs.x + obs.width && taalo.x + taalo.width - 5 > obs.x && taalo.y + 5 < obs.y + obs.height && taalo.y + taalo.height - 5 > obs.y ) { gameOver(); }
             }
             obstacles = obstacles.filter(obs => obs.x + obs.width > 0);
@@ -335,7 +322,6 @@
         }
 
         function resetGame() {
-            // 🔥 Reset Posisi Y ke 240 biar napak lantai
             taalo.y = 240; taalo.dy = 0; obstacles = []; score = 0; gameSpeed = 5; frameCount = 0; isGameOver = false;
             btnRestart.style.display = "none";
             update();
